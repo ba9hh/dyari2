@@ -23,7 +23,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             <h1 className="text-stone-700 text-sm">Filters</h1>
           </div>
         </div>
-        <select
+        {/* <select
           name="localisation"
           value={localisation}
           onChange={(e) => setLocalisation(e.target.value)}
@@ -34,17 +34,17 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
               {city}
             </option>
           ))}
-        </select>
-        {/* <div className="relative w-44">
+        </select> */}
+        <div className="relative w-44">
           <img
             src={location}
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4"
           />
           <select
             name="localisation"
             value={localisation}
             onChange={(e) => setLocalisation(e.target.value)}
-            className="h-[36px] pl-7 text-stone-600 text-[#1c1e21] rounded-[4px] px-[8px] pr-[20px] border border-stone-400 w-full cursor-pointer outline-none appearance-none"
+            className="h-[36px] pl-9 text-stone-600 text-[#1c1e21] rounded-[4px] px-[8px]  border border-stone-400 w-full cursor-pointer outline-none appearance-none"
           >
             {cities.map((city) => (
               <option key={city} value={city}>
@@ -63,7 +63,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
           >
             <path d="M6 9l6 6 6-6" />
           </svg>
-        </div> */}
+        </div>
       </div>
       {/* Mobile */}
       <div className="block sm:hidden">
