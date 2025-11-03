@@ -1,7 +1,7 @@
 import Home from "./home/Home";
 import VerifyEmail from "./authentication/reset-password/verifyEmail";
 import Order from "./order/Order";
-import Settings from "./account/Settings";
+import AccountSettings from "./account/AccountSettings";
 import SkeletonShop from "./skeleton/SkeletonShop";
 import AuthVendorLogin from "./authentication/authVendorLogin";
 import Auth from "./authentication/auth";
@@ -15,12 +15,12 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Shop from "./shop/Shop";
 import Account from "./account/Account";
 import CreateShop from "./authentication/create-shop/CreateShop";
-import AddArticle from "./shop-profile/articles/AddArticle";
-import ChangePassword from "./shop-profile/settings/ChangePassword";
-import UpdateArticle from "./shop-profile/articles/UpdateArticle";
+import AddArticle from "./account/shop-profile/articles/AddArticle";
+import ChangePassword from "./account/shop-profile/settings/ChangePassword";
+import UpdateArticle from "./account/shop-profile/articles/UpdateArticle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ArticlesShop from "./shop-profile/articles/ArticlesShop";
+import ArticlesShop from "./account/shop-profile/articles/ArticlesShop";
 import VerifyPage from "./authentication/create-shop/VerifyPage";
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/order" element={<Order />} />
             <Route path="/account" element={<Account />} />
-            <Route path="/account/settings" element={<Settings />} />
+            <Route path="/account/settings" element={<AccountSettings />} />
             <Route
               path="/account/settings/change-password"
               element={<ChangePassword />}

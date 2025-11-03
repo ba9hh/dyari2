@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import biscuit50 from "../assets/biscuit50.jpg";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ const ShopHome = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-md pb-3 pt-3 sm:py-3 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300"
+      className="bg-white sm:shadow-md py-3 sm:pt-3 sm:pb-5 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300 cursor-pointer"
       onClick={() => openShop()}
     >
       <div className="flex justify-between items-center sm:px-5 px-3">
@@ -51,9 +50,7 @@ const ShopHome = ({ shop }) => {
       <div className="relative sm:px-5">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:mt-1 mt-3  ">
           {shop.articles?.slice(0, 3).map((article, index) => {
-            // hide index 4 & 5 on xs, show from sm+
             const hideOnXs = index >= 4 ? "hidden sm:block" : "";
-
             return (
               <img
                 key={index}

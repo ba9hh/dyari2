@@ -78,7 +78,7 @@ const InformationShop = ({ shopId, handleChange, activeTab }) => {
         sx={{
           textTransform: "none",
           position: "absolute",
-          top: "2px",
+          top: "4px",
           right: "4px",
         }}
         onClick={() => openOrder()}

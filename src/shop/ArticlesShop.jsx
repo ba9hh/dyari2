@@ -38,7 +38,7 @@ const ArticlesShop = ({ shopId }) => {
   if (isLoading) return <SkeletonArticlesShop />;
   return (
     <div className="w-full sm:w-2/3 bg-white sm:shadow-md rounded-md py-3">
-      <div className="columns-2 sm:columns-2 md:columns-3 gap-x-2 gap-y-2 sm:px-8 mt-4">
+      <div className="columns-2 sm:columns-2 md:columns-3 gap-x-2 gap-y-2 sm:px-8 sm:mt-4 border">
         {articles?.articles?.map((article, index) => (
           <div key={index} className="mb-2 break-inside-avoid">
             <ArticleShop
