@@ -72,6 +72,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             value={localisation}
             onChange={(e) => setLocalisation(e.target.value)}
             sx={{ "& .MuiSelect-select": { textAlign: "center" } }}
+            className="mt-[2px] appearance-none"
           >
             {cities.map((city) => (
               <MenuItem key={city} value={city}>
