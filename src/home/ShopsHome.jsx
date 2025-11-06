@@ -100,7 +100,7 @@ const ShopsHome = () => {
       />
       <div>
         {data?.shops?.length > 0 ? (
-          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 gap-16 sm:mx-20 sm:mt-4">
+          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-16 sm:mx-20 sm:mt-4">
             {data?.shops?.map((shop) => (
               <ShopHome key={shop.id} shop={shop} />
             ))}

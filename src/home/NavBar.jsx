@@ -41,27 +41,25 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <div className="block sm:hidden">
-        <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 dark:supports-[backdrop-filter]:bg-stone-900/60 dark:bg-stone-900/50 border-b border-stone-200/60 dark:border-stone-800">
-          <div className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-4 px-4 py-3 md:grid-cols-[1fr_auto_1fr] border border-yellow-300">
-            <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2 w-fit">
-              <img className=" h-4 w-4 text-stone-500" src={filters} />
-            </div>
-            <div className="flex items-center justify-center gap-1">
-              <img className="w-7" src={dyari} />
-              <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
-            </div>
-            <div className="flex justify-end">
-              <Link
-                to={"/auth"}
-                className=" rounded-full p-1 text-gray-600 border-2 block sm:hidden w-fit"
-              >
-                <PermIdentityIcon style={{ fontSize: "1.6rem" }} />
-              </Link>
-            </div>
+      <header className="block sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 dark:supports-[backdrop-filter]:bg-stone-900/60 dark:bg-stone-900/50 border-b border-stone-200/60 dark:border-stone-800 sm:hidden">
+        <div className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-4 px-4 py-3 md:grid-cols-[1fr_auto_1fr]">
+          <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2 w-fit">
+            <img className=" h-4 w-4 text-stone-500" src={filters} />
           </div>
-        </header>
-      </div>
+          <div className="flex items-center justify-center gap-1">
+            <img className="w-7" src={dyari} />
+            <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
+          </div>
+          <div className="flex justify-end">
+            <Link
+              to={"/auth"}
+              className=" rounded-full p-1 text-gray-600 border-2 block sm:hidden w-fit"
+            >
+              <PermIdentityIcon style={{ fontSize: "1.6rem" }} />
+            </Link>
+          </div>
+        </div>
+      </header>
     </>
   );
 };

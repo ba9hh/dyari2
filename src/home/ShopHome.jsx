@@ -20,7 +20,16 @@ const ShopHome = ({ shop }) => {
             alt="Shop Profile"
           />
           <div>
-            <div className="overflow-x-auto sm:max-w-full max-w-[200px] whitespace-nowrap scrollbar-hide">
+            <h1 className="my-0 truncate">
+              {shop.name} {shop.last_name} ({shop.localisation})
+            </h1>
+            {shop.speciality?.length > 0 && (
+              <span className="crimsonText inline-block my-0 truncate">
+                {formatSpeciality(shop.speciality)}
+              </span>
+            )}
+
+            {/* <div className="overflow-x-auto sm:max-w-full max-w-[200px] whitespace-nowrap scrollbar-hide">
               <h1 className="my-0">
                 {shop.name} {shop.last_name} ({shop.localisation})
               </h1>
@@ -31,7 +40,7 @@ const ShopHome = ({ shop }) => {
                   {formatSpeciality(shop.speciality)}
                 </span>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="flex items-center ">
