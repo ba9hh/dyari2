@@ -67,20 +67,35 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
       </div>
       {/* Mobile */}
       <div className="block sm:hidden">
-        <FormControl fullWidth>
-          <Select
+        <div className="relative w-full mt-[2px]">
+          <img
+            src={location}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4"
+          />
+          <select
+            name="localisation"
             value={localisation}
             onChange={(e) => setLocalisation(e.target.value)}
-            sx={{ "& .MuiSelect-select": { textAlign: "center" } }}
-            className="mt-[2px] appearance-none"
+            className="h-fit text-center text-[#1c1e21] rounded-[4px] px-[8px] py-2 border border-stone-400 w-full cursor-pointer outline-none appearance-none"
           >
             {cities.map((city) => (
-              <MenuItem key={city} value={city}>
+              <option key={city} value={city}>
                 {city}
-              </MenuItem>
+              </option>
             ))}
-          </Select>
-        </FormControl>
+          </select>
+          <svg
+            className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
       </div>
     </>
   );
