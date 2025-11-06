@@ -39,7 +39,7 @@ const CategoriesTabs = ({
         <div className="flex-grow border-t border-gray-300"></div>
       </div>
       {/* Mobile */}
-      <div className="block sm:hidden border-b border-gray-200">
+      <div className="block sm:hidden border-b border-stone-400">
         <Tabs
           value={type}
           onChange={handleTypeChange}

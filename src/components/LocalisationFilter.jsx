@@ -76,7 +76,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             name="localisation"
             value={localisation}
             onChange={(e) => setLocalisation(e.target.value)}
-            className="h-fit pl-20 flex justify-center text-[#1c1e21] rounded-[4px] px-[8px] py-3 border-b border-stone-400 w-full cursor-pointer outline-none appearance-none bg-white"
+            className="h-fit pl-32 flex justify-center text-[#1c1e21] px-[8px] py-3 border-b border-stone-400 w-full cursor-pointer outline-none appearance-none bg-white"
           >
             {cities.map((city) => (
               <option key={city} value={city}>
