@@ -67,7 +67,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
       </div>
       {/* Mobile */}
       <div className="block sm:hidden">
-        <div className="relative w-full mt-[2px]">
+        <div className="relative w-full mt-[1px] mx-[1px]">
           <img
             src={location}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4"
