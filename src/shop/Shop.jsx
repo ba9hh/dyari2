@@ -10,7 +10,6 @@ import LoginRequiredDialog from "../components/LoginRequiredDialog";
 const Shop = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
-  console.log(state);
   const [activeTab, setActiveTab] = useState("articles");
   const [isConnected, setIsConnected] = useState(false);
 

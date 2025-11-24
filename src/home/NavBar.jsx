@@ -41,7 +41,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <header className="block sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 dark:supports-[backdrop-filter]:bg-stone-900/60 dark:bg-stone-900/50 border-b border-stone-200/60 dark:border-stone-800 sm:hidden">
+      <header className="block sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 border-b border-stone-200/60 sm:hidden">
         <div className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-4 px-4 py-3 md:grid-cols-[1fr_auto_1fr]">
           <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2 w-fit">
             <img className=" h-4 w-4 text-stone-500" src={filters} />
