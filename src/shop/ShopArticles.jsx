@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import ArticleShop from "./ArticleShop";
+import ShopArticle from "./ShopArticle";
 import SkeletonArticlesShop from "../skeleton/shop/SkeletonArticlesShop";
-import ArticleShopDialog from "../components/ArticleShopDialog";
+import ArticleShopDialog from "../components/dialog/ArticleShopDialog";
 import Pagination from "../components/Pagination";
 import { fetchShopArticles } from "../services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
-const ArticlesShop = ({ shopId }) => {
+const ShopArticles = ({ shopId }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -41,7 +41,7 @@ const ArticlesShop = ({ shopId }) => {
       <div className="columns-2 sm:columns-2 md:columns-3 gap-x-2 gap-y-2 sm:px-8 sm:mt-4 border">
         {articles?.articles?.map((article, index) => (
           <div key={index} className="mb-2 break-inside-avoid">
-            <ArticleShop
+            <ShopArticle
               article={article}
               onClick={() => handleOpenDialog(article)}
             />
@@ -66,4 +66,4 @@ const ArticlesShop = ({ shopId }) => {
   );
 };
 
-export default ArticlesShop;
+export default ShopArticles;

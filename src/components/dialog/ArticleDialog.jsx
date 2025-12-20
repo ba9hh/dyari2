@@ -5,7 +5,7 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import Pagination from "../components/Pagination";
+import Pagination from "../Pagination";
 const ArticleDialog = ({
   openDialog,
   handleCloseDialog,

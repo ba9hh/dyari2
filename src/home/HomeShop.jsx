@@ -2,7 +2,7 @@ import ReactStars from "react-rating-stars-component";
 import biscuit50 from "../assets/biscuit50.jpg";
 import { useNavigate } from "react-router-dom";
 import { formatSpeciality } from "../utils/formatSpeciality";
-const ShopHome = ({ shop }) => {
+const HomeShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {
     navigate("/shop", { state: shop?.id });
@@ -84,4 +84,4 @@ const ShopHome = ({ shop }) => {
   );
 };
 
-export default ShopHome;
+export default HomeShop;

@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import SkeletonInformationShop from "../skeleton/shop/SkeletonInformationShop";
 import { Link, useNavigate } from "react-router-dom";
 import RatingTest from "../components/RatingTest";
@@ -9,7 +8,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { AuthContext } from "../AuthProvider";
 import Button from "@mui/material/Button";
 import { Tabs, Tab, Box } from "@mui/material";
-import LoginRequiredDialog from "../components/LoginRequiredDialog";
+import LoginRequiredDialog from "../components/dialog/LoginRequiredDialog";
 import { fetchShopInformation } from "../services/shops/ShopInformation";
 import {
   likeShop,
@@ -19,7 +18,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { formatSpeciality } from "../utils/formatSpeciality";
 
-const InformationShop = ({ shopId, handleChange, activeTab }) => {
+const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   const [liked, setLiked] = useState(false);
   const { user } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(false);
@@ -146,4 +145,4 @@ const InformationShop = ({ shopId, handleChange, activeTab }) => {
   );
 };
 
-export default InformationShop;
+export default ShopInfos;

@@ -2,14 +2,14 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import ShopsHomeSkeleton from "../skeleton/ShopsHomeSkeleton";
-import ShopHome from "./ShopHome";
+import HomeShop from "./HomeShop";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { fetchShops } from "../services/shops/ShopsList";
 import CategoriesTabs from "../components/tabs/CategoriesTabs";
 import LocalisationFilter from "../components/LocalisationFilter";
 import EmptyShopState from "../components/EmptyShopsState";
-const ShopsHome = () => {
+const HomeShops = () => {
   const { user } = useContext(AuthContext);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -102,7 +102,7 @@ const ShopsHome = () => {
         {data?.shops?.length > 0 ? (
           <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-16 sm:mx-20 sm:mt-4">
             {data?.shops?.map((shop) => (
-              <ShopHome key={shop.id} shop={shop} />
+              <HomeShop key={shop.id} shop={shop} />
             ))}
           </div>
         ) : (
@@ -119,4 +119,4 @@ const ShopsHome = () => {
   );
 };
 
-export default ShopsHome;
+export default HomeShops;

@@ -9,10 +9,9 @@ const AuthCustomer = () => {
     useContext(AuthContext);
   const navigate = useNavigate();
 
-  // 🔹 Redirect to home if user is logged in
   useEffect(() => {
     if (user && sessionChecked) {
-      navigate("/"); // or your home route
+      navigate("/");
     }
   }, [user, sessionChecked, navigate]);
   return (

@@ -1,5 +1,3 @@
-import React from "react";
-import dyari from "../assets/dyari.svg";
 import vendor from "../assets/vendor.jpeg";
 import customer from "../assets/customer1.png";
 import { Link } from "react-router-dom";

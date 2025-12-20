@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ArticleShop from "./ArticleShop";
-import ArticleShopDialog from "../../../components/ArticleShopDialog";
+import ArticleShopDialog from "../../../components/dialog/ArticleShopDialog";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "../../../components/Pagination";

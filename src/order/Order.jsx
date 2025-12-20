@@ -4,14 +4,14 @@ import { Button, CircularProgress } from "@mui/material";
 import { AuthContext } from "../AuthProvider";
 import { toast } from "react-toastify";
 import DyariLogo from "../components/DyariLogo";
-import LoginRequiredDialog from "../components/LoginRequiredDialog";
+import LoginRequiredDialog from "../components/dialog/LoginRequiredDialog";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchShopArticles } from "../services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
-import ArticleDialog from "./ArticleDialog";
+import ArticleDialog from "../components/dialog/ArticleDialog";
 import { createOrder } from "../services/orders/createOrder";
 const Order = () => {
   const { user } = useContext(AuthContext);

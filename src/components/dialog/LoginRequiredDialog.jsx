@@ -13,9 +13,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from "@mui/icons-material/Google";
 import { GoogleLogin } from "@react-oauth/google";
 import { useContext } from "react";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../../AuthProvider";
 import { toast } from "react-toastify";
-
 
 const LoginRequiredDialog = ({
   open,

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArticleShop = ({ article, onClick }) => {
+const ShopArticle = ({ article, onClick }) => {
   return (
     <div className="relative group" onClick={onClick}>
       <img className="w-full border object-cover" src={article.article_image} />
@@ -18,4 +18,4 @@ const ArticleShop = ({ article, onClick }) => {
   );
 };
 
-export default ArticleShop;
+export default ShopArticle;

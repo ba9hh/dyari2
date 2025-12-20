@@ -5,7 +5,7 @@ import { supabase } from "../supabaseClient";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link } from "react-router-dom";
-const ContactShop = ({ shopId }) => {
+const ShopContact = ({ shopId }) => {
   const [additionalInfo, setAdditionalInfo] = useState({});
   useEffect(() => {
     const fetchShopInformation = async () => {
@@ -119,4 +119,4 @@ const ContactShop = ({ shopId }) => {
   );
 };
 
-export default ContactShop;
+export default ShopContact;
