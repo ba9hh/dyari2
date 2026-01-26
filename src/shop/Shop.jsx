@@ -36,7 +36,7 @@ const Shop = () => {
         activeTab={activeTab}
       />
       {activeTab === "articles" && <ShopArticles shopId={state} />}
-      {activeTab === "contact" && <ShopContact shopId={state} />}
+      {/* {activeTab === "contact" && <ShopContact shopId={state} />} */}
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}

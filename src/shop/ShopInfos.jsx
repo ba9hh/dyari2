@@ -129,11 +129,11 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             value="articles"
             sx={{ textTransform: "none", fontWeight: "bold" }}
           />
-          <Tab
+          {/* <Tab
             label="Contact"
             value="contact"
             sx={{ textTransform: "none", fontWeight: "bold" }}
-          />
+          /> */}
         </Tabs>
       </Box>
       <LoginRequiredDialog
