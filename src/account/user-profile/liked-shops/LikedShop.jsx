@@ -3,9 +3,9 @@ import ReactStars from "react-rating-stars-component";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { likeShop, unlikeShop } from "../../../services/shops/likedShops";
+import { likeShop, unlikeShop } from "@/services/shops/likedShops";
 import { Link, useNavigate } from "react-router-dom";
-import { formatSpeciality } from "../../../utils/formatSpeciality";
+import { formatSpeciality } from "@/utils/formatSpeciality";
 const LikedShop = ({ shop, userId }) => {
   const [liked, setLiked] = useState(true);
   const navigate = useNavigate();

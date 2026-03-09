@@ -18,10 +18,10 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import cities from "../../data/cities";
+import cities from "@/data/cities";
 import { toast } from "react-toastify";
-import { supabase } from "../../supabaseClient";
-import specialities from "../../data/specialities";
+import { supabase } from "@/supabaseClient";
+import specialities from "@/data/specialities";
 const infoIcon = (
   <Box
     component="span"

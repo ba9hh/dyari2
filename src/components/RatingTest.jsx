@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import ReactStars from "react-rating-stars-component";
 import { toast } from "react-toastify";
-import { supabase } from "../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 const RatingTest = ({ shopId }) => {
   const { user } = useContext(AuthContext);
@@ -83,7 +83,7 @@ const RatingTest = ({ shopId }) => {
     }
     if (!canRate) {
       setMessage(
-        "You can only rate if you have an accepted order with this shop."
+        "You can only rate if you have an accepted order with this shop.",
       );
       return;
     }

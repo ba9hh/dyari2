@@ -1,7 +1,7 @@
 import { CheckCircle, XCircle } from "lucide-react";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { supabase } from "../../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
 
 const OrderShop = ({ order, index }) => {
@@ -16,7 +16,7 @@ const OrderShop = ({ order, index }) => {
 
       if (error) throw error;
       toast.success(
-        `Order ${newState == "accepted" ? "accepted" : "rejected"} `
+        `Order ${newState == "accepted" ? "accepted" : "rejected"} `,
       );
       setCurrentState(newState);
     } catch (error) {

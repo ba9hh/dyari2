@@ -12,10 +12,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import DyariLogo from "../../../components/DyariLogo";
-import { AuthContext } from "../../../AuthProvider";
+import DyariLogo from "@/components/DyariLogo";
+import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
-import { supabase } from "../../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 const UpdateArticle = () => {
   const { handleSubmit, control, reset } = useForm({

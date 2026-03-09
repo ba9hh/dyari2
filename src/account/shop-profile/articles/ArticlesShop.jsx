@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import ArticleShop from "./ArticleShop";
-import ArticleShopDialog from "../../../components/dialog/ArticleShopDialog";
+import ArticleShopDialog from "@/components/dialog/ArticleShopDialog";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Pagination from "../../../components/Pagination";
+import Pagination from "@/components/Pagination";
 import Button from "@mui/material/Button";
-import ArticlesSkeleton from "../../../skeleton/shop-profile/ArticlesSkeleton";
-import { fetchShopArticles } from "../../../services/articles/articlesList";
+import ArticlesSkeleton from "@/skeleton/shop-profile/ArticlesSkeleton";
+import { fetchShopArticles } from "@/services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "../../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 const ArticlesShop = ({ shopId }) => {
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [page, setPage] = useState(1);

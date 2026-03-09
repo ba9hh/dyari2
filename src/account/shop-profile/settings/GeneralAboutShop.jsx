@@ -14,11 +14,11 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
-import cities from "../../../data/cities";
+import cities from "@/data/cities";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
-import { supabase } from "../../../supabaseClient";
-import specialities from "../../../data/specialities";
+import { supabase } from "@/supabaseClient";
+import specialities from "@/data/specialities";
 const GeneralAboutShop = ({ shopId }) => {
   const [user, setUser] = useState([]);
   const [name, setName] = useState("");

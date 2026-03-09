@@ -1,13 +1,13 @@
 import OrderUser from "./OrderUser";
 import { useState, useEffect } from "react";
-import thinking from "../../../assets/thinking.png";
+import thinking from "@/assets/thinking.png";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import OrdersTabs from "../../../components/tabs/OrdersTabs";
+import OrdersTabs from "@/components/tabs/OrdersTabs";
 import { useTranslation } from "react-i18next";
-import Pagination from "../../../components/Pagination";
-import OrdersSkeleton from "../../../skeleton/user-profile/OrdersSkeleton";
-import { fetchUserOrders } from "../../../services/orders/ordersList";
+import Pagination from "@/components/Pagination";
+import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
+import { fetchUserOrders } from "@/services/orders/ordersList";
 import { useQuery } from "@tanstack/react-query";
 
 const OrdersUser = ({ userId }) => {

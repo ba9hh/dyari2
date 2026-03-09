@@ -5,12 +5,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { supabase } from "../../../supabaseClient";
-import fieldConfig from "../../../data/fieldConfig";
+import { supabase } from "@/supabaseClient";
+import fieldConfig from "@/data/fieldConfig";
 
 const ContactShop = ({ shopId }) => {
   const [values, setValues] = useState(
-    Object.fromEntries(Object.keys(fieldConfig).map((f) => [f, ""]))
+    Object.fromEntries(Object.keys(fieldConfig).map((f) => [f, ""])),
   );
   const [original, setOriginal] = useState({ ...values });
   const [editing, setEditing] = useState(null);
@@ -19,7 +19,7 @@ const ContactShop = ({ shopId }) => {
   useEffect(() => {
     const fetchInfo = async () => {
       const { data, error } = await supabase
-        .from("shop_additional_info")
+        .from("shop_contact")
         .select("*")
         .eq("shop_id", shopId)
         .single();
@@ -58,10 +58,10 @@ const ContactShop = ({ shopId }) => {
       const updatePayload = { [field]: values[field] };
 
       const { error } = await supabase
-        .from("shop_additional_info")
+        .from("shop_contact")
         .upsert(
           { shop_id: shopId, ...updatePayload },
-          { onConflict: "shop_id" }
+          { onConflict: "shop_id" },
         );
 
       if (error) throw error;
@@ -78,7 +78,7 @@ const ContactShop = ({ shopId }) => {
     try {
       // Option 1: just null out the field
       const { error } = await supabase
-        .from("shop_additional_info")
+        .from("shop_contact")
         .update({ [field]: null })
         .eq("shop_id", shopId);
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import dyari from "../assets/dyari.svg";
+import dyari from "@/assets/dyari.svg";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import filters from "../assets/filters.svg";
+import filters from "@/assets/filters.svg";
 
 const DyariLogo = () => {
   return (

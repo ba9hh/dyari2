@@ -1,4 +1,4 @@
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 export const fetchShopArticles = async ({ queryKey }) => {
   const [_key, { shopId, page, limit }] = queryKey;

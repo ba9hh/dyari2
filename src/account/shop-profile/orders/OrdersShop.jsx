@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import OrderShop from "./OrderShop";
 import { useTranslation } from "react-i18next";
-import thinking from "../../../assets/thinking.png";
-import OrdersTabs from "../../../components/tabs/OrdersTabs";
-import OrdersSkeleton from "../../../skeleton/user-profile/OrdersSkeleton";
-import Pagination from "../../../components/Pagination";
-import { fetchShopOrders } from "../../../services/orders/ordersList";
+import thinking from "@/assets/thinking.png";
+import OrdersTabs from "@/components/tabs/OrdersTabs";
+import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
+import Pagination from "@/components/Pagination";
+import { fetchShopOrders } from "@/services/orders/ordersList";
 import { useQuery } from "@tanstack/react-query";
 const OrdersShop = ({ shopId }) => {
   const [page, setPage] = useState(1);

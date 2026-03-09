@@ -1,8 +1,8 @@
 import { FormControl, Select, MenuItem } from "@mui/material";
-import cities from "../data/cities";
-import search from "../assets/search.svg";
-import filters from "../assets/filters.svg";
-import location from "../assets/location.svg";
+import cities from "@/data/cities";
+import search from "@/assets/search.svg";
+import filters from "@/assets/filters.svg";
+import location from "@/assets/location.svg";
 
 const LocalisationFilter = ({ localisation, setLocalisation }) => {
   return (

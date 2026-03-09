@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import GeneralAboutShop from "./GeneralAboutShop";
 import DeleteShop from "./DeleteShop";
-import { AuthContext } from "../../../AuthProvider";
-import DyariLogo from "../../../components/DyariLogo";
+import { AuthContext } from "@/AuthProvider";
+import DyariLogo from "@/components/DyariLogo";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 

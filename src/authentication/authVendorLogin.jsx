@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import { useForm, Controller } from "react-hook-form";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
@@ -9,8 +9,8 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import DyariLogo from "../components/DyariLogo";
-import { supabase } from "../supabaseClient";
+import DyariLogo from "@/components/DyariLogo";
+import { supabase } from "@/supabaseClient";
 const AuthVendorLogin = () => {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();

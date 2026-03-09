@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import UserSettings from "./user-profile/settings/UserSettings";
 import ShopSettings from "./shop-profile/settings/ShopSettings";
 const AccountSettings = () => {

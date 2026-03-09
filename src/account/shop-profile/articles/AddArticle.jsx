@@ -12,10 +12,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import DyariLogo from "../../../components/DyariLogo";
-import { AuthContext } from "../../../AuthProvider";
+import DyariLogo from "@/components/DyariLogo";
+import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
-import { supabase } from "../../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 const AddArticle = () => {
   const {

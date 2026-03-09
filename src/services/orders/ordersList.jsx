@@ -1,4 +1,4 @@
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 export const fetchShopOrders = async ({ queryKey }) => {
   const [_key, { shopId, page, limit }] = queryKey;
@@ -23,7 +23,7 @@ export const fetchShopOrders = async ({ queryKey }) => {
         name
       )
       `,
-      { count: "exact" } // count total rows
+      { count: "exact" }, // count total rows
     )
     .eq("shop_id", shopId)
     .order("order_date", { ascending: false }) // optional sorting
@@ -61,7 +61,7 @@ export const fetchUserOrders = async ({ queryKey }) => {
         last_name
       )
       `,
-      { count: "exact" } // <-- get total count
+      { count: "exact" }, // <-- get total count
     )
     .eq("user_id", userId)
     .order("order_date", { ascending: false }) // optional

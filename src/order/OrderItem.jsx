@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import { TextField, Typography } from "@mui/material";
-import biscuit50 from "../assets/biscuit50.jpg";
+import biscuit50 from "@/assets/biscuit50.jpg";
 
 const OrderItem = ({
   index,

@@ -1,4 +1,4 @@
-import thinking from "../assets/thinking.png";
+import thinking from "@/assets/thinking.png";
 
 const EmptyShopState = () => {
   return (

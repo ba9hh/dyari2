@@ -1,4 +1,4 @@
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 export const fetchShops = async ({ queryKey }) => {
   const [_key, { type, localisation, page, shopId, limit }] = queryKey;
@@ -12,7 +12,7 @@ export const fetchShops = async ({ queryKey }) => {
         article_image
       )
       `,
-      { count: "exact" }
+      { count: "exact" },
     )
     .range((page - 1) * limit, page * limit - 1);
 

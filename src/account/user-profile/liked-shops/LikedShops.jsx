@@ -1,8 +1,8 @@
 import LikedShop from "./LikedShop";
-import thinking from "../../../assets/thinking.png";
-import LikedShopsSkeleton from "../../../skeleton/user-profile/LikedShopsSkeleton";
+import thinking from "@/assets/thinking.png";
+import LikedShopsSkeleton from "@/skeleton/user-profile/LikedShopsSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import { getLikedShops } from "../../../services/shops/likedShops";
+import { getLikedShops } from "@/services/shops/likedShops";
 const LikedShops = ({ userId }) => {
   const {
     data: likedShops,

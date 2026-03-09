@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
-import { AuthContext } from "../AuthProvider";
-import DyariLogo from "../components/DyariLogo";
-import GoogleLoginButton from "../components/GoogleLoginButton";
+import { AuthContext } from "@/AuthProvider";
+import DyariLogo from "@/components/DyariLogo";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { useNavigate } from "react-router-dom";
 
 const AuthCustomer = () => {

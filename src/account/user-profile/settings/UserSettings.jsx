@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import GeneralAboutUser from "./GeneralAboutUser";
 import DeleteUser from "./DeleteUser";
-import DyariLogo from "../../../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 
 const UserSettings = ({ userId }) => {
   return (

@@ -1,9 +1,9 @@
 import RatedShop from "./RatedShop";
-import thinking from "../../../assets/thinking.png";
-import LikedShopsSkeleton from "../../../skeleton/user-profile/LikedShopsSkeleton";
-import { fetchRatedShops } from "../../../services/shops/ratedShops";
+import thinking from "@/assets/thinking.png";
+import LikedShopsSkeleton from "@/skeleton/user-profile/LikedShopsSkeleton";
+import { fetchRatedShops } from "@/services/shops/ratedShops";
 import { useQuery } from "@tanstack/react-query";
-import RatedShopsSkeleton from "../../../skeleton/user-profile/RatedShopsSkeleton";
+import RatedShopsSkeleton from "@/skeleton/user-profile/RatedShopsSkeleton";
 
 const RatedShops = ({ userId }) => {
   const {

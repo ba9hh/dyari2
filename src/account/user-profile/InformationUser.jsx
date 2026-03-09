@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../AuthProvider";
-import pdp from "../../assets/pdp.png";
+import { AuthContext } from "@/AuthProvider";
+import pdp from "@/assets/pdp.png";
 import Button from "@mui/material/Button";
 import {
   Tabs,
@@ -17,10 +17,10 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { fetchUserInformation } from "../../services/users/UserInformation";
+import { fetchUserInformation } from "@/services/users/UserInformation";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "../../supabaseClient";
-import UserInfoSkeleton from "../../skeleton/user-profile/UserInfoSkeleton";
+import { supabase } from "@/supabaseClient";
+import UserInfoSkeleton from "@/skeleton/user-profile/UserInfoSkeleton";
 
 const InformationUser = ({ userId, activeTab, handleChange }) => {
   const { handleLogout } = useContext(AuthContext);

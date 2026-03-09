@@ -1,18 +1,18 @@
 import { useEffect, useContext, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button, CircularProgress } from "@mui/material";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
-import DyariLogo from "../components/DyariLogo";
-import LoginRequiredDialog from "../components/dialog/LoginRequiredDialog";
+import DyariLogo from "@/components/DyariLogo";
+import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import "react-datepicker/dist/react-datepicker.css";
-import { fetchShopArticles } from "../services/articles/articlesList";
+import { fetchShopArticles } from "@/services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
-import ArticleDialog from "../components/dialog/ArticleDialog";
-import { createOrder } from "../services/orders/createOrder";
+import ArticleDialog from "@/components/dialog/ArticleDialog";
+import { createOrder } from "@/services/orders/createOrder";
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -81,7 +81,7 @@ const Order = () => {
       return;
     }
     const allValid = data.items.every(
-      (item) => item.articleId && item.quantity > 0
+      (item) => item.articleId && item.quantity > 0,
     );
     if (!allValid) {
       toast.error("Some items are missing required information.");

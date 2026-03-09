@@ -1,5 +1,5 @@
 import { Tab, Tabs } from "@mui/material";
-import categories from "../../data/categories";
+import categories from "@/data/categories";
 
 const CategoriesTabs = ({
   type,

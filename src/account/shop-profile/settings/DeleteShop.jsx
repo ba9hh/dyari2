@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { supabase } from "../../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 import { useNavigate } from "react-router-dom";
 const DeleteShop = ({ shopId }) => {
   const [open, setOpen] = useState(false);

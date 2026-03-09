@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 
 export default function VerifyPage() {
   const [loading, setLoading] = useState(true);

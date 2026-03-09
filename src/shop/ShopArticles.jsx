@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import ShopArticle from "./ShopArticle";
-import SkeletonArticlesShop from "../skeleton/shop/SkeletonArticlesShop";
-import ArticleShopDialog from "../components/dialog/ArticleShopDialog";
-import Pagination from "../components/Pagination";
-import { fetchShopArticles } from "../services/articles/articlesList";
+import SkeletonArticlesShop from "@/skeleton/shop/SkeletonArticlesShop";
+import ArticleShopDialog from "@/components/dialog/ArticleShopDialog";
+import Pagination from "@/components/Pagination";
+import { fetchShopArticles } from "@/services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
 const ShopArticles = ({ shopId }) => {
   const [open, setOpen] = useState(false);

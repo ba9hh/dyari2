@@ -8,9 +8,9 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
-import { supabase } from "../../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
-import pdp from "../../../assets/pdp.png";
+import pdp from "@/assets/pdp.png";
 
 const ProfilePictureDialog = ({
   open,

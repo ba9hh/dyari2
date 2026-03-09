@@ -1,6 +1,6 @@
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
-import { formatSpeciality } from "../../../utils/formatSpeciality";
+import { formatSpeciality } from "@/utils/formatSpeciality";
 const RatedShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {

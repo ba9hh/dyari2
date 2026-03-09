@@ -1,5 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit";
-import pdp from "../../../assets/pdp.png";
+import pdp from "@/assets/pdp.png";
 
 const ShopProfile = ({ shop, onEdit }) => {
   return (

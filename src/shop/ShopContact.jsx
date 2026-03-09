@@ -1,26 +1,26 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { supabase } from "../supabaseClient";
+import { supabase } from "@/supabaseClient";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link } from "react-router-dom";
 const ShopContact = ({ shopId }) => {
-  const [additionalInfo, setAdditionalInfo] = useState({});
+  const [shopContact, setShopContact] = useState({});
   useEffect(() => {
     const fetchShopInformation = async () => {
       try {
         const { data, error } = await supabase
-          .from("shop_additional_info")
+          .from("shop_contact")
           .select("*")
           .eq("shop_id", shopId)
           .single(); // only one row per shop
 
         if (error && error.code !== "PGRST116") {
-          setAdditionalInfo({});
+          setShopContact({});
           console.error("Error fetching shop information:", error);
         } else {
-          setAdditionalInfo(data); // null if no row
+          setShopContact(data); // null if no row
         }
       } catch (error) {
         console.error("Unexpected error:", error);
@@ -29,7 +29,7 @@ const ShopContact = ({ shopId }) => {
 
     fetchShopInformation();
   }, [shopId]);
-  console.log(additionalInfo);
+  console.log(shopContact);
   return (
     <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pt-3 pb-8">
       <Typography
@@ -44,40 +44,40 @@ const ShopContact = ({ shopId }) => {
       </Typography>
 
       <div className="flex flex-col gap-6 px-6">
-        {additionalInfo ? (
+        {shopContact ? (
           <>
-            {additionalInfo.facebook && (
+            {shopContact.facebook && (
               <div className="flex items-center gap-2">
                 <FacebookIcon
                   style={{ fontSize: "1.6rem", color: "#1e88e5" }}
                 />
                 <a
-                  href={additionalInfo.facebook}
+                  href={shopContact.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200 text-sm"
                 >
-                  {additionalInfo.facebook}
+                  {shopContact.facebook}
                 </a>
               </div>
             )}
 
-            {additionalInfo.instagram && (
+            {shopContact.instagram && (
               <div className="flex items-center gap-2">
                 <InstagramIcon
                   style={{ fontSize: "1.6rem", color: "#e1306c" }}
                 />
                 <a
-                  href={additionalInfo.instagram}
+                  href={shopContact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200 text-sm"
                 >
-                  {additionalInfo.instagram}
+                  {shopContact.instagram}
                 </a>
               </div>
             )}
-            {additionalInfo.whatsapp && (
+            {shopContact.whatsapp && (
               <div className="flex items-center gap-2">
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
@@ -85,11 +85,11 @@ const ShopContact = ({ shopId }) => {
                   style={{ width: "24px", height: "24px" }}
                 />
                 <h1 className="text-sm underline text-blue-600">
-                  {additionalInfo.whatsapp}
+                  {shopContact.whatsapp}
                 </h1>
               </div>
             )}
-            {additionalInfo.tiktok && (
+            {shopContact.tiktok && (
               <div className="flex items-center gap-2">
                 <img
                   src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg"
@@ -98,12 +98,12 @@ const ShopContact = ({ shopId }) => {
                 />
 
                 <a
-                  href={additionalInfo.tiktok}
+                  href={shopContact.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200 text-sm"
                 >
-                  {additionalInfo.tiktok}
+                  {shopContact.tiktok}
                 </a>
               </div>
             )}

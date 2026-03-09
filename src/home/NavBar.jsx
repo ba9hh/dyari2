@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import dyari from "../assets/dyari.svg";
+import dyari from "@/assets/dyari.svg";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import { useTranslation } from "react-i18next";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import SearchIcon from "@mui/icons-material/Search";
-import filters from "../assets/filters.svg";
+import filters from "@/assets/filters.svg";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);

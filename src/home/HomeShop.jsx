@@ -1,7 +1,7 @@
 import ReactStars from "react-rating-stars-component";
-import biscuit50 from "../assets/biscuit50.jpg";
+import biscuit50 from "@/assets/biscuit50.jpg";
 import { useNavigate } from "react-router-dom";
-import { formatSpeciality } from "../utils/formatSpeciality";
+import { formatSpeciality } from "@/utils/formatSpeciality";
 const HomeShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {

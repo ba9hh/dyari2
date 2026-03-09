@@ -1,4 +1,4 @@
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 export async function createOrder({
   shopId,
@@ -9,7 +9,7 @@ export async function createOrder({
 }) {
   const orderTotalAmount = items.reduce(
     (sum, itm) => sum + itm.price * itm.quantity,
-    0
+    0,
   );
 
   const { data: order, error: orderError } = await supabase

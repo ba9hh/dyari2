@@ -5,9 +5,9 @@ import { useForm, Controller } from "react-hook-form";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import { Link } from "react-router-dom";
-import DyariLogo from "../../../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 const ChangePassword = () => {
   const {
     control,

@@ -1,4 +1,4 @@
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 // Get all shops rated by a user (with the rating)
 export const fetchRatedShops = async (userId) => {

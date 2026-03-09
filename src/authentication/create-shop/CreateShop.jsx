@@ -1,5 +1,5 @@
 import InformationShop from "./InformationShop";
-import DyariLogo from "../../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 const CreateShop = () => {
   return (
     <div className="flex justify-center items-center w-full min-h-screen sm:bg-[#f5f5f5] bg-white pt-16 pb-8">

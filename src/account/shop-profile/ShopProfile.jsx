@@ -2,7 +2,7 @@ import { useState } from "react";
 import InformationShop from "./info/InformationShop";
 import ArticlesShop from "./articles/ArticlesShop";
 import OrdersShop from "./orders/OrdersShop";
-import DyariLogo from "../../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 import ContactShop from "./info/ContactShop";
 import Button from "@mui/material/Button";
 

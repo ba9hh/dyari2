@@ -1,5 +1,5 @@
 import Skeleton from "react-loading-skeleton";
-import DyariLogo from "../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 const SkeletonShop = () => {
   return (
     <div>

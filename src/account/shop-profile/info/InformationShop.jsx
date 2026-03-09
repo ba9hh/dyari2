@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-import { fetchShopInformation } from "../../../services/shops/ShopInformation";
-import SkeletonInformationShop from "../../../skeleton/shop/SkeletonInformationShop";
-import ShopTabs from "../../../components/tabs/ShopTabs";
+import { fetchShopInformation } from "@/services/shops/ShopInformation";
+import SkeletonInformationShop from "@/skeleton/shop/SkeletonInformationShop";
+import ShopTabs from "@/components/tabs/ShopTabs";
 import ShopHeader from "./ShopHeader";
 import ShopProfile from "./ShopProfile";
 import ProfilePictureDialog from "./ProfilePictureDialog";

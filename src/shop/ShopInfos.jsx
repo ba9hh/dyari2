@@ -1,22 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import SkeletonInformationShop from "../skeleton/shop/SkeletonInformationShop";
+import SkeletonInformationShop from "@/skeleton/shop/SkeletonInformationShop";
 import { Link, useNavigate } from "react-router-dom";
-import RatingTest from "../components/RatingTest";
+import RatingTest from "@/components/RatingTest";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import Button from "@mui/material/Button";
 import { Tabs, Tab, Box } from "@mui/material";
-import LoginRequiredDialog from "../components/dialog/LoginRequiredDialog";
-import { fetchShopInformation } from "../services/shops/ShopInformation";
-import {
-  likeShop,
-  unlikeShop,
-  isShopLiked,
-} from "../services/shops/likedShops";
+import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
+import { fetchShopInformation } from "@/services/shops/ShopInformation";
+import { likeShop, unlikeShop, isShopLiked } from "@/services/shops/likedShops";
 import { useQuery } from "@tanstack/react-query";
-import { formatSpeciality } from "../utils/formatSpeciality";
+import { formatSpeciality } from "@/utils/formatSpeciality";
 
 const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   const [liked, setLiked] = useState(false);

@@ -1,11 +1,11 @@
 import ShopInfos from "./ShopInfos";
 import ShopArticles from "./ShopArticles";
 import ShopContact from "./ShopContact";
-import DyariLogo from "../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 import { useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
-import { AuthContext } from "../AuthProvider";
-import LoginRequiredDialog from "../components/dialog/LoginRequiredDialog";
+import { AuthContext } from "@/AuthProvider";
+import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 
 const Shop = () => {
   const { user } = useContext(AuthContext);

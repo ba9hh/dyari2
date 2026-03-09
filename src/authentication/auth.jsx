@@ -1,7 +1,7 @@
-import vendor from "../assets/vendor.jpeg";
-import customer from "../assets/customer1.png";
+import vendor from "@/assets/vendor.jpeg";
+import customer from "@/assets/customer1.png";
 import { Link } from "react-router-dom";
-import DyariLogo from "../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 
 const Auth = () => {
   return (

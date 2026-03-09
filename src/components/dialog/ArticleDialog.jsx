@@ -39,7 +39,7 @@ const ArticleDialog = ({
                     item.article_image,
                     item.article_type,
                     item.article_price,
-                    item.id
+                    item.id,
                   )
                 }
                 className="mb-2 break-inside-avoid cursor-pointer"

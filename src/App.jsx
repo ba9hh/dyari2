@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ArticlesShop from "./account/shop-profile/articles/ArticlesShop";
 import VerifyPage from "./authentication/create-shop/VerifyPage";
+import DyariDelivery from "./dyari-delivery/DyariDelivery";
 function App() {
   return (
     <>
@@ -54,6 +55,7 @@ function App() {
             <Route path="/auth/vendor/register" element={<CreateShop />} />
             <Route path="/auth/vendor/login" element={<AuthVendorLogin />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/dyari-delivery" element={<DyariDelivery />} />
           </Routes>
         </SkeletonTheme>
       </AuthProvider>

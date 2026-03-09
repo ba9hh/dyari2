@@ -1,6 +1,6 @@
 import InformationUser from "./InformationUser";
 import OrdersUser from "./orders/OrdersUser";
-import DyariLogo from "../../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 import LikedShops from "./liked-shops/LikedShops";
 import RatedShops from "./rated-shops/RatedShops";
 import { useState } from "react";

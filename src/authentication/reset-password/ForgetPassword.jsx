@@ -5,7 +5,7 @@ import VerifyEmail from "./verifyEmail";
 import RequestCode from "./RequestCode";
 import ResetPassword from "./ResetPassword";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import DyariLogo from "../../components/DyariLogo";
+import DyariLogo from "@/components/DyariLogo";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
