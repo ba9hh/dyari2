@@ -14,7 +14,7 @@ export default function Pagination({
     <div
       className={`relative flex flex-col gap-2 sm:gap-0 items-center sm:flex-row ${
         isOrder ? "sm:justify-between" : "sm:justify-center"
-      } w-full mt-8`}
+      } w-full mt-0 py-2`}
     >
       <div className="flex w-fit space-x-4">
         <Button

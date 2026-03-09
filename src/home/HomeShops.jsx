@@ -109,12 +109,14 @@ const HomeShops = () => {
           <EmptyShopState />
         )}
       </div>
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPrev={() => page > 1 && setPage(page - 1)}
-        onNext={() => page < totalPages && setPage(page + 1)}
-      />
+      <div className="mt-6">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPrev={() => page > 1 && setPage(page - 1)}
+          onNext={() => page < totalPages && setPage(page + 1)}
+        />
+      </div>
     </>
   );
 };

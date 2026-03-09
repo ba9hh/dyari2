@@ -37,32 +37,36 @@ const ShopArticles = ({ shopId }) => {
   };
   if (isLoading) return <SkeletonArticlesShop />;
   return (
-    <div className="w-full sm:w-2/3 bg-white sm:shadow-md rounded-md pb-3">
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-2 sm:px-0 sm:mt-0 border">
-        {articles?.articles?.map((article, index) => (
-          <div key={index} className="mb-2 break-inside-avoid">
-            <ShopArticle
-              article={article}
-              onClick={() => handleOpenDialog(article)}
-            />
-          </div>
-        ))}
-      </div>
+    <>
+      <div className="w-full sm:w-2/3 bg-white sm:shadow-md rounded-md pb-0">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-2 sm:px-0 sm:mt-0 border">
+          {articles?.articles?.map((article, index) => (
+            <div key={index} className="">
+              <ShopArticle
+                article={article}
+                onClick={() => handleOpenDialog(article)}
+              />
+            </div>
+          ))}
+        </div>
 
-      {selectedArticle && (
-        <ArticleShopDialog
-          article={selectedArticle}
-          open={open}
-          onClose={handleCloseDialog}
+        {selectedArticle && (
+          <ArticleShopDialog
+            article={selectedArticle}
+            open={open}
+            onClose={handleCloseDialog}
+          />
+        )}
+      </div>
+      <div className="w-full sm:w-2/3 bg-white sm:shadow-sm rounded-md">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPrev={() => page > 1 && setPage(page - 1)}
+          onNext={() => page < totalPages && setPage(page + 1)}
         />
-      )}
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPrev={() => page > 1 && setPage(page - 1)}
-        onNext={() => page < totalPages && setPage(page + 1)}
-      />
-    </div>
+      </div>
+    </>
   );
 };
 
