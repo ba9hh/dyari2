@@ -94,7 +94,10 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
         >
           Passer votre commande
         </Button> */}
-        <button className="text-sm text-white bg-amber-600 font-semibold px-3 py-1">
+        <button
+          className="text-sm text-white bg-amber-600 font-semibold px-3 py-1"
+          onClick={() => openOrder()}
+        >
           Passer votre commande
         </button>
       </div>
