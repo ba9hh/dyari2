@@ -13,6 +13,7 @@ import { fetchShopInformation } from "@/services/shops/ShopInformation";
 import { likeShop, unlikeShop, isShopLiked } from "@/services/shops/likedShops";
 import { useQuery } from "@tanstack/react-query";
 import { formatSpeciality } from "@/utils/formatSpeciality";
+import ReactStars from "react-rating-stars-component";
 
 const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   const [liked, setLiked] = useState(false);
@@ -65,27 +66,41 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   };
   if (isLoading) return <SkeletonInformationShop />;
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
-      <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        sx={{
-          textTransform: "none",
-          position: "absolute",
-          top: "4px",
-          right: "4px",
-        }}
-        onClick={() => openOrder()}
-      >
-        Passer votre commande
-      </Button>
-      <div className="absolute top-0 left-0">
-        <RatingTest shopId={shopId} />
+    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md">
+      <div className="flex justify-between items-center border-b p-2">
+        {/* <div className="">
+          <RatingTest shopId={shopId} />
+        </div> */}
+        <div className="flex items-center ">
+          <h1>{shop.average_rating}</h1>
+          <ReactStars
+            count={5}
+            size={20}
+            value={shop.average_rating || 0}
+            isHalf={true}
+            edit={false}
+            activeColor="#FBBC04"
+          />
+          <h1>({shop.total_rating})</h1>
+        </div>
+        {/* <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          sx={{
+            textTransform: "none",
+          }}
+          onClick={() => openOrder()}
+        >
+          Passer votre commande
+        </Button> */}
+        <button className="text-xs text-white bg-amber-600 font-semibold px-3 py-1">
+          Passer votre commande
+        </button>
       </div>
-      <div className="h-28 sm:h-40 bg-gradient-to-t from-gray-300 to-transparent flex justify-center items-center"></div>
-      <div className="flex justify-center -mt-6">
-        <div className="flex flex-col items-center gap-1 mb-4">
+
+      <div className="flex justify-center my-4">
+        <div className="flex flex-col items-center gap-0">
           <img
             className="w-16 h-16 border-2 p-1 rounded-full bg-white object-cover"
             src={shop?.profile_picture}
