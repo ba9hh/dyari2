@@ -48,7 +48,7 @@ const ArticleDialog = ({
             </div>
             <div className="flex sm:hidden gap-1 overflow-x-auto scrollbar-hide">
               {shopData?.map((item, idx) => (
-                <div
+                <img
                   key={idx}
                   onClick={() =>
                     selectImage(
@@ -58,14 +58,10 @@ const ArticleDialog = ({
                       item.id,
                     )
                   }
-                  className="mb-2 cursor-pointer"
-                >
-                  <img
-                    src={item.article_image}
-                    alt="article"
-                    className="flex-shrink-0 w-40 aspect-square object-cover"
-                  />
-                </div>
+                  src={item.article_image}
+                  alt="article"
+                  className="flex-shrink-0 w-36 aspect-square object-cover"
+                />
               ))}
             </div>
           </div>
