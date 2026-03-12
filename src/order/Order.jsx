@@ -14,7 +14,7 @@ import OrderSummary from "./OrderSummary";
 import ArticleDialog from "@/components/dialog/ArticleDialog";
 import ArticleDialog1 from "@/components/dialog/ArticleDialog1";
 import { createOrder } from "@/services/orders/createOrder";
-import { Typography, MobileStepper } from "@mui/material";
+import { Typography, MobileStepper, Breadcrumbs, Link } from "@mui/material";
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -115,10 +115,27 @@ const Order = () => {
   return (
     <div className="flex justify-center w-full min-h-screen bg-white sm:bg-[#f2f2f2] pt-16 pb-8 sm:px-0">
       <DyariLogo />
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-fit sm:max-w-[600px] bg-white p-3 sm:p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
+        className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
       >
+        <div className="sm:hidden py-2">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Link
+              underline="hover"
+              color="inherit"
+              href="/material-ui/getting-started/installation/"
+            >
+              Shop
+            </Link>
+            <Typography sx={{ color: "text.primary" }}>Commande</Typography>
+          </Breadcrumbs>
+        </div>
+        <hr className="mb-2" />
         {fields.map((field, index) => (
           <OrderItem
             key={field.id}
