@@ -30,8 +30,8 @@ const HomeShop = ({ shop }) => {
             )}
           </div>
         </div>
-        <div className="flex items-center ">
-          <h1>{shop.average_rating}</h1>
+        <div className="flex items-center">
+          <h1 className="text-sm sm:text-base">{shop.average_rating}</h1>
           <div className="block sm:hidden">
             <ReactStars
               count={5}
@@ -52,7 +52,7 @@ const HomeShop = ({ shop }) => {
               activeColor="#FBBC04"
             />
           </div>
-          <h1>({shop.total_rating})</h1>
+          <h1 className="text-sm sm:text-base">({shop.total_rating})</h1>
         </div>
       </div>
       <div className="relative sm:px-0">
