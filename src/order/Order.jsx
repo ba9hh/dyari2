@@ -14,6 +14,7 @@ import OrderSummary from "./OrderSummary";
 import ArticleDialog from "@/components/dialog/ArticleDialog";
 import ArticleDialog1 from "@/components/dialog/ArticleDialog1";
 import { createOrder } from "@/services/orders/createOrder";
+import { Typography } from "@mui/material";
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -116,16 +117,8 @@ const Order = () => {
       <DyariLogo />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full sm:max-w-[600px] bg-white p-6 sm:rounded-lg border sm:border:0 sm:shadow-md"
+        className="w-full h-fit sm:max-w-[600px] bg-white p-6 sm:rounded-lg border sm:border:0 sm:shadow-md"
       >
-        <ArticleDialog1
-          shopData={shopData?.articles}
-          selectImage={selectImage}
-          loading={isLoading}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
         {fields.map((field, index) => (
           <OrderItem
             key={field.id}
@@ -133,7 +126,12 @@ const Order = () => {
             control={control}
             errors={errors}
             watchItems={watchItems}
-            handleOpenDialog={handleOpenDialog}
+            shopData={shopData?.articles}
+            selectImage={selectImage}
+            loading={isLoading}
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
           />
         ))}
 
@@ -143,16 +141,24 @@ const Order = () => {
           onClick={() =>
             append({ type: "", price: 0, image: "", quantity: null })
           }
-          sx={{ mb: 2 }}
+          sx={{ mb: 1 }}
         >
           Ajouter un autre article
         </Button>
-        <OrderSummary
+        <Typography variant="body1" sx={{ mb: 1, width: "100%" }}>
+          Total:{" "}
+          {watchItems.reduce(
+            (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
+            0,
+          )}{" "}
+          dt
+        </Typography>
+        {/* <OrderSummary
           control={control}
           errors={errors}
           watchItems={watchItems}
           today={today}
-        />
+        /> */}
 
         <Button
           type="submit"
@@ -161,7 +167,7 @@ const Order = () => {
           color="primary"
           fullWidth
         >
-          {loading ? <CircularProgress size={24} /> : "Passez votre commande"}
+          {loading ? <CircularProgress size={24} /> : "suivant"}
         </Button>
       </form>
 

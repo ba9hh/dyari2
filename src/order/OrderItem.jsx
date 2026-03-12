@@ -1,17 +1,31 @@
 import { Controller } from "react-hook-form";
 import { TextField, Typography } from "@mui/material";
 import biscuit50 from "@/assets/biscuit50.jpg";
-import ArticleDialog from "../components/dialog/ArticleDialog1";
+import ArticleDialog1 from "../components/dialog/ArticleDialog1";
 const OrderItem = ({
   index,
   control,
   errors,
   watchItems,
-  handleOpenDialog,
+  shopData,
+  selectImage,
+  isLoading,
+  page,
+  setPage,
+  totalPages,
 }) => {
   return (
     <div className="mb-2">
       <Typography variant="subtitle2">Article {index + 1}</Typography>
+      <hr className="my-2" />
+      <ArticleDialog1
+        shopData={shopData}
+        selectImage={selectImage}
+        loading={isLoading}
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+      />
       {/* <div className="relative flex items-center justify-center space-x-2 mt-8 ">
         {!watchItems[index]?.image && (
           <div className="absolute flex flex-col justify-center animate-wiggle w-full pl-6">

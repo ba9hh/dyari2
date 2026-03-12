@@ -16,7 +16,7 @@ const ArticleDialog = ({
 }) => {
   return (
     <div>
-      <h1>Sélectionner un article</h1>
+      <h1 className="text-center text-sm mb-2">Sélectionner un article</h1>
       <div>
         {loading ? (
           <Box display="flex" justifyContent="center" p={2}>
