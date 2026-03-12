@@ -14,7 +14,7 @@ import OrderSummary from "./OrderSummary";
 import ArticleDialog from "@/components/dialog/ArticleDialog";
 import ArticleDialog1 from "@/components/dialog/ArticleDialog1";
 import { createOrder } from "@/services/orders/createOrder";
-import { Typography } from "@mui/material";
+import { Typography, MobileStepper } from "@mui/material";
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -145,7 +145,7 @@ const Order = () => {
         >
           Ajouter un autre article
         </Button>
-        <Typography variant="body1" sx={{ mb: 1, width: "100%" }}>
+        <Typography variant="body1" sx={{ width: "100%" }}>
           Total:{" "}
           {watchItems.reduce(
             (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
@@ -159,7 +159,14 @@ const Order = () => {
           watchItems={watchItems}
           today={today}
         /> */}
-
+        <div className="flex justify-center mb-1">
+          <MobileStepper
+            variant="dots"
+            steps={2}
+            position="static"
+            activeStep={0}
+          />
+        </div>
         <Button
           type="submit"
           variant="contained"
