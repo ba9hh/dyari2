@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
 import ArticleDialog from "@/components/dialog/ArticleDialog";
+import ArticleDialog1 from "@/components/dialog/ArticleDialog1";
 import { createOrder } from "@/services/orders/createOrder";
 const Order = () => {
   const { user } = useContext(AuthContext);
@@ -111,12 +112,20 @@ const Order = () => {
     }
   };
   return (
-    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-[#f2f2f2] pt-16 pb-8 sm:px-0 px-2">
+    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-[#f2f2f2] pt-16 pb-8 sm:px-0">
       <DyariLogo />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-[600px] bg-white p-6 rounded-lg border sm:border:0 sm:shadow-md"
+        className="w-full sm:max-w-[600px] bg-white p-6 sm:rounded-lg border sm:border:0 sm:shadow-md"
       >
+        <ArticleDialog1
+          shopData={shopData?.articles}
+          selectImage={selectImage}
+          loading={isLoading}
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
         {fields.map((field, index) => (
           <OrderItem
             key={field.id}

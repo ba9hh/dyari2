@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { TextField, Typography } from "@mui/material";
 import biscuit50 from "@/assets/biscuit50.jpg";
-
+import ArticleDialog from "../components/dialog/ArticleDialog1";
 const OrderItem = ({
   index,
   control,
@@ -12,7 +12,7 @@ const OrderItem = ({
   return (
     <div className="mb-2">
       <Typography variant="subtitle2">Article {index + 1}</Typography>
-      <div className="relative flex items-center justify-center space-x-2 mt-8 ">
+      {/* <div className="relative flex items-center justify-center space-x-2 mt-8 ">
         {!watchItems[index]?.image && (
           <div className="absolute flex flex-col justify-center animate-wiggle w-full pl-6">
             <h1 className="text-2xl">
@@ -30,13 +30,18 @@ const OrderItem = ({
           onClick={() => handleOpenDialog(index)}
           className="z-10 relative"
         />
-      </div>
-
-      <div className="flex gap-2 items-center w-full mt-4">
+      </div> */}
+      {/* <ArticleDialog shopData={shopData?.articles}
+        selectImage={selectImage}
+        loading={isLoading}
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}/> */}
+      <div className="flex gap-2 items-center w-full mt-0">
         <div className="w-full">
-          <div className="flex gap-2 mt-2">
+          <div className="flex gap-2 mt-0">
             {/* Type (readonly) */}
-            <Controller
+            {/* <Controller
               name={`items.${index}.type`}
               control={control}
               render={({ field }) => (
@@ -48,10 +53,10 @@ const OrderItem = ({
                   InputProps={{ readOnly: true }}
                 />
               )}
-            />
+            /> */}
 
             {/* Price (readonly) */}
-            <Controller
+            {/* <Controller
               name={`items.${index}.price`}
               control={control}
               render={({ field }) => (
@@ -64,7 +69,7 @@ const OrderItem = ({
                   InputProps={{ readOnly: true }}
                 />
               )}
-            />
+            /> */}
           </div>
 
           {/* Quantity */}
