@@ -117,7 +117,7 @@ const Order = () => {
       <DyariLogo />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-fit sm:max-w-[600px] bg-white p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
+        className="w-full h-fit sm:max-w-[600px] bg-white p-3 sm:p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
       >
         {fields.map((field, index) => (
           <OrderItem
