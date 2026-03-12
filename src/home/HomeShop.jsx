@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-md pt-3 sm:pt-3 sm:pb-0 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300 cursor-pointer"
+      className="bg-white sm:shadow-md py-3 sm:pt-3 sm:pb-0 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300 cursor-pointer"
       onClick={() => openShop()}
     >
       <div className="flex justify-between items-center sm:px-5 px-3 pb-3 sm:pb-3">
@@ -32,14 +32,26 @@ const HomeShop = ({ shop }) => {
         </div>
         <div className="flex items-center ">
           <h1>{shop.average_rating}</h1>
-          <ReactStars
-            count={5}
-            size={20}
-            value={shop.average_rating || 0}
-            isHalf={true}
-            edit={false}
-            activeColor="#FBBC04"
-          />
+          <div className="block sm:hidden">
+            <ReactStars
+              count={5}
+              size={15}
+              value={shop.average_rating || 0}
+              isHalf={true}
+              edit={false}
+              activeColor="#FBBC04"
+            />
+          </div>
+          <div className="hidden sm:block">
+            <ReactStars
+              count={5}
+              size={20}
+              value={shop.average_rating || 0}
+              isHalf={true}
+              edit={false}
+              activeColor="#FBBC04"
+            />
+          </div>
           <h1>({shop.total_rating})</h1>
         </div>
       </div>
