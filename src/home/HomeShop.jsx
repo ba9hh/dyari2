@@ -44,7 +44,27 @@ const HomeShop = ({ shop }) => {
         </div>
       </div>
       <div className="relative sm:px-0">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:mt-1 mt-1">
+        <div className="flex sm:hidden gap-1 overflow-x-auto scrollbar-hide mt-1">
+          {shop.articles?.slice(0, 3).map((article, index) => (
+            <img
+              key={index}
+              className="flex-shrink-0 w-32 aspect-[12/16] border object-cover"
+              src={article?.article_image ?? biscuit50}
+            />
+          ))}
+        </div>
+
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid sm:grid-cols-3 gap-1 sm:mt-1">
+          {shop.articles?.slice(0, 3).map((article, index) => (
+            <img
+              key={index}
+              className="w-full aspect-[12/16] border object-cover"
+              src={article?.article_image ?? biscuit50}
+            />
+          ))}
+        </div>
+        {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:mt-1 mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => {
             const hideOnXs = index >= 4 ? "hidden sm:block" : "";
             return (
@@ -55,7 +75,7 @@ const HomeShop = ({ shop }) => {
               />
             );
           })}
-        </div>
+        </div> */}
         {shop.numberOfArticles > 4 && (
           <div className="absolute right-0 sm:right-5 bottom-0 bg-gray-100 text-gray-500 font-bold text-md p-2 rounded-ss-md border-2 sm:hidden">
             {`+${shop.numberOfArticles - 4}`}
