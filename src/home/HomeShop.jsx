@@ -48,7 +48,7 @@ const HomeShop = ({ shop }) => {
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
-              className="flex-shrink-0 w-32 aspect-[12/16] border object-cover"
+              className="flex-shrink-0 w-40 aspect-[12/16] border object-cover"
               src={article?.article_image ?? biscuit50}
             />
           ))}
