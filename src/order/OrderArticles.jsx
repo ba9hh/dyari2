@@ -61,25 +61,21 @@ const OrderArticles = ({
             </div>
             <div className="flex sm:hidden gap-1 overflow-x-auto scrollbar-hide">
               {shopData?.map((item, idx) => (
-                <div
+                <img
                   key={idx}
-                  className={`relative group ${selectedArticleId === item.id ? "border-4 border-amber-600" : ""}`}
-                >
-                  <img
-                    onClick={() =>
-                      selectArticle(
-                        item.article_image,
-                        item.article_type,
-                        item.article_price,
-                        item.id,
-                        index,
-                      )
-                    }
-                    src={item.article_image}
-                    alt="article"
-                    className="flex-shrink-0 w-36 aspect-square object-cover"
-                  />
-                </div>
+                  onClick={() =>
+                    selectArticle(
+                      item.article_image,
+                      item.article_type,
+                      item.article_price,
+                      item.id,
+                      index,
+                    )
+                  }
+                  src={item.article_image}
+                  alt="article"
+                  className={`flex-shrink-0 w-36 aspect-square object-cover ${selectedArticleId === item.id ? "border-4 border-amber-600" : ""}`}
+                />
               ))}
             </div>
           </div>
