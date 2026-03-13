@@ -40,7 +40,7 @@ const DyariLogo = () => {
       </div>
       <header className="sm:hidden w-full block absolute top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 border-b border-stone-200/60">
         <div className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-4 px-4 py-3 md:grid-cols-[1fr_auto_1fr]">
-          <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2 w-fit">
+          <div className="flex items-center bg-white py-2 px-3 rounded-2xl gap-2 w-fit">
             <img className=" h-4 w-4 text-stone-500" src={filters} />
           </div>
           <Link to={"/"} className="flex items-center justify-center gap-1">
@@ -50,7 +50,7 @@ const DyariLogo = () => {
           <div className="flex justify-end">
             <Link
               to={"/auth"}
-              className=" rounded-full p-1 text-gray-600 border-2 block sm:hidden w-fit"
+              className=" rounded-full p-1 text-gray-600  block sm:hidden w-fit"
             >
               <PermIdentityIcon style={{ fontSize: "1.6rem" }} />
             </Link>
