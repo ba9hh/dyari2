@@ -28,7 +28,7 @@ const ShopsHomeSkeleton = () => {
                   <Skeleton width={20} height={10} />
                 </div>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 mt-1">
+              <div className="grid grid-cols-3 sm:grid-cols-3 gap-1 mt-1">
                 <Skeleton className="w-full aspect-[12/16] border" />
                 <Skeleton className="w-full aspect-[12/16] border" />
                 <Skeleton className="w-full aspect-[12/16] border" />

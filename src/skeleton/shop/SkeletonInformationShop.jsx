@@ -1,7 +1,7 @@
 import Skeleton from "react-loading-skeleton";
 const SkeletonInformationShop = () => {
   return (
-    <div className="relative w-2/3 bg-white shadow-md rounded-md">
+    <div className="relative w-full sm:w-2/3 bg-white sm:shadow-md sm:rounded-md">
       <div className="absolute top-4 right-2 px-3 pb-2 pt-1 rounded-md">
         <Skeleton width={180} height={30} />{" "}
       </div>

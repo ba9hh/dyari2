@@ -15,10 +15,10 @@ const NavBar = () => {
     <>
       <div className="hidden md:block">
         <div className="h-fit sm:h-12 flex justify-between items-end w-full sm:pl-8 px-2 sm:pr-4 sm:pb-0 py-3">
-          <div className="flex items-center gap-1">
+          <Link to={"/"} className="flex items-center gap-1">
             <img className="w-7" src={dyari} />
             <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
-          </div>
+          </Link>
           <div>
             {user ? (
               <div>

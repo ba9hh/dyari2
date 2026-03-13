@@ -16,7 +16,7 @@ export default function Pagination({
         isOrder ? "sm:justify-between" : "sm:justify-center"
       } w-full mt-0 py-2`}
     >
-      <div className="flex w-fit space-x-4">
+      {/* <div className="flex w-fit space-x-4">
         <Button
           variant="outlined"
           startIcon={<ArrowBackIcon />}
@@ -44,18 +44,20 @@ export default function Pagination({
         >
           Next page
         </Button>
-      </div>
+      </div> */}
       <div className={`sm:absolute ${isOrder ? "right-0" : "right-8"}`}>
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1 border rounded">{currentPage}</div>
-          <span className="text-gray-500">of {totalPages}</span>
+          <div className="flex items-center border border-gray-700 px-2 py-0.5">
+            <div className="border rounded">{currentPage}</div>
+            <span className="text-gray-500">of {totalPages}</span>
+          </div>
           <div className="flex gap-1">
             <button
               onClick={onPrev}
               disabled={currentPage === 1}
-              className={`p-1 bg-gray-100 hover:bg-gray-300 border transition ${
+              className={`p-1 bg-gray-100 hover:bg-gray-300 border border-gray-700 transition ${
                 currentPage === 1
-                  ? "text-gray-300 cursor-not-allowed"
+                  ? "text-gray-600 cursor-not-allowed"
                   : "text-gray-600"
               }`}
             >
@@ -64,9 +66,9 @@ export default function Pagination({
             <button
               onClick={onNext}
               disabled={currentPage === totalPages}
-              className={`p-1 bg-gray-100 hover:bg-gray-300 border transition ${
+              className={`p-1 bg-gray-100 hover:bg-gray-300 border border-gray-700 transition ${
                 currentPage === totalPages
-                  ? "text-gray-300 cursor-not-allowed"
+                  ? "text-gray-600 cursor-not-allowed"
                   : "text-gray-800"
               }`}
             >
