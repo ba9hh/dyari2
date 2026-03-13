@@ -45,7 +45,7 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
               rules={{ required: "Date is required" }}
               render={({ field }) => (
                 <DatePicker
-                  label="Quand besoin commande ?"
+                  label="Quand besoin commande"
                   value={field.value}
                   onChange={(newValue) => field.onChange(newValue)}
                   minDate={today}

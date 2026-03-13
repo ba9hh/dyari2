@@ -72,6 +72,7 @@ const OrderArticles = ({
                         item.article_type,
                         item.article_price,
                         item.id,
+                        index,
                       )
                     }
                     src={item.article_image}
