@@ -9,7 +9,7 @@ const DyariLogo = () => {
 
   return (
     <>
-      <div className="absolute hidden md:flex w-full justify-between items-end top-4 sm:pl-8 pl-2 sm:pr-4">
+      <div className="absolute hidden md:flex w-full justify-between items-end top-4 sm:pl-8 pl-2 sm:pr-4 z-10">
         <Link to={"/"} className="flex items-center gap-1">
           <img className="w-7" src={dyari} />
           <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
@@ -43,10 +43,10 @@ const DyariLogo = () => {
           <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2 w-fit">
             <img className=" h-4 w-4 text-stone-500" src={filters} />
           </div>
-          <div className="flex items-center justify-center gap-1">
+          <Link to={"/"} className="flex items-center justify-center gap-1">
             <img className="w-7" src={dyari} />
             <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
-          </div>
+          </Link>
           <div className="flex justify-end">
             <Link
               to={"/auth"}
