@@ -23,6 +23,16 @@ import "react-toastify/dist/ReactToastify.css";
 import ArticlesShop from "./account/shop-profile/articles/ArticlesShop";
 import VerifyPage from "./authentication/create-shop/VerifyPage";
 import DyariDelivery from "./dyari-delivery/DyariDelivery";
+import { Outlet } from "react-router-dom";
+import DyariLogo from "./components/DyariLogo";
+function StandardLayout() {
+  return (
+    <>
+      <DyariLogo />
+      <Outlet />
+    </>
+  );
+}
 function App() {
   return (
     <>
@@ -31,31 +41,33 @@ function App() {
         <SkeletonTheme baseColor="#F8F8F8" highlightColor="#FFA500">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/verify" element={<VerifyPage />} />
-            <Route path="/articles" element={<ArticlesShop />} />
-            <Route path="/createshop" element={<CreateShop />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/order" element={<Order />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/account/settings" element={<AccountSettings />} />
-            <Route
-              path="/account/settings/change-password"
-              element={<ChangePassword />}
-            />
-            <Route path="/account/add-article" element={<AddArticle />} />
-            <Route
-              path="/account/update-article/:articleId"
-              element={<UpdateArticle />}
-            />
-            <Route path="/ratingtest" element={<VerifyEmail />} />
-            <Route path="/skeleton" element={<SkeletonShop />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/auth/vendor" element={<AuthVendor />} />
-            <Route path="/auth/customer" element={<AuthCustomer />} />
-            <Route path="/auth/vendor/register" element={<CreateShop />} />
-            <Route path="/auth/vendor/login" element={<AuthVendorLogin />} />
-            <Route path="/forget-password" element={<ForgetPassword />} />
-            <Route path="/dyari-delivery" element={<DyariDelivery />} />
+            <Route element={<StandardLayout />}>
+              <Route path="/verify" element={<VerifyPage />} />
+              <Route path="/articles" element={<ArticlesShop />} />
+              <Route path="/createshop" element={<CreateShop />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/shop/order" element={<Order />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/account/settings" element={<AccountSettings />} />
+              <Route
+                path="/account/settings/change-password"
+                element={<ChangePassword />}
+              />
+              <Route path="/account/add-article" element={<AddArticle />} />
+              <Route
+                path="/account/update-article/:articleId"
+                element={<UpdateArticle />}
+              />
+              <Route path="/ratingtest" element={<VerifyEmail />} />
+              <Route path="/skeleton" element={<SkeletonShop />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/auth/vendor" element={<AuthVendor />} />
+              <Route path="/auth/customer" element={<AuthCustomer />} />
+              <Route path="/auth/vendor/register" element={<CreateShop />} />
+              <Route path="/auth/vendor/login" element={<AuthVendorLogin />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/dyari-delivery" element={<DyariDelivery />} />
+            </Route>
           </Routes>
         </SkeletonTheme>
       </AuthProvider>

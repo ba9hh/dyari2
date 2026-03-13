@@ -2,20 +2,43 @@ import { Link } from "react-router-dom";
 import dyari from "@/assets/dyari.svg";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import filters from "@/assets/filters.svg";
-
+import { AuthContext } from "@/AuthProvider";
+import { useContext } from "react";
 const DyariLogo = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <>
-      <Link
-        className="hidden md:block absolute top-4 sm:left-8 left-2"
-        to={"/"}
-      >
-        <div className="flex items-center gap-1">
+      <div className="absolute hidden md:flex w-full justify-between items-end top-4 sm:pl-8 pl-2 sm:pr-4">
+        <Link to={"/"} className="flex items-center gap-1">
           <img className="w-7" src={dyari} />
           <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
+        </Link>
+        <div>
+          {user ? (
+            <div>
+              <Link
+                className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 shadow-lg hidden sm:block"
+                to={"/account"}
+              >
+                {/* {t("navbar.login")} */}
+                account
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <Link
+                className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 shadow-lg hidden sm:block"
+                to={"/auth"}
+              >
+                {/* {t("navbar.login")} */}
+                se connecter
+              </Link>
+            </div>
+          )}
         </div>
-      </Link>
-      <header className="w-full block absolute top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 border-b border-stone-200/60 sm:hidden">
+      </div>
+      <header className="sm:hidden w-full block absolute top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 border-b border-stone-200/60">
         <div className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-4 px-4 py-3 md:grid-cols-[1fr_auto_1fr]">
           <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2 w-fit">
             <img className=" h-4 w-4 text-stone-500" src={filters} />

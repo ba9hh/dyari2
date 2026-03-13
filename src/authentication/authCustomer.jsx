@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
-import DyariLogo from "@/components/DyariLogo";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +15,6 @@ const AuthCustomer = () => {
   }, [user, sessionChecked, navigate]);
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen sm:bg-[#f5f5f5] bg-white gap-6">
-      <DyariLogo />
       <h1 className=" text-amber-600">
         Se connecter en mode <span className="font-semibold">Client</span> :
       </h1>

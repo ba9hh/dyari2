@@ -7,7 +7,12 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 const OrderSummary = ({ control, errors, watchItems, today }) => {
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-2">
+      <Typography variant="subtitle2">
+        Pour finaliser la commande on a besoin :
+      </Typography>
+      <h1 className=""></h1>
+      <hr className="my-2" />
+      <div className="flex flex-col sm:flex-row gap-2 mt-6">
         {/* Phone number */}
         <div className="flex-1">
           <Controller
@@ -40,7 +45,7 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
               rules={{ required: "Date is required" }}
               render={({ field }) => (
                 <DatePicker
-                  label="Select a date"
+                  label="Quand besoin commande ?"
                   value={field.value}
                   onChange={(newValue) => field.onChange(newValue)}
                   minDate={today}
@@ -69,14 +74,14 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
       </div>
 
       {/* Total */}
-      <Typography variant="h6" align="center" sx={{ mb: 2, width: "100%" }}>
+      {/* <Typography variant="h6" align="center" sx={{ mb: 2, width: "100%" }}>
         Total:{" "}
         {watchItems.reduce(
           (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
-          0
+          0,
         )}{" "}
         dt
-      </Typography>
+      </Typography> */}
     </>
   );
 };

@@ -12,7 +12,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import DyariLogo from "@/components/DyariLogo";
 import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
 import { supabase } from "@/supabaseClient";
@@ -124,7 +123,6 @@ const AddArticle = () => {
   // }
   return (
     <div className="flex justify-center items-center w-full min-h-screen bg-white sm:bg-[#f5f5f5] pt-16 pb-8">
-      <DyariLogo />
       <div className="bg-white px-10 py-6 rounded-md shadow-md">
         <form
           onSubmit={handleSubmit(onSubmit)}

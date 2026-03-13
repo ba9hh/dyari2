@@ -2,7 +2,6 @@ import { useState } from "react";
 import InformationShop from "./info/InformationShop";
 import ArticlesShop from "./articles/ArticlesShop";
 import OrdersShop from "./orders/OrdersShop";
-import DyariLogo from "@/components/DyariLogo";
 import ContactShop from "./info/ContactShop";
 import Button from "@mui/material/Button";
 
@@ -13,7 +12,6 @@ const ShopProfile = ({ shopId }) => {
   };
   return (
     <div className="flex flex-col min-h-screen items-center pt-16 pb-8 sm:bg-[#F5F5F5] bg-white gap-y-4">
-      <DyariLogo />
       <InformationShop
         shopId={shopId}
         handleChange={handleChange}

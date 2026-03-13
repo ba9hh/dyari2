@@ -1,12 +1,10 @@
 import vendor from "@/assets/vendor.jpeg";
 import customer from "@/assets/customer1.png";
 import { Link } from "react-router-dom";
-import DyariLogo from "@/components/DyariLogo";
 
 const Auth = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen sm:bg-[#f5f5f5] bg-white gap-4 sm:gap-6">
-      <DyariLogo />
       <h1 className=" text-amber-600">Se connecter en mode :</h1>
       <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6">
         <div className="w-full sm:w-[26%] flex flex-col gap-y-5 ">

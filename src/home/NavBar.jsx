@@ -21,12 +21,15 @@ const NavBar = () => {
           </div>
           <div>
             {user ? (
-              <Link to={"/account"}>
-                <img
-                  src={user ? user.profile_picture : ""}
-                  className="rounded-full w-10 h-10 object-cover"
-                />
-              </Link>
+              <div>
+                <Link
+                  className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 shadow-lg hidden sm:block"
+                  to={"/account"}
+                >
+                  {/* {t("navbar.login")} */}
+                  Account
+                </Link>
+              </div>
             ) : (
               <div>
                 <Link

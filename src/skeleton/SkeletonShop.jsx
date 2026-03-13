@@ -1,10 +1,8 @@
 import Skeleton from "react-loading-skeleton";
-import DyariLogo from "@/components/DyariLogo";
 const SkeletonShop = () => {
   return (
     <div>
       <div className="flex flex-col h-screen items-center pt-16 bg-[#F5F5F5] gap-y-4">
-        <DyariLogo />
         <div className="relative w-2/3 bg-white shadow-md rounded-md">
           <div className="absolute top-4 right-2 px-3 pb-2 pt-1 rounded-md">
             <Skeleton width={180} height={30} />{" "}

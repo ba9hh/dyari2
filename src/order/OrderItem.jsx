@@ -1,14 +1,13 @@
 import { Controller } from "react-hook-form";
 import { TextField, Typography } from "@mui/material";
-import biscuit50 from "@/assets/biscuit50.jpg";
-import ArticleDialog1 from "../components/dialog/ArticleDialog1";
+import OrderArticles from "./OrderArticles";
 const OrderItem = ({
   index,
   control,
   errors,
   watchItems,
   shopData,
-  selectImage,
+  selectArticle,
   isLoading,
   page,
   setPage,
@@ -18,74 +17,19 @@ const OrderItem = ({
     <div className="mb-2">
       <Typography variant="subtitle2">Article {index + 1}</Typography>
       <hr className="my-2" />
-      <ArticleDialog1
+      <OrderArticles
         shopData={shopData}
-        selectImage={selectImage}
+        selectArticle={selectArticle}
         loading={isLoading}
         page={page}
         setPage={setPage}
         totalPages={totalPages}
+        index={index}
+        selectedArticleId={watchItems?.[index]?.articleId}
       />
-      {/* <div className="relative flex items-center justify-center space-x-2 mt-8 ">
-        {!watchItems[index]?.image && (
-          <div className="absolute flex flex-col justify-center animate-wiggle w-full pl-6">
-            <h1 className="text-2xl">
-              <span className="text-sm hidden sm:block">
-                (select article first)
-              </span>{" "}
-              👉
-            </h1>
-          </div>
-        )}
-        <img
-          src={watchItems[index].image || biscuit50}
-          alt="article"
-          style={{ width: "25%", cursor: "pointer" }}
-          onClick={() => handleOpenDialog(index)}
-          className="z-10 relative"
-        />
-      </div> */}
-      {/* <ArticleDialog shopData={shopData?.articles}
-        selectImage={selectImage}
-        loading={isLoading}
-        page={page}
-        setPage={setPage}
-        totalPages={totalPages}/> */}
+
       <div className="flex gap-2 items-center w-full mt-0">
         <div className="w-full">
-          <div className="flex gap-2 mt-0">
-            {/* Type (readonly) */}
-            {/* <Controller
-              name={`items.${index}.type`}
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  fullWidth
-                  label="Unité de vente"
-                  {...field}
-                  value={field.value || ""}
-                  InputProps={{ readOnly: true }}
-                />
-              )}
-            /> */}
-
-            {/* Price (readonly) */}
-            {/* <Controller
-              name={`items.${index}.price`}
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  type="number"
-                  fullWidth
-                  label="Prix (dt)"
-                  {...field}
-                  value={field.value || ""}
-                  InputProps={{ readOnly: true }}
-                />
-              )}
-            /> */}
-          </div>
-
           {/* Quantity */}
           <Controller
             name={`items.${index}.quantity`}
@@ -103,7 +47,6 @@ const OrderItem = ({
               />
             )}
           />
-
           {/* Subtotal */}
           <Typography variant="body2" sx={{ mt: 1 }}>
             Sous-total:{" "}

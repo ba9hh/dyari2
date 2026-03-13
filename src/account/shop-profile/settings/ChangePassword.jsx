@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "@/AuthProvider";
 import { Link } from "react-router-dom";
-import DyariLogo from "@/components/DyariLogo";
 const ChangePassword = () => {
   const {
     control,
@@ -47,7 +46,6 @@ const ChangePassword = () => {
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen bg-[#f5f5f5] gap-y-4">
-      <DyariLogo />
       <div className="w-[26%] flex flex-col gap-y-5 bg-white px-5 py-8 rounded-md shadow-md">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Typography

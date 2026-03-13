@@ -5,7 +5,6 @@ import VerifyEmail from "./verifyEmail";
 import RequestCode from "./RequestCode";
 import ResetPassword from "./ResetPassword";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import DyariLogo from "@/components/DyariLogo";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +15,6 @@ const ForgetPassword = () => {
   };
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen bg-[#f5f5f5] gap-y-4">
-      <DyariLogo />
       <div className="w-[26%] flex flex-col gap-y-5 bg-white px-5 py-8 rounded-md shadow-md">
         <Typography variant="h5" align="center" gutterBottom>
           Password Reset

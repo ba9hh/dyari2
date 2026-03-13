@@ -9,7 +9,6 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import DyariLogo from "@/components/DyariLogo";
 import { supabase } from "@/supabaseClient";
 const AuthVendorLogin = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -61,8 +60,6 @@ const AuthVendorLogin = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full h-screen bg-white sm:bg-[#f5f5f5]">
-        <DyariLogo />
-
         <form
           className="w-full sm:w-1/3 flex flex-col gap-y-5 bg-white px-10 py-8 sm:rounded-md sm:shadow-md"
           onSubmit={handleSubmit(onSubmit)}

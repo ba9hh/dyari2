@@ -3,13 +3,11 @@ import dyari from "@/assets/dyari.svg";
 import vendor from "@/assets/vendor.jpeg";
 import customer from "@/assets/customer1.png";
 import { Link } from "react-router-dom";
-import DyariLogo from "@/components/DyariLogo";
 
 const AuthVendor = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full h-screen bg-white sm:bg-[#f5f5f5] gap-6">
-        <DyariLogo />
         <h1 className=" text-amber-600">
           Se connecter en mode <span className="font-semibold">Vendeur</span> :
         </h1>
