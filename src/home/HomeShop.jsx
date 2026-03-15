@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-md py-3 sm:pt-3 sm:pb-0 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300 cursor-pointer"
+      className="bg-white sm:shadow-md py-3 sm:pt-3 sm:pb-2 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300 cursor-pointer"
       onClick={() => openShop()}
     >
       <div className="flex justify-between items-center sm:px-5 px-3 pb-3 sm:pb-3">
@@ -55,7 +55,7 @@ const HomeShop = ({ shop }) => {
           <h1 className="text-sm sm:text-base">({shop.total_rating})</h1>
         </div>
       </div>
-      <div className="relative sm:px-0">
+      <div className="relative sm:px-2">
         <div className="flex sm:hidden gap-1 overflow-x-auto scrollbar-hide mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
@@ -71,7 +71,7 @@ const HomeShop = ({ shop }) => {
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
-              className="w-full aspect-[12/16] border object-cover"
+              className="w-full aspect-square border object-cover"
               src={article?.article_image ?? biscuit50}
             />
           ))}
