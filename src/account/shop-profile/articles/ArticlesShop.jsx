@@ -45,9 +45,10 @@ const ArticlesShop = ({ shopId }) => {
     <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pt-4 pb-8">
       <div className="flex justify-end w-full px-8">
         <Button
+          fullWidth
           component={Link}
           to="add-article"
-          variant="contained"
+          variant="outlined"
           color="primary"
           size="small"
           sx={{
@@ -57,9 +58,9 @@ const ArticlesShop = ({ shopId }) => {
           Add article
         </Button>
       </div>
-      <div className="columns-2 sm:columns-2 md:columns-3 gap-x-2 gap-y-2 sm:px-8 mt-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-2 sm:px-8 my-4">
         {articles?.articles?.map((article, index) => (
-          <div key={index} className="mb-2 break-inside-avoid">
+          <div key={index} className="mb-2">
             <ArticleShop
               article={article}
               onClick={() => setSelectedArticleId(article)}

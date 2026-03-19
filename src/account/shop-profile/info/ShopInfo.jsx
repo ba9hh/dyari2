@@ -7,7 +7,7 @@ import ShopTabs from "@/components/tabs/ShopTabs";
 import ShopHeader from "./ShopHeader";
 import ShopProfile from "./ShopProfile";
 import ProfilePictureDialog from "./ProfilePictureDialog";
-const InformationShop = ({ shopId, activeTab, handleChange }) => {
+const ShopInfo = ({ shopId, activeTab, handleChange }) => {
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
@@ -41,7 +41,6 @@ const InformationShop = ({ shopId, activeTab, handleChange }) => {
           <h1>({user?.totalRating})</h1>
         </div> */}
 
-      <div className="h-28 bg-gradient-to-t from-gray-300 to-transparent flex justify-center items-center"></div>
       <ShopProfile shop={shop} onEdit={() => setOpen(true)} />
       <ShopTabs activeTab={activeTab} handleChange={handleChange} />
       <ProfilePictureDialog
@@ -58,4 +57,4 @@ const InformationShop = ({ shopId, activeTab, handleChange }) => {
   );
 };
 
-export default InformationShop;
+export default ShopInfo;

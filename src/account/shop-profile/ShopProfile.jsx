@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InformationShop from "./info/InformationShop";
+import ShopInfo from "./info/ShopInfo";
 import ArticlesShop from "./articles/ArticlesShop";
 import OrdersShop from "./orders/OrdersShop";
 import ContactShop from "./info/ContactShop";
@@ -12,7 +12,7 @@ const ShopProfile = ({ shopId }) => {
   };
   return (
     <div className="flex flex-col min-h-screen items-center pt-16 pb-8 sm:bg-[#F5F5F5] bg-white gap-y-4">
-      <InformationShop
+      <ShopInfo
         shopId={shopId}
         handleChange={handleChange}
         activeTab={activeTab}

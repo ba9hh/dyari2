@@ -3,7 +3,7 @@ import pdp from "@/assets/pdp.png";
 
 const ShopProfile = ({ shop, onEdit }) => {
   return (
-    <div className="flex justify-center -mt-6">
+    <div className="flex justify-center">
       <div className="flex flex-col items-center gap-1 mb-4">
         <div className="relative inline-block group w-20 h-20">
           <button

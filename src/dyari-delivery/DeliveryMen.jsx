@@ -5,28 +5,33 @@ const DeliveryMen = () => {
   const deliveryMen = [
     {
       name: "Ahmed",
-      phone: "0123456789",
+      phone: "27 428 425",
       image: deliveryguy,
     },
     {
       name: "Mohamed",
-      phone: "0123456788",
+      phone: "27 428 425",
       image: deliveryguy,
     },
     {
       name: "Ali",
-      phone: "0123456787",
+      phone: "27 428 425",
       image: deliveryguy,
     },
     {
       name: "Omar",
-      phone: "0123456786",
+      phone: "27 428 425",
+      image: deliveryguy,
+    },
+    {
+      name: "Omar",
+      phone: "27 428 425",
       image: deliveryguy,
     },
   ];
   return (
     <div>
-      <div className="grid grid-cols-4 gap-6 px-20">
+      <div className="grid grid-cols-4 gap-6 px-0 mt-8">
         {deliveryMen.map((deliveryMan) => (
           <DeliveryMan key={deliveryMan.name} deliveryMan={deliveryMan} />
         ))}
