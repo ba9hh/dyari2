@@ -139,12 +139,31 @@ const Auth = () => {
               type="submit"
               variant="contained"
               fullWidth
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#d97706",
+                "&:hover": {
+                  backgroundColor: "#b45309",
+                },
+              }}
               disabled={isLoading || Boolean(loginError)}
             >
               {isLoading ? "Connexion..." : "Se connecter"}
             </Button>
 
-            <Button variant="outlined" fullWidth sx={{ textTransform: "none" }}>
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{
+                textTransform: "none",
+                color: "#d97706",
+                borderColor: "#d97706",
+                "&:hover": {
+                  borderColor: "#b45309",
+                  backgroundColor: "rgba(217, 119, 6, 0.04)",
+                },
+              }}
+            >
               {isLoading ? "Connexion..." : "Créer un nouveau compte"}
             </Button>
           </div>
