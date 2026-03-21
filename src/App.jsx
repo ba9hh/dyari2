@@ -25,6 +25,8 @@ import VerifyPage from "./authentication/create-shop/VerifyPage";
 import DyariDelivery from "./dyari-delivery/DyariDelivery";
 import { Outlet } from "react-router-dom";
 import DyariLogo from "./components/DyariLogo";
+import Login from "./authentication/Login";
+import Signup from "./authentication/Signup";
 function StandardLayout() {
   return (
     <>
@@ -60,6 +62,8 @@ function App() {
               />
               <Route path="/ratingtest" element={<VerifyEmail />} />
               <Route path="/skeleton" element={<SkeletonShop />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/auth/vendor" element={<AuthVendor />} />
               <Route path="/auth/customer" element={<AuthCustomer />} />
