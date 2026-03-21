@@ -27,6 +27,8 @@ import { Outlet } from "react-router-dom";
 import DyariLogo from "./components/DyariLogo";
 import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
+import RoleSelection from "./components/RoleSelection";
+import ShopForm from "./authentication/ShopForm";
 function StandardLayout() {
   return (
     <>
@@ -71,6 +73,8 @@ function App() {
               <Route path="/auth/vendor/login" element={<AuthVendorLogin />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/dyari-delivery" element={<DyariDelivery />} />
+              <Route path="/role-selection" element={<RoleSelection />} />
+              <Route path="/shop-creation" element={<ShopForm />} />
             </Route>
           </Routes>
         </SkeletonTheme>
