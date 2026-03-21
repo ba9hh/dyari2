@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import ShopsHomeSkeleton from "@/skeleton/ShopsHomeSkeleton";
 import HomeShop from "./HomeShop";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import Pagination from "@/components/Pagination";
+import HomePagination from "./HomePagination";
 import { fetchShops } from "@/services/shops/ShopsList";
 import CategoriesTabs from "@/components/tabs/CategoriesTabs";
 import LocalisationFilter from "@/components/LocalisationFilter";
@@ -110,7 +110,7 @@ const HomeShops = () => {
         )}
       </div>
       <div className="mt-6">
-        <Pagination
+        <HomePagination
           currentPage={page}
           totalPages={totalPages}
           onPrev={() => page > 1 && setPage(page - 1)}
