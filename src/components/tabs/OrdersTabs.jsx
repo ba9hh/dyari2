@@ -13,27 +13,57 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
-        sx={{ mb: 2, px: 2 }}
+        sx={{
+          mb: 2,
+          px: 2,
+          "& .MuiTabs-indicator": {
+            backgroundColor: "#d97706",
+          },
+        }}
       >
         <Tab
           label={t("order.allOrders")}
           value="all"
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            color: "text.secondary",
+            "&.Mui-selected": {
+              color: "#d97706",
+            },
+          }}
         />
         <Tab
           label={t("order.pendingOrders")}
           value="pending"
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            color: "text.secondary",
+            "&.Mui-selected": {
+              color: "#d97706",
+            },
+          }}
         />
         <Tab
           label="Accepted Orders"
           value="accepted"
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            color: "text.secondary",
+            "&.Mui-selected": {
+              color: "#d97706",
+            },
+          }}
         />
         <Tab
           label="Rejected Orders"
           value="rejected"
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            color: "text.secondary",
+            "&.Mui-selected": {
+              color: "#d97706",
+            },
+          }}
         />
       </Tabs>
     </Box>

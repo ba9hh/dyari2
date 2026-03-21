@@ -50,9 +50,15 @@ const ArticlesShop = ({ shopId }) => {
           to="add-article"
           variant="outlined"
           color="primary"
-          size="small"
+          // size="small"
           sx={{
             textTransform: "none",
+            color: "#d97706",
+            borderColor: "#d97706",
+            "&:hover": {
+              borderColor: "#b45309",
+              backgroundColor: "rgba(217, 119, 6, 0.04)",
+            },
           }}
         >
           Add article

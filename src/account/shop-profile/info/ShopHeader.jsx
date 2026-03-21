@@ -9,7 +9,13 @@ const ShopHeader = ({ handleLogout }) => {
           variant="contained"
           color="primary"
           size="small"
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
           component={Link}
           to="settings"
         >
@@ -19,7 +25,13 @@ const ShopHeader = ({ handleLogout }) => {
           variant="contained"
           color="primary"
           size="small"
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
           onClick={handleLogout}
         >
           Logout

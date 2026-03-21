@@ -7,6 +7,7 @@ import ShopTabs from "@/components/tabs/ShopTabs";
 import ShopHeader from "./ShopHeader";
 import ShopProfile from "./ShopProfile";
 import ProfilePictureDialog from "./ProfilePictureDialog";
+import ReactStars from "react-rating-stars-component";
 const ShopInfo = ({ shopId, activeTab, handleChange }) => {
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
@@ -28,18 +29,18 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
       <ShopHeader handleLogout={handleLogout} />
 
-      {/* <div className="absolute top-0 left-0 flex items-center px-1">
-          <h1>{user?.averageRating}</h1>
-          <ReactStars
-            count={5}
-            size={20}
-            value={user?.averageRating || 0}
-            isHalf={true}
-            edit={false}
-            activeColor="#FBBC04"
-          />
-          <h1>({user?.totalRating})</h1>
-        </div> */}
+      <div className="absolute top-0 left-0 flex items-center px-1">
+        <h1>{shop?.average_rating}</h1>
+        <ReactStars
+          count={5}
+          size={20}
+          value={shop?.average_rating || 0}
+          isHalf={true}
+          edit={false}
+          activeColor="#FBBC04"
+        />
+        <h1>({shop?.total_rating})</h1>
+      </div>
 
       <ShopProfile shop={shop} onEdit={() => setOpen(true)} />
       <ShopTabs activeTab={activeTab} handleChange={handleChange} />
