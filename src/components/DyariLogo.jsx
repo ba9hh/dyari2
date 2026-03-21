@@ -29,7 +29,7 @@ const DyariLogo = () => {
             <div>
               <Link
                 className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 shadow-lg hidden sm:block"
-                to={"/auth"}
+                to={"/login"}
               >
                 {/* {t("navbar.login")} */}
                 se connecter
@@ -48,7 +48,7 @@ const DyariLogo = () => {
             <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
           </Link>
           <div className="flex justify-end">
-            <Link to={"/auth"} className="text-gray-600 w-fit">
+            <Link to={"/login"} className="text-gray-600 w-fit">
               <PermIdentityIcon style={{ fontSize: "1.6rem" }} />
             </Link>
           </div>
