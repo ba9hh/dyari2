@@ -12,8 +12,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { CircleCheckBig } from "lucide-react";
 import PLANS from "@/data/PLANS";
-import SPECIALITIES from "@/data/SPECIALITIES";
-import CITIES from "@/data/CITIES";
+import SPECIALITIES from "@/data/specialities";
+import CITIES from "@/data/cities";
 const ShopForm = () => {
   const {
     control,
