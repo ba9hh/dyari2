@@ -45,7 +45,15 @@ const OrderForm = ({ loading, onSubmit, handleOpenDialog }) => {
         variant="outlined"
         fullWidth
         onClick={() => append({ type: "", price: 0, image: "", quantity: 0 })}
-        sx={{ mb: 2 }}
+        sx={{
+          mb: 2,
+          color: "#d97706", // amber-600
+          borderColor: "#d97706",
+          "&:hover": {
+            borderColor: "#b45309", // amber-700 (optional for hover)
+            backgroundColor: "rgba(217, 119, 6, 0.04)", // light amber hover
+          },
+        }}
       >
         Ajouter un autre article
       </Button>

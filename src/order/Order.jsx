@@ -139,7 +139,16 @@ const Order = () => {
               onClick={() =>
                 append({ type: "", price: 0, image: "", quantity: null })
               }
-              sx={{ mb: 1, textTransform: "none" }}
+              sx={{
+                mb: 1,
+                textTransform: "none",
+                color: "#d97706",
+                borderColor: "#d97706",
+                "&:hover": {
+                  borderColor: "#b45309",
+                  backgroundColor: "rgba(217, 119, 6, 0.04)",
+                },
+              }}
             >
               Ajouter un autre article
             </Button>
@@ -167,6 +176,14 @@ const Order = () => {
             steps={2}
             position="static"
             activeStep={step}
+            sx={{
+              "& .MuiMobileStepper-dot": {
+                backgroundColor: "#e5e7eb",
+              },
+              "& .MuiMobileStepper-dotActive": {
+                backgroundColor: "#d97706",
+              },
+            }}
           />
         </div>
         {step == 0 && (
@@ -176,7 +193,13 @@ const Order = () => {
             disabled={loading}
             color="primary"
             fullWidth
-            sx={{ textTransform: "none" }}
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": {
+                backgroundColor: "#b45309",
+              },
+            }}
             onClick={() => setStep(1)}
           >
             {loading ? <CircularProgress size={24} /> : "Suivant"}
@@ -189,7 +212,13 @@ const Order = () => {
             disabled={loading}
             color="primary"
             fullWidth
-            sx={{ textTransform: "none" }}
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": {
+                backgroundColor: "#b45309",
+              },
+            }}
             onClick={() => setStep(0)}
           >
             {loading ? <CircularProgress size={24} /> : "Passer la commande"}

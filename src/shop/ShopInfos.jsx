@@ -130,7 +130,14 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           indicatorColor="primary"
           textColor="primary"
           variant="standard"
-          sx={{ mb: 0, px: 2 }}
+          sx={{
+            mb: 0,
+            px: 2,
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#d97706",
+              height: "4px",
+            },
+          }}
           TabIndicatorProps={{
             style: {
               height: "4px",
@@ -141,7 +148,14 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <Tab
             label="Articles"
             value="articles"
-            sx={{ textTransform: "none", fontWeight: "bold" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              color: "text.secondary",
+              "&.Mui-selected": {
+                color: "#d97706",
+              },
+            }}
           />
           {/* <Tab
             label="Contact"
