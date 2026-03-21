@@ -28,6 +28,11 @@ const RoleSelection = () => {
   const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log("Role selected:", data);
+    if (data.role === "client") {
+      navigate("/");
+    } else if (data.role === "vendeur") {
+      navigate("/shop-selection");
+    }
     // TODO: navigate or call API based on selected role
   };
   return (
@@ -78,13 +83,10 @@ const RoleSelection = () => {
           )}
           <hr className="mt-1" />
           <div className="flex mt-4">
-            {/* <button className="w-full px-2 border border-amber-700 text-amber-700 mt-4 text-base hover:bg-amber-700 hover:text-white transition-colors cursor-pointer">
-              Continue
-            </button> */}
             <Button
+              type="submit"
               variant="outlined"
               fullWidth
-              onClick={() => navigate("/shop-creation")}
               sx={{
                 textTransform: "none",
                 color: "#d97706",
