@@ -31,7 +31,7 @@ const RoleSelection = () => {
     if (data.role === "client") {
       navigate("/");
     } else if (data.role === "vendeur") {
-      navigate("/shop-selection");
+      navigate("/shop-creation");
     }
     // TODO: navigate or call API based on selected role
   };
