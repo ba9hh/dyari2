@@ -29,6 +29,7 @@ import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
 import RoleSelection from "./components/RoleSelection";
 import ShopForm from "./authentication/ShopForm";
+import AuthLayout from "./components/AuthLayout";
 function StandardLayout() {
   return (
     <>
@@ -45,6 +46,12 @@ function App() {
         <SkeletonTheme baseColor="#F8F8F8" highlightColor="#FFA500">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route element={<AuthLayout />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/role-selection" element={<RoleSelection />} />
+              <Route path="/shop-creation" element={<ShopForm />} />
+            </Route>
             <Route element={<StandardLayout />}>
               <Route path="/verify" element={<VerifyPage />} />
               <Route path="/articles" element={<ArticlesShop />} />
@@ -64,8 +71,6 @@ function App() {
               />
               <Route path="/ratingtest" element={<VerifyEmail />} />
               <Route path="/skeleton" element={<SkeletonShop />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/auth/vendor" element={<AuthVendor />} />
               <Route path="/auth/customer" element={<AuthCustomer />} />
@@ -73,8 +78,6 @@ function App() {
               <Route path="/auth/vendor/login" element={<AuthVendorLogin />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/dyari-delivery" element={<DyariDelivery />} />
-              <Route path="/role-selection" element={<RoleSelection />} />
-              <Route path="/shop-creation" element={<ShopForm />} />
             </Route>
           </Routes>
         </SkeletonTheme>
