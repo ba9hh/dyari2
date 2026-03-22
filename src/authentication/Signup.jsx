@@ -63,7 +63,7 @@ const Signup = () => {
   };
   return (
     <form
-      className="w-full flex flex-col gap-y-0 bg-white px-10 pb-8 pt-8 sm:rounded-md sm:shadow-md"
+      className="w-96 flex flex-col gap-y-0 bg-white px-10 pb-8 pt-8 sm:rounded-md sm:shadow-md"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex justify-between items-center mb-4">
