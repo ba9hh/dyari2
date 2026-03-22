@@ -142,7 +142,7 @@ const Signup = () => {
               type="submit"
               variant="contained"
               fullWidth
-              onClick={() => navigate("role-selection")}
+              onClick={() => navigate("/role-selection")}
               sx={{
                 textTransform: "none",
                 backgroundColor: "#d97706",
