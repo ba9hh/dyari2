@@ -32,7 +32,7 @@ const ShopForm = () => {
     // TODO: send data to your API
   };
   return (
-    <>
+    <div>
       <div className="flex justify-between items-center mb-4">
         <Typography variant="h6">Remplir le formulaire:</Typography>
         <img src={dyari} className="w-8" />
@@ -177,7 +177,7 @@ const ShopForm = () => {
           </Button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 
