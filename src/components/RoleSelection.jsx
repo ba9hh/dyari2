@@ -36,7 +36,7 @@ const RoleSelection = () => {
     // TODO: navigate or call API based on selected role
   };
   return (
-    <div>
+    <div className="bg-white border-2 border-gray-400 rounded-md p-6 z-10">
       <div className="flex justify-between items-center mb-4">
         <Typography variant="h6">S'inscrire en tant que:</Typography>
         <img src={dyari} className="w-8" />

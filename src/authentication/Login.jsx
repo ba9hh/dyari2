@@ -64,107 +64,109 @@ const Login = () => {
     }
   };
   return (
-    <form
-      className="w-96 flex flex-col gap-y-0 bg-white px-10 pb-8 pt-8 sm:rounded-md sm:shadow-md"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="flex justify-between items-center mb-4">
-        <Typography variant="h6">Se connecter à Dyari</Typography>
-        <img src={dyari} className="w-8" />
-      </div>
-      {loginError && (
-        <Typography color="error" textAlign="center">
-          {loginError}
-        </Typography>
-      )}
+    <div className="bg-white border-2 border-gray-400 w-96 z-10 rounded-md">
+      <form
+        className="w-full flex flex-col gap-y-0 bg-white px-10 pb-8 pt-8 sm:rounded-md sm:shadow-md"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <Typography variant="h6">Se connecter à Dyari</Typography>
+          <img src={dyari} className="w-8" />
+        </div>
+        {loginError && (
+          <Typography color="error" textAlign="center">
+            {loginError}
+          </Typography>
+        )}
 
-      <div className="flex flex-col gap-y-3">
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: "Adresse e-mail requise",
-            pattern: {
-              value: /^\S+@\S+\.\S+$/,
-              message: "Adresse e-mail invalide",
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              type="email"
-              label="Adresse e-mail"
-              fullWidth
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              onChange={handleFieldChange(field.onChange)}
-            />
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          rules={{ required: "Mot de passe requis" }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              type="password"
-              label="Mot de passe"
-              fullWidth
-              error={!!errors.password}
-              helperText={errors.password?.message}
-              onChange={handleFieldChange(field.onChange)}
-            />
-          )}
-        />
-      </div>
-      <div className="flex flex-col gap-y-2 mb-8 pt-1">
-        <MuiLink
-          component={RouterLink}
-          to="/forget-password"
-          textAlign="right"
-          sx={{ color: "black", fontSize: "12px" }}
-          underline="none"
-        >
-          Mot de passe oublié ?
-        </MuiLink>
-        <Button
-          type="submit"
-          variant="contained"
-          fullWidth
-          sx={{
-            textTransform: "none",
-            backgroundColor: "#d97706",
-            "&:hover": {
-              backgroundColor: "#b45309",
-            },
-          }}
-          disabled={isLoading || Boolean(loginError)}
-        >
-          {isLoading ? "Connexion..." : "Se connecter"}
-        </Button>
+        <div className="flex flex-col gap-y-3">
+          <Controller
+            name="email"
+            control={control}
+            rules={{
+              required: "Adresse e-mail requise",
+              pattern: {
+                value: /^\S+@\S+\.\S+$/,
+                message: "Adresse e-mail invalide",
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                type="email"
+                label="Adresse e-mail"
+                fullWidth
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                onChange={handleFieldChange(field.onChange)}
+              />
+            )}
+          />
+          <Controller
+            name="password"
+            control={control}
+            rules={{ required: "Mot de passe requis" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                type="password"
+                label="Mot de passe"
+                fullWidth
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                onChange={handleFieldChange(field.onChange)}
+              />
+            )}
+          />
+        </div>
+        <div className="flex flex-col gap-y-2 mb-8 pt-1">
+          <MuiLink
+            component={RouterLink}
+            to="/forget-password"
+            textAlign="right"
+            sx={{ color: "black", fontSize: "12px" }}
+            underline="none"
+          >
+            Mot de passe oublié ?
+          </MuiLink>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": {
+                backgroundColor: "#b45309",
+              },
+            }}
+            disabled={isLoading || Boolean(loginError)}
+          >
+            {isLoading ? "Connexion..." : "Se connecter"}
+          </Button>
 
-        <Button
-          variant="outlined"
-          fullWidth
-          onClick={() => navigate("/signup")}
-          sx={{
-            textTransform: "none",
-            color: "#d97706",
-            borderColor: "#d97706",
-            "&:hover": {
-              borderColor: "#b45309",
-              backgroundColor: "rgba(217, 119, 6, 0.04)",
-            },
-          }}
-        >
-          Créer un nouveau compte
-        </Button>
-      </div>
-      <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
-        <GoogleLoginButton onClick={""} />
-      </div>
-    </form>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={() => navigate("/signup")}
+            sx={{
+              textTransform: "none",
+              color: "#d97706",
+              borderColor: "#d97706",
+              "&:hover": {
+                borderColor: "#b45309",
+                backgroundColor: "rgba(217, 119, 6, 0.04)",
+              },
+            }}
+          >
+            Créer un nouveau compte
+          </Button>
+        </div>
+        <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
+          <GoogleLoginButton onClick={""} />
+        </div>
+      </form>
+    </div>
   );
 };
 
