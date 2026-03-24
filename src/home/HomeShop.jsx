@@ -56,7 +56,7 @@ const HomeShop = ({ shop }) => {
         </div>
       </div>
       <div className="relative sm:px-2">
-        <div className="flex sm:hidden gap-1 overflow-x-auto scrollbar-hide mt-1">
+        <div className="flex sm:hidden gap-0 overflow-x-auto scrollbar-hide mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
@@ -67,7 +67,7 @@ const HomeShop = ({ shop }) => {
         </div>
 
         {/* Desktop: grid */}
-        <div className="hidden sm:grid sm:grid-cols-3 gap-1 sm:mt-1">
+        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
