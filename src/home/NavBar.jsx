@@ -7,13 +7,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import SearchIcon from "@mui/icons-material/Search";
 import filters from "@/assets/filters.svg";
+import loginbg from "@/assets/loginbg.jpg";
+import faza from "@/assets/faza.png";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
   const { t } = useTranslation();
   return (
     <>
-      <div className="hidden md:block">
+      <div className="relative hidden md:block bg-cover">
         <div className="h-fit sm:h-12 flex justify-between items-end w-full sm:pl-8 px-2 sm:pr-4 sm:pb-0 py-3">
           <Link to={"/"} className="flex items-center gap-1">
             <img className="w-7" src={dyari} />

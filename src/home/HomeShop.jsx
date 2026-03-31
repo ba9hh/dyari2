@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-md py-3 sm:pt-3 sm:pb-3 sm:rounded-md sm:border-b-0 border-b-[4px] border-gray-300 cursor-pointer"
+      className="bg-white sm:shadow-none py-3 sm:pt-3 sm:pb-3 sm:rounded-md sm:border-b border-b-[4px] border-gray-300 cursor-pointer sm:border"
       onClick={() => openShop()}
     >
       <div className="flex justify-between items-center sm:px-5 px-3 pb-3 sm:pb-3">
@@ -21,7 +21,7 @@ const HomeShop = ({ shop }) => {
           />
           <div>
             <h1 className="truncate">
-              {shop.name} {shop.last_name} ({shop.localisation})
+              {shop.business_name} {shop.last_name} ({shop.address})
             </h1>
             {shop.speciality?.length > 0 && (
               <span className="crimsonText truncate">

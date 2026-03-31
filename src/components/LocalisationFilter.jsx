@@ -8,7 +8,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
   return (
     <>
       {/* Desktop */}
-      <div className="sm:flex justify-between py-3 px-8 hidden">
+      <div className="sm:flex justify-between py-3 px-2 hidden">
         <div className="flex gap-2 items-center">
           <div className="flex items-center bg-white py-2 px-3 rounded-2xl border-2 gap-2">
             <img className=" h-4 w-4 text-stone-500" src={search} />

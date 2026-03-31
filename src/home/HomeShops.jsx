@@ -9,6 +9,9 @@ import { fetchShops } from "@/services/shops/ShopsList";
 import CategoriesTabs from "@/components/tabs/CategoriesTabs";
 import LocalisationFilter from "@/components/LocalisationFilter";
 import EmptyShopState from "@/components/EmptyShopsState";
+import NavBar from "./NavBar";
+import faza from "@/assets/faza.png";
+
 const HomeShops = () => {
   const { user } = useContext(AuthContext);
   const [page, setPage] = useState(1);
@@ -87,20 +90,26 @@ const HomeShops = () => {
     );
   return (
     <>
-      <CategoriesTabs
-        type={type}
-        navbarElement={navbarElement}
-        setType={setType}
-        setNavbarElement={setNavbarElement}
-        setLocalisation={setLocalisation}
-      />
+      <div
+        className="bg-cover bg-bottom relative"
+        style={{ backgroundImage: `url(${faza})` }}
+      >
+        <NavBar />
+        <CategoriesTabs
+          type={type}
+          navbarElement={navbarElement}
+          setType={setType}
+          setNavbarElement={setNavbarElement}
+          setLocalisation={setLocalisation}
+        />
+      </div>
       <LocalisationFilter
         localisation={localisation}
         setLocalisation={setLocalisation}
       />
       <div>
         {data?.shops?.length > 0 ? (
-          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-8 sm:mx-8 sm:mt-4">
+          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-6 sm:mx-2 sm:mt-4">
             {data?.shops?.map((shop) => (
               <HomeShop key={shop.id} shop={shop} />
             ))}
