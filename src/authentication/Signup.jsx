@@ -13,8 +13,9 @@ import {
   Link as MuiLink,
   Typography,
   Box,
+  Alert,
 } from "@mui/material";
-// import { supabase } from "@/supabaseClient";
+import { supabase } from "@/supabaseClient";
 const Signup = () => {
   //   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -31,36 +32,45 @@ const Signup = () => {
   } = useForm({
     defaultValues: { name: "", email: "", password: "" },
   });
+
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+
   const handleFieldChange = (onChange) => (e) => {
     if (loginError) setLoginError("");
     clearErrors();
     onChange(e);
   };
   const onSubmit = async (data) => {
-    setLoginError("");
     setIsLoading(true);
-    // try {
-    //   // Supabase login
-    //   const { data: authData, error } = await supabase.auth.signInWithPassword({
-    //     email: data.email,
-    //     password: data.password,
-    //   });
+    setLoginError("");
 
-    //   if (error) {
-    //     throw error;
-    //   }
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          full_name: data.name,
+        },
+        // After email confirmation, Supabase will redirect to this URL.
+        // Make sure this URL is whitelisted in your Supabase project's
+        // Auth → URL Configuration → Redirect URLs.
+        emailRedirectTo: `${window.location.origin}/select-role`,
+      },
+    });
 
-    //   // authData.user → authenticated user
-    //   //   setUser(authData.user);
-    //   navigate("/");
-    // } catch (err) {
-    //   console.error("Login failed", err);
-    //   setLoginError(err.message || "Invalid email or password.");
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    setIsLoading(false);
+
+    if (error) {
+      setLoginError(error.message);
+      return;
+    }
+
+    // Show a "check your email" message instead of navigating immediately.
+    // The user will be auto-signed-in and redirected to /select-role
+    // once they click the confirmation link in their inbox.
+    setEmailSent(true);
   };
   return (
     <div className="bg-white border-2 border-gray-400 w-96 z-10 rounded-md">
@@ -72,104 +82,115 @@ const Signup = () => {
           <Typography variant="h6">S'inscrire à Dyari</Typography>
           <img src={dyari} className="w-8" />
         </div>
+        {/* Error message */}
         {loginError && (
-          <Typography color="error" textAlign="center">
+          <Alert severity="error" sx={{ mb: 2 }}>
             {loginError}
-          </Typography>
+          </Alert>
         )}
 
-        <div className="flex flex-col gap-y-3">
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: "Nom complet est requis" }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Nom complet"
-                fullWidth
-                error={!!errors.name}
-                helperText={errors.name ? errors.name.message : ""}
+        {/* Email sent confirmation */}
+        {emailSent ? (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            Un e-mail de confirmation vous a été envoyé. Veuillez vérifier votre
+            boîte de réception et cliquer sur le lien pour activer votre compte.
+          </Alert>
+        ) : (
+          <>
+            <div className="flex flex-col gap-y-3">
+              <Controller
+                name="name"
+                control={control}
+                rules={{ required: "Nom complet est requis" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Nom complet"
+                    fullWidth
+                    error={!!errors.name}
+                    helperText={errors.name ? errors.name.message : ""}
+                  />
+                )}
               />
-            )}
-          />
-          <Controller
-            name="email"
-            control={control}
-            rules={{
-              required: "Adresse e-mail requise",
-              pattern: {
-                value: /^\S+@\S+\.\S+$/,
-                message: "Adresse e-mail invalide",
-              },
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                type="email"
-                label="Adresse e-mail"
-                fullWidth
-                error={!!errors.email}
-                helperText={errors.email?.message}
-                onChange={handleFieldChange(field.onChange)}
+              <Controller
+                name="email"
+                control={control}
+                rules={{
+                  required: "Adresse e-mail requise",
+                  pattern: {
+                    value: /^\S+@\S+\.\S+$/,
+                    message: "Adresse e-mail invalide",
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="email"
+                    label="Adresse e-mail"
+                    fullWidth
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    onChange={handleFieldChange(field.onChange)}
+                  />
+                )}
               />
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            rules={{ required: "Mot de passe requis" }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                type="password"
-                label="Mot de passe"
-                fullWidth
-                error={!!errors.password}
-                helperText={errors.password?.message}
-                onChange={handleFieldChange(field.onChange)}
+              <Controller
+                name="password"
+                control={control}
+                rules={{ required: "Mot de passe requis" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="password"
+                    label="Mot de passe"
+                    fullWidth
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                    onChange={handleFieldChange(field.onChange)}
+                  />
+                )}
               />
-            )}
-          />
-        </div>
-        <div className="flex flex-col gap-y-2 mb-8 pt-4">
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            onClick={() => navigate("/role-selection")}
-            sx={{
-              textTransform: "none",
-              backgroundColor: "#d97706",
-              "&:hover": {
-                backgroundColor: "#b45309",
-              },
-            }}
-            disabled={isLoading || Boolean(loginError)}
-          >
-            {isLoading ? "Connexion..." : "S'inscrire"}
-          </Button>
+            </div>
+            <div className="flex flex-col gap-y-2 mb-8 pt-4">
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                onClick={() => navigate("/role-selection")}
+                sx={{
+                  textTransform: "none",
+                  backgroundColor: "#d97706",
+                  "&:hover": {
+                    backgroundColor: "#b45309",
+                  },
+                }}
+                disabled={isLoading || Boolean(loginError)}
+              >
+                {isLoading ? "Connexion..." : "S'inscrire"}
+              </Button>
 
-          <Button
-            variant="outlined"
-            fullWidth
-            sx={{
-              textTransform: "none",
-              color: "#d97706",
-              borderColor: "#d97706",
-              "&:hover": {
-                borderColor: "#b45309",
-                backgroundColor: "rgba(217, 119, 6, 0.04)",
-              },
-            }}
-            onClick={() => navigate("/login")}
-          >
-            j'ai déjà un compte
-          </Button>
-        </div>
-        <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
-          <GoogleLoginButton onClick={""} />
-        </div>
+              <Button
+                variant="outlined"
+                fullWidth
+                sx={{
+                  textTransform: "none",
+                  color: "#d97706",
+                  borderColor: "#d97706",
+                  "&:hover": {
+                    borderColor: "#b45309",
+                    backgroundColor: "rgba(217, 119, 6, 0.04)",
+                  },
+                }}
+                onClick={() => navigate("/login")}
+              >
+                j'ai déjà un compte
+              </Button>
+            </div>
+            <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
+              <GoogleLoginButton onClick={""} />
+            </div>
+          </>
+        )}
       </form>
     </div>
   );

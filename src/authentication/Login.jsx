@@ -54,7 +54,7 @@ const Login = () => {
       }
 
       // authData.user → authenticated user
-      setUser(authData.user);
+      //   setUser(authData.user);
       navigate("/");
     } catch (err) {
       console.error("Login failed", err);

@@ -23,18 +23,6 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             <h1 className="text-stone-700 text-sm">Filters</h1>
           </div>
         </div>
-        {/* <select
-          name="localisation"
-          value={localisation}
-          onChange={(e) => setLocalisation(e.target.value)}
-          className="h-[36px] text-stone-600 text-[#1c1e21] rounded-[4px] px-[8px] pr-[20px] border border-stone-400 w-40 cursor-pointer outline-none"
-        >
-          {cities.map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
-          ))}
-        </select> */}
         <div className="relative w-44">
           <img
             src={location}
