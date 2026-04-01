@@ -128,12 +128,12 @@ const InformationUser = ({ userId, activeTab, handleChange }) => {
             </button>
             <img
               className="w-full h-full border-2 p-1 rounded-full bg-white object-cover"
-              src={user ? user.profile_picture : pdp}
+              src={user ? user.avatar_url : pdp}
               alt="Profile"
             />
           </div>
           <div className="flex flex-col items-center">
-            <h1 className="text-lg">{user ? user.name : ""}</h1>
+            <h1 className="text-lg">{user ? user.full_name : ""}</h1>
             <h1 className="text-sm text-gray-400">{user ? user.email : ""}</h1>
           </div>
         </div>

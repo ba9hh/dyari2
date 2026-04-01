@@ -20,7 +20,7 @@ export const fetchShopOrders = async ({ queryKey }) => {
         )
       ),
       users (
-        name
+        full_name
       )
       `,
       { count: "exact" }, // count total rows
@@ -57,8 +57,7 @@ export const fetchUserOrders = async ({ queryKey }) => {
         )
       ),
       shops (
-        name,
-        last_name
+        business_name
       )
       `,
       { count: "exact" }, // <-- get total count

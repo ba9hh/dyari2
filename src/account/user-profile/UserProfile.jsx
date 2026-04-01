@@ -9,7 +9,7 @@ const UserProfile = ({ userId }) => {
     setActiveTab(newValue);
   };
   return (
-    <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-[#F5F5F5] gap-y-4">
+    <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-[#FFFFFF] gap-y-4">
       <InformationUser
         userId={userId}
         handleChange={handleChange}

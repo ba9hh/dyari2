@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
-async function getUserProfile(userId, role) {
+async function getUserProfile(userId) {
   let data, error;
 
-  if (role === "shop") {
-    ({ data, error } = await supabase
-      .from("shops")
-      .select("id, profile_picture")
-      .eq("id", userId)
-      .single());
-  } else {
-    ({ data, error } = await supabase
-      .from("users")
-      .select("id, profile_picture")
-      .eq("id", userId)
-      .single());
-  }
+  ({ data, error } = await supabase
+    .from("users")
+    .select("id, role")
+    .eq("id", userId)
+    .single());
 
   if (error) {
     console.error("Error fetching profile:", error);
     return null;
   }
 
-  return { role, ...data }; // { id, profile_picture }
+  return data; // { id, profile_picture }
 }
 const AuthContext = React.createContext();
 const AuthProvider = ({ children }) => {
@@ -37,9 +29,9 @@ const AuthProvider = ({ children }) => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Error getting session:", error);
       const authUser = data?.session?.user;
+      console.log(authUser);
       if (authUser) {
-        const role = authUser.user_metadata?.last_name ? "shop" : "user";
-        const profile = await getUserProfile(authUser.id, role);
+        const profile = await getUserProfile(authUser.id);
         setUser(profile);
       }
     };
@@ -52,28 +44,7 @@ const AuthProvider = ({ children }) => {
 
         if (authUser) {
           (async () => {
-            const role = authUser.user_metadata?.last_name ? "shop" : "user";
-            if (role === "user") {
-              const email = authUser.email;
-              const { data: shopExists } = await supabase
-                .from("shops")
-                .select("id")
-                .eq("email", email)
-                .single();
-
-              if (shopExists) {
-                // 🚫 It's a shop trying to log in with Google
-                await supabase.from("users").delete().eq("id", authUser.id); // Remove trigger-created row
-                await supabase.auth.signOut();
-                setAuthError(
-                  "Cet email est déjà utilisé pour un compte boutique. Veuillez vous essayez un autre gmail."
-                );
-                setUser(null);
-                setSessionChecked(true);
-                return;
-              }
-            }
-            const profile = await getUserProfile(authUser.id, role);
+            const profile = await getUserProfile(authUser.id);
             setUser(profile);
             setSessionChecked(true);
           })();
@@ -81,7 +52,7 @@ const AuthProvider = ({ children }) => {
           setUser(null);
           setSessionChecked(true);
         }
-      }
+      },
     );
 
     return () => listener.subscription.unsubscribe();

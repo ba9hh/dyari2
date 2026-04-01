@@ -21,7 +21,7 @@ const ShopProfile = ({ shop, onEdit }) => {
         </div>
         <div className="flex flex-col items-center">
           <h1 className="text-lg">
-            {shop?.name} {shop?.last_name}
+            {shop?.business_name} ({shop?.address})
           </h1>
           <h1 className="text-sm text-gray-400">{shop?.email}</h1>
         </div>

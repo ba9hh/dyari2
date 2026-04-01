@@ -11,6 +11,7 @@ import { fetchUserOrders } from "@/services/orders/ordersList";
 import { useQuery } from "@tanstack/react-query";
 
 const OrdersUser = ({ userId }) => {
+  console.log(userId);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const LIMIT = 5;

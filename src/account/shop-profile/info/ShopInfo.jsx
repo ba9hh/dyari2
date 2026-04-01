@@ -26,7 +26,7 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
     return <SkeletonInformationShop />;
   }
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
+    <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md border">
       <ShopHeader handleLogout={handleLogout} />
 
       <div className="absolute top-0 left-0 flex items-center px-1">
