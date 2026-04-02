@@ -35,7 +35,7 @@ const UpdateArticle = () => {
   useEffect(() => {
     if (!user) return;
     const fetchArticle = async () => {
-      const { data: art, error } = await supabase
+      const { data: article, error } = await supabase
         .from("articles")
         .select("*")
         .eq("id", articleId)
@@ -47,24 +47,24 @@ const UpdateArticle = () => {
         navigate("/account");
         return;
       }
-      if (art.shop_id !== user.id) {
-        navigate("/");
-        return;
-      }
+      // if (article.shop_id !== user.id) {
+      //   navigate("/");
+      //   return;
+      // }
 
       reset({
-        title: art.article_title,
-        type: art.article_type,
-        price: art.article_price,
+        title: article.article_title,
+        type: article.article_type,
+        price: article.article_price,
         image: null,
       });
-      setImagePreview(art.article_image);
+      setImagePreview(article.article_image);
     };
 
     fetchArticle();
   }, [articleId, reset, user, navigate]);
 
-  if (!user || user.role !== "shop") {
+  if (!user || user.role !== "vendeur") {
     navigate("/");
     return null;
   }
@@ -93,12 +93,18 @@ const UpdateArticle = () => {
 
       uploadedImageUrl = publicUrlData.publicUrl;
     }
+    const { data: shop, error: shopError } = await supabase
+      .from("shops")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
 
+    if (shopError) throw shopError;
     // Update the article
     const { error: updateError } = await supabase
       .from("articles")
       .update({
-        shop_id: user.id,
+        shop_id: shop.id,
         article_title: data.title,
         article_type: data.type,
         article_price: data.price,

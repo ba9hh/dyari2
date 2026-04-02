@@ -56,9 +56,16 @@ const AddArticle = () => {
 
         uploadedImageUrl = publicUrlData.publicUrl;
       }
+      const { data: shop, error: shopError } = await supabase
+        .from("shops")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (shopError) throw shopError;
       const { error: insertError } = await supabase.from("articles").insert([
         {
-          shop_id: user?.id,
+          shop_id: shop?.id,
           article_title: data.title,
           article_type: data.type,
           article_price: data.price,

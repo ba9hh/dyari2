@@ -199,6 +199,7 @@ const ShopForm = () => {
         />
         <div className="flex mt-4">
           <Button
+            type="submit"
             variant="outlined"
             fullWidth
             sx={{

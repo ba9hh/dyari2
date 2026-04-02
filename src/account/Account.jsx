@@ -7,7 +7,7 @@ const Account = () => {
   if (user?.role == "client") {
     return <UserProfile userId={user?.id} />;
   } else if (user?.role == "vendeur") {
-    return <ShopProfile shopId={user?.id} />;
+    return <ShopProfile userId={user?.id} />;
   }
 };
 
