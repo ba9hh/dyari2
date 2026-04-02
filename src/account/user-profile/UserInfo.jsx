@@ -22,7 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/supabaseClient";
 import UserInfoSkeleton from "@/skeleton/user-profile/UserInfoSkeleton";
 
-const InformationUser = ({ userId, activeTab, handleChange }) => {
+const UserInfo = ({ userId, activeTab, handleChange }) => {
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
@@ -218,4 +218,4 @@ const InformationUser = ({ userId, activeTab, handleChange }) => {
   );
 };
 
-export default InformationUser;
+export default UserInfo;

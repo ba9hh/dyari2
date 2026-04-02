@@ -1,5 +1,5 @@
-import React from "react";
-import loginbg from "@/assets/loginbg.jpg";
+import { useState, useContext } from "react";
+import { AuthContext } from "@/AuthProvider";
 import dyari from "@/assets/dyari.svg";
 import {
   Typography,
@@ -14,7 +14,11 @@ import { CircleCheckBig } from "lucide-react";
 import PLANS from "@/data/PLANS";
 import SPECIALITIES from "@/data/specialities";
 import CITIES from "@/data/cities";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/supabaseClient";
 const ShopForm = () => {
+  const { user } = useContext(AuthContext);
+
   const {
     control,
     handleSubmit,
@@ -27,9 +31,50 @@ const ShopForm = () => {
       plan: "starter",
     },
   });
-  const onSubmit = (data) => {
-    console.log("Form submitted:", data);
-    // TODO: send data to your API
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const navigate = useNavigate();
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    setSubmitError("");
+    console.log("Form Data:", data); // Debug log
+    if (!user) {
+      setSubmitError("Utilisateur non authentifié. Veuillez vous reconnecter.");
+      setIsLoading(false);
+      return;
+    }
+
+    // 2. Insert into public.vendeurs
+    const { error: shopError } = await supabase.from("shops").insert({
+      user_id: user.id,
+      business_name: data.projectName,
+      address: data.location,
+      category: data.speciality,
+      offer_plan: data.plan,
+    });
+    console.log("user_id:", user.id); // Debug log
+    if (shopError) {
+      console.log("shop Insert Result:", shopError); // Debug log
+      setSubmitError(shopError.message);
+      setIsLoading(false);
+      return;
+    }
+
+    // 3. Update role to 'vendeur' in public.users
+    const { error: roleError } = await supabase
+      .from("users")
+      .update({ role: "vendeur" })
+      .eq("id", user.id);
+
+    if (roleError) {
+      console.log("Role Update Result:", roleError); // Debug log
+      setSubmitError(roleError.message);
+      setIsLoading(false);
+      return;
+    }
+
+    // 4. Navigate to the vendor dashboard (adjust route as needed)
+    navigate("/account");
   };
   return (
     <div className="bg-white border-2 border-gray-400 rounded-md p-6 z-10">
@@ -153,16 +198,9 @@ const ShopForm = () => {
           )}
         />
         <div className="flex mt-4">
-          {/* <button
-              type="submit"
-              className="w-full px-2 border border-amber-700 text-amber-700 mt-4 text-base hover:bg-amber-700 hover:text-white transition-colors cursor-pointer"
-            >
-              Continue
-            </button> */}
           <Button
             variant="outlined"
             fullWidth
-            // onClick={() => navigate("/signup")}
             sx={{
               textTransform: "none",
               color: "#d97706",

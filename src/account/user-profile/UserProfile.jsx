@@ -1,4 +1,4 @@
-import InformationUser from "./InformationUser";
+import UserInfo from "./UserInfo";
 import OrdersUser from "./orders/OrdersUser";
 import LikedShops from "./liked-shops/LikedShops";
 import RatedShops from "./rated-shops/RatedShops";
@@ -10,7 +10,7 @@ const UserProfile = ({ userId }) => {
   };
   return (
     <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-[#FFFFFF] gap-y-4">
-      <InformationUser
+      <UserInfo
         userId={userId}
         handleChange={handleChange}
         activeTab={activeTab}
