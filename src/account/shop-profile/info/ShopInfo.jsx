@@ -8,12 +8,15 @@ import ShopHeader from "./ShopHeader";
 import ShopProfile from "./ShopProfile";
 import ProfilePictureDialog from "./ProfilePictureDialog";
 import ReactStars from "react-rating-stars-component";
+import { supabase } from "@/supabaseClient";
+import { useNavigate } from "react-router-dom";
 const ShopInfo = ({ shopId, activeTab, handleChange }) => {
+  const { user } = useContext(AuthContext);
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const {
     data: shop,
     error,
@@ -25,6 +28,36 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
   if (isLoading) {
     return <SkeletonInformationShop />;
   }
+  const updateRole = async (newRole) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ role: newRole })
+      .eq("id", user.id);
+
+    if (error) {
+      console.error("Error updating role:", error);
+    } else {
+      window.location.reload();
+    }
+  };
+
+  const handleBecomeVendeur = async () => {
+    // check if vendeur already exists
+    const { data, error } = await supabase
+      .from("vendeurs")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+    console.log(data);
+
+    if (data) {
+      // already has shop → just change role
+      await updateRole("vendeur");
+    } else {
+      // no shop → go create one
+      navigate("/create-shop");
+    }
+  };
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md border">
       <div className="flex justify-between items-center">
@@ -40,7 +73,10 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
           />
           <h1>({shop?.total_rating})</h1>
         </div>
-        <ShopHeader handleLogout={handleLogout} />
+        <ShopHeader
+          handleLogout={handleLogout}
+          handleBecomeVendeur={handleBecomeVendeur}
+        />
       </div>
       <hr />
       <ShopProfile shop={shop} onEdit={() => setOpen(true)} />

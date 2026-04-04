@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const ShopHeader = ({ handleLogout }) => {
+const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
   return (
     <div className="flex gap-2 p-2">
       <Button
-        // onClick={handleBecomeClient}
+        onClick={handleBecomeClient}
         variant="outlined"
         color="primary"
         sx={{

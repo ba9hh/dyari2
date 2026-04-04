@@ -92,6 +92,22 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
       <div className="flex gap-2 absolute top-4 right-2">
         <Button
+          // onClick={handleBecomeVendeur}
+          variant="outlined"
+          color="primary"
+          sx={{
+            textTransform: "none",
+            color: "#d97706",
+            borderColor: "#d97706",
+            "&:hover": {
+              borderColor: "#b45309",
+              backgroundColor: "rgba(217, 119, 6, 0.04)",
+            },
+          }}
+        >
+          Devenir vendeur
+        </Button>
+        <Button
           variant="contained"
           color="primary"
           size="small"
