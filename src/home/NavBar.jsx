@@ -56,7 +56,10 @@ const NavBar = () => {
             <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
           </div>
           <div className="flex justify-end">
-            <Link to={"/login"} className="text-gray-600 w-fit">
+            <Link
+              to={user ? "/account" : "/login"}
+              className="text-gray-600 w-fit"
+            >
               <PermIdentityIcon style={{ fontSize: "1.6rem" }} />
             </Link>
           </div>
