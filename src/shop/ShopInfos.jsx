@@ -9,7 +9,7 @@ import { AuthContext } from "@/AuthProvider";
 import Button from "@mui/material/Button";
 import { Tabs, Tab, Box } from "@mui/material";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
-import { fetchShopInformation } from "@/services/shops/ShopInformation";
+import { fetchShopInfo } from "@/services/shops/ShopInformation";
 import { likeShop, unlikeShop, isShopLiked } from "@/services/shops/likedShops";
 import { useQuery } from "@tanstack/react-query";
 import { formatSpeciality } from "@/utils/formatSpeciality";
@@ -29,8 +29,10 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
     isLoading,
   } = useQuery({
     queryKey: ["shop", shopId], // unique query key
-    queryFn: () => fetchShopInformation(shopId),
+    queryFn: () => fetchShopInfo(shopId),
   });
+  console.log(shopId);
+  console.log(shop);
   useEffect(() => {
     const checkLiked = async () => {
       if (user && user.role === "user") {
@@ -45,7 +47,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
     checkLiked();
   }, [user, shopId]);
   const toggleLike = async () => {
-    if (!user || user?.role == "shop") {
+    if (!user || user?.role == "vendeur") {
       setIsConnected(true);
       return;
     }
@@ -72,16 +74,16 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <RatingTest shopId={shopId} />
         </div> */}
         <div className="flex items-center ">
-          <h1>{shop.average_rating}</h1>
+          <h1>{shop?.average_rating}</h1>
           <ReactStars
             count={5}
             size={20}
-            value={shop.average_rating || 0}
+            value={shop?.average_rating || 0}
             isHalf={true}
             edit={false}
             activeColor="#FBBC04"
           />
-          <h1>({shop.total_rating})</h1>
+          <h1>({shop?.total_rating})</h1>
         </div>
         {/* <Button
           variant="contained"
@@ -109,11 +111,11 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             src={shop?.profile_picture}
           />
           <h1 className="text-lg">
-            {shop.name} {shop.last_name} ({shop.localisation})
+            {shop?.business_name} ({shop?.address})
           </h1>
-          {shop.speciality?.length > 0 && (
+          {shop?.speciality?.length > 0 && (
             <span className="crimsonText inline-block my-0">
-              {formatSpeciality(shop.speciality)}
+              {formatSpeciality(shop?.speciality)}
             </span>
           )}
         </div>

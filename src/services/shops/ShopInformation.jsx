@@ -9,3 +9,13 @@ export const fetchShopInformation = async (shopId) => {
   if (error) throw new Error(error.message);
   return data;
 };
+export const fetchShopInfo = async (shopId) => {
+  const { data, error } = await supabase
+    .from("shops")
+    .select("*")
+    .eq("id", shopId)
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
+};

@@ -6,6 +6,22 @@ const ShopHeader = ({ handleLogout }) => {
     <>
       <div className="flex justify-end gap-2 p-2">
         <Button
+          // onClick={handleBecomeClient}
+          variant="outlined"
+          color="primary"
+          sx={{
+            textTransform: "none",
+            color: "#d97706",
+            borderColor: "#d97706",
+            "&:hover": {
+              borderColor: "#b45309",
+              backgroundColor: "rgba(217, 119, 6, 0.04)",
+            },
+          }}
+        >
+          Devenir client
+        </Button>
+        <Button
           variant="contained"
           color="primary"
           size="small"
