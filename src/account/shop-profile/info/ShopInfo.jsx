@@ -58,6 +58,9 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
       navigate("/create-shop");
     }
   };
+  const handleBecomeClient = async () => {
+    await updateRole("client");
+  };
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md border">
       <div className="flex justify-between items-center">
@@ -75,7 +78,7 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
         </div>
         <ShopHeader
           handleLogout={handleLogout}
-          handleBecomeVendeur={handleBecomeVendeur}
+          handleBecomeClient={handleBecomeClient}
         />
       </div>
       <hr />

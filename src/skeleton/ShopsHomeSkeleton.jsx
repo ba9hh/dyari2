@@ -10,7 +10,7 @@ const ShopsHomeSkeleton = () => {
       <div className="block sm:hidden">
         <Skeleton className="w-full h-[50px] border" />
       </div>
-      <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 gap-x-16 gap-y-20 sm:mx-20 mb-20 mt-4">
+      <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 gap-x-16 gap-y-20 sm:mx-6 mb-20 mt-4">
         {Array(4)
           .fill(0)
           .map((_, i) => (

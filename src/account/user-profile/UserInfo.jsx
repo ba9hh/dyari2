@@ -21,13 +21,13 @@ import { fetchUserInformation } from "@/services/users/UserInformation";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/supabaseClient";
 import UserInfoSkeleton from "@/skeleton/user-profile/UserInfoSkeleton";
-
+import { useNavigate } from "react-router-dom";
 const UserInfo = ({ userId, activeTab, handleChange }) => {
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const {
     data: user,
     error,
@@ -87,12 +87,42 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
       setLoading(false);
     }
   };
+  const updateRole = async (newRole) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ role: newRole })
+      .eq("id", user.id);
+
+    if (error) {
+      console.error("Error updating role:", error);
+    } else {
+      window.location.reload();
+    }
+  };
+
+  const handleBecomeVendeur = async () => {
+    // check if vendeur already exists
+    const { data, error } = await supabase
+      .from("shops")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+    console.log(data);
+
+    if (data) {
+      // already has shop → just change role
+      await updateRole("vendeur");
+    } else {
+      // no shop → go create one
+      navigate("/create-shop");
+    }
+  };
   if (isLoading) return <UserInfoSkeleton />;
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
       <div className="flex gap-2 absolute top-4 right-2">
         <Button
-          // onClick={handleBecomeVendeur}
+          onClick={handleBecomeVendeur}
           variant="outlined"
           color="primary"
           sx={{
@@ -113,6 +143,10 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           size="small"
           sx={{
             textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
           }}
           component={Link}
           to="settings"
@@ -125,6 +159,10 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           size="small"
           sx={{
             textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
           }}
           onClick={handleLogout}
         >
