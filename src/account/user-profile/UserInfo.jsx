@@ -119,8 +119,8 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
   };
   if (isLoading) return <UserInfoSkeleton />;
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
-      <div className="flex gap-2 justify-end items-center">
+    <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md border">
+      <div className="flex gap-2 justify-end items-center p-2">
         <Button
           onClick={handleBecomeVendeur}
           variant="outlined"
