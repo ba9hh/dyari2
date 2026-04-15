@@ -120,7 +120,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
   if (isLoading) return <UserInfoSkeleton />;
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md">
-      <div className="flex gap-2 absolute top-4 right-2">
+      <div className="flex gap-2 justify-end items-center">
         <Button
           onClick={handleBecomeVendeur}
           variant="outlined"
@@ -169,8 +169,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           Logout
         </Button>
       </div>
-      <div className="h-28 bg-gradient-to-t from-gray-300 to-transparent flex justify-center items-center"></div>
-      <div className="flex justify-center -mt-6">
+      <div className="flex justify-center">
         <div className="flex flex-col items-center gap-1 mb-4">
           <div className="relative inline-block group w-16 h-16">
             <button
@@ -199,7 +198,14 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           indicatorColor="primary"
           textColor="primary"
           variant="standard"
-          sx={{ mb: 0, px: 2 }}
+          sx={{
+            mb: 0,
+            px: 2,
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#d97706",
+              height: "4px",
+            },
+          }}
           TabIndicatorProps={{
             style: {
               height: "4px",
@@ -210,17 +216,38 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           <Tab
             label="Orders"
             value="orders"
-            sx={{ textTransform: "none", fontWeight: "bold" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              color: "text.secondary",
+              "&.Mui-selected": {
+                color: "#d97706",
+              },
+            }}
           />
           <Tab
             label="Liked shops"
             value="likedShops"
-            sx={{ textTransform: "none", fontWeight: "bold" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              color: "text.secondary",
+              "&.Mui-selected": {
+                color: "#d97706",
+              },
+            }}
           />
           <Tab
             label="Rated shops"
             value="ratedShops"
-            sx={{ textTransform: "none", fontWeight: "bold" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              color: "text.secondary",
+              "&.Mui-selected": {
+                color: "#d97706",
+              },
+            }}
           />
         </Tabs>
       </Box>
