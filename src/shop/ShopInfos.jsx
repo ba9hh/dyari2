@@ -68,7 +68,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   };
   if (isLoading) return <SkeletonInformationShop />;
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md">
+    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
       <div className="flex justify-between items-center border-b p-2">
         {/* <div className="">
           <RatingTest shopId={shopId} />
