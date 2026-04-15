@@ -169,6 +169,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           Logout
         </Button>
       </div>
+      <hr />
       <div className="flex justify-center">
         <div className="flex flex-col items-center gap-1 mb-4">
           <div className="relative inline-block group w-16 h-16">

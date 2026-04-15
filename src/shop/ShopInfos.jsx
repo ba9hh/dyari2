@@ -85,23 +85,27 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           />
           <h1>({shop?.total_rating})</h1>
         </div>
-        {/* <Button
+        <Button
           variant="contained"
           color="primary"
           size="small"
           sx={{
             textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
           }}
           onClick={() => openOrder()}
         >
           Passer votre commande
-        </Button> */}
-        <button
+        </Button>
+        {/* <button
           className="text-sm text-white bg-amber-600 font-semibold px-3 py-1"
           onClick={() => openOrder()}
         >
           Passer votre commande
-        </button>
+        </button> */}
       </div>
 
       <div className="flex justify-center my-4">
