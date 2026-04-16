@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import ShopInfo from "./info/ShopInfo";
-import ArticlesShop from "./articles/ArticlesShop";
-import OrdersShop from "./orders/OrdersShop";
-import ContactShop from "./info/ContactShop";
+import ShopInfo from "./shop-info/ShopInfo";
+import ArticlesShop from "./shop-articles/ArticlesShop";
+import OrdersShop from "./shop-orders/OrdersShop";
+import ContactShop from "./shop-info/ContactShop";
 import Button from "@mui/material/Button";
 import { supabase } from "@/supabaseClient";
 const ShopProfile = ({ userId }) => {
