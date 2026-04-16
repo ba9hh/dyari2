@@ -55,7 +55,7 @@ const HomeShop = ({ shop }) => {
           <h1 className="text-sm sm:text-base">({shop.total_rating})</h1>
         </div>
       </div>
-      <div className="relative sm:px-0.5 ">
+      <div className="relative sm:px-0 ">
         <div className="flex sm:hidden gap-0 overflow-x-auto scrollbar-hide mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
@@ -67,7 +67,7 @@ const HomeShop = ({ shop }) => {
         </div>
 
         {/* Desktop: grid */}
-        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-0 border-t border-gray-300 pt-3 px-3">
+        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-0 border-t border-gray-300 pt-3 px-0.5">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
