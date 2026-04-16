@@ -47,9 +47,7 @@ function App() {
               <Route path="/shop-creation" element={<ShopForm />} />
             </Route>
             <Route element={<StandardLayout />}>
-              <Route path="/verify" element={<VerifyPage />} />
               <Route path="/articles" element={<ArticlesShop />} />
-              <Route path="/createshop" element={<CreateShop />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/shop/order" element={<Order />} />
               <Route path="/account" element={<Account />} />
