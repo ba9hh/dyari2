@@ -3,10 +3,6 @@ import VerifyEmail from "./authentication/reset-password/verifyEmail";
 import Order from "./order/Order";
 import AccountSettings from "./account/AccountSettings";
 import SkeletonShop from "./skeleton/SkeletonShop";
-import AuthVendorLogin from "./authentication/authVendorLogin";
-import Auth from "./authentication/auth";
-import AuthVendor from "./authentication/authVendor";
-import AuthCustomer from "./authentication/authCustomer";
 import ForgetPassword from "./authentication/reset-password/ForgetPassword";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./AuthProvider";
@@ -71,11 +67,6 @@ function App() {
               />
               <Route path="/ratingtest" element={<VerifyEmail />} />
               <Route path="/skeleton" element={<SkeletonShop />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/auth/vendor" element={<AuthVendor />} />
-              <Route path="/auth/customer" element={<AuthCustomer />} />
-              <Route path="/auth/vendor/register" element={<CreateShop />} />
-              <Route path="/auth/vendor/login" element={<AuthVendorLogin />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/dyari-delivery" element={<DyariDelivery />} />
             </Route>

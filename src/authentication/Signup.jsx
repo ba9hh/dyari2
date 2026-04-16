@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import loginbg from "@/assets/loginbg.jpg";
 import { useState, useEffect, useContext } from "react";
-// import { AuthContext } from "@/AuthProvider";
+import { AuthContext } from "@/AuthProvider";
 import { useForm, Controller } from "react-hook-form";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import dyari from "@/assets/dyari.svg";
-
 import {
   TextField,
   Button,
@@ -17,13 +16,13 @@ import {
 } from "@mui/material";
 import { supabase } from "@/supabaseClient";
 const Signup = () => {
-  //   const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  //   useEffect(() => {
-  //     if (user) {
-  //       navigate("/");
-  //     }
-  //   }, [user, navigate]);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
   const {
     control,
     handleSubmit,

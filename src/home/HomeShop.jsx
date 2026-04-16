@@ -67,7 +67,7 @@ const HomeShop = ({ shop }) => {
         </div>
 
         {/* Desktop: grid */}
-        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-0 border-t border-gray-300 pt-3">
+        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-0 border-t border-gray-300 pt-3 px-3">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}

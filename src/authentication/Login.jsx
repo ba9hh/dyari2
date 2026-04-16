@@ -17,7 +17,7 @@ import {
 import { supabase } from "@/supabaseClient";
 
 const Login = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
