@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-none py-3 sm:pt-3 sm:pb-3 sm:rounded-md sm:border-b border-b-[4px] border-gray-300 cursor-pointer sm:border"
+      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-gray-300 cursor-pointer sm:border"
       onClick={() => openShop()}
     >
       <div className="relative sm:px-0 ">
@@ -56,7 +56,7 @@ const HomeShop = ({ shop }) => {
           </div>
         )}
       </div>
-      <div className="flex justify-between items-center sm:px-5 px-3 pb-3 sm:pb-3">
+      <div className="flex justify-between items-center sm:px-5 px-3 py-3 sm:py-3">
         <div className="relative flex items-center flex-1 gap-2">
           <img
             className="w-10 h-10 rounded-full border object-cover"
