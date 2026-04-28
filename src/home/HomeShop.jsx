@@ -56,7 +56,7 @@ const HomeShop = ({ shop }) => {
           </div>
         )}
       </div>
-      <div className="flex justify-between items-center sm:px-3 px-3 py-3 sm:py-3">
+      <div className="flex justify-between items-center sm:px-3 px-3 py-3 sm:py-3 sm:border-t border-gray-300 mt-1">
         <div className="relative flex items-center flex-1 gap-2">
           <img
             className="w-10 h-10 rounded-full border object-cover"
