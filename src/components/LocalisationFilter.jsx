@@ -10,16 +10,16 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
       {/* Desktop */}
       <div className="sm:flex justify-between py-3 px-2 hidden">
         <div className="flex gap-2 items-center">
-          <div className="flex items-center bg-white py-2 px-3 rounded-[4px] border border-stone-400 gap-2">
-            <img className=" h-4 w-4 text-stone-500" src={search} />
+          <div className="flex items-center bg-white py-2 px-3 rounded-[4px] border border-stone-300 gap-2">
+            <img className=" h-4 w-4 text-stone-400" src={search} />
             <input
               placeholder="Search shops"
               className="outline-none placeholder:text-stone-400 text-sm w-52"
             />
             {/* <h1 className="text-stone-400 text-sm w-52">Search shops</h1> */}
           </div>
-          <div className="flex items-center bg-white py-2 px-3 rounded-[4px] border border-stone-400 gap-2">
-            <img className=" h-4 w-4 text-stone-500" src={filters} />
+          <div className="flex items-center bg-white py-2 px-3 rounded-[4px] border border-stone-300 gap-2">
+            <img className=" h-4 w-4 text-stone-400" src={filters} />
             <h1 className="text-stone-700 text-sm">Filters</h1>
           </div>
         </div>
