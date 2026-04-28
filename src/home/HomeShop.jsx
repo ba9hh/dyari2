@@ -24,7 +24,7 @@ const HomeShop = ({ shop }) => {
         </div>
 
         {/* Desktop: grid */}
-        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-0 border-t-0 border-gray-300 pt-0 px-0">
+        <div className="hidden sm:grid sm:grid-cols-3 gap-0 sm:mt-0 border-t-0 border-gray-300 px-0.5 pt-0.5">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
@@ -56,7 +56,7 @@ const HomeShop = ({ shop }) => {
           </div>
         )}
       </div>
-      <div className="flex justify-between items-center sm:px-3 px-3 py-3 sm:py-3 sm:border-t border-gray-300 mt-1">
+      <div className="flex justify-between items-center sm:px-3 px-3 py-3 sm:py-3 sm:border-t border-gray-300 mt-0.5">
         <div className="relative flex items-center flex-1 gap-2">
           <img
             className="w-10 h-10 rounded-full border object-cover"
