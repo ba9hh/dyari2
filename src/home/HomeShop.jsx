@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-gray-300 cursor-pointer sm:border"
+      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-gray-300 cursor-pointer sm:border sm:border-t-0"
       onClick={() => openShop()}
     >
       <div className="relative sm:px-0 ">
@@ -24,7 +24,7 @@ const HomeShop = ({ shop }) => {
         </div>
 
         {/* Desktop: grid */}
-        <div className="hidden sm:grid sm:grid-cols-3 gap-2 sm:mt-0 border-t-0 border-gray-300 pt-0 px-0">
+        <div className="hidden sm:grid sm:grid-cols-3 gap-4 sm:mt-0 border-t-0 border-gray-300 pt-0 px-0">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
