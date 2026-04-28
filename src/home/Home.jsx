@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 const Home = () => {
   return (
-    <div className="sm:bg-gray-50/60 bg-white min-h-screen pb-6">
+    <div className="sm:bg-gray-50/40 bg-white min-h-screen pb-6">
       {/* <NavBar /> */}
       <HomeShops />
     </div>
