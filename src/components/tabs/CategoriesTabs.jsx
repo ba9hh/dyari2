@@ -15,9 +15,9 @@ const CategoriesTabs = ({
   return (
     <>
       {/* Desktop */}
-      <div className="sm:flex w-full justify-center items-center gap-x-4 hidden bg-[linear-gradient(to_bottom,_transparent_50%,_#ffffff_50%)] border">
+      <div className="sm:flex w-full justify-center items-center gap-x-4 hidden bg-[linear-gradient(to_bottom,_transparent_50%,_#ffffff_50%)]">
         <div className="flex-grow border-t border-gray-300"></div>
-        <div className="flex bg-white rounded-full px-6 shadow-md ">
+        <div className="flex bg-white rounded-full px-6 shadow-md border">
           {categories.map((category) => (
             <div
               key={category.link}
