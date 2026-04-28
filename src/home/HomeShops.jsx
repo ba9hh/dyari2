@@ -92,7 +92,7 @@ const HomeShops = () => {
   return (
     <>
       <div
-        className="bg-cover bg-bottom relative bg-gray-100/90"
+        className="bg-cover bg-bottom relative bg-gray-100"
         // style={{ backgroundImage: `url(${faza})` }}
       >
         <NavBar />
