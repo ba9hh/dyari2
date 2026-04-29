@@ -64,11 +64,11 @@ const HomeShop = ({ shop }) => {
             alt="Shop Profile"
           />
           <div>
-            <h1 className="truncate text-sm">
+            <h1 className="truncate text-[15px]">
               {shop.business_name} {shop.last_name} ({shop.address})
             </h1>
             {shop.speciality?.length > 0 && (
-              <span className="crimsonText truncate text-sm">
+              <span className="crimsonText truncate text-[15px]">
                 {formatSpeciality(shop.speciality)}
               </span>
             )}
