@@ -21,7 +21,7 @@ const CategoriesTabs = ({
           {categories.map((category) => (
             <div
               key={category.link}
-              className={`px-3 py-2 cursor-pointer ${
+              className={`px-3 py-1.5 cursor-pointer ${
                 navbarElement == category.link
                   ? "border-b-[4px] border-amber-400"
                   : ""
