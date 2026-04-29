@@ -89,7 +89,7 @@ const HomeShop = ({ shop }) => {
           <div className="hidden sm:block">
             <ReactStars
               count={5}
-              size={20}
+              size={18}
               value={shop.average_rating || 0}
               isHalf={true}
               edit={false}
