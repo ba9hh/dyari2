@@ -18,10 +18,10 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             />
             {/* <h1 className="text-stone-400 text-sm w-52">Search shops</h1> */}
           </div>
-          <div className="flex items-center bg-white py-2 px-3 rounded-[4px] border border-stone-300 gap-2">
+          {/* <div className="flex items-center bg-white py-2 px-3 rounded-[4px] border border-stone-300 gap-2">
             <img className=" h-4 w-4 text-stone-400" src={filters} />
             <h1 className="text-stone-500 text-sm">Filters</h1>
-          </div>
+          </div> */}
         </div>
         <div className="relative w-44">
           <img
