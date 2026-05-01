@@ -23,7 +23,7 @@ const CategoriesTabs = ({
               key={category.link}
               className={`px-3 py-1 cursor-pointer font-light ${
                 navbarElement == category.link
-                  ? "border-b-[3px] border-amber-400 font-normal"
+                  ? "border-b-[3px] border-amber-400 font-normal text-amber-400"
                   : ""
               }`}
               onClick={() => {
