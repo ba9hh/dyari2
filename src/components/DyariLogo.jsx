@@ -9,16 +9,16 @@ const DyariLogo = () => {
 
   return (
     <>
-      <div className="absolute hidden md:flex w-full justify-between items-end top-4 sm:pl-8 pl-2 sm:pr-4 z-10">
+      <div className="absolute hidden md:flex w-full justify-between items-center top-4 sm:pl-8 pl-2 sm:pr-4 z-10">
         <Link to={"/"} className="flex items-center gap-1">
-          <img className="w-3" src={dyari} />
+          <img className="w-7" src={dyari} />
           <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
         </Link>
         <div>
           {user ? (
             <div>
               <Link
-                className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 shadow-sm hidden sm:block"
+                className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 hidden sm:block"
                 to={"/account"}
               >
                 {/* {t("navbar.login")} */}
