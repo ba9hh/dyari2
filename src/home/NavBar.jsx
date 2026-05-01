@@ -16,9 +16,9 @@ const NavBar = () => {
   return (
     <>
       <div className="relative hidden md:block bg-cover">
-        <div className="h-fit sm:h-12 flex justify-between items-end w-full sm:pl-2 px-2 sm:pr-2 sm:pb-0 py-3">
+        <div className="h-fit sm:h-12 flex justify-between items-center w-full sm:pl-2 px-2 sm:pr-2 sm:pb-0 py-3">
           <Link to={"/"} className="flex items-center gap-1">
-            <img className="w-7" src={dyari} />
+            <img className="w-6" src={dyari} />
             <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
           </Link>
           <div>
