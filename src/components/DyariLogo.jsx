@@ -10,7 +10,7 @@ const DyariLogo = () => {
   return (
     <>
       <div className="absolute hidden md:flex w-full justify-between items-center top-4 sm:pl-2 pl-2 sm:pr-2 z-10">
-        <Link to={"/"} className="flex items-center gap-1">
+        <Link to={"/"} className="flex items-end gap-1">
           <img className="w-7" src={dyari} />
           <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
         </Link>
