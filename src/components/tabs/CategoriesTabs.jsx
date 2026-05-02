@@ -21,9 +21,9 @@ const CategoriesTabs = ({
           {categories.map((category) => (
             <div
               key={category.link}
-              className={`px-3 py-1 cursor-pointer font-light ${
+              className={`px-3 py-1 cursor-pointer text-sm ${
                 navbarElement == category.link
-                  ? "border-b-[3px] border-amber-400 font-normal text-amber-700"
+                  ? "border-b-[3px] border-amber-400 text-base text-amber-700"
                   : ""
               }`}
               onClick={() => {
