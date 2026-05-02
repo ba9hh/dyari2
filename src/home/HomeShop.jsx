@@ -28,7 +28,7 @@ const HomeShop = ({ shop }) => {
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
-              className="w-full aspect-square object-cover"
+              className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300"
               src={article?.article_image ?? biscuit50}
             />
           ))}
