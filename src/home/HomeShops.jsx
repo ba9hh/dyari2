@@ -56,6 +56,7 @@ const HomeShops = () => {
   if (isLoading)
     return (
       <>
+        <div className="bg-cover bg-bottom relative bg-gray-100/50"></div>
         <CategoriesTabs
           type={type}
           navbarElement={navbarElement}
@@ -69,6 +70,7 @@ const HomeShops = () => {
   if (isError)
     return (
       <>
+        <div className="bg-cover bg-bottom relative bg-gray-100/50"></div>
         <CategoriesTabs
           type={type}
           navbarElement={navbarElement}
