@@ -56,28 +56,32 @@ const HomeShops = () => {
   if (isLoading)
     return (
       <>
-        <div className="bg-cover bg-bottom relative bg-gray-100/50"></div>
-        <CategoriesTabs
-          type={type}
-          navbarElement={navbarElement}
-          setType={setType}
-          setNavbarElement={setNavbarElement}
-          setLocalisation={setLocalisation}
-        />
+        <div className="bg-cover bg-bottom relative bg-gray-100/50">
+          <NavBar />
+          <CategoriesTabs
+            type={type}
+            navbarElement={navbarElement}
+            setType={setType}
+            setNavbarElement={setNavbarElement}
+            setLocalisation={setLocalisation}
+          />
+        </div>
         <ShopsHomeSkeleton />
       </>
     );
   if (isError)
     return (
       <>
-        <div className="bg-cover bg-bottom relative bg-gray-100/50"></div>
-        <CategoriesTabs
-          type={type}
-          navbarElement={navbarElement}
-          setType={setType}
-          setNavbarElement={setNavbarElement}
-          setLocalisation={setLocalisation}
-        />
+        <div className="bg-cover bg-bottom relative bg-gray-100/50">
+          <NavBar />
+          <CategoriesTabs
+            type={type}
+            navbarElement={navbarElement}
+            setType={setType}
+            setNavbarElement={setNavbarElement}
+            setLocalisation={setLocalisation}
+          />
+        </div>
         <div className="flex flex-col items-center justify-center py-32">
           <p className="text-red-500 text-lg font-semibold">
             Oops! Something went wrong while loading shops.
