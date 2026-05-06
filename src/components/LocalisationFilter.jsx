@@ -55,7 +55,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
       </div>
       {/* Mobile */}
       <div className="block sm:hidden">
-        <div className="relative w-full mx-1">
+        <div className="relative w-full mx-0.5 mt-0.5">
           {/* <img
             src={location}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4"
@@ -64,7 +64,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             name="localisation"
             value={localisation}
             onChange={(e) => setLocalisation(e.target.value)}
-            className="h-fit text-center flex justify-center text-stone-600 px-[8px] py-3 border-b border-stone-300 w-full cursor-pointer outline-none appearance-none bg-white"
+            className="h-fit text-center flex justify-center text-stone-600 px-[8px] py-3 border border-stone-300 w-full cursor-pointer outline-none appearance-none bg-white"
           >
             {cities.map((city) => (
               <option key={city} value={city}>
@@ -73,7 +73,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             ))}
           </select>
           <svg
-            className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"
+            className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"
             width="16"
             height="16"
             fill="none"
