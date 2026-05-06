@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-gray-300 cursor-pointer sm:border sm:border-t"
+      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-100/50 sm:border-gray-300 cursor-pointer sm:border sm:border-t"
       onClick={() => openShop()}
     >
       <div className="relative sm:px-0 ">
@@ -64,11 +64,11 @@ const HomeShop = ({ shop }) => {
             alt="Shop Profile"
           />
           <div>
-            <h1 className="truncate text-[15px]">
+            <h1 className="truncate text-sm sm:text-[15px]">
               {shop.business_name} {shop.last_name} ({shop.address})
             </h1>
             {shop.speciality?.length > 0 && (
-              <span className="crimsonText truncate text-[15px]">
+              <span className="crimsonText truncate text-sm sm:text-[15px]">
                 {formatSpeciality(shop.speciality)}
               </span>
             )}
