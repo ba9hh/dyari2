@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { fetchShopInformation } from "@/services/shops/ShopInformation";
-import SkeletonInformationShop from "@/skeleton/shop/SkeletonInformationShop";
+import SkeletonShopInfo from "@/skeleton/shop/SkeletonShopInfo";
 import ShopTabs from "@/components/tabs/ShopTabs";
 import ShopHeader from "./ShopHeader";
 import ShopProfile from "./ShopProfile";
@@ -26,7 +26,7 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
     queryFn: () => fetchShopInformation(shopId),
   });
   if (isLoading) {
-    return <SkeletonInformationShop />;
+    return <SkeletonShopInfo />;
   }
   const updateRole = async (newRole) => {
     const { error } = await supabase

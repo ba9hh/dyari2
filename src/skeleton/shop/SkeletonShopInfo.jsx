@@ -1,5 +1,5 @@
 import Skeleton from "react-loading-skeleton";
-const SkeletonInformationShop = () => {
+const SkeletonShopInfo = () => {
   return (
     <div className="relative w-full sm:w-2/3 bg-white sm:shadow-md sm:rounded-md">
       <div className="absolute top-4 right-2 px-3 pb-2 pt-1 rounded-md">
@@ -8,18 +8,15 @@ const SkeletonInformationShop = () => {
       <div className="absolute top-4 left-2 px-3 pb-2 pt-1 rounded-md">
         <Skeleton width={100} height={15} />{" "}
       </div>
-      <div className="flex justify-center -mt-6">
+      <div className="flex justify-center my-4">
         <div className="flex flex-col items-center gap-1 mb-4">
           <Skeleton width={80} height={80} circle />
           <Skeleton width={100} height={20} />
           <Skeleton width={200} height={20} />
-          <button className=" rounded-md  mt-2">
-            <Skeleton width={80} height={40} />
-          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SkeletonInformationShop;
+export default SkeletonShopInfo;

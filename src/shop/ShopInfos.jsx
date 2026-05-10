@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import SkeletonInformationShop from "@/skeleton/shop/SkeletonInformationShop";
+import SkeletonShopInfo from "@/skeleton/shop/SkeletonShopInfo";
 import { Link, useNavigate } from "react-router-dom";
 import RatingTest from "@/components/RatingTest";
 import IconButton from "@mui/material/IconButton";
@@ -66,7 +66,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   const openOrder = () => {
     navigate("order", { state: shopId });
   };
-  if (isLoading) return <SkeletonInformationShop />;
+  if (isLoading) return <SkeletonShopInfo />;
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
       <div className="flex justify-between items-center border-b p-2">

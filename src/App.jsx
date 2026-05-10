@@ -24,7 +24,7 @@ import Signup from "./authentication/Signup";
 import RoleSelection from "./components/RoleSelection";
 import ShopForm from "./authentication/ShopForm";
 import AuthLayout from "./components/AuthLayout";
-import SkeletonInformationShop from "./skeleton/shop/SkeletonInformationShop";
+import SkeletonShopInfo from "./skeleton/shop/SkeletonShopInfo";
 function StandardLayout() {
   return (
     <>
@@ -63,7 +63,7 @@ function App() {
                 element={<UpdateArticle />}
               />
               <Route path="/ratingtest" element={<VerifyEmail />} />
-              <Route path="/skeleton" element={<SkeletonInformationShop />} />
+              <Route path="/skeleton" element={<SkeletonShopInfo />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/dyari-delivery" element={<DyariDelivery />} />
             </Route>
