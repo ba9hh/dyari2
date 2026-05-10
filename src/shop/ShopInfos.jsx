@@ -114,7 +114,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             className="w-16 h-16 border-2 p-1 rounded-full bg-white object-cover"
             src={shop?.profile_picture}
           />
-          <h1 className="text-lg">
+          <h1 className="">
             {shop?.business_name} ({shop?.address})
           </h1>
           {shop?.speciality?.length > 0 && (
