@@ -8,7 +8,6 @@ const SkeletonInformationShop = () => {
       <div className="absolute top-4 left-2 px-3 pb-2 pt-1 rounded-md">
         <Skeleton width={100} height={15} />{" "}
       </div>
-      <div className="h-48 bg-gradient-to-t from-gray-300 to-transparent flex justify-center items-center"></div>
       <div className="flex justify-center -mt-6">
         <div className="flex flex-col items-center gap-1 mb-4">
           <Skeleton width={80} height={80} circle />

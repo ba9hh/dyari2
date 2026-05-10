@@ -15,6 +15,11 @@ const ShopsHomeSkeleton = () => {
           .fill(0)
           .map((_, i) => (
             <div key={i}>
+              <div className="grid grid-cols-3 sm:grid-cols-3 gap-1 mt-1">
+                <Skeleton className="w-full aspect-square border" />
+                <Skeleton className="w-full aspect-square border" />
+                <Skeleton className="w-full aspect-square border" />
+              </div>
               <div className="flex justify-between items-center">
                 <div className="flex gap-2">
                   <Skeleton width={40} height={40} circle />
@@ -27,11 +32,6 @@ const ShopsHomeSkeleton = () => {
                   <Skeleton width={80} height={10} />
                   <Skeleton width={20} height={10} />
                 </div>
-              </div>
-              <div className="grid grid-cols-3 sm:grid-cols-3 gap-1 mt-1">
-                <Skeleton className="w-full aspect-[12/16] border" />
-                <Skeleton className="w-full aspect-[12/16] border" />
-                <Skeleton className="w-full aspect-[12/16] border" />
               </div>
             </div>
           ))}
