@@ -14,7 +14,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             <img className=" h-4 w-4 text-stone-400" src={search} />
             <input
               placeholder="Search shops"
-              className="outline-none placeholder:text-stone-400 text-sm w-52"
+              className="outline-none placeholder:text-stone-400 text-sm w-48"
             />
             {/* <h1 className="text-stone-400 text-sm w-52">Search shops</h1> */}
           </div>
@@ -23,7 +23,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
             <h1 className="text-stone-500 text-sm">Filters</h1>
           </div> */}
         </div>
-        <div className="relative w-44">
+        <div className="relative w-40">
           <img
             src={location}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4"
