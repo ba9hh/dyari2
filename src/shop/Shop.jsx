@@ -27,7 +27,7 @@ const Shop = () => {
     }
   };
   return (
-    <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-gray-50/40 gap-y-4 w-full">
+    <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-4 w-full">
       <ShopInfos
         shopId={state}
         handleChange={handleChange}
