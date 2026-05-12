@@ -9,7 +9,7 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-100/50 sm:border-gray-300 cursor-pointer sm:border sm:border-t sm:hover:border-gray-400 transition-colors duration-300"
+      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-md sm:border-b border-b-[4px] border-100/50 sm:border-gray-300 cursor-pointer sm:border sm:border-t"
       onClick={() => openShop()}
     >
       <div className="relative sm:px-0 ">
