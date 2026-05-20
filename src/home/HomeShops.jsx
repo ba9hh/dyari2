@@ -115,7 +115,7 @@ const HomeShops = () => {
         setLocalisation={setLocalisation}
       />
       <div className="sm:mt-6 sm:mx-2 ">
-        <h1 className="text-xl font-bold text-gray-700 mb-4">
+        <h1 className="text-xl font-bold text-gray-600 underline mb-4">
           Decouvrir les meilleurs fait maison à Dyari :
         </h1>
         {data?.shops?.length > 0 ? (
