@@ -115,7 +115,7 @@ const HomeShops = () => {
         localisation={localisation}
         setLocalisation={setLocalisation}
       />
-      <div className="sm:mt-10 sm:mx-2 ">
+      <div className="sm:mt-6 sm:mx-2 ">
         <div className="flex items-center mb-4">
           <h1 className="text-lg font-bold text-gray-600 ">
             <span className="underline">Decouvrir les meilleurs</span>
