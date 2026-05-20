@@ -11,6 +11,7 @@ import LocalisationFilter from "@/components/LocalisationFilter";
 import EmptyShopState from "@/components/EmptyShopsState";
 import NavBar from "./NavBar";
 import faza from "@/assets/faza.png";
+import dyari from "@/assets/dyari.svg";
 
 const HomeShops = () => {
   const { user } = useContext(AuthContext);
@@ -115,11 +116,14 @@ const HomeShops = () => {
         setLocalisation={setLocalisation}
       />
       <div className="sm:mt-10 sm:mx-2 ">
-        <h1 className="text-xl font-bold text-gray-600 mb-4">
-          <span className="underline">Decouvrir les meilleurs</span>
-          <span className="text-amber-600 no-underline"> faits maison </span>
-          <span className="underline">à Dyari :</span>
-        </h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold text-gray-600 mb-4">
+            <span className="underline">Decouvrir les meilleurs</span>
+            <span className="text-amber-600 no-underline"> faits maison </span>
+            <span className="underline">à Dyari :</span>
+          </h1>
+          <img src={dyari} className="w-8" />
+        </div>
         {data?.shops?.length > 0 ? (
           <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">
             {data?.shops?.map((shop) => (
