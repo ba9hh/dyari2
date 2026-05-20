@@ -120,7 +120,7 @@ const HomeShops = () => {
           <h1 className="text-xl font-bold text-gray-600 ">
             <span className="underline">Decouvrir les meilleurs</span>
             <span className="text-amber-600 no-underline"> faits maison </span>
-            <span className="underline">à Dyari </span>:
+            <span className="underline">à Dyari</span> :
           </h1>
           <img src={dyari} className="w-7" />
         </div>
