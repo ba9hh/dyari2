@@ -116,7 +116,7 @@ const HomeShops = () => {
         setLocalisation={setLocalisation}
       />
       <div className="sm:mt-4 sm:mx-2 ">
-        <div className="flex justify-between items-center mb-4 mt-6 border-t border-gray-300">
+        <div className="flex justify-between items-center mb-4 pt-6 border-t border-gray-300">
           <h1 className="text-xl font-bold text-gray-600 ">
             <span className="underline">Decouvrir les meilleurs</span>
             <span className="text-amber-600 no-underline"> faits maison </span>
