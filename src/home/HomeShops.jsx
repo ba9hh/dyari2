@@ -114,8 +114,8 @@ const HomeShops = () => {
         localisation={localisation}
         setLocalisation={setLocalisation}
       />
-      <div className="sm:mt-16 sm:mx-2 ">
-        <h1 className="text-lg font-medium text-gray-800">
+      <div className="sm:mt-10 sm:mx-2 ">
+        <h1 className="text-lg font-medium text-gray-800 mb-4">
           Decouvrir les meilleurs fait maison
         </h1>
         {data?.shops?.length > 0 ? (
