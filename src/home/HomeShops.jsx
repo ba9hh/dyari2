@@ -114,9 +114,12 @@ const HomeShops = () => {
         localisation={localisation}
         setLocalisation={setLocalisation}
       />
-      <div>
+      <div className="sm:mt-16 sm:mx-2 ">
+        <h1 className="text-lg font-medium text-gray-800">
+          Decouvrir les meilleurs fait maison
+        </h1>
         {data?.shops?.length > 0 ? (
-          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 sm:mx-2 sm:mt-16">
+          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">
             {data?.shops?.map((shop) => (
               <HomeShop key={shop.id} shop={shop} />
             ))}
