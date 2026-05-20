@@ -122,7 +122,7 @@ const HomeShops = () => {
             <span className="text-amber-600 no-underline"> faits maison </span>
             <span className="underline">à Dyari :</span>
           </h1>
-          <img src={dyari} className="w-8" />
+          <img src={dyari} className="w-7" />
         </div>
         {data?.shops?.length > 0 ? (
           <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">
