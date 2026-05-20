@@ -115,8 +115,8 @@ const HomeShops = () => {
         localisation={localisation}
         setLocalisation={setLocalisation}
       />
-      <div className="sm:mt-6 ">
-        <div className="flex justify-between items-center mb-4 pt-4 border-t border-gray-300 sm:px-2">
+      <div className="sm:mt-8 sm:mx-2 ">
+        <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold text-gray-600 ">
             <span className="underline">Decouvrir les meilleurs</span>
             <span className="text-amber-600 no-underline"> faits maison </span>
@@ -125,7 +125,7 @@ const HomeShops = () => {
           <img src={dyari} className="w-7" />
         </div>
         {data?.shops?.length > 0 ? (
-          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 sm:mx-2">
+          <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">
             {data?.shops?.map((shop) => (
               <HomeShop key={shop.id} shop={shop} />
             ))}
