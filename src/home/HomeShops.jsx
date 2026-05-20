@@ -117,7 +117,8 @@ const HomeShops = () => {
       <div className="sm:mt-10 sm:mx-2 ">
         <h1 className="text-xl font-bold text-gray-600 underline mb-4">
           Decouvrir les meilleurs{" "}
-          <span className="text-amber-600">faits maison</span> à Dyari :
+          <span className="text-amber-600 no-underline">faits maison</span> à
+          Dyari :
         </h1>
         {data?.shops?.length > 0 ? (
           <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">
