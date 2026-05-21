@@ -38,8 +38,8 @@ const ShopArticles = ({ shopId }) => {
   if (isLoading) return <SkeletonArticlesShop />;
   return (
     <>
-      <div className="w-full sm:w-2/3 bg-white sm:shadow-md rounded-md pb-0">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-0 sm:gap-0 sm:px-0 sm:mt-0 border">
+      <div className="w-full sm:w-2/3 bg-white rounded-md pb-0">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-0 sm:gap-0 sm:px-0 sm:mt-0">
           {articles?.articles?.map((article, index) => (
             <div key={index} className="">
               <ShopArticle
