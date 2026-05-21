@@ -108,7 +108,7 @@ const Order = () => {
     }
   };
   return (
-    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-[#f2f2f2] pt-16 pb-8 sm:px-0">
+    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 pt-16 pb-8 sm:px-0">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
