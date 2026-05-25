@@ -23,8 +23,8 @@ const ShopProfile = ({ shop, onEdit }) => {
           <h1 className="text-lg">
             {shop?.business_name} ({shop?.address})
           </h1>
-          <h1 className="text-base">{shop?.category}</h1>
-          <h1 className="text-sm text-gray-400">{shop?.email}</h1>
+          <h1 className="text-base">Specialité: {shop?.category}</h1>
+          {/* <h1 className="text-sm text-gray-400">{shop?.email}</h1> */}
         </div>
       </div>
     </div>
