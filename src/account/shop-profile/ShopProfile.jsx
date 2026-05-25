@@ -36,7 +36,7 @@ const ShopProfile = ({ userId }) => {
       />
       {activeTab === "articles" && <ArticlesShop shopId={shopId} />}
       {activeTab === "orders" && <OrdersShop shopId={shopId} />}
-      {activeTab === "contact" && <ContactShop shopId={shopId} />}
+      {/* {activeTab === "contact" && <ContactShop shopId={shopId} />} */}
     </div>
   );
 };

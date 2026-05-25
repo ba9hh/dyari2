@@ -49,7 +49,7 @@ const ShopTabs = ({ activeTab, handleChange }) => {
             },
           }}
         />
-        <Tab
+        {/* <Tab
           label="Contact"
           value="contact"
           sx={{
@@ -60,7 +60,7 @@ const ShopTabs = ({ activeTab, handleChange }) => {
               color: "#d97706",
             },
           }}
-        />
+        /> */}
       </Tabs>
     </Box>
   );
