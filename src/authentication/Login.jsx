@@ -17,7 +17,8 @@ import {
 import { supabase } from "@/supabaseClient";
 
 const Login = () => {
-  const { user } = useContext(AuthContext);
+  const { user, sessionChecked, loginWithGoogle, authError } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -163,7 +164,7 @@ const Login = () => {
           </Button>
         </div>
         <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
-          <GoogleLoginButton onClick={""} />
+          <GoogleLoginButton onClick={loginWithGoogle} />
         </div>
       </form>
     </div>

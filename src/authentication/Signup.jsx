@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { supabase } from "@/supabaseClient";
 const Signup = () => {
-  const { user } = useContext(AuthContext);
+  const { user, signupWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -185,7 +185,7 @@ const Signup = () => {
               </Button>
             </div>
             <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
-              <GoogleLoginButton onClick={""} />
+              <GoogleLoginButton onClick={signupWithGoogle} />
             </div>
           </>
         )}

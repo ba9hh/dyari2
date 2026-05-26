@@ -61,13 +61,19 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173/auth/customer",
-        data: {
-          role: "user",
-        },
+        redirectTo: "https://dyaritunisie.com",
       },
     });
     if (error) console.error("Google login error:", error.message);
+  };
+  const signupWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "https://dyaritunisie.com/role-selection",
+      },
+    });
+    if (error) console.error("Google signup error:", error.message);
   };
 
   const handleLogout = async () => {
@@ -79,7 +85,7 @@ const AuthProvider = ({ children }) => {
         return;
       }
       setUser(null);
-      navigate("/auth");
+      navigate("/");
     } catch (err) {
       console.error("Unexpected logout error:", err);
     }
@@ -93,6 +99,7 @@ const AuthProvider = ({ children }) => {
         sessionChecked,
         setUser,
         loginWithGoogle,
+        signupWithGoogle,
         handleLogout,
       }}
     >
