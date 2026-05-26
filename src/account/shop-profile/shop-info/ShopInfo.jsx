@@ -40,24 +40,6 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
       window.location.reload();
     }
   };
-
-  const handleBecomeVendeur = async () => {
-    // check if vendeur already exists
-    const { data, error } = await supabase
-      .from("vendeurs")
-      .select("*")
-      .eq("user_id", user.id)
-      .single();
-    console.log(data);
-
-    if (data) {
-      // already has shop → just change role
-      await updateRole("vendeur");
-    } else {
-      // no shop → go create one
-      navigate("/create-shop");
-    }
-  };
   const handleBecomeClient = async () => {
     await updateRole("client");
   };
