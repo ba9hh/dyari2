@@ -114,7 +114,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
       await updateRole("vendeur");
     } else {
       // no shop → go create one
-      navigate("/create-shop");
+      navigate("/shop-creation");
     }
   };
   if (isLoading) return <UserInfoSkeleton />;
