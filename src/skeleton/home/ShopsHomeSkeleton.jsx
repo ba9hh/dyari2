@@ -4,9 +4,9 @@ import Skeleton from "react-loading-skeleton";
 const ShopsHomeSkeleton = () => {
   return (
     <div>
-      <div className="sm:flex justify-end py-3 px-8 hidden">
+      {/* <div className="sm:flex justify-end py-3 px-8 hidden">
         <Skeleton width={160} height={36} />
-      </div>
+      </div> */}
       <div className="block sm:hidden">
         <Skeleton className="w-full h-[50px] border" />
       </div>
