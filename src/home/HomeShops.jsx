@@ -135,8 +135,8 @@ const HomeShops = () => {
       />
       <div className="sm:mt-6 sm:mx-2 ">
         <div className="flex items-center mb-4">
-          <img src={dyari} className="w-7 pr-2" />
-          <h1 className="sm:text-lg font-bold text-gray-600 ">
+          <img src={dyari} className="w-7" />
+          <h1 className="sm:text-lg font-bold text-gray-600 ml-2">
             <span className="underline">Decouvrir les meilleurs</span>
             <span className="text-amber-600 no-underline"> faits maison </span>
             <span className="underline">à Dyari</span> :
