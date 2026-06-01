@@ -117,7 +117,7 @@ const HomeShops = () => {
   return (
     <>
       <div
-        className="bg-cover bg-bottom relative bg-gray-100/50"
+        className="bg-gradient-to-b from-gray-100/50 to-transparent"
         // style={{ backgroundImage: `url(${faza})` }}
       >
         <NavBar />
@@ -128,11 +128,12 @@ const HomeShops = () => {
           setNavbarElement={setNavbarElement}
           setLocalisation={setLocalisation}
         />
+        <LocalisationFilter
+          localisation={localisation}
+          setLocalisation={setLocalisation}
+        />
       </div>
-      <LocalisationFilter
-        localisation={localisation}
-        setLocalisation={setLocalisation}
-      />
+
       <div className="sm:mt-6 sm:mx-2 ">
         <div className="flex items-center mb-6">
           <img src={dyari} className="w-7" />
