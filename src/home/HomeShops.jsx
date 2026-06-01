@@ -134,7 +134,7 @@ const HomeShops = () => {
         setLocalisation={setLocalisation}
       />
       <div className="sm:mt-6 sm:mx-2 ">
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-6">
           <img src={dyari} className="w-7" />
           <div className="flex-grow border-t border-gray-300 mx-6"></div>
           <h1 className="sm:text-lg font-bold text-gray-600 ">
