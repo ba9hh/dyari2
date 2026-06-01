@@ -57,7 +57,7 @@ const HomeShops = () => {
   if (isLoading)
     return (
       <>
-        <div className="bg-cover bg-bottom relative bg-gradient-to-b from-gray-100/50 to-transparent">
+        <div className="bg-cover bg-bottom relative bg-gray-100/50">
           <NavBar />
           <CategoriesTabs
             type={type}
@@ -91,7 +91,7 @@ const HomeShops = () => {
   if (isError)
     return (
       <>
-        <div className="bg-cover relative bg-gradient-to-b from-gray-100/50 to-transparent">
+        <div className="bg-cover bg-bottom relative bg-gray-100/50">
           <NavBar />
           <CategoriesTabs
             type={type}
@@ -117,7 +117,7 @@ const HomeShops = () => {
   return (
     <>
       <div
-        className="bg-gradient-to-b from-gray-100/50 to-transparent"
+        className="bg-cover bg-bottom relative bg-gray-100/50"
         // style={{ backgroundImage: `url(${faza})` }}
       >
         <NavBar />
@@ -128,12 +128,11 @@ const HomeShops = () => {
           setNavbarElement={setNavbarElement}
           setLocalisation={setLocalisation}
         />
-        <LocalisationFilter
-          localisation={localisation}
-          setLocalisation={setLocalisation}
-        />
       </div>
-
+      <LocalisationFilter
+        localisation={localisation}
+        setLocalisation={setLocalisation}
+      />
       <div className="sm:mt-6 sm:mx-2 ">
         <div className="flex items-center mb-6">
           <img src={dyari} className="w-7" />
