@@ -8,7 +8,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
   return (
     <>
       {/* Desktop */}
-      <div className="sm:flex justify-between py-0 px-2 hidden -mt-2">
+      <div className="sm:flex justify-between py-0 px-2 hidden ">
         <div className="flex gap-2 items-center">
           <div className="flex items-center bg-white py-1.5 px-2 rounded-[4px] border border-stone-300 hover:border-stone-400 gap-2">
             <img className=" h-4 w-4 text-stone-400" src={search} />
@@ -53,7 +53,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
           </svg>
         </div>
       </div>
-      <hr className="sm:block hidden bg-stone-200 mt-2" />
+      <hr className="sm:block hidden bg-stone-200 mt-4" />
       {/* Mobile */}
       <div className="block mx-0.5 sm:hidden">
         <div className="relative w-full mt-0.5">
