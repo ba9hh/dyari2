@@ -53,7 +53,7 @@ const LocalisationFilter = ({ localisation, setLocalisation }) => {
           </svg>
         </div>
       </div>
-      <hr className="sm:block hidden bg-stone-200 mt-4" />
+      <hr className="sm:block hidden bg-gray-300 mt-4" />
       {/* Mobile */}
       <div className="block mx-0.5 sm:hidden">
         <div className="relative w-full mt-0.5">
