@@ -46,7 +46,7 @@ const ShopProfile = ({ shopId, activeTab, handleChange }) => {
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md border">
       <div className="flex justify-between items-center">
-        <div className="flex items-center px-1">
+        <div className="flex items-center px-2">
           <h1>{shop?.average_rating}</h1>
           <ReactStars
             count={5}
