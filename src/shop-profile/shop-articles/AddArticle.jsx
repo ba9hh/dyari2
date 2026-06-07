@@ -136,11 +136,11 @@ const AddArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-4">
             <Typography variant="h6">Ajouter un nouvel article</Typography>
             <img src={dyari} className="w-7" />
           </div>
-
+          <hr className="mb-6" />
           <Controller
             name="image"
             control={control}
