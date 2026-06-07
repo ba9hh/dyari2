@@ -5,7 +5,7 @@ const ShopInfo = ({ shop, onEdit }) => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center gap-1 mb-4 mt-4">
-        <div className="relative inline-block group w-20 h-20">
+        <div className="relative inline-block group w-16 h-16">
           <button
             type="button"
             onClick={onEdit}
@@ -20,10 +20,9 @@ const ShopInfo = ({ shop, onEdit }) => {
           />
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-lg">
-            {shop?.business_name} ({shop?.address})
-          </h1>
-          <h1 className="text-base">Specialité: {shop?.category}</h1>
+          <h1 className="text-lg">{shop?.business_name}</h1>
+          <h1 className="text-sm">Specialité: {shop?.category}</h1>
+          <h1 className="text-sm">Localisation: {shop?.address}</h1>
           {/* <h1 className="text-sm text-gray-400">{shop?.email}</h1> */}
         </div>
       </div>
