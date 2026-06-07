@@ -6,10 +6,10 @@ const ArticlesSkeleton = () => {
       <div className="flex justify-end w-full px-8">
         <Skeleton width={80} height={30} />
       </div>
-      <div className="grid grid-cols-3 gap-x-2 gap-y-2 px-8 mt-4">
-        <Skeleton className="w-full aspect-[11/16]" />
-        <Skeleton className="w-full aspect-[11/16]" />
-        <Skeleton className="w-full aspect-[11/16]" />
+      <div className="grid grid-cols-3 gap-x-2 gap-y-2 mt-4">
+        <Skeleton className="w-full aspect-square" />
+        <Skeleton className="w-full aspect-square" />
+        <Skeleton className="w-full aspect-square" />
       </div>
     </div>
   );

@@ -144,6 +144,7 @@ const UpdateArticle = () => {
                 <Button
                   variant="outlined"
                   component="label"
+                  fullWidth
                   sx={{
                     textTransform: "none",
                     color: "#d97706",
@@ -185,7 +186,7 @@ const UpdateArticle = () => {
             control={control}
             render={({ field }) => (
               <TextField
-                label="Title"
+                label="Nom de l'article"
                 fullWidth
                 margin="normal"
                 {...field}
@@ -227,7 +228,7 @@ const UpdateArticle = () => {
             control={control}
             render={({ field }) => (
               <TextField
-                label="Prix"
+                label="Prix de l'article"
                 type="number"
                 fullWidth
                 margin="normal"
