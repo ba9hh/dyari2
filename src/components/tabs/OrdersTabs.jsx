@@ -55,7 +55,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
           }}
         />
         <Tab
-          label="Rejected Orders"
+          label="Cancelled Orders"
           value="rejected"
           sx={{
             textTransform: "none",

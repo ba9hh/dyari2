@@ -1,7 +1,7 @@
 import EditIcon from "@mui/icons-material/Edit";
 import pdp from "@/assets/pdp.png";
 
-const ShopProfile = ({ shop, onEdit }) => {
+const ShopInfo = ({ shop, onEdit }) => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center gap-1 mb-4 mt-4">
@@ -31,4 +31,4 @@ const ShopProfile = ({ shop, onEdit }) => {
   );
 };
 
-export default ShopProfile;
+export default ShopInfo;

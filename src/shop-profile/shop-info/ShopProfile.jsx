@@ -5,12 +5,12 @@ import { fetchShopInformation } from "@/services/shops/ShopInformation";
 import SkeletonShopInfo from "@/skeleton/shop/SkeletonShopInfo";
 import ShopTabs from "@/components/tabs/ShopTabs";
 import ShopHeader from "./ShopHeader";
-import ShopProfile from "./ShopProfile";
+import ShopProfile from "./ShopInfo";
 import ProfilePictureDialog from "./ProfilePictureDialog";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
 import { useNavigate } from "react-router-dom";
-const ShopInfo = ({ shopId, activeTab, handleChange }) => {
+const ShopProfile = ({ shopId, activeTab, handleChange }) => {
   const { user } = useContext(AuthContext);
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
@@ -80,4 +80,4 @@ const ShopInfo = ({ shopId, activeTab, handleChange }) => {
   );
 };
 
-export default ShopInfo;
+export default ShopProfile;
