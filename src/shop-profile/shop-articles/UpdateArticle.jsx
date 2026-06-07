@@ -141,8 +141,22 @@ const UpdateArticle = () => {
             control={control}
             render={({ field }) => (
               <div style={{ marginBottom: 8 }}>
-                <Button variant="contained" component="label">
-                  {file ? "Modifier l'image de l'article" : "Upload Image"}
+                <Button
+                  variant="outlined"
+                  component="label"
+                  sx={{
+                    textTransform: "none",
+                    color: "#d97706",
+                    borderColor: "#d97706",
+                    "&:hover": {
+                      borderColor: "#b45309",
+                      backgroundColor: "rgba(217, 119, 6, 0.04)",
+                    },
+                  }}
+                >
+                  {file
+                    ? "Modifier l'image de l'article"
+                    : "Modifier l'image de l'article"}
                   <input
                     type="file"
                     hidden
@@ -236,8 +250,19 @@ const UpdateArticle = () => {
               color="primary"
               disabled={loading}
               fullWidth
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#d97706",
+                "&:hover": {
+                  backgroundColor: "#b45309",
+                },
+              }}
             >
-              {loading ? <CircularProgress size={24} /> : "Update"}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                "Enregistrer les modifications"
+              )}
             </Button>
           </Stack>
         </form>
