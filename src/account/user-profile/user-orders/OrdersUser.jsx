@@ -76,21 +76,6 @@ const OrdersUser = ({ userId }) => {
             Looks like you haven’t placed any orders yet. Start exploring our
             shop and enjoy shopping!
           </p>
-          <Button
-            component={Link}
-            to="/"
-            variant="contained"
-            color="primary"
-            sx={{
-              mt: 3,
-              px: 3,
-              py: 1.5,
-              borderRadius: "9999px",
-              textTransform: "none",
-            }}
-          >
-            Back home
-          </Button>
         </div>
       )}
       {ordersData?.orders?.length == 0 && selectedFilter !== "all" && (
