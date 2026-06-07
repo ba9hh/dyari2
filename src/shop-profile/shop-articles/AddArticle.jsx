@@ -145,8 +145,21 @@ const AddArticle = () => {
             rules={{ required: "Image is required" }}
             render={({ field }) => (
               <div style={{ marginBottom: 20 }}>
-                <Button variant="contained" component="label">
-                  Upload Image
+                <Button
+                  variant="outlined"
+                  component="label"
+                  fullWidth
+                  sx={{
+                    textTransform: "none",
+                    color: "#d97706",
+                    borderColor: "#d97706",
+                    "&:hover": {
+                      borderColor: "#b45309",
+                      backgroundColor: "rgba(217, 119, 6, 0.04)",
+                    },
+                  }}
+                >
+                  Télécharger l'image de l'article
                   <input
                     type="file"
                     hidden
