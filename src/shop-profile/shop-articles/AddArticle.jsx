@@ -224,8 +224,8 @@ const AddArticle = () => {
                   },
                 }}
               >
-                <InputLabel>Vente</InputLabel>
-                <Select label="Type" {...field}>
+                <InputLabel>Unité de vente</InputLabel>
+                <Select label="Unité de vente" {...field}>
                   <MenuItem value="kg">Par kg</MenuItem>
                   <MenuItem value="piece">Par piece</MenuItem>
                 </Select>

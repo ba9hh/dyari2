@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
 import { supabase } from "@/supabaseClient";
+import dyari from "@/assets/dyari.svg";
 
 const UpdateArticle = () => {
   const { handleSubmit, control, reset } = useForm({
@@ -130,17 +131,18 @@ const UpdateArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
-          <Typography variant="h5" gutterBottom>
-            Update Article
-          </Typography>
-
+          <div className="flex justify-between items-center mb-4">
+            <Typography variant="h6">Mettre à jour l’article</Typography>
+            <img src={dyari} className="w-7" />
+          </div>
+          <hr className="mb-6" />
           <Controller
             name="image"
             control={control}
             render={({ field }) => (
-              <div style={{ marginBottom: 20 }}>
+              <div style={{ marginBottom: 8 }}>
                 <Button variant="contained" component="label">
-                  {file ? "Change Image" : "Upload Image"}
+                  {file ? "Modifier l'image de l'article" : "Upload Image"}
                   <input
                     type="file"
                     hidden
@@ -157,14 +159,7 @@ const UpdateArticle = () => {
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    style={{
-                      display: "block",
-                      marginTop: 10,
-                      width: 120,
-                      height: 120,
-                      objectFit: "cover",
-                      borderRadius: 8,
-                    }}
+                    className="w-32 aspect-square object-cover mt-6"
                   />
                 )}
               </div>
@@ -175,7 +170,18 @@ const UpdateArticle = () => {
             name="title"
             control={control}
             render={({ field }) => (
-              <TextField label="Title" fullWidth margin="normal" {...field} />
+              <TextField
+                label="Title"
+                fullWidth
+                margin="normal"
+                {...field}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
+              />
             )}
           />
 
@@ -183,11 +189,20 @@ const UpdateArticle = () => {
             name="type"
             control={control}
             render={({ field }) => (
-              <FormControl fullWidth margin="normal">
+              <FormControl
+                fullWidth
+                margin="normal"
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
+              >
                 <InputLabel>Unité de vente</InputLabel>
                 <Select label="Unité de vente" {...field}>
-                  <MenuItem value="kg">Kg</MenuItem>
-                  <MenuItem value="piece">Piece</MenuItem>
+                  <MenuItem value="kg">Par kg</MenuItem>
+                  <MenuItem value="piece">Par piece</MenuItem>
                 </Select>
               </FormControl>
             )}
@@ -204,6 +219,12 @@ const UpdateArticle = () => {
                 margin="normal"
                 inputProps={{ min: 0, step: 0.01 }}
                 {...field}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
               />
             )}
           />
