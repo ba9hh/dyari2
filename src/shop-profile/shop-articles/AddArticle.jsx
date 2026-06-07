@@ -135,8 +135,8 @@ const AddArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
-          <Typography variant="h5" gutterBottom>
-            Add New Article
+          <Typography sx={{ textAlign: "center", mb: 4 }} variant="h6">
+            Ajouter un nouvel article
           </Typography>
 
           <Controller
@@ -144,7 +144,7 @@ const AddArticle = () => {
             control={control}
             rules={{ required: "Image is required" }}
             render={({ field }) => (
-              <div style={{ marginBottom: 20 }}>
+              <div style={{ marginBottom: 8 }}>
                 <Button
                   variant="outlined"
                   component="label"
@@ -179,14 +179,7 @@ const AddArticle = () => {
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    style={{
-                      display: "block",
-                      marginTop: 10,
-                      width: 120,
-                      height: 120,
-                      objectFit: "cover",
-                      borderRadius: 8,
-                    }}
+                    className="w-32 aspect-square object-cover mt-6"
                   />
                 )}
               </div>
@@ -199,12 +192,18 @@ const AddArticle = () => {
             rules={{ required: "Title is required" }}
             render={({ field }) => (
               <TextField
-                label="Title"
+                label="Nom de l'article"
                 fullWidth
                 margin="normal"
                 error={!!errors.title}
                 helperText={errors.title?.message}
                 {...field}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
               />
             )}
           />
@@ -213,11 +212,20 @@ const AddArticle = () => {
             name="type"
             control={control}
             render={({ field }) => (
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Type</InputLabel>
+              <FormControl
+                fullWidth
+                margin="normal"
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
+              >
+                <InputLabel>Vente</InputLabel>
                 <Select label="Type" {...field}>
-                  <MenuItem value="kg">Kg</MenuItem>
-                  <MenuItem value="piece">Piece</MenuItem>
+                  <MenuItem value="kg">Par kg</MenuItem>
+                  <MenuItem value="piece">Par piece</MenuItem>
                 </Select>
               </FormControl>
             )}
@@ -232,7 +240,7 @@ const AddArticle = () => {
             }}
             render={({ field }) => (
               <TextField
-                label="Price"
+                label="Prix de l'article"
                 type="number"
                 fullWidth
                 margin="normal"
@@ -240,6 +248,12 @@ const AddArticle = () => {
                 error={!!errors.price}
                 helperText={errors.price?.message}
                 {...field}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
               />
             )}
           />
@@ -251,20 +265,31 @@ const AddArticle = () => {
               color="secondary"
               onClick={handleSubmit(handleSaveAndAddAnother)}
               fullWidth
-              sx={{ flex: 1 }}
+              sx={{ flex: 1, textTransform: "none" }}
               disabled={!isValid || loading}
             >
-              {loading ? <CircularProgress size={24} /> : "Save & Add Another"}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                "Enregistrer & Ajouter Un Autre"
+              )}
             </Button>
             <Button
               type="submit"
               variant="contained"
               color="primary"
               fullWidth
-              sx={{ flex: 1 }}
               disabled={!isValid || loading}
+              sx={{
+                flex: 1,
+                textTransform: "none",
+                backgroundColor: "#d97706",
+                "&:hover": {
+                  backgroundColor: "#b45309",
+                },
+              }}
             >
-              {loading ? <CircularProgress size={24} /> : "Save"}
+              {loading ? <CircularProgress size={24} /> : "Enregistrer"}
             </Button>
           </Stack>
         </form>
