@@ -7,11 +7,12 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import HomePagination from "./HomePagination";
 import { fetchShops } from "@/services/shops/ShopsList";
 import CategoriesTabs from "@/components/tabs/CategoriesTabs";
-import LocalisationFilter from "@/components/LocalisationFilter";
+import LocalisationFilter from "@/home/LocalisationFilter";
 import EmptyShopState from "@/components/EmptyShopsState";
 import NavBar from "./NavBar";
 import faza from "@/assets/faza.png";
 import dyari from "@/assets/dyari.svg";
+import ShopsHeader from "./ShopsHeader";
 
 const HomeShops = () => {
   const { user } = useContext(AuthContext);
@@ -57,7 +58,7 @@ const HomeShops = () => {
   if (isLoading)
     return (
       <>
-        <div className="bg-cover bg-bottom relative bg-gray-100/50">
+        <div className="sticky top-0 z-20">
           <NavBar />
           <CategoriesTabs
             type={type}
@@ -71,19 +72,8 @@ const HomeShops = () => {
           localisation={localisation}
           setLocalisation={setLocalisation}
         />
-        <div className="sm:mt-6 sm:mx-2 ">
-          <div className="flex items-center mb-4">
-            <h1 className="sm:text-lg font-bold text-gray-600 ">
-              <span className="underline">Decouvrir les meilleurs</span>
-              <span className="text-amber-600 no-underline">
-                {" "}
-                faits maison{" "}
-              </span>
-              <span className="underline">à Dyari</span> :
-            </h1>
-            <div className="flex-grow border-t border-gray-300 mx-6"></div>
-            <img src={dyari} className="w-7" />
-          </div>
+        <div className="sm:mt-6 sm:mx-2">
+          <ShopsHeader />
         </div>
         <ShopsHomeSkeleton />
       </>
@@ -91,7 +81,7 @@ const HomeShops = () => {
   if (isError)
     return (
       <>
-        <div className="bg-cover bg-bottom relative bg-gray-100/50">
+        <div className="sticky top-0 z-20">
           <NavBar />
           <CategoriesTabs
             type={type}
@@ -134,17 +124,7 @@ const HomeShops = () => {
         setLocalisation={setLocalisation}
       />
       <div className="sm:mt-6 sm:mx-2 ">
-        <div className="flex items-center mb-6">
-          <img src={dyari} className="w-7" />
-          <div className="flex-grow border-t border-gray-300 mx-6"></div>
-          <h1 className="sm:text-lg font-bold text-gray-600 ">
-            <span className="underline">Decouvrir les meilleurs</span>
-            <span className="text-amber-600 no-underline"> faits maison </span>
-            <span className="underline">à Dyari</span> :
-          </h1>
-          <div className="flex-grow border-t border-gray-300 mx-6"></div>
-          <img src={dyari} className="w-7" />
-        </div>
+        <ShopsHeader />
         {data?.shops?.length > 0 ? (
           <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">
             {data?.shops?.map((shop) => (
