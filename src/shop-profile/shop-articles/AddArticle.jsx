@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
 import { supabase } from "@/supabaseClient";
+import dyari from "@/assets/dyari.svg";
 
 const AddArticle = () => {
   const {
@@ -135,9 +136,10 @@ const AddArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
-          <Typography sx={{ textAlign: "center", mb: 4 }} variant="h6">
-            Ajouter un nouvel article
-          </Typography>
+          <div className="flex justify-between items-center mb-6">
+            <Typography variant="h6">Ajouter un nouvel article</Typography>
+            <img src={dyari} className="w-7" />
+          </div>
 
           <Controller
             name="image"
