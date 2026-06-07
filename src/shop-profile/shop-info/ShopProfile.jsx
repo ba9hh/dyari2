@@ -5,7 +5,7 @@ import { fetchShopInformation } from "@/services/shops/ShopInformation";
 import SkeletonShopInfo from "@/skeleton/shop/SkeletonShopInfo";
 import ShopTabs from "@/components/tabs/ShopTabs";
 import ShopHeader from "./ShopHeader";
-import ShopProfile from "./ShopInfo";
+import ShopInfo from "./ShopInfo";
 import ProfilePictureDialog from "./ProfilePictureDialog";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
@@ -64,7 +64,7 @@ const ShopProfile = ({ shopId, activeTab, handleChange }) => {
         />
       </div>
       <hr />
-      <ShopProfile shop={shop} onEdit={() => setOpen(true)} />
+      <ShopInfo shop={shop} onEdit={() => setOpen(true)} />
       <ShopTabs activeTab={activeTab} handleChange={handleChange} />
       <ProfilePictureDialog
         open={open}
