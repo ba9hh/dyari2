@@ -64,7 +64,7 @@ const ArticlesShop = ({ shopId }) => {
           Ajouter un article
         </Button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 sm:gap-2 sm:px-0 sm:bg-transparent">
+      <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-2 sm:px-0 sm:bg-transparent">
         {articles?.articles?.map((article, index) => (
           <div key={index} className="">
             <ArticleShop
