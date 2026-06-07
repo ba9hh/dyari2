@@ -42,7 +42,7 @@ const ArticlesShop = ({ shopId }) => {
   }
   if (isError) return <div>Error loading articles</div>;
   return (
-    <div className="w-full sm:w-2/3 bg-white sm:bg-gray-100/50 shadow-md rounded-md pt-0 pb-0 sm:border-0 sm:border-t-0">
+    <div className="w-full sm:w-2/3 flex flex-col gap-2 bg-white sm:bg-gray-100/50 shadow-md rounded-md pt-0 pb-0 sm:border-0 sm:border-t-0">
       <div className="w-full bg-white h-fit">
         <Button
           fullWidth
@@ -64,7 +64,7 @@ const ArticlesShop = ({ shopId }) => {
           Add article
         </Button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 sm:gap-2 sm:px-0 mt-2 sm:bg-gray-100/50">
+      <div className="grid grid-cols-2 md:grid-cols-3 sm:gap-2 sm:px-0 sm:bg-gray-100/50">
         {articles?.articles?.map((article, index) => (
           <div key={index} className="">
             <ArticleShop
