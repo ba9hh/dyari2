@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 
 const OrderUser = ({ order, index }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   return (
     <div className="w-full border rounded-[4px] border-gray-300">
