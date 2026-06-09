@@ -14,8 +14,8 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
         variant="scrollable"
         scrollButtons="auto"
         sx={{
-          mb: 2,
-          px: 2,
+          mb: 1,
+          px: 1,
           "& .MuiTabs-indicator": {
             backgroundColor: "#d97706",
           },

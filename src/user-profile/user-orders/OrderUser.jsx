@@ -53,7 +53,7 @@ const OrderUser = ({ order, index }) => {
         ))}
       </div>
       <div className="flex justify-end px-2 border-t border-gray-300 py-2">
-        <div>
+        <div className="border-l pl-2 border-gray-300">
           <div className="flex items-center gap-1">
             <span className="text-sm">Vendeur :</span>
             {order?.shops ? (
