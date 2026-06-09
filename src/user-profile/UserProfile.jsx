@@ -1,4 +1,4 @@
-import UserInfo from "./UserInfo";
+import UserInfo from "./user-info/UserInfo";
 import OrdersUser from "./user-orders/OrdersUser";
 import LikedShops from "./liked-shops/LikedShops";
 import RatedShops from "./rated-shops/RatedShops";

@@ -16,21 +16,23 @@ import OrderBreadCrumbs from "./OrderBreadCrumbs";
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
-  const [openDialog, setOpenDialog] = useState({ open: false, index: null });
   const [isConnected, setIsConnected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [step, setStep] = useState(0);
+
   const LIMIT = 8;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
   const {
     control,
     handleSubmit,
     watch,
     setValue,
     reset,
+    trigger,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -39,14 +41,11 @@ const Order = () => {
       date: null,
     },
   });
-  const { fields, append } = useFieldArray({
-    control,
-    name: "items",
-  });
-  if (errors?.date) {
-    setValue("date", "");
-  }
+
+  const { fields, append } = useFieldArray({ control, name: "items" });
+
   const watchItems = watch("items");
+
   const {
     data: shopData,
     isLoading,
@@ -57,14 +56,17 @@ const Order = () => {
     enabled: !!state,
     keepPreviousData: true,
   });
+
   useEffect(() => {
     if (shopData?.totalPages) {
       setTotalPages(shopData.totalPages);
     }
   }, [shopData]);
+
   const handleClose = () => {
     setIsConnected(false);
   };
+
   const selectArticle = (image, type, price, articleId, index) => {
     setValue(`items.${index}.image`, image);
     setValue(`items.${index}.type`, type);
@@ -72,20 +74,29 @@ const Order = () => {
     setValue(`items.${index}.articleId`, articleId);
   };
 
-  const onSubmit = async (data) => {
-    if (!user || user?.role == "shop") {
-      setIsConnected(true);
-      return;
-    }
-    const allValid = data.items.every(
+  // Step 0 → Step 1: validate items before advancing
+  const handleNext = async () => {
+    const allValid = watchItems.every(
       (item) => item.articleId && item.quantity > 0,
     );
     if (!allValid) {
-      toast.error("Some items are missing required information.");
+      toast.error(
+        "Veuillez sélectionner un article et une quantité valide pour chaque ligne.",
+      );
       return;
     }
+    setStep(1);
+  };
+
+  // Step 1 → Submit: full form validation handled by react-hook-form
+  const onSubmit = async (data) => {
+    if (!user || user?.role === "shop") {
+      setIsConnected(true);
+      return;
+    }
+
     if (!data.date) {
-      toast.error("Please select a date.");
+      toast.error("Veuillez sélectionner une date.");
       return;
     }
 
@@ -98,8 +109,9 @@ const Order = () => {
         neededDate: data.date,
         items: data.items,
       });
-      toast.success("Order added successfully!");
+      toast.success("Commande ajoutée avec succès !");
       reset();
+      setStep(0);
     } catch (err) {
       console.error("Error adding order:", err);
       toast.error(err.message);
@@ -137,7 +149,13 @@ const Order = () => {
               variant="outlined"
               fullWidth
               onClick={() =>
-                append({ type: "", price: 0, image: "", quantity: null })
+                append({
+                  articleId: "",
+                  type: "",
+                  price: 0,
+                  image: "",
+                  quantity: null,
+                })
               }
               sx={{
                 mb: 1,
@@ -188,7 +206,7 @@ const Order = () => {
         </div>
         {step == 0 && (
           <Button
-            type="submit"
+            type="button"
             variant="contained"
             disabled={loading}
             color="primary"
@@ -200,37 +218,59 @@ const Order = () => {
                 backgroundColor: "#b45309",
               },
             }}
-            onClick={() => setStep(1)}
+            onClick={handleNext}
           >
             {loading ? <CircularProgress size={24} /> : "Suivant"}
           </Button>
         )}
         {step == 1 && (
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={loading}
-            color="primary"
-            fullWidth
-            sx={{
-              textTransform: "none",
-              backgroundColor: "#d97706",
-              "&:hover": {
-                backgroundColor: "#b45309",
-              },
-            }}
-            onClick={() => setStep(0)}
-          >
-            {loading ? <CircularProgress size={24} /> : "Passer la commande"}
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading}
+              color="primary"
+              fullWidth
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#d97706",
+                "&:hover": { backgroundColor: "#b45309" },
+              }}
+            >
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Passer la commande"
+              )}
+            </Button>
+
+            <Button
+              type="button"
+              variant="outlined"
+              disabled={loading}
+              fullWidth
+              onClick={() => setStep(0)}
+              sx={{
+                textTransform: "none",
+                color: "#d97706",
+                borderColor: "#d97706",
+                "&:hover": {
+                  borderColor: "#b45309",
+                  backgroundColor: "rgba(217, 119, 6, 0.04)",
+                },
+              }}
+            >
+              Retour
+            </Button>
+          </div>
         )}
       </form>
 
-      {/* <LoginRequiredDialog
+      <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}
-        message="You must be logged in as a user to pass an order"
-      /> */}
+        message="Vous devez être connecté en tant qu'utilisateur pour passer une commande."
+      />
     </div>
   );
 };
