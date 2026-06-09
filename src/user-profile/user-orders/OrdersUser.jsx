@@ -54,9 +54,11 @@ const OrdersUser = ({ userId }) => {
         setSelectedFilter={setSelectedFilter}
         t={t}
       />
-      {ordersData?.orders?.map((order, index) => (
-        <OrderUser order={order} key={index} />
-      ))}
+      <div className="p-2">
+        {ordersData?.orders?.map((order, index) => (
+          <OrderUser order={order} key={index} />
+        ))}
+      </div>
 
       {ordersData?.orders?.length > 0 && (
         <Pagination
