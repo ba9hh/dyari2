@@ -48,7 +48,7 @@ const OrdersUser = ({ userId }) => {
     );
   }
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pb-3 pt-0">
+    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pb-2 pt-0">
       <OrdersTabs
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}

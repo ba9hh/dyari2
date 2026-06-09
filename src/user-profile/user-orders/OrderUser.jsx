@@ -21,7 +21,7 @@ const OrderUser = ({ order, index }) => {
         </div>
         <div className="flex items-center gap-2">
           <h1
-            className={`text-sm font-medium rounded py-1 px-3 border ${
+            className={`text-sm font-medium rounded py-1 px-2 border ${
               order.order_state == "accepted"
                 ? "bg-green-100 text-green-700"
                 : order.order_state === "rejected"
@@ -44,7 +44,7 @@ const OrderUser = ({ order, index }) => {
           <hr />
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {order?.order_items.map((item, idx) => (
-              <div className="p-4" key={idx}>
+              <div className="py-4 px-2" key={idx}>
                 <div className="relative group">
                   <img
                     src={item.articles.article_image}
@@ -70,8 +70,8 @@ const OrderUser = ({ order, index }) => {
               </div>
             ))}
           </div>
-          <div className="flex justify-end px-2 border-t border-gray-300 py-2">
-            <div className="border-l pl-2 border-gray-300">
+          <div className="w-full px-2 border-t border-gray-300 py-2">
+            <div className="grid grid-cols-3 w-full">
               <div className="flex items-center gap-1">
                 <span className="text-sm">Vendeur :</span>
                 {order?.shops ? (
@@ -85,14 +85,14 @@ const OrderUser = ({ order, index }) => {
                   <span className="text-sm underline">Shop deleted</span>
                 )}
               </div>
-              <h1 className="text-sm">
+              <h1 className="text-sm text-center">
                 Date de besoin :{" "}
                 <span className="text-red-500">
                   {dayjs(order.user_needed_date).format("DD/MM/YYYY") ||
                     "DD/MM/YYYY"}
                 </span>
               </h1>
-              <h1 className="text-sm">
+              <h1 className="text-sm text-end">
                 Prix totale : {order?.order_total_amount} dt
               </h1>
             </div>
