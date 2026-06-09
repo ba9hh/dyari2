@@ -35,26 +35,26 @@ const OrderShop = ({ order, index }) => {
             Order Date: {dayjs(order.order_date).format("DD/MM/YYYY HH:mm")}
           </h1>
         </div>
-        {currentState === "pending" ? (
-          <div className="flex gap-2">
-            <h1 className="text-sm">
-              (De preference d'appeler le client avant de confirmer.)
-            </h1>
-            <button
-              className="px-3 py-1 bg-green-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-600 transition duration-300 flex items-center gap-1"
-              onClick={() => updateOrderState("accepted")}
-            >
-              <CheckCircle size={18} />
-            </button>
-            <button
-              className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-red-600 transition duration-300 flex items-center gap-1"
-              onClick={() => updateOrderState("rejected")}
-            >
-              <XCircle size={18} />
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
+          {currentState === "pending" ? (
+            <div className="flex gap-2">
+              <h1 className="text-sm">
+                (De preference d'appeler le client avant de confirmer.)
+              </h1>
+              <button
+                className="px-3 py-1 bg-green-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-600 transition duration-300 flex items-center gap-1"
+                onClick={() => updateOrderState("accepted")}
+              >
+                <CheckCircle size={18} />
+              </button>
+              <button
+                className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-red-600 transition duration-300 flex items-center gap-1"
+                onClick={() => updateOrderState("rejected")}
+              >
+                <XCircle size={18} />
+              </button>
+            </div>
+          ) : (
             <h1
               className={`text-sm font-medium rounded py-1 px-3 border ${
                 currentState == "accepted"
@@ -64,14 +64,14 @@ const OrderShop = ({ order, index }) => {
             >
               {currentState}
             </h1>
-            <ChevronDown
-              size={18}
-              className={`text-gray-400 transition-transform duration-200 ${
-                isExpanded ? "rotate-180" : "rotate-0"
-              }`}
-            />
-          </div>
-        )}
+          )}
+          <ChevronDown
+            size={18}
+            className={`text-gray-400 transition-transform duration-200 ${
+              isExpanded ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </div>
       </div>
       <hr />
 
@@ -109,11 +109,6 @@ const OrderShop = ({ order, index }) => {
             Client : {order?.users.name || "deleted acount"}
           </h1>
           <h1 className="text-sm">
-            {order?.user_phone_number
-              ? `Numero de client : ${order?.user_phone_number}`
-              : ""}
-          </h1>
-          <h1 className="text-sm">
             Date de besoin :{" "}
             <span className="text-red-500">
               {dayjs(order?.user_needed_date).format("DD/MM/YYYY") ||
@@ -122,6 +117,11 @@ const OrderShop = ({ order, index }) => {
           </h1>
           <h1 className="text-sm">
             Prix totale : {order?.order_total_amount} dt
+          </h1>
+          <h1 className="text-sm">
+            {order?.user_phone_number
+              ? `Numero de client : ${order?.user_phone_number}`
+              : ""}
           </h1>
         </div>
       </div>
