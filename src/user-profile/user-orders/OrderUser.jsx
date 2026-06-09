@@ -70,7 +70,7 @@ const OrderUser = ({ order, index }) => {
               </div>
             ))}
           </div>
-          <div className="w-full px-2 border-t border-gray-300 py-2">
+          <div className="w-full p-2 border-t border-gray-300">
             <div className="grid grid-cols-3 w-full">
               <div className="flex items-center gap-1">
                 <span className="text-sm">Vendeur :</span>

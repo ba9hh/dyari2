@@ -91,7 +91,7 @@ const OrderShop = ({ order, index }) => {
                 </p>
               </div>
             </div>
-            <div>
+            <div className="mt-2">
               <h1 className="text-sm">
                 quantité : {item.quantity} {item.articles.article_type}
               </h1>
@@ -103,19 +103,19 @@ const OrderShop = ({ order, index }) => {
         ))}
       </div>
 
-      <div className="w-full py-2 px-1 border-t border-gray-300">
+      <div className="w-full p-2 border-t border-gray-300">
         <div className="grid grid-cols-3 gap-1">
           <h1 className="text-sm">
             Client : {order?.users.name || "deleted acount"}
           </h1>
-          <h1 className="text-sm">
+          <h1 className="text-sm text-center">
             Date de besoin :{" "}
             <span className="text-red-500">
               {dayjs(order?.user_needed_date).format("DD/MM/YYYY") ||
                 "DD/MM/YYYY"}
             </span>
           </h1>
-          <h1 className="text-sm">
+          <h1 className="text-sm text-end">
             Prix totale : {order?.order_total_amount} dt
           </h1>
           <h1 className="text-sm">
