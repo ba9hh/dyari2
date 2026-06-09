@@ -3,9 +3,11 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
+import { ChevronDown } from "lucide-react";
 
 const OrderShop = ({ order, index }) => {
   const [currentState, setCurrentState] = useState(order.order_state);
+  const [isExpanded, setIsExpanded] = useState(true);
   const updateOrderState = async (newState) => {
     try {
       const { data, error } = await supabase
@@ -25,8 +27,8 @@ const OrderShop = ({ order, index }) => {
     }
   };
   return (
-    <div className="w-full border rounded-[4px] p-2">
-      <div className="flex justify-between items-center">
+    <div className="w-full border rounded-[4px]">
+      <div className="flex justify-between items-center p-2 cursor-pointer select-none hover:bg-gray-50 transition-colors duration-150">
         <div>
           <h1 className="text-sm font-medium">Commande numero : {index}</h1>
           <h1 className="text-sm text-gray-600">
@@ -36,7 +38,7 @@ const OrderShop = ({ order, index }) => {
         {currentState === "pending" ? (
           <div className="flex gap-2">
             <h1 className="text-sm">
-              (Veuillez appeler le client avant de confirmer.)
+              (De preference d'appeler le client avant de confirmer.)
             </h1>
             <button
               className="px-3 py-1 bg-green-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-600 transition duration-300 flex items-center gap-1"
@@ -52,25 +54,34 @@ const OrderShop = ({ order, index }) => {
             </button>
           </div>
         ) : (
-          <h1
-            className={`text-sm font-medium rounded py-1 px-3 border ${
-              currentState == "accepted"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-          >
-            {currentState}
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1
+              className={`text-sm font-medium rounded py-1 px-3 border ${
+                currentState == "accepted"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+            >
+              {currentState}
+            </h1>
+            <ChevronDown
+              size={18}
+              className={`text-gray-400 transition-transform duration-200 ${
+                isExpanded ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </div>
         )}
       </div>
+      <hr />
 
       <div className="grid grid-cols-4 gap-4">
         {order?.order_items?.map((item, idx) => (
-          <div className="p-3" key={idx}>
+          <div className="px-2 py-4" key={idx}>
             <div className="relative group">
               <img
                 src={item.articles.article_image}
-                className="w-full aspect-[11/16] object-cover"
+                className="w-full aspect-square object-cover"
                 alt="Product"
               />
               <div className="absolute top-0 right-0 left-0 h-8 p-1 bg-white border opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
@@ -92,8 +103,8 @@ const OrderShop = ({ order, index }) => {
         ))}
       </div>
 
-      <div className="flex justify-end py-2 px-1 border-t border-gray-300">
-        <div>
+      <div className="w-full py-2 px-1 border-t border-gray-300">
+        <div className="grid grid-cols-3 gap-1">
           <h1 className="text-sm">
             Client : {order?.users.name || "deleted acount"}
           </h1>
