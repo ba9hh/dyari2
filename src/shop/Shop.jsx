@@ -38,7 +38,7 @@ const Shop = () => {
         <Button
           variant="outlined"
           color="primary"
-          size="small"
+          // size="small"
           fullWidth
           sx={{
             textTransform: "none",
