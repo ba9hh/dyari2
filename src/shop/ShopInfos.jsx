@@ -85,21 +85,26 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           />
           <h1>({shop?.total_rating})</h1>
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          sx={{
-            textTransform: "none",
-            backgroundColor: "#d97706",
-            "&:hover": {
-              backgroundColor: "#b45309",
-            },
-          }}
-          onClick={() => openOrder()}
-        >
-          Passer votre commande
-        </Button>
+        <div className="flex items-center gap-2">
+          <p className="text-sm text-gray-600">
+            (Vous ne pouvez noter que si vous avez effectué un achat.)
+          </p>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": {
+                backgroundColor: "#b45309",
+              },
+            }}
+            onClick={() => openOrder()}
+          >
+            Noter sur 5
+          </Button>
+        </div>
         {/* <button
           className="text-sm text-white bg-amber-600 font-semibold px-3 py-1"
           onClick={() => openOrder()}
