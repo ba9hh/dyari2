@@ -114,14 +114,11 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             className="w-16 h-16 border-2 p-1 rounded-full bg-white object-cover"
             src={shop?.profile_picture}
           />
-          <h1 className="">
-            {shop?.business_name} ({shop?.address})
-          </h1>
-          {shop?.speciality?.length > 0 && (
-            <span className="crimsonText inline-block my-0">
-              {formatSpeciality(shop?.speciality)}
-            </span>
-          )}
+          <div className="flex flex-col items-center">
+            <h1 className="text-lg">{shop?.business_name}</h1>
+            <h1 className="text-sm">Specialité: {shop?.category}</h1>
+            <h1 className="text-sm">Localisation: {shop?.address}</h1>
+          </div>
         </div>
       </div>
       <div className="absolute bottom-0 right-0 z-10">

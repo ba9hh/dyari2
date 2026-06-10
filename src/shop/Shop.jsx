@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
+import { Button } from "@mui/material";
 
 const Shop = () => {
   const { user } = useContext(AuthContext);
@@ -33,6 +34,24 @@ const Shop = () => {
         handleChange={handleChange}
         activeTab={activeTab}
       />
+      <div className="relative w-full sm:w-2/3">
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          fullWidth
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
+          // onClick={() => openOrder()}
+        >
+          Passer votre commande
+        </Button>
+      </div>
       {activeTab === "articles" && <ShopArticles shopId={state} />}
       {/* {activeTab === "contact" && <ShopContact shopId={state} />} */}
       <LoginRequiredDialog
