@@ -4,7 +4,7 @@ const ShopArticle = ({ article, onClick }) => {
   return (
     <div className="relative group" onClick={onClick}>
       <img
-        className="w-full border object-cover aspect-square rounded-lg"
+        className="w-full border object-cover aspect-square rounded-2xl"
         src={article.article_image}
       />
       <div className="absolute top-0 right-0 left-0 h-8 p-1 bg-white border opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
