@@ -34,11 +34,11 @@ const Shop = () => {
         handleChange={handleChange}
         activeTab={activeTab}
       />
-      <div className="relative w-full sm:w-2/3 bg-white/60">
+      <div className="relative w-full sm:w-2/3 bg-white/80">
         <Button
           variant="outlined"
           color="primary"
-          // size="small"
+          size="large"
           fullWidth
           sx={{
             textTransform: "none",
