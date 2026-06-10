@@ -34,7 +34,7 @@ const Shop = () => {
         handleChange={handleChange}
         activeTab={activeTab}
       />
-      <div className="relative w-full sm:w-2/3 bg-white/80">
+      <div className="relative w-full sm:w-2/3 bg-white">
         <Button
           variant="outlined"
           color="primary"
