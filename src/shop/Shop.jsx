@@ -36,7 +36,7 @@ const Shop = () => {
       />
       <div className="relative w-full sm:w-2/3">
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
           size="small"
           fullWidth
