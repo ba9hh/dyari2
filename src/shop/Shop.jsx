@@ -42,9 +42,11 @@ const Shop = () => {
           fullWidth
           sx={{
             textTransform: "none",
-            backgroundColor: "#d97706",
+            color: "#d97706",
+            borderColor: "#d97706",
             "&:hover": {
-              backgroundColor: "#b45309",
+              borderColor: "#b45309",
+              backgroundColor: "rgba(217, 119, 6, 0.04)",
             },
           }}
           // onClick={() => openOrder()}
