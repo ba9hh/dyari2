@@ -3,7 +3,7 @@ const GoogleLoginButton = ({ onClick }) => {
     <button
       onClick={onClick}
       aria-label="Login with Google"
-      className="w-full flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-gray-700 hover:bg-gray-50 active:scale-95 transition duration-150 ease-in-out"
+      className="w-full flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-gray-700 hover:bg-gray-50 active:scale-95 transition duration-150 ease-in-out"
     >
       {/* Google Logo */}
       <svg
@@ -28,7 +28,7 @@ const GoogleLoginButton = ({ onClick }) => {
           d="M24 47.5c6.1 0 11.46-2.02 15.26-5.49l-7.34-5.7c-2.05 1.4-4.67 2.24-7.92 2.24-6.38 0-11.9-3.76-14.48-9.14l-7.96 6.18C6.38 42.62 14.62 47.5 24 47.5z"
         />
       </svg>
-      <span className="font-medium">Continue avec Google</span>
+      <span className="font-medium text-center">Continue avec Google</span>
     </button>
   );
 };
