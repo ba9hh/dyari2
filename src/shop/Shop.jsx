@@ -1,11 +1,11 @@
 import ShopInfos from "./ShopInfos";
 import ShopArticles from "./ShopArticles";
-import ShopContact from "./ShopContact";
 import { useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const { user } = useContext(AuthContext);
@@ -13,6 +13,7 @@ const Shop = () => {
   const [activeTab, setActiveTab] = useState("articles");
   const [isConnected, setIsConnected] = useState(false);
 
+  const navigate = useNavigate();
   const handleClose = () => {
     setIsConnected(false);
   };
@@ -26,6 +27,9 @@ const Shop = () => {
     } else {
       setActiveTab(newValue);
     }
+  };
+  const openOrder = () => {
+    navigate("order", { state: state });
   };
   return (
     <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-4 w-full">
@@ -48,7 +52,7 @@ const Shop = () => {
               backgroundColor: "rgba(217, 119, 6, 0.04)",
             },
           }}
-          // onClick={() => openOrder()}
+          onClick={() => openOrder()}
         >
           Passer votre commande
         </Button>

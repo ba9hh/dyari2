@@ -74,7 +74,7 @@ const ProfilePictureDialog = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Edit Profile Picture</DialogTitle>
+      <DialogTitle>mise à jour de la photo de profil</DialogTitle>
       <DialogContent dividers>
         <Stack spacing={2}>
           <div className="flex justify-center">
@@ -84,8 +84,12 @@ const ProfilePictureDialog = ({
               className="w-32 h-32 rounded-full object-cover"
             />
           </div>
-          <Button variant="outlined" component="label" sx={{ px: 12 }}>
-            Upload Image
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ px: 12, textTransform: "none" }}
+          >
+            Telecharger une nouvelle photo
             <input
               type="file"
               accept="image/*"

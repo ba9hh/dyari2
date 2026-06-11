@@ -12,6 +12,8 @@ import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
 import { createOrder } from "@/services/orders/createOrder";
 import { Typography, MobileStepper, Breadcrumbs, Link } from "@mui/material";
+import dyari from "@/assets/dyari.svg";
+
 import OrderBreadCrumbs from "./OrderBreadCrumbs";
 const Order = () => {
   const { user } = useContext(AuthContext);
@@ -126,6 +128,10 @@ const Order = () => {
         className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
       >
         <OrderBreadCrumbs />
+        <div className="flex justify-between items-center mb-4">
+          <Typography variant="h6">Procédez à votre commande</Typography>
+          <img src={dyari} className="w-7" />
+        </div>
         <hr className="mb-2" />
         {step == 0 && (
           <div>

@@ -20,12 +20,17 @@ const HomeShops = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [localisation, setLocalisation] = useState("Toute la Tunisie");
+  const [search, setSearch] = useState("");
   const [type, setType] = useState("");
   const limit = 10;
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const [navbarElement, setNavbarElement] = useState(type || "");
 
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setPage(1);
+  };
   useEffect(() => {
     const query = {};
 
@@ -44,6 +49,7 @@ const HomeShops = () => {
         localisation,
         page,
         limit,
+        search,
         // shopId: user && user.role === "shop" ? user.id : null,
       },
     ],
@@ -55,6 +61,7 @@ const HomeShops = () => {
       setTotalPages(data.totalPages);
     }
   }, [data]);
+
   if (isLoading)
     return (
       <>
@@ -71,6 +78,8 @@ const HomeShops = () => {
         <LocalisationFilter
           localisation={localisation}
           setLocalisation={setLocalisation}
+          search={search}
+          setSearch={handleSearchChange}
         />
         <div className="sm:mt-6 sm:mx-2">
           <ShopsHeader />

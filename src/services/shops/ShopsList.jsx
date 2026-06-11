@@ -1,7 +1,7 @@
 import { supabase } from "@/supabaseClient";
 
 export const fetchShops = async ({ queryKey }) => {
-  const [_key, { type, localisation, page, shopId, limit }] = queryKey;
+  const [_key, { type, localisation, page, shopId, limit, search }] = queryKey;
 
   let query = supabase
     .from("shops")
@@ -23,6 +23,7 @@ export const fetchShops = async ({ queryKey }) => {
   if (shopId) {
     query = query.neq("id", shopId);
   }
+  if (search) query = query.ilike("business_name", `%${search}%`);
 
   const { data, count, error } = await query;
 

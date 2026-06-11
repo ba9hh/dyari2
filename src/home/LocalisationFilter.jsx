@@ -1,18 +1,25 @@
 import { FormControl, Select, MenuItem } from "@mui/material";
 import cities from "@/data/cities";
-import search from "@/assets/search.svg";
+import searchIcon from "@/assets/search.svg";
 import filters from "@/assets/filters.svg";
 import location from "@/assets/location.svg";
 
-const LocalisationFilter = ({ localisation, setLocalisation }) => {
+const LocalisationFilter = ({
+  localisation,
+  setLocalisation,
+  search,
+  setSearch,
+}) => {
   return (
     <>
       {/* Desktop */}
       <div className="sm:flex justify-between py-0 px-2 hidden ">
         <div className="flex gap-2 items-center">
           <div className="flex items-center bg-white py-1.5 px-2 rounded-[4px] border border-stone-300 hover:border-stone-400 gap-2">
-            <img className=" h-4 w-4 text-stone-400" src={search} />
+            <img className=" h-4 w-4 text-stone-400" src={searchIcon} />
             <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search shops"
               className="outline-none placeholder:text-stone-400 text-sm w-48"
             />
