@@ -192,6 +192,11 @@ const Login = () => {
             Créer un nouveau compte
           </Button>
         </div>
+        <div className="flex items-center mb-6">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <h1 className=" text-gray-600 mx-4">Ou se connecter avec</h1>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
         <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
           <GoogleLoginButton onClick={loginWithGoogle} />
         </div>

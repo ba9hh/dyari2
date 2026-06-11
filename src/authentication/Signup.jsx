@@ -258,6 +258,11 @@ const Signup = () => {
                 j'ai déjà un compte
               </Button>
             </div>
+            <div className="flex items-center mb-6">
+              <div className="flex-grow border-t border-gray-300"></div>
+              <h1 className=" text-gray-600 mx-4">Ou s'inscrire avec</h1>
+              <div className="flex-grow border-t border-gray-300"></div>
+            </div>
             <div className="bg-white rounded-sm shadow-sm hover:bg-gray-100 cursor-pointer">
               <GoogleLoginButton onClick={signupWithGoogle} />
             </div>
