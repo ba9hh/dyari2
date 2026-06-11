@@ -202,6 +202,12 @@ const Signup = () => {
                     error={!!errors.confirmPassword}
                     helperText={errors.confirmPassword?.message}
                     onChange={handleFieldChange(field.onChange)}
+                    sx={{
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -209,7 +215,7 @@ const Signup = () => {
                             onClick={() => setShowConfirm((p) => !p)}
                             edge="end"
                           >
-                            {showConfirm ? <VisibilityOff /> : <Visibility />}
+                            {showConfirm ? <Visibility /> : <VisibilityOff />}
                           </IconButton>
                         </InputAdornment>
                       ),
