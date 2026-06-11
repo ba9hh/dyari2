@@ -21,7 +21,7 @@ import { Outlet } from "react-router-dom";
 import DyariLogo from "./components/DyariLogo";
 import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
-import RoleSelection from "./components/RoleSelection";
+import RoleSelection from "./authentication/RoleSelection";
 import ShopForm from "./authentication/ShopForm";
 import AuthLayout from "./components/AuthLayout";
 import SkeletonShopInfo from "./skeleton/shop/SkeletonShopInfo";

@@ -13,7 +13,10 @@ import {
   Typography,
   Box,
   Alert,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { supabase } from "@/supabaseClient";
 const Signup = () => {
   const { user, signupWithGoogle } = useContext(AuthContext);
@@ -29,12 +32,14 @@ const Signup = () => {
     formState: { errors },
     clearErrors,
   } = useForm({
-    defaultValues: { name: "", email: "", password: "" },
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
   });
 
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleFieldChange = (onChange) => (e) => {
     if (loginError) setLoginError("");
@@ -108,6 +113,12 @@ const Signup = () => {
                     fullWidth
                     error={!!errors.name}
                     helperText={errors.name ? errors.name.message : ""}
+                    sx={{
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
                   />
                 )}
               />
@@ -130,6 +141,12 @@ const Signup = () => {
                     error={!!errors.email}
                     helperText={errors.email?.message}
                     onChange={handleFieldChange(field.onChange)}
+                    sx={{
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
                   />
                 )}
               />
@@ -140,12 +157,63 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     label="Mot de passe"
                     fullWidth
                     error={!!errors.password}
                     helperText={errors.password?.message}
                     onChange={handleFieldChange(field.onChange)}
+                    sx={{
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            edge="end"
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+              />
+              <Controller
+                name="confirmPassword"
+                control={control}
+                rules={{
+                  required: "Confirmation requise",
+                  validate: (value, formValues) =>
+                    value === formValues.password ||
+                    "Les mots de passe ne correspondent pas",
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type={showConfirm ? "text" : "password"}
+                    label="Confirmer le mot de passe"
+                    fullWidth
+                    error={!!errors.confirmPassword}
+                    helperText={errors.confirmPassword?.message}
+                    onChange={handleFieldChange(field.onChange)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowConfirm((p) => !p)}
+                            edge="end"
+                          >
+                            {showConfirm ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 )}
               />

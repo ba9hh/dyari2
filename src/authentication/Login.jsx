@@ -13,13 +13,18 @@ import {
   Link as MuiLink,
   Typography,
   Box,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { supabase } from "@/supabaseClient";
 
 const Login = () => {
   const { user, sessionChecked, loginWithGoogle, authError } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -100,6 +105,12 @@ const Login = () => {
                 error={!!errors.email}
                 helperText={errors.email?.message}
                 onChange={handleFieldChange(field.onChange)}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
               />
             )}
           />
@@ -110,12 +121,30 @@ const Login = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 label="Mot de passe"
                 fullWidth
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 onChange={handleFieldChange(field.onChange)}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />
