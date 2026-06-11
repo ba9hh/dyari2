@@ -25,7 +25,7 @@ const LikedShops = ({ userId }) => {
             </div>
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-10 text-gray-500 border border-dashed border-gray-300 rounded-xl mt-3">
+          <div className="flex flex-col items-center justify-center py-10 text-gray-500">
             {/* <img src={thinking} className="h-16 w-16 mb-4" /> */}
             <h2 className="text-2xl font-semibold mb-2">
               Aucun magasin favori pour le moment
