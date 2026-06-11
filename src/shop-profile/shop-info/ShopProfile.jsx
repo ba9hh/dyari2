@@ -44,7 +44,7 @@ const ShopProfile = ({ shopId, activeTab, handleChange }) => {
     await updateRole("client");
   };
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-md rounded-md border">
+    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
       <div className="flex justify-between items-center">
         <div className="flex items-center px-2">
           <h1>{shop?.average_rating}</h1>

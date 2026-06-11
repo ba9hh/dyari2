@@ -42,7 +42,7 @@ const ArticlesShop = ({ shopId }) => {
   }
   if (isError) return <div>Error loading articles</div>;
   return (
-    <div className="w-full sm:w-2/3 flex flex-col gap-2 bg-white sm:bg-transparent rounded-md pt-0 pb-0 sm:border-0 sm:border-t-0">
+    <div className="w-full sm:w-2/3 flex flex-col gap-4 bg-white sm:bg-transparent rounded-md sm:border-0 sm:border-t-0">
       <div className="w-full">
         <Button
           fullWidth
