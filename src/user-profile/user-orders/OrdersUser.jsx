@@ -85,7 +85,7 @@ const OrdersUser = ({ userId }) => {
       {ordersData?.orders?.length == 0 && selectedFilter !== "all" && (
         <div className="flex flex-col items-center justify-center py-20 text-gray-500 border border-dashed border-gray-300 rounded-xl mt-3">
           {/* <div className="text-5xl mb-4">🛒</div> */}
-          <img src={thinking} className="h-16 w-16 mb-4" />
+          {/* <img src={thinking} className="h-16 w-16 mb-4" /> */}
 
           <h2 className="text-2xl font-semibold mb-2">
             No {selectedFilter} Orders
