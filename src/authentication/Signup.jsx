@@ -224,7 +224,7 @@ const Signup = () => {
                 )}
               />
             </div>
-            <div className="flex flex-col gap-y-2 mb-8 pt-4">
+            <div className="flex flex-col gap-y-2 mb-6 pt-4">
               <Button
                 type="submit"
                 variant="contained"

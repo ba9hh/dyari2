@@ -149,7 +149,7 @@ const Login = () => {
             )}
           />
         </div>
-        <div className="flex flex-col gap-y-2 mb-8 pt-1">
+        <div className="flex flex-col gap-y-2 mb-6 pt-1">
           <MuiLink
             component={RouterLink}
             to="/forget-password"
