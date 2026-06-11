@@ -73,13 +73,18 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
           Are you sure you want to delete this article?
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancel} color="primary">
+          <Button
+            onClick={handleCancel}
+            color="inherit"
+            sx={{ textTransform: "none" }}
+          >
             Cancel
           </Button>
           <Button
             onClick={handleConfirmDelete}
             color="error"
             variant="contained"
+            sx={{ textTransform: "none" }}
           >
             Delete
           </Button>

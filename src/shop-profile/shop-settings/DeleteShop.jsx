@@ -57,7 +57,11 @@ const DeleteShop = ({ shopId }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} disabled={loading}>
+          <Button
+            onClick={() => setOpen(false)}
+            disabled={loading}
+            color="inherit"
+          >
             Cancel
           </Button>
           <Button onClick={handleDelete} color="error" disabled={loading}>

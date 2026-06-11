@@ -108,7 +108,11 @@ const UserProfilePicture = ({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} sx={{ textTransform: "none" }}>
+        <Button
+          onClick={handleClose}
+          sx={{ textTransform: "none" }}
+          color="inherit"
+        >
           Cancel
         </Button>
         <Button
