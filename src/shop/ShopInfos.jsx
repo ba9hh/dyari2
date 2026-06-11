@@ -123,6 +123,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             <h1 className="text-lg">{shop?.business_name}</h1>
             <h1 className="text-sm">Specialité: {shop?.category}</h1>
             <h1 className="text-sm">Localisation: {shop?.address}</h1>
+            <h1 className="text-sm">Téléphone: 27428425</h1>
           </div>
         </div>
       </div>
