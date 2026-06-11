@@ -77,21 +77,21 @@ const OrdersUser = ({ userId }) => {
             Aucune commande pour le moment
           </h2>
           <p className="text-center max-w-sm">
-            Il semble que vous n’ayez encore passé aucune commande. Découvrez
-            notre boutique et profitez de vos achats !
+            Il semble que vous n’ayez encore passé aucune commande.
           </p>
         </div>
       )}
       {ordersData?.orders?.length == 0 && selectedFilter !== "all" && (
-        <div className="flex flex-col items-center justify-center py-20 text-gray-500 border border-dashed border-gray-300 rounded-xl mt-3">
+        <div className="flex flex-col items-center justify-center py-10 text-gray-500 ">
           {/* <div className="text-5xl mb-4">🛒</div> */}
           {/* <img src={thinking} className="h-16 w-16 mb-4" /> */}
 
           <h2 className="text-2xl font-semibold mb-2">
-            No {selectedFilter} Orders
+            Aucune commande {selectedFilter}
           </h2>
           <p className="text-center max-w-sm">
-            Looks like you dont’t have any {selectedFilter} orders.
+            Il semble que vous n’ayez encore passé aucune commande{" "}
+            {selectedFilter}.
           </p>
         </div>
       )}
