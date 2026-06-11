@@ -74,7 +74,7 @@ const ProfilePictureDialog = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>mise à jour de la photo de profil</DialogTitle>
+      <DialogTitle>Mise à jour de la photo de profil</DialogTitle>
       <DialogContent dividers>
         <Stack spacing={2}>
           <div className="flex justify-center">
@@ -100,11 +100,14 @@ const ProfilePictureDialog = ({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleClose} sx={{ textTransform: "none" }}>
+          Cancel
+        </Button>
         <Button
           variant="contained"
           onClick={handleUpdate}
           disabled={loading || !file}
+          sx={{ textTransform: "none" }}
         >
           {loading ? <CircularProgress size={20} color="inherit" /> : "Update"}
         </Button>

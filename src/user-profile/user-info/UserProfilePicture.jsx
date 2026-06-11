@@ -75,7 +75,7 @@ const UserProfilePicture = ({
   };
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Edit Profile Picture</DialogTitle>
+      <DialogTitle>Mise à jour de la photo de profil</DialogTitle>
       <DialogContent dividers>
         <Stack spacing={2}>
           <div className="flex justify-center">
@@ -92,8 +92,12 @@ const UserProfilePicture = ({
               />
             )}
           </div>
-          <Button variant="outlined" component="label" sx={{ px: 12 }}>
-            Upload Image
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ px: 12, textTransform: "none" }}
+          >
+            Telecharger une nouvelle photo
             <input
               type="file"
               accept="image/*"
@@ -104,11 +108,14 @@ const UserProfilePicture = ({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleClose} sx={{ textTransform: "none" }}>
+          Cancel
+        </Button>
         <Button
           variant="contained"
           onClick={handleUpdate}
           disabled={loading || !file}
+          sx={{ textTransform: "none" }}
         >
           {loading ? <CircularProgress size={20} color="inherit" /> : "Update"}
         </Button>
