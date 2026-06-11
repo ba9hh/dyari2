@@ -163,7 +163,6 @@ const ShopForm = () => {
                   {...field}
                   error={!!errors.userPhoneNumber}
                   helperText={errors.userPhoneNumber?.message}
-                  sx={{ mb: 2 }}
                 />
               )}
             />
