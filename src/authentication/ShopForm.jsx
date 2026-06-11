@@ -8,6 +8,7 @@ import {
   Radio,
   MenuItem,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { CircleCheckBig } from "lucide-react";
@@ -29,6 +30,7 @@ const ShopForm = () => {
       location: "",
       speciality: "",
       plan: "starter",
+      userPhoneNumber: "",
     },
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -51,6 +53,7 @@ const ShopForm = () => {
       address: data.location,
       category: data.speciality,
       offer_plan: data.plan,
+      phone_number: data.userPhoneNumber,
     });
     console.log("user_id:", user.id); // Debug log
     if (shopError) {
@@ -109,7 +112,7 @@ const ShopForm = () => {
                   {...field}
                   fullWidth
                   displayEmpty
-                  error={!!errors.localisation}
+                  error={!!errors.location}
                 >
                   <MenuItem value="" disabled>
                     Choisir une délégation
@@ -123,28 +126,48 @@ const ShopForm = () => {
               )}
             />
           </div>
-          <Controller
-            name="speciality"
-            control={control}
-            rules={{ required: "Spécialité requise" }}
-            render={({ field }) => (
-              <Select
-                {...field}
-                fullWidth
-                displayEmpty
-                error={!!errors.speciality}
-              >
-                <MenuItem value="" disabled>
-                  Choisir une spécialité
-                </MenuItem>
-                {SPECIALITIES.map((speciality) => (
-                  <MenuItem key={speciality} value={speciality}>
-                    {speciality}
+          <div className="flex gap-2">
+            <Controller
+              name="speciality"
+              control={control}
+              rules={{ required: "Spécialité requise" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  fullWidth
+                  displayEmpty
+                  error={!!errors.speciality}
+                >
+                  <MenuItem value="" disabled>
+                    Choisir une spécialité
                   </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
+                  {SPECIALITIES.map((speciality) => (
+                    <MenuItem key={speciality} value={speciality}>
+                      {speciality}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+            <Controller
+              name="userPhoneNumber"
+              control={control}
+              rules={{
+                required: "Téléphone requis",
+                pattern: { value: /^[2459]\d{7}$/, message: "Numéro invalide" },
+              }}
+              render={({ field }) => (
+                <TextField
+                  fullWidth
+                  label="Votre numéro de téléphone"
+                  {...field}
+                  error={!!errors.userPhoneNumber}
+                  helperText={errors.userPhoneNumber?.message}
+                  sx={{ mb: 2 }}
+                />
+              )}
+            />
+          </div>
         </div>
         <Controller
           name="plan"
@@ -203,6 +226,12 @@ const ShopForm = () => {
             type="submit"
             variant="outlined"
             fullWidth
+            disabled={isLoading}
+            startIcon={
+              isLoading ? (
+                <CircularProgress size={16} sx={{ color: "#d97706" }} />
+              ) : null
+            }
             sx={{
               textTransform: "none",
               color: "#d97706",
@@ -213,7 +242,7 @@ const ShopForm = () => {
               },
             }}
           >
-            Continue
+            {isLoading ? "Envoi en cours..." : "Continuer"}
           </Button>
         </div>
       </form>
