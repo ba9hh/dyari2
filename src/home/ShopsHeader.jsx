@@ -14,7 +14,7 @@ const ShopsHeader = () => {
           src="https://flagcdn.com/tn.svg"
           width="24"
           alt="Tunisia"
-          className="ml-0.5"
+          className="ml-1"
         />
       </h1>
       <span className="flex-grow border-t border-gray-300 mx-6"></span>
