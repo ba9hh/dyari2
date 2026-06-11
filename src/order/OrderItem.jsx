@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, IconButton } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import OrderArticles from "./OrderArticles";
 const OrderItem = ({
   index,
@@ -12,10 +13,24 @@ const OrderItem = ({
   page,
   setPage,
   totalPages,
+  onRemove,
+  canRemove,
 }) => {
   return (
     <div className="mb-2">
-      <Typography variant="subtitle2">Article {index + 1}</Typography>
+      <div className="flex justify-between items-center">
+        <Typography variant="subtitle2">Article {index + 1}</Typography>
+        {canRemove && (
+          <IconButton
+            onClick={() => onRemove(index)}
+            size="small"
+            sx={{ color: "#ef4444" }}
+            aria-label="Supprimer l'article"
+          >
+            <DeleteOutlineIcon fontSize="small" />
+          </IconButton>
+        )}
+      </div>
       <hr className="my-2" />
       <OrderArticles
         shopData={shopData}
@@ -41,6 +56,7 @@ const OrderItem = ({
                 fullWidth
                 label="Quantité"
                 {...field}
+                onWheel={(e) => e.target.blur()}
                 error={!!errors.items?.[index]?.quantity}
                 helperText={errors.items?.[index]?.quantity?.message}
                 sx={{
@@ -56,6 +72,10 @@ const OrderItem = ({
                     WebkitAppearance: "none",
                     margin: 0,
                   },
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
                 }}
               />
             )}
@@ -66,6 +86,7 @@ const OrderItem = ({
             {(watchItems[index].price || 0) * (watchItems[index].quantity || 0)}{" "}
             dt
           </Typography>
+          <hr className="mt-2" />
         </div>
       </div>
     </div>

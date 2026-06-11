@@ -36,10 +36,11 @@ const HomeShops = () => {
 
     if (type) query.type = type;
     if (localisation !== "Toute la Tunisie") query.localisation = localisation;
+    if (search.trim()) query.search = search;
     if (page !== 1) query.page = page;
 
     Object.keys(query).length > 0 ? setSearchParams(query) : navigate("/");
-  }, [type, localisation, page]);
+  }, [type, localisation, search, page]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [
@@ -131,6 +132,8 @@ const HomeShops = () => {
       <LocalisationFilter
         localisation={localisation}
         setLocalisation={setLocalisation}
+        search={search}
+        setSearch={handleSearchChange}
       />
       <div className="sm:mt-6 sm:mx-2 ">
         <ShopsHeader />

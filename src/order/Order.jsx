@@ -44,7 +44,7 @@ const Order = () => {
     },
   });
 
-  const { fields, append } = useFieldArray({ control, name: "items" });
+  const { fields, append, remove } = useFieldArray({ control, name: "items" });
 
   const watchItems = watch("items");
 
@@ -148,6 +148,8 @@ const Order = () => {
                 page={page}
                 setPage={setPage}
                 totalPages={totalPages}
+                onRemove={remove}
+                canRemove={fields.length > 1}
               />
             ))}
 
@@ -164,6 +166,7 @@ const Order = () => {
                 })
               }
               sx={{
+                mt: 1,
                 mb: 1,
                 textTransform: "none",
                 color: "#d97706",
