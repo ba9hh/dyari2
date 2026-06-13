@@ -163,35 +163,160 @@ const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
   </div>
 );
 
+// ── Add comment form ──────────────────────────────────────────────────────────
+const AddCommentForm = ({ onSubmit }) => {
+  const [rating, setRating] = useState(0);
+  const [text, setText] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = () => {
+    if (rating === 0) {
+      setError("Veuillez sélectionner une note.");
+      return;
+    }
+    if (text.trim().length < 10) {
+      setError("Votre commentaire doit contenir au moins 10 caractères.");
+      return;
+    }
+    setError("");
+    onSubmit({ rating, text });
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="w-full sm:w-2/3 bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-2 text-center">
+        <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+          <svg
+            className="w-5 h-5 text-amber-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <p className="text-sm font-semibold text-gray-700">
+          Merci pour votre avis !
+        </p>
+        <p className="text-xs text-gray-400">
+          Votre commentaire a été soumis avec succès.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full sm:w-2/3 bg-white border rounded-md p-4 shadow-sm">
+      <h2 className="text-sm font-semibold text-gray-700 mb-3">
+        Laisser un commentaire
+      </h2>
+
+      {/* Star picker */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-xs text-gray-500">Votre note :</span>
+        <ReactStars
+          count={5}
+          value={rating}
+          size={24}
+          isHalf={false}
+          edit={true}
+          activeColor="#d97706"
+          onChange={(val) => {
+            setRating(val);
+            setError("");
+          }}
+        />
+      </div>
+
+      {/* Textarea */}
+      <textarea
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
+          setError("");
+        }}
+        placeholder="Partagez votre expérience avec cette boutique…"
+        rows={4}
+        className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
+      />
+
+      {/* Char count + error */}
+      <div className="flex items-center justify-between mt-1 mb-3">
+        {error ? <p className="text-xs text-red-500">{error}</p> : <span />}
+        <span className="text-xs text-gray-300 ml-auto">
+          {text.length} / 500
+        </span>
+      </div>
+
+      {/* Submit */}
+      <button
+        onClick={handleSubmit}
+        className="w-full py-2 rounded-md text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 active:bg-amber-800 transition-colors"
+      >
+        Publier mon avis
+      </button>
+    </div>
+  );
+};
+
 // ── Main component ────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
   const [page, setPage] = useState(1);
+  const [comments, setComments] = useState(FAKE_DATA.comments);
+  const [averageRating, setAverageRating] = useState(FAKE_DATA.average_rating);
+  const [totalRating, setTotalRating] = useState(FAKE_DATA.total_rating);
 
-  const { average_rating, total_rating, totalPages, comments } = FAKE_DATA;
-
-  // Paginate locally against the fake array
+  const totalPages = Math.ceil(comments.length / LIMIT);
   const start = (page - 1) * LIMIT;
   const pageComments = comments.slice(start, start + LIMIT);
+
+  const handleNewComment = ({ rating, text }) => {
+    const newComment = {
+      id: Date.now(),
+      user_name: "Vous",
+      user_picture: null,
+      rating,
+      comment_text: text,
+      created_at: new Date().toISOString(),
+    };
+    const updated = [newComment, ...comments];
+    const newAvg =
+      updated.reduce((sum, c) => sum + c.rating, 0) / updated.length;
+    setComments(updated);
+    setAverageRating(Math.round(newAvg * 10) / 10);
+    setTotalRating((t) => t + 1);
+    setPage(1);
+  };
 
   return (
     <>
       {/* Rating summary bar */}
       <div className="w-full sm:w-2/3 bg-white border rounded-md px-4 py-3 shadow-sm flex items-center gap-3">
         <span className="text-2xl font-bold text-amber-600">
-          {Number(average_rating).toFixed(1)}
+          {Number(averageRating).toFixed(1)}
         </span>
         <div>
           <ReactStars
             count={5}
-            value={average_rating}
+            value={averageRating}
             size={20}
             isHalf={true}
             edit={false}
             activeColor="#d97706"
           />
-          <p className="text-xs text-gray-400 mt-0.5">{total_rating} avis</p>
+          <p className="text-xs text-gray-400 mt-0.5">{totalRating} avis</p>
         </div>
       </div>
+
+      {/* Add comment form */}
+      <AddCommentForm onSubmit={handleNewComment} />
 
       {/* Comment list */}
       <div className="w-full sm:w-2/3 space-y-3">
