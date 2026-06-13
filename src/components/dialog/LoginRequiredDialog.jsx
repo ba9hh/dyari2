@@ -108,7 +108,7 @@ const LoginRequiredDialog = ({
             letterSpacing: 0.3,
           }}
         >
-          Authentication Required
+          Authentification requise
         </DialogTitle>
         <IconButton
           onClick={onClose}
