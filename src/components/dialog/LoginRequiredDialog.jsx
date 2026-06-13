@@ -11,11 +11,10 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from "@mui/icons-material/Google";
-import { GoogleLogin } from "@react-oauth/google";
 import { useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
-
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 const LoginRequiredDialog = ({
   open,
   onClose,
@@ -71,38 +70,7 @@ const LoginRequiredDialog = ({
         <Divider sx={{ my: 2 }} />
 
         <Stack spacing={2}>
-          <GoogleLogin
-            onSuccess={(res) => {
-              handleGoogleLogin(res, { redirect: false });
-              onClose();
-              toast.success("User is connected!");
-            }}
-            onError={() => console.log("Login Failed")}
-            render={({ onClick }) => (
-              <Box
-                onClick={onClick}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  px: 2,
-                  py: 1.5,
-                  borderRadius: 2,
-                  border: `1px solid ${theme.palette.grey[300]}`,
-                  cursor: "pointer",
-                  transition: "background-color 0.2s",
-                  "&:hover": {
-                    bgcolor: theme.palette.grey[100],
-                  },
-                }}
-              >
-                <GoogleIcon sx={{ mr: 1, color: "#DB4437" }} />
-                <Typography variant="button" sx={{ fontWeight: 500 }}>
-                  Continue with Google
-                </Typography>
-              </Box>
-            )}
-          />
+          <GoogleLoginButton />
         </Stack>
       </DialogContent>
     </Dialog>
