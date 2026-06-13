@@ -44,7 +44,7 @@ const OrderArticles = ({
                   <img
                     src={item.article_image}
                     alt="article"
-                    className={`w-full aspect-square object-cover `}
+                    className={`w-full aspect-square object-cover rounded-md `}
                   />
                   <div className="absolute top-0 right-0 left-0 h-5 bg-white border opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-center text-xs font-medium text-gray-700">

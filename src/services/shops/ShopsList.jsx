@@ -18,7 +18,7 @@ export const fetchShops = async ({ queryKey }) => {
 
   if (type) query = query.contains("speciality", [type]);
   if (localisation && localisation !== "Toute la Tunisie") {
-    query = query.eq("localisation", localisation);
+    query = query.eq("address", localisation);
   }
   if (shopId) {
     query = query.neq("id", shopId);
