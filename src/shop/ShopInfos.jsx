@@ -74,7 +74,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <RatingTest shopId={shopId} />
         </div> */}
         <div className="flex items-center gap-1">
-          <h1 className="font-bold text-amber-600">{shop?.average_rating}</h1>
+          <h1 className="font-bold">{shop?.average_rating}</h1>
           <ReactStars
             count={5}
             size={20}
@@ -86,9 +86,6 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <h1>({shop?.total_rating})</h1>
         </div>
         <div className="flex items-center gap-2">
-          <p className="text-sm text-gray-600">
-            (Vous ne pouvez noter que si vous avez effectué un achat.)
-          </p>
           <Button
             variant="contained"
             color="primary"
@@ -102,7 +99,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             }}
             onClick={() => openOrder()}
           >
-            Noter sur 5
+            Laisser un avis
           </Button>
         </div>
         {/* <button
