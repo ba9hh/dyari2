@@ -166,11 +166,18 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
               },
             }}
           />
-          {/* <Tab
-            label="Contact"
+          <Tab
+            label="Commentaires"
             value="contact"
-            sx={{ textTransform: "none", fontWeight: "bold" }}
-          /> */}
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              color: "text.secondary",
+              "&.Mui-selected": {
+                color: "#d97706",
+              },
+            }}
+          />
         </Tabs>
       </Box>
       <LoginRequiredDialog
