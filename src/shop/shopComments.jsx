@@ -175,10 +175,6 @@ const AddCommentForm = ({ onSubmit }) => {
       setError("Veuillez sélectionner une note.");
       return;
     }
-    if (text.trim().length < 10) {
-      setError("Votre commentaire doit contenir au moins 10 caractères.");
-      return;
-    }
     setError("");
     onSubmit({ rating, text });
     setSubmitted(true);
