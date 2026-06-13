@@ -211,7 +211,7 @@ const AddCommentForm = ({ onSubmit }) => {
   return (
     <div className="w-full sm:w-2/3 bg-white border rounded-md p-4 shadow-sm">
       <h2 className="text-sm font-semibold text-gray-700 mb-3">
-        Laisser un commentaire{" "}
+        Laisser un avis{" "}
         <span className="text-sm font-normal text-gray-600">
           (Vous ne pouvez laisser un avis que si vous avez effectué un achat.)
         </span>
@@ -241,7 +241,7 @@ const AddCommentForm = ({ onSubmit }) => {
           setText(e.target.value);
           setError("");
         }}
-        placeholder="Partagez votre expérience avec cette boutique…"
+        placeholder="Partagez votre expérience avec cette boutique… (facultatif)"
         rows={3}
         className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
       />
