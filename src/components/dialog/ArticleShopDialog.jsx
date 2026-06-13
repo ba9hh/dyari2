@@ -42,7 +42,13 @@ const ArticleShopDialog = ({ article, open, onClose }) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button
+          onClick={onClose}
+          color="inherit"
+          sx={{ textTransform: "none" }}
+        >
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

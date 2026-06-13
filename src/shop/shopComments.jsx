@@ -243,7 +243,7 @@ const AddCommentForm = ({ onSubmit }) => {
           setError("");
         }}
         placeholder="Partagez votre expérience avec cette boutique…"
-        rows={4}
+        rows={3}
         className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
       />
 
@@ -251,7 +251,7 @@ const AddCommentForm = ({ onSubmit }) => {
       <div className="flex items-center justify-between mt-1 mb-3">
         {error ? <p className="text-xs text-red-500">{error}</p> : <span />}
         <span className="text-xs text-gray-300 ml-auto">
-          {text.length} / 500
+          {text.length} / 300
         </span>
       </div>
 
