@@ -278,7 +278,7 @@ const Order = () => {
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}
-        message="Vous devez être connecté en tant qu'utilisateur pour passer une commande."
+        message="Vous devez être connecté pour passer une commande."
       />
     </div>
   );

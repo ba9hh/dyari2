@@ -92,12 +92,22 @@ const LoginRequiredDialog = ({
       <Box
         sx={{
           position: "relative",
-          bgcolor: theme.palette.primary.main,
+          bgcolor: "#d97706",
           color: "#fff",
-          py: 1,
+          py: 1.5,
+          px: 3,
         }}
       >
-        <DialogTitle sx={{ textAlign: "center", m: 0, fontSize: "1.2rem" }}>
+        <DialogTitle
+          sx={{
+            textAlign: "center",
+            m: 0,
+            p: 0,
+            fontSize: "1.1rem",
+            fontWeight: 600,
+            letterSpacing: 0.3,
+          }}
+        >
           Authentication Required
         </DialogTitle>
         <IconButton
@@ -105,12 +115,18 @@ const LoginRequiredDialog = ({
           size="small"
           sx={{
             position: "absolute",
-            top: 8,
-            right: 8,
+            top: "50%",
+            right: 10,
+            transform: "translateY(-50%)",
             color: "#fff",
+            opacity: 0.85,
+            "&:hover": {
+              opacity: 1,
+              bgcolor: "rgba(255,255,255,0.15)",
+            },
           }}
         >
-          <CloseIcon />
+          <CloseIcon fontSize="small" />
         </IconButton>
       </Box>
 
