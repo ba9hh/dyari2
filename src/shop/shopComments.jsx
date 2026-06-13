@@ -215,7 +215,7 @@ const AddCommentForm = ({ onSubmit }) => {
   return (
     <div className="w-full sm:w-2/3 bg-white border rounded-md p-4 shadow-sm">
       <h2 className="text-sm font-semibold text-gray-700 mb-3">
-        Laisser un avis{" "}
+        Laisser un commentaire{" "}
         <span className="text-sm font-normal text-gray-600">
           (Vous ne pouvez laisser un avis que si vous avez effectué un achat.)
         </span>
@@ -261,7 +261,8 @@ const AddCommentForm = ({ onSubmit }) => {
       {/* Submit */}
       <button
         onClick={handleSubmit}
-        className="w-full py-2 rounded-md text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 active:bg-amber-800 transition-colors"
+        disabled={rating === 0}
+        className="w-full py-2 rounded-md text-sm font-medium text-white transition-colors bg-amber-600 hover:bg-amber-700 active:bg-amber-800 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
       >
         Publier mon avis
       </button>
