@@ -73,8 +73,8 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
         {/* <div className="">
           <RatingTest shopId={shopId} />
         </div> */}
-        <div className="flex items-center ">
-          <h1>{shop?.average_rating}</h1>
+        <div className="flex items-center gap-1">
+          <h1 className="font-bold text-amber-600">{shop?.average_rating}</h1>
           <ReactStars
             count={5}
             size={20}
