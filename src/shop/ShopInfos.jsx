@@ -167,7 +167,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             }}
           />
           <Tab
-            label="Commentaires"
+            label="Avis"
             value="contact"
             sx={{
               textTransform: "none",

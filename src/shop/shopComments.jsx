@@ -215,7 +215,7 @@ const AddCommentForm = ({ onSubmit }) => {
   return (
     <div className="w-full sm:w-2/3 bg-white border rounded-md p-4 shadow-sm">
       <h2 className="text-sm font-semibold text-gray-700 mb-3">
-        Laisser un commentaire{" "}
+        Laisser un avis{" "}
         <span className="text-sm font-normal text-gray-600">
           (Vous ne pouvez laisser un avis que si vous avez effectué un achat.)
         </span>
