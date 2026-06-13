@@ -6,7 +6,7 @@ import { AuthContext } from "@/AuthProvider";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ShopCommentaires from "./ShopCommentaires";
+import ShopCommentaires from "./shopComments";
 const Shop = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
