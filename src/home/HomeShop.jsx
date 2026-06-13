@@ -83,7 +83,7 @@ const HomeShop = ({ shop }) => {
               value={shop.average_rating || 0}
               isHalf={true}
               edit={false}
-              activeColor="#FBBC04"
+              activeColor="#d97706"
             />
           </div>
           <div className="hidden sm:block">
@@ -93,7 +93,7 @@ const HomeShop = ({ shop }) => {
               value={shop.average_rating || 0}
               isHalf={true}
               edit={false}
-              activeColor="#FBBC04"
+              activeColor="#d97706"
             />
           </div>
           <h1 className="text-sm sm:text-[15px]">({shop.total_rating})</h1>
