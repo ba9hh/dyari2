@@ -38,7 +38,7 @@ const ShopTabs = ({ activeTab, handleChange }) => {
           }}
         />
         <Tab
-          label="Orders"
+          label="Commandes"
           value="orders"
           sx={{
             textTransform: "none",

@@ -52,7 +52,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
           centered
         >
           <Tab
-            label="Orders"
+            label="Commandes"
             value="orders"
             sx={{
               textTransform: "none",
@@ -64,7 +64,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
             }}
           />
           <Tab
-            label="Liked shops"
+            label="Enregistrés"
             value="likedShops"
             sx={{
               textTransform: "none",
@@ -76,7 +76,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
             }}
           />
           <Tab
-            label="Rated shops"
+            label="Avis laissés"
             value="ratedShops"
             sx={{
               textTransform: "none",
