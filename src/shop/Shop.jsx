@@ -6,7 +6,7 @@ import { AuthContext } from "@/AuthProvider";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import ShopCommentaires from "./ShopCommentaires";
 const Shop = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -19,10 +19,6 @@ const Shop = () => {
   };
   const handleChange = (event, newValue) => {
     if (newValue === "contact") {
-      if (!user) {
-        setIsConnected(true);
-        return;
-      }
       setActiveTab("contact");
     } else {
       setActiveTab(newValue);
@@ -58,7 +54,7 @@ const Shop = () => {
         </Button>
       </div>
       {activeTab === "articles" && <ShopArticles shopId={state} />}
-      {activeTab === "contact" && <ShopArticles shopId={state} />}
+      {activeTab === "contact" && <ShopCommentaires shopId={state} />}
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}
