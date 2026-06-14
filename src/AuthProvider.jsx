@@ -15,7 +15,7 @@ async function getUserProfile(userId) {
     return null;
   }
 
-  return data; // { id, profile_picture }
+  return data;
 }
 const AuthContext = React.createContext();
 const ROLE_SELECTION_ALLOWED_PATHS = ["/role-selection", "/shop-creation"];
@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
         navigate("/role-selection");
       }
     };
-    // Get current session (restores from localStorage if available)
+
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Error getting session:", error);
@@ -47,6 +47,7 @@ const AuthProvider = ({ children }) => {
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
+        prevUserIdRef.current = authUser.id;
         redirectIfRoleNotSelected(profile);
       }
       setSessionChecked(true);

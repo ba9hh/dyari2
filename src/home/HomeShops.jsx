@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import ShopsHomeSkeleton from "@/skeleton/home/ShopsHomeSkeleton";
 import HomeShop from "./HomeShop";
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -55,7 +55,7 @@ const HomeShops = () => {
       },
     ],
     queryFn: fetchShops,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
   useEffect(() => {
     if (data?.totalPages) {
