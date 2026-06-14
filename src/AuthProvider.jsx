@@ -28,8 +28,6 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("useEffect started");
-
     const redirectIfRoleNotSelected = (profile) => {
       if (
         profile &&
@@ -41,28 +39,16 @@ const AuthProvider = ({ children }) => {
     };
 
     const getSession = async () => {
-      try {
-        console.log("Before getSession");
-        const { data, error } = await supabase.auth.getSession();
+      const { data, error } = await supabase.auth.getSession();
+      if (error) console.error("Error getting session:", error);
+      const authUser = data?.session?.user;
 
-        console.log("After getSession");
-
-        console.log("SESSION:", data);
-        console.log("ERROR:", error);
-        if (error) console.error("Error getting session:", error);
-        const authUser = data?.session?.user;
-
-        if (authUser) {
-          console.log("AUTH USER:", authUser);
-          const profile = await getUserProfile(authUser.id);
-          console.log("Fetched profile:", profile);
-          setUser(profile);
-          redirectIfRoleNotSelected(profile);
-        }
-        setSessionChecked(true);
-      } catch (err) {
-        console.error("GET SESSION CRASHED:", err);
+      if (authUser) {
+        const profile = await getUserProfile(authUser.id);
+        setUser(profile);
+        redirectIfRoleNotSelected(profile);
       }
+      setSessionChecked(true);
     };
 
     getSession();
