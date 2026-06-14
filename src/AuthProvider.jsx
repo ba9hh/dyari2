@@ -67,8 +67,10 @@ const AuthProvider = ({ children }) => {
             return;
           }
         } else {
-          prevUserIdRef.current = null;
-          setUser(null);
+          if (_event === "SIGNED_OUT") {
+            prevUserIdRef.current = null;
+            setUser(null);
+          }
           setSessionChecked(true);
         }
       },
