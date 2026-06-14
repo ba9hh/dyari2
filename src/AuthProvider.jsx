@@ -63,9 +63,7 @@ const AuthProvider = ({ children }) => {
           setSessionChecked(true);
           redirectIfRoleNotSelected(profile);
         } else {
-          if (_event === "SIGNED_OUT") {
-            setUser(null);
-          }
+          setUser(null);
           setSessionChecked(true);
         }
       },
