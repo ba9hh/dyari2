@@ -21,12 +21,15 @@ const AuthContext = React.createContext();
 const ROLE_SELECTION_ALLOWED_PATHS = ["/role-selection", "/shop-creation"];
 
 const AuthProvider = ({ children }) => {
+  console.log("AuthProvider rendered");
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState("");
   const [sessionChecked, setSessionChecked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("useEffect started");
+
     const redirectIfRoleNotSelected = (profile) => {
       if (
         profile &&
@@ -38,30 +41,43 @@ const AuthProvider = ({ children }) => {
     };
 
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) console.error("Error getting session:", error);
-      const authUser = data?.session?.user;
+      try {
+        console.log("Before getSession");
+        const { data, error } = await supabase.auth.getSession();
 
-      if (authUser) {
-        const profile = await getUserProfile(authUser.id);
-        console.log("Fetched profile:", profile);
-        setUser(profile);
-        redirectIfRoleNotSelected(profile);
+        console.log("After getSession");
+
+        console.log("SESSION:", data);
+        console.log("ERROR:", error);
+        if (error) console.error("Error getting session:", error);
+        const authUser = data?.session?.user;
+
+        if (authUser) {
+          console.log("AUTH USER:", authUser);
+          const profile = await getUserProfile(authUser.id);
+          console.log("Fetched profile:", profile);
+          setUser(profile);
+          redirectIfRoleNotSelected(profile);
+        }
+        setSessionChecked(true);
+      } catch (err) {
+        console.error("GET SESSION CRASHED:", err);
       }
-      setSessionChecked(true);
     };
 
     getSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      (_event, session) => {
         const authUser = session?.user;
 
         if (authUser) {
-          const profile = await getUserProfile(authUser.id);
-          setUser(profile);
-          setSessionChecked(true);
-          redirectIfRoleNotSelected(profile);
+          (async () => {
+            const profile = await getUserProfile(authUser.id);
+            setUser(profile);
+            setSessionChecked(true);
+            redirectIfRoleNotSelected(profile);
+          })();
         } else {
           setUser(null);
           setSessionChecked(true);

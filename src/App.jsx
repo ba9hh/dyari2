@@ -35,42 +35,40 @@ function StandardLayout() {
 }
 function App() {
   return (
-    <>
-      <AuthProvider>
-        <ToastContainer />
-        <SkeletonTheme baseColor="#F8F8F8" highlightColor="#FFA500">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route element={<AuthLayout />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/role-selection" element={<RoleSelection />} />
-              <Route path="/shop-creation" element={<ShopForm />} />
-            </Route>
-            <Route element={<StandardLayout />}>
-              <Route path="/articles" element={<ArticlesShop />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/shop/order" element={<Order />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/account/settings" element={<AccountSettings />} />
-              <Route
-                path="/account/settings/change-password"
-                element={<ChangePassword />}
-              />
-              <Route path="/account/add-article" element={<AddArticle />} />
-              <Route
-                path="/account/update-article/:articleId"
-                element={<UpdateArticle />}
-              />
-              <Route path="/ratingtest" element={<VerifyEmail />} />
-              <Route path="/skeleton" element={<SkeletonShopInfo />} />
-              <Route path="/forget-password" element={<ForgetPassword />} />
-              <Route path="/dyari-delivery" element={<DyariDelivery />} />
-            </Route>
-          </Routes>
-        </SkeletonTheme>
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <ToastContainer />
+      <SkeletonTheme baseColor="#F8F8F8" highlightColor="#FFA500">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/role-selection" element={<RoleSelection />} />
+            <Route path="/shop-creation" element={<ShopForm />} />
+          </Route>
+          <Route element={<StandardLayout />}>
+            <Route path="/articles" element={<ArticlesShop />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/order" element={<Order />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/account/settings" element={<AccountSettings />} />
+            <Route
+              path="/account/settings/change-password"
+              element={<ChangePassword />}
+            />
+            <Route path="/account/add-article" element={<AddArticle />} />
+            <Route
+              path="/account/update-article/:articleId"
+              element={<UpdateArticle />}
+            />
+            <Route path="/ratingtest" element={<VerifyEmail />} />
+            <Route path="/skeleton" element={<SkeletonShopInfo />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/dyari-delivery" element={<DyariDelivery />} />
+          </Route>
+        </Routes>
+      </SkeletonTheme>
+    </AuthProvider>
   );
 }
 
