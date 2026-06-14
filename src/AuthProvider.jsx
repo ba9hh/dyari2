@@ -18,6 +18,7 @@ async function getUserProfile(userId) {
   return data; // { id, profile_picture }
 }
 const AuthContext = React.createContext();
+const ROLE_SELECTION_ALLOWED_PATHS = ["/role-selection", "/shop-creation"];
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -28,6 +29,15 @@ const AuthProvider = ({ children }) => {
   const prevUserIdRef = useRef(null);
 
   useEffect(() => {
+    const redirectIfRoleNotSelected = (profile) => {
+      if (
+        profile &&
+        !profile.has_selected_role &&
+        !ROLE_SELECTION_ALLOWED_PATHS.includes(window.location.pathname)
+      ) {
+        navigate("/role-selection");
+      }
+    };
     // Get current session (restores from localStorage if available)
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
@@ -37,7 +47,7 @@ const AuthProvider = ({ children }) => {
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
-        prevUserIdRef.current = authUser.id;
+        redirectIfRoleNotSelected(profile);
       }
       setSessionChecked(true);
     };
@@ -52,23 +62,9 @@ const AuthProvider = ({ children }) => {
           const profile = await getUserProfile(authUser.id);
           setUser(profile);
           setSessionChecked(true);
-
-          const isFreshSignIn = prevUserIdRef.current !== authUser.id;
-          prevUserIdRef.current = authUser.id;
-
-          if (
-            _event === "SIGNED_IN" &&
-            isFreshSignIn &&
-            profile &&
-            !profile.has_selected_role &&
-            window.location.pathname !== "/role-selection"
-          ) {
-            navigate("/role-selection");
-            return;
-          }
+          redirectIfRoleNotSelected(profile);
         } else {
           if (_event === "SIGNED_OUT") {
-            prevUserIdRef.current = null;
             setUser(null);
           }
           setSessionChecked(true);
@@ -105,7 +101,6 @@ const AuthProvider = ({ children }) => {
         console.error("Logout failed:", error.message);
         return;
       }
-      prevUserIdRef.current = null;
       setUser(null);
       navigate("/");
     } catch (err) {
