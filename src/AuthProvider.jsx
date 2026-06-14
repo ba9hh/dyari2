@@ -26,8 +26,6 @@ const AuthProvider = ({ children }) => {
   const [sessionChecked, setSessionChecked] = useState(false);
   const navigate = useNavigate();
 
-  const prevUserIdRef = useRef(null);
-
   useEffect(() => {
     const redirectIfRoleNotSelected = (profile) => {
       if (
@@ -46,6 +44,7 @@ const AuthProvider = ({ children }) => {
 
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
+        console.log("Fetched profile:", profile);
         setUser(profile);
         redirectIfRoleNotSelected(profile);
       }
