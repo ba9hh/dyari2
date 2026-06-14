@@ -6,7 +6,7 @@ async function getUserProfile(userId) {
 
   ({ data, error } = await supabase
     .from("users")
-    .select("id, role")
+    .select("id, role, has_selected_role")
     .eq("id", userId)
     .single());
 
@@ -18,18 +18,20 @@ async function getUserProfile(userId) {
   return data; // { id, profile_picture }
 }
 const AuthContext = React.createContext();
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState("");
   const [sessionChecked, setSessionChecked] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     // Get current session (restores from localStorage if available)
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Error getting session:", error);
       const authUser = data?.session?.user;
-      console.log(authUser);
+
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
@@ -47,7 +49,8 @@ const AuthProvider = ({ children }) => {
           const profile = await getUserProfile(authUser.id);
           setUser(profile);
           setSessionChecked(true);
-          if (profile && !profile.has_selected_role) {
+
+          if (_event === "SIGNED_IN" && profile && !profile.has_selected_role) {
             navigate("/role-selection");
             return;
           }
