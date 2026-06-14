@@ -47,7 +47,6 @@ const AuthProvider = ({ children }) => {
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
-        prevUserIdRef.current = authUser.id;
         redirectIfRoleNotSelected(profile);
       }
       setSessionChecked(true);
