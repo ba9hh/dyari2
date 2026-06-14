@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 async function getUserProfile(userId) {
@@ -25,6 +25,8 @@ const AuthProvider = ({ children }) => {
   const [sessionChecked, setSessionChecked] = useState(false);
   const navigate = useNavigate();
 
+  const prevUserIdRef = useRef(null);
+
   useEffect(() => {
     // Get current session (restores from localStorage if available)
     const getSession = async () => {
@@ -35,6 +37,7 @@ const AuthProvider = ({ children }) => {
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
+        prevUserIdRef.current = authUser.id;
       }
       setSessionChecked(true);
     };
@@ -50,8 +53,12 @@ const AuthProvider = ({ children }) => {
           setUser(profile);
           setSessionChecked(true);
 
+          const isFreshSignIn = prevUserIdRef.current !== authUser.id;
+          prevUserIdRef.current = authUser.id;
+
           if (
             _event === "SIGNED_IN" &&
+            isFreshSignIn &&
             profile &&
             !profile.has_selected_role &&
             window.location.pathname !== "/role-selection"
@@ -60,6 +67,7 @@ const AuthProvider = ({ children }) => {
             return;
           }
         } else {
+          prevUserIdRef.current = null;
           setUser(null);
           setSessionChecked(true);
         }
@@ -95,6 +103,7 @@ const AuthProvider = ({ children }) => {
         console.error("Logout failed:", error.message);
         return;
       }
+      prevUserIdRef.current = null;
       setUser(null);
       navigate("/");
     } catch (err) {
