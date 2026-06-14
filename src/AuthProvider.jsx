@@ -34,20 +34,23 @@ const AuthProvider = ({ children }) => {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
       }
+      setSessionChecked(true);
     };
 
     getSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      async (_event, session) => {
         const authUser = session?.user;
 
         if (authUser) {
-          (async () => {
-            const profile = await getUserProfile(authUser.id);
-            setUser(profile);
-            setSessionChecked(true);
-          })();
+          const profile = await getUserProfile(authUser.id);
+          setUser(profile);
+          setSessionChecked(true);
+          if (profile && !profile.has_selected_role) {
+            navigate("/role-selection");
+            return;
+          }
         } else {
           setUser(null);
           setSessionChecked(true);
@@ -70,7 +73,7 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://dyaritunisie.com/role-selection",
+        redirectTo: "https://dyaritunisie.com",
       },
     });
     if (error) console.error("Google signup error:", error.message);

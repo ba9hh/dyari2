@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Radio from "@mui/material/Radio";
-import loginbg from "@/assets/loginbg.jpg";
 import dyari from "@/assets/dyari.svg";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, CircularProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "@/AuthProvider";
+import { supabase } from "@/supabaseClient";
 const ROLES = [
   { value: "client", label: "Client", suffix: "(default)" },
   { value: "vendeur", label: "Vendeur", suffix: null },
@@ -16,24 +17,57 @@ const radioSx = {
   "& .MuiSvgIcon-root": { fontSize: 16 },
 };
 const RoleSelection = () => {
+  const { user, setUser } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      role: "client",
-    },
+    defaultValues: { role: "client" },
   });
+
   const navigate = useNavigate();
-  const onSubmit = (data) => {
-    console.log("Role selected:", data);
-    if (data.role === "client") {
-      navigate("/");
-    } else if (data.role === "vendeur") {
-      navigate("/shop-creation");
+
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    setSubmitError("");
+
+    if (!user) {
+      setSubmitError("Utilisateur non authentifié. Veuillez vous reconnecter.");
+      setIsLoading(false);
+      return;
     }
-    // TODO: navigate or call API based on selected role
+
+    if (data.role === "vendeur") {
+      // CHANGED: if vendeur, do NOT write anything to DB yet —
+      // role + has_selected_role will be set only after ShopForm is completed
+      navigate("/shop-creation");
+      setIsLoading(false);
+      return;
+    }
+
+    // CHANGED: only write to DB here for client —
+    // role stays 'client' (already the default, no need to update it),
+    // just mark has_selected_role = true so they don't see this screen again
+    const { error } = await supabase
+      .from("users")
+      .update({ has_selected_role: true })
+      .eq("id", user.id);
+
+    if (error) {
+      setSubmitError(error.message);
+      setIsLoading(false);
+      return;
+    }
+
+    // CHANGED: only update has_selected_role in context, role is already 'client'
+    setUser({ ...user, has_selected_role: true });
+
+    setIsLoading(false);
+    navigate("/");
   };
   return (
     <div className="bg-white border-2 border-gray-400 rounded-md p-6 z-10">
@@ -42,6 +76,9 @@ const RoleSelection = () => {
         <img src={dyari} className="w-8" />
       </div>
       <hr className="mb-4" />
+      {submitError && (
+        <p className="text-red-500 text-sm mb-3">{submitError}</p>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="role"
@@ -82,6 +119,12 @@ const RoleSelection = () => {
             type="submit"
             variant="outlined"
             fullWidth
+            disabled={isLoading}
+            startIcon={
+              isLoading ? (
+                <CircularProgress size={16} sx={{ color: "#d97706" }} />
+              ) : null
+            }
             sx={{
               textTransform: "none",
               color: "#d97706",
@@ -92,7 +135,7 @@ const RoleSelection = () => {
               },
             }}
           >
-            Continue
+            {isLoading ? "Enregistrement..." : "Continuer"}
           </Button>
         </div>
       </form>

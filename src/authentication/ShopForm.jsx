@@ -18,7 +18,7 @@ import CITIES from "@/data/cities";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/supabaseClient";
 const ShopForm = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   const {
     control,
@@ -66,7 +66,7 @@ const ShopForm = () => {
     // 3. Update role to 'vendeur' in public.users
     const { error: roleError } = await supabase
       .from("users")
-      .update({ role: "vendeur" })
+      .update({ role: "vendeur", has_selected_role: true })
       .eq("id", user.id);
 
     if (roleError) {
@@ -75,10 +75,9 @@ const ShopForm = () => {
       setIsLoading(false);
       return;
     }
-
+    setUser({ ...user, role: "vendeur", has_selected_role: true });
     // 4. Navigate to the vendor dashboard (adjust route as needed)
     navigate("/account");
-    window.location.reload();
   };
   return (
     <div className="bg-white border-2 border-gray-400 rounded-md p-6 z-10">

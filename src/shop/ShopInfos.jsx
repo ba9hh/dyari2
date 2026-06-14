@@ -78,7 +78,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <div className="block sm:hidden">
             <ReactStars
               count={5}
-              size={14}
+              size={18}
               value={shop?.average_rating || 0}
               isHalf={true}
               edit={false}
