@@ -50,7 +50,12 @@ const AuthProvider = ({ children }) => {
           setUser(profile);
           setSessionChecked(true);
 
-          if (_event === "SIGNED_IN" && profile && !profile.has_selected_role) {
+          if (
+            _event === "SIGNED_IN" &&
+            profile &&
+            !profile.has_selected_role &&
+            window.location.pathname !== "/role-selection"
+          ) {
             navigate("/role-selection");
             return;
           }

@@ -60,7 +60,7 @@ const Signup = () => {
         // After email confirmation, Supabase will redirect to this URL.
         // Make sure this URL is whitelisted in your Supabase project's
         // Auth → URL Configuration → Redirect URLs.
-        emailRedirectTo: `${window.location.origin}/role-selection`,
+        emailRedirectTo: `${window.location.origin}`,
       },
     });
 
