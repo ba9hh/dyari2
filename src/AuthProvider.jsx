@@ -43,6 +43,8 @@ const AuthProvider = ({ children }) => {
 
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
+        if (_event === "INITIAL_SESSION") return;
+
         const authUser = session?.user;
 
         if (authUser) {
