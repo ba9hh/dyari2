@@ -39,8 +39,8 @@ const HomeShops = () => {
     if (search.trim()) query.search = search;
     if (page !== 1) query.page = page;
 
-    Object.keys(query).length > 0 ? setSearchParams(query) : navigate("/");
-  }, [type, localisation, search, page]);
+    setSearchParams(query);
+  }, [type, localisation, search, page, setSearchParams]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [
