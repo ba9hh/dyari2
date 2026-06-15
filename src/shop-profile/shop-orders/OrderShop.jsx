@@ -128,6 +128,20 @@ const OrderShop = ({ order, index }) => {
                   ? `Numero de client : ${order?.user_phone_number}`
                   : ""}
               </h1>
+              <h1 className="text-sm text-center">
+                Mode de récupération :{" "}
+                <span
+                  className={
+                    order?.delivery_type === "livraison"
+                      ? "text-amber-600 font-medium"
+                      : ""
+                  }
+                >
+                  {order?.delivery_type === "livraison"
+                    ? "Livraison"
+                    : "Sur place"}
+                </span>
+              </h1>
             </div>
           </div>
         </>
