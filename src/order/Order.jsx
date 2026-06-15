@@ -39,7 +39,17 @@ const Order = () => {
   } = useForm({
     defaultValues: {
       userPhoneNumber: "",
-      items: [{ articleId: "", type: "", quantity: null, price: 0, image: "" }],
+      items: [
+        {
+          articleId: "",
+          type: "",
+          quantity: null,
+          price: 0,
+          image: "",
+          minQuantity: null,
+          maxQuantity: null,
+        },
+      ],
       date: null,
     },
   });
@@ -69,19 +79,44 @@ const Order = () => {
     setIsConnected(false);
   };
 
-  const selectArticle = (image, type, price, articleId, index) => {
+  const selectArticle = (
+    image,
+    type,
+    price,
+    articleId,
+    index,
+    minQuantity,
+    maxQuantity,
+  ) => {
     setValue(`items.${index}.image`, image);
     setValue(`items.${index}.type`, type);
     setValue(`items.${index}.price`, price);
     setValue(`items.${index}.articleId`, articleId);
+    setValue(`items.${index}.minQuantity`, minQuantity);
+    setValue(`items.${index}.maxQuantity`, maxQuantity);
   };
 
   // Step 0 → Step 1: validate items before advancing
   const handleNext = async () => {
-    const allValid = watchItems.every(
-      (item) => item.articleId && item.quantity > 0,
+    // Re-run RHF validation (min/max rules) so inline errors show too
+    const quantityFields = watchItems.map(
+      (_, index) => `items.${index}.quantity`,
     );
-    if (!allValid) {
+    const isValid = await trigger(quantityFields);
+
+    const allValid = watchItems.every((item) => {
+      if (!item.articleId || !item.quantity || item.quantity <= 0) return false;
+
+      const min = item.minQuantity ?? 1;
+      const max = item.maxQuantity;
+
+      if (item.quantity < min) return false;
+      if (max != null && item.quantity > max) return false;
+
+      return true;
+    });
+
+    if (!isValid || !allValid) {
       toast.error(
         "Veuillez sélectionner un article et une quantité valide pour chaque ligne.",
       );

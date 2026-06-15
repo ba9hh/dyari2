@@ -46,40 +46,66 @@ const OrderItem = ({
       <div className="flex gap-2 items-center w-full mt-0">
         <div className="w-full">
           {/* Quantity */}
-          <Controller
-            name={`items.${index}.quantity`}
-            control={control}
-            rules={{ min: { value: 1, message: "Quantity must be > 0" } }}
-            render={({ field }) => (
-              <TextField
-                type="number"
-                fullWidth
-                label="Quantité"
-                {...field}
-                onWheel={(e) => e.target.blur()}
-                error={!!errors.items?.[index]?.quantity}
-                helperText={errors.items?.[index]?.quantity?.message}
-                sx={{
-                  mt: 2,
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
+          {(() => {
+            const articleType = watchItems?.[index]?.type;
+            const minQty = Number(watchItems?.[index]?.minQuantity);
+            const maxQty = Number(watchItems?.[index]?.maxQuantity);
+            return (
+              <Controller
+                name={`items.${index}.quantity`}
+                control={control}
+                rules={{
+                  required: "La quantité est requise",
+                  min: {
+                    value: minQty || 1,
+                    message: minQty
+                      ? `La quantité minimale est ${minQty}`
+                      : "La quantité doit être supérieure à 0",
                   },
-                  "& input[type=number]::-webkit-outer-spin-button": {
-                    WebkitAppearance: "none",
-                    margin: 0,
-                  },
-                  "& input[type=number]::-webkit-inner-spin-button": {
-                    WebkitAppearance: "none",
-                    margin: 0,
-                  },
-                  "& label.Mui-focused": { color: "#d97706" },
-                  "& .MuiOutlinedInput-root": {
-                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                  },
+                  ...(maxQty && {
+                    max: {
+                      value: maxQty,
+                      message: `La quantité maximale est ${maxQty}`,
+                    },
+                  }),
                 }}
+                render={({ field }) => (
+                  <TextField
+                    type="number"
+                    fullWidth
+                    label={
+                      minQty && maxQty
+                        ? `Quantité (min: ${minQty} ${articleType} , max: ${maxQty} ${articleType})`
+                        : "Quantité"
+                    }
+                    // InputLabelProps={{ shrink: true }}
+                    {...field}
+                    onWheel={(e) => e.target.blur()}
+                    error={!!errors.items?.[index]?.quantity}
+                    helperText={errors.items?.[index]?.quantity?.message}
+                    sx={{
+                      mt: 2,
+                      "& input[type=number]": {
+                        MozAppearance: "textfield",
+                      },
+                      "& input[type=number]::-webkit-outer-spin-button": {
+                        WebkitAppearance: "none",
+                        margin: 0,
+                      },
+                      "& input[type=number]::-webkit-inner-spin-button": {
+                        WebkitAppearance: "none",
+                        margin: 0,
+                      },
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
+                  />
+                )}
               />
-            )}
-          />
+            );
+          })()}
           {/* Subtotal */}
           <Typography variant="body2" sx={{ mt: 1 }}>
             Sous-total:{" "}

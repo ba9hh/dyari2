@@ -37,6 +37,8 @@ const OrderArticles = ({
                       item.article_price,
                       item.id,
                       index,
+                      item.article_min_quantity,
+                      item.article_max_quantity,
                     )
                   }
                   className={`relative group mb-2 cursor-pointer ${selectedArticleId === item.id ? "border-4 border-amber-600" : ""}`}
@@ -70,6 +72,8 @@ const OrderArticles = ({
                       item.article_price,
                       item.id,
                       index,
+                      item.article_min_quantity,
+                      item.article_max_quantity,
                     )
                   }
                   src={item.article_image}
