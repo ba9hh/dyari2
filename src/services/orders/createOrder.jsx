@@ -6,6 +6,7 @@ export async function createOrder({
   phoneNumber,
   neededDate,
   items,
+  deliveryType,
 }) {
   const orderTotalAmount = items.reduce(
     (sum, itm) => sum + itm.price * itm.quantity,
@@ -21,6 +22,7 @@ export async function createOrder({
         user_phone_number: phoneNumber,
         user_needed_date: neededDate,
         order_total_amount: orderTotalAmount,
+        delivery_type: deliveryType,
       },
     ])
     .select()

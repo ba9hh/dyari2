@@ -51,6 +51,7 @@ const Order = () => {
         },
       ],
       date: null,
+      deliveryType: "sur_place",
     },
   });
 
@@ -145,6 +146,7 @@ const Order = () => {
         phoneNumber: data.userPhoneNumber,
         neededDate: data.date,
         items: data.items,
+        deliveryType: data.deliveryType,
       });
       toast.success("Commande ajoutée avec succès !");
       reset();
