@@ -130,13 +130,7 @@ const OrderShop = ({ order, index }) => {
               </h1>
               <h1 className="text-sm text-center">
                 Mode de récupération :{" "}
-                <span
-                  className={
-                    order?.delivery_type === "livraison"
-                      ? "text-amber-600 font-medium"
-                      : ""
-                  }
-                >
+                <span>
                   {order?.delivery_type === "livraison"
                     ? "Livraison"
                     : "Sur place"}
