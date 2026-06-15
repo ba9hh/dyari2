@@ -23,6 +23,8 @@ const UpdateArticle = () => {
       title: "",
       type: "kg",
       price: "",
+      minQuantity: "",
+      maxQuantity: "",
       image: null,
     },
   });
@@ -57,6 +59,8 @@ const UpdateArticle = () => {
         title: article.article_title,
         type: article.article_type,
         price: article.article_price,
+        minQuantity: article.article_min_quantity,
+        maxQuantity: article.article_max_quantity,
         image: null,
       });
       setImagePreview(article.article_image);
@@ -109,6 +113,8 @@ const UpdateArticle = () => {
         article_title: data.title,
         article_type: data.type,
         article_price: data.price,
+        article_min_quantity: data.minQuantity,
+        article_max_quantity: data.maxQuantity,
         article_image: uploadedImageUrl,
       })
       .eq("id", articleId);
@@ -243,6 +249,70 @@ const UpdateArticle = () => {
               />
             )}
           />
+          <div className="flex gap-2">
+            <Controller
+              name="minQuantity"
+              control={control}
+              rules={{
+                required: "La quantité minimale est requise",
+                min: {
+                  value: 0.01,
+                  message: "La quantité doit être supérieure à 0",
+                },
+              }}
+              render={({ field }) => (
+                <TextField
+                  label="Quantité minimale"
+                  type="number"
+                  fullWidth
+                  margin="normal"
+                  inputProps={{ min: 0.01, step: 0.01 }}
+                  error={!!errors.minQuantity}
+                  helperText={errors.minQuantity?.message}
+                  {...field}
+                  sx={{
+                    "& label.Mui-focused": { color: "#d97706" },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                    },
+                  }}
+                />
+              )}
+            />
+
+            <Controller
+              name="maxQuantity"
+              control={control}
+              rules={{
+                required: "La quantité maximale est requise",
+                min: {
+                  value: 0.01,
+                  message: "La quantité doit être supérieure à 0",
+                },
+                validate: (value) =>
+                  Number(value) >= Number(getValues("minQuantity")) ||
+                  "Doit être ≥ à la quantité minimale",
+              }}
+              render={({ field }) => (
+                <TextField
+                  label="Quantité maximale"
+                  type="number"
+                  fullWidth
+                  margin="normal"
+                  inputProps={{ min: 0.01, step: 0.01 }}
+                  error={!!errors.maxQuantity}
+                  helperText={errors.maxQuantity?.message}
+                  {...field}
+                  sx={{
+                    "& label.Mui-focused": { color: "#d97706" },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                    },
+                  }}
+                />
+              )}
+            />
+          </div>
 
           <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
             <Button

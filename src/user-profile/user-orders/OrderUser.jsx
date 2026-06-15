@@ -95,6 +95,14 @@ const OrderUser = ({ order, index }) => {
               <h1 className="text-sm text-end">
                 Prix totale : {order?.order_total_amount} dt
               </h1>
+              <h1 className="text-sm">
+                Mode de récupération :{" "}
+                <span>
+                  {order?.delivery_type === "livraison"
+                    ? "Livraison"
+                    : "Sur place"}
+                </span>
+              </h1>
             </div>
           </div>
         </>
