@@ -279,7 +279,7 @@ const AddArticle = () => {
               }}
               render={({ field }) => (
                 <TextField
-                  label="Quantité minimale"
+                  label="Quantité minimale de vente"
                   type="number"
                   fullWidth
                   margin="normal"
@@ -312,7 +312,7 @@ const AddArticle = () => {
               }}
               render={({ field }) => (
                 <TextField
-                  label="Quantité maximale"
+                  label="Quantité maximale de vente"
                   type="number"
                   fullWidth
                   margin="normal"
