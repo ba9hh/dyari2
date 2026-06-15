@@ -182,7 +182,7 @@ const AddCommentForm = ({ onSubmit }) => {
 
   if (submitted) {
     return (
-      <div className="w-full sm:w-2/3 bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-2 text-center">
+      <div className="w-full bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-2 text-center">
         <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
           <svg
             className="w-5 h-5 text-amber-600"
@@ -209,7 +209,7 @@ const AddCommentForm = ({ onSubmit }) => {
   }
 
   return (
-    <div className="w-full sm:w-2/3 bg-white border rounded-md p-4 shadow-sm">
+    <div className="w-full bg-white border rounded-md p-4 shadow-sm">
       <h2 className="text-sm font-semibold text-gray-700 mb-3">
         Laisser un avis{" "}
         <span className="text-sm font-normal text-gray-600">
@@ -298,32 +298,38 @@ const ShopCommentaires = ({ shopId }) => {
   return (
     <>
       {/* Rating summary bar */}
-      <div className="w-full sm:w-2/3 bg-white border rounded-md px-4 py-3 shadow-sm flex items-center gap-3">
-        <span className="text-2xl font-bold text-amber-600">
-          {Number(averageRating).toFixed(1)}
-        </span>
-        <div>
-          <ReactStars
-            count={5}
-            value={averageRating}
-            size={20}
-            isHalf={true}
-            edit={false}
-            activeColor="#d97706"
-          />
-          <p className="text-xs text-gray-400 mt-0.5">{totalRating} avis</p>
+      <div className="w-full sm:w-2/3 flex gap-3">
+        <div className="w-1/2">
+          <div className="w-full bg-white border rounded-md px-4 py-3 shadow-sm flex items-center gap-3 mb-3">
+            <span className="text-2xl font-bold text-amber-600">
+              {Number(averageRating).toFixed(1)}
+            </span>
+            <div>
+              <ReactStars
+                count={5}
+                value={averageRating}
+                size={20}
+                isHalf={true}
+                edit={false}
+                activeColor="#d97706"
+              />
+              <p className="text-xs text-gray-400 mt-0.5">{totalRating} avis</p>
+            </div>
+          </div>
+          <div className="w-full space-y-3">
+            {pageComments.map((comment, index) => (
+              <CommentCard key={comment.id ?? index} comment={comment} />
+            ))}
+          </div>
+        </div>
+        <div className="w-1/2">
+          <AddCommentForm onSubmit={handleNewComment} />
         </div>
       </div>
 
       {/* Add comment form */}
-      <AddCommentForm onSubmit={handleNewComment} />
 
       {/* Comment list */}
-      <div className="w-full sm:w-2/3 space-y-3">
-        {pageComments.map((comment, index) => (
-          <CommentCard key={comment.id ?? index} comment={comment} />
-        ))}
-      </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
