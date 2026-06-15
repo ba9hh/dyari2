@@ -18,7 +18,13 @@ import { supabase } from "@/supabaseClient";
 import dyari from "@/assets/dyari.svg";
 
 const UpdateArticle = () => {
-  const { handleSubmit, control, reset } = useForm({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       title: "",
       type: "kg",
