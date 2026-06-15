@@ -36,9 +36,9 @@ const LikedShop = ({ shop, userId }) => {
         <div>
           <h1 className="my-0">
             <span className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200">
-              {shop.name} {shop.last_name}
+              {shop.business_name}
             </span>{" "}
-            ({shop.localisation})
+            ({shop.address})
           </h1>
           {shop.speciality?.length > 0 && (
             <span className="crimsonText inline-block my-0">

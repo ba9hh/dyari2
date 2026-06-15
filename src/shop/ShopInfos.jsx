@@ -35,7 +35,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   console.log(shop);
   useEffect(() => {
     const checkLiked = async () => {
-      if (user && user.role === "user") {
+      if (user) {
         try {
           const likedStatus = await isShopLiked(user.id, shopId);
           setLiked(likedStatus);
@@ -47,7 +47,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
     checkLiked();
   }, [user, shopId]);
   const toggleLike = async () => {
-    if (!user || user?.role == "vendeur") {
+    if (!user) {
       setIsConnected(true);
       return;
     }

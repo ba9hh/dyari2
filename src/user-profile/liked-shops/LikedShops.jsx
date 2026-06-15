@@ -16,7 +16,7 @@ const LikedShops = ({ userId }) => {
     return <LikedShopsSkeleton />;
   }
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md py-2 sm:py-3">
+    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md border py-2 sm:py-3">
       <div className="flex flex-col px-1 sm:px-3 gap-2">
         {likedShops?.length > 0 ? (
           likedShops.map((likedShop, index) => (
