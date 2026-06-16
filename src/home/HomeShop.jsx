@@ -13,6 +13,9 @@ const HomeShop = ({ shop }) => {
       onClick={() => openShop()}
     >
       <div className="relative sm:px-0 ">
+        <div className="absolute right-0 sm:-right-2 -top-2 bg-amber-100 text-amber-800 px-1 py-0.5 text-sm border border-amber-300 font-semibold">
+          {`${shop.category}`}
+        </div>
         <div className="flex sm:hidden gap-0 overflow-x-auto scrollbar-hide mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
@@ -67,11 +70,14 @@ const HomeShop = ({ shop }) => {
             <h1 className="truncate text-sm sm:text-[15px]">
               {shop.business_name} {shop.last_name} ({shop.address})
             </h1>
-            {shop.speciality?.length > 0 && (
+            {/* {shop.speciality?.length > 0 && (
               <span className="crimsonText truncate text-sm sm:text-[15px]">
                 {formatSpeciality(shop.speciality)}
               </span>
-            )}
+            )} */}
+            <span className="crimsonText truncate text-sm sm:text-[15px]">
+              Localisation: {shop.address}
+            </span>
           </div>
         </div>
         <div className="flex items-center">
