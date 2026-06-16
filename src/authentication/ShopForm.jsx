@@ -31,6 +31,7 @@ const ShopForm = () => {
       speciality: "",
       plan: "starter",
       userPhoneNumber: "",
+      bio: "",
     },
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +55,7 @@ const ShopForm = () => {
       category: data.speciality,
       offer_plan: data.plan,
       phone_number: data.userPhoneNumber,
+      bio: data.bio || null,
     });
     console.log("user_id:", user.id); // Debug log
     if (shopError) {
@@ -166,6 +168,22 @@ const ShopForm = () => {
               )}
             />
           </div>
+          <Controller
+            name="bio"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Bio (optionnel)"
+                fullWidth
+                multiline
+                rows={2}
+                inputProps={{ maxLength: 200 }}
+                helperText={`${field.value?.length || 0}/200`}
+                FormHelperTextProps={{ sx: { textAlign: "right" } }}
+              />
+            )}
+          />
         </div>
         <Controller
           name="plan"
