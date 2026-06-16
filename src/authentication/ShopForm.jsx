@@ -195,10 +195,10 @@ const ShopForm = () => {
                 {PLANS.map((plan) => (
                   <div
                     key={plan.id}
-                    className="w-1/3 flex flex-col border rounded-t-md cursor-pointer"
+                    className="w-1/3 flex flex-col border cursor-pointer"
                     onClick={() => field.onChange(plan.id)}
                   >
-                    <h1 className="bg-amber-600 text-white text-center rounded-t-md">
+                    <h1 className="bg-amber-600 text-white text-center">
                       {plan.label}
                     </h1>
                     <h1 className="text-center text-sm mt-2">{plan.price}</h1>
