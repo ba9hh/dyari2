@@ -180,7 +180,7 @@ const ShopForm = () => {
                 rows={1}
                 inputProps={{ maxLength: 150 }}
                 helperText={`${field.value?.length || 0}/150`}
-                FormHelperTextProps={{ sx: { textAlign: "right" } }}
+                // FormHelperTextProps={{ sx: { textAlign: "right" } }}
               />
             )}
           />
