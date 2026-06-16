@@ -177,9 +177,9 @@ const ShopForm = () => {
                 label="Bio (optionnel)"
                 fullWidth
                 multiline
-                rows={2}
-                inputProps={{ maxLength: 200 }}
-                helperText={`${field.value?.length || 0}/200`}
+                rows={1}
+                inputProps={{ maxLength: 150 }}
+                helperText={`${field.value?.length || 0}/150`}
                 FormHelperTextProps={{ sx: { textAlign: "right" } }}
               />
             )}
