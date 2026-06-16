@@ -10,9 +10,10 @@ import CategoriesTabs from "./CategoriesTabs";
 import LocalisationFilter from "@/home/LocalisationFilter";
 import EmptyShopState from "@/components/EmptyShopsState";
 import NavBar from "./NavBar";
-import faza from "@/assets/faza.png";
+import faza from "@/assets/faza2.jpg";
 import dyari from "@/assets/dyari.svg";
 import ShopsHeader from "./ShopsHeader";
+import loginbg from "@/assets/loginbg.jpg";
 
 const HomeShops = () => {
   const { user } = useContext(AuthContext);
@@ -117,7 +118,7 @@ const HomeShops = () => {
   return (
     <>
       <div
-        className="sticky top-0 z-20 bg-cover"
+        className="sticky top-0 z-20 bg-center bg-cover"
         style={{ backgroundImage: `url(${faza})` }}
       >
         <NavBar />
