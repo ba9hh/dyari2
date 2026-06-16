@@ -9,13 +9,13 @@ const HomeShop = ({ shop }) => {
   };
   return (
     <div
-      className="bg-white sm:shadow-none sm:pb-0 sm:rounded-b-md sm:border-b border-b-[4px] border-100/50 sm:border-gray-300 cursor-pointer sm:border sm:border-t"
+      className="relative bg-white sm:shadow-none sm:pb-0 sm:rounded-b-md sm:border-b border-b-[4px] border-100/50 sm:border-gray-300 cursor-pointer sm:border sm:border-t"
       onClick={() => openShop()}
     >
+      <div className="absolute right-0 sm:-right-2 -bottom-3 bg-amber-100 text-amber-800 px-1 py-0.5 text-sm border border-amber-300 font-semibold">
+        {`${shop.category}`}
+      </div>
       <div className="relative sm:px-0 ">
-        <div className="absolute right-0 sm:-right-2 -top-2 bg-amber-100 text-amber-800 px-1 py-0.5 text-sm border border-amber-300 font-semibold">
-          {`${shop.category}`}
-        </div>
         <div className="flex sm:hidden gap-0 overflow-x-auto scrollbar-hide mt-1">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
