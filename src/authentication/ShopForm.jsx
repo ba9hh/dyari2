@@ -178,8 +178,8 @@ const ShopForm = () => {
                 fullWidth
                 multiline
                 rows={1}
-                inputProps={{ maxLength: 150 }}
-                helperText={`${field.value?.length || 0}/150`}
+                inputProps={{ maxLength: 70 }}
+                // helperText={`${field.value?.length || 0}/150`}
                 // FormHelperTextProps={{ sx: { textAlign: "right" } }}
               />
             )}
