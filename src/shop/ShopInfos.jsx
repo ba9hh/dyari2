@@ -134,7 +134,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <div className="flex flex-col items-center">
             <h1 className="text-xl mt-1">{shop?.business_name}</h1>
             <p className="text-sm text-gray-700 text-center mb-1.5 pb-1.5 border-b border-gray-100 px-6 max-w-md leading-relaxed italic">
-              Bio: Made with love ❤️
+              Bio: Made with love
             </p>
             <div className="flex gap-1.5">
               <h1 className="text-sm">Specialité: {shop?.category}</h1>
