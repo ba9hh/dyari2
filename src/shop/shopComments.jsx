@@ -1,58 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ReactStars from "react-rating-stars-component";
-
-// ── Fake data ─────────────────────────────────────────────────────────────────
-const FAKE_DATA = {
-  average_rating: 4.3,
-  total_rating: 12,
-  totalPages: 3,
-  comments: [
-    {
-      id: 1,
-      user_name: "Sarra Ben Ali",
-      user_picture: null,
-      rating: 5,
-      comment_text:
-        "Excellent service, les articles sont exactement comme sur les photos. Livraison rapide et emballage soigné. Je recommande vivement cette boutique !",
-      created_at: "2025-05-20T10:30:00Z",
-    },
-    {
-      id: 2,
-      user_name: "Mohamed Trabelsi",
-      user_picture: null,
-      rating: 4,
-      comment_text:
-        "Très bonne qualité, le vendeur est réactif et agréable. J'ai eu un petit souci avec ma commande mais il a été réglé rapidement.",
-      created_at: "2025-05-15T08:00:00Z",
-    },
-    {
-      id: 3,
-      user_name: "Amira Khelil",
-      user_picture: null,
-      rating: 4.5,
-      comment_text:
-        "Produits de qualité, je suis très satisfaite de mon achat. Le tissu est doux et la coupe est parfaite. J'ai déjà recommandé cette boutique à mes amies et je reviendrai certainement pour mes prochains achats.",
-      created_at: "2025-04-30T14:20:00Z",
-    },
-    {
-      id: 4,
-      user_name: "Youssef Hamdi",
-      user_picture: null,
-      rating: 3.5,
-      comment_text:
-        "Correct, sans plus. Le délai de livraison était un peu long mais la qualité est au rendez-vous.",
-      created_at: "2025-04-18T09:45:00Z",
-    },
-    {
-      id: 5,
-      user_name: "Nour Mansouri",
-      user_picture: null,
-      rating: 5,
-      comment_text: "Parfait ! Rien à redire, tout était impeccable.",
-      created_at: "2025-04-10T16:00:00Z",
-    },
-  ],
-};
+import { supabase } from "@/supabaseClient";
 
 const LIMIT = 5;
 
@@ -66,8 +14,8 @@ const CommentCard = ({ comment }) => {
       ? comment.comment_text.slice(0, MAX_CHARS) + "…"
       : comment.comment_text;
 
-  const initials = comment.user_name
-    ? comment.user_name
+  const initials = comment.users?.full_name
+    ? comment.users.full_name
         .split(" ")
         .map((n) => n[0])
         .join("")
@@ -85,13 +33,12 @@ const CommentCard = ({ comment }) => {
 
   return (
     <div className="bg-white border rounded-md p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-      {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          {comment.user_picture ? (
+          {comment.users?.avatar_url ? (
             <img
-              src={comment.user_picture}
-              alt={comment.user_name}
+              src={comment.users.avatar_url}
+              alt={comment.users.full_name}
               className="w-10 h-10 rounded-full object-cover border-2 border-amber-100 flex-shrink-0"
             />
           ) : (
@@ -103,7 +50,7 @@ const CommentCard = ({ comment }) => {
           )}
           <div>
             <p className="text-sm font-semibold text-gray-800 leading-tight">
-              {comment.user_name || "Utilisateur"}
+              {comment.users?.full_name || "Utilisateur"}
             </p>
             {date && <p className="text-xs text-gray-400 mt-0.5">{date}</p>}
           </div>
@@ -140,7 +87,7 @@ const CommentCard = ({ comment }) => {
   );
 };
 
-// ── Pagination (inline, no import needed) ────────────────────────────────────
+// ── Pagination ────────────────────────────────────────────────────────────────
 const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
   <div className="flex items-center justify-center gap-4 py-3 px-4">
     <button
@@ -164,20 +111,29 @@ const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
 );
 
 // ── Add comment form ──────────────────────────────────────────────────────────
-const AddCommentForm = ({ onSubmit }) => {
+const AddCommentForm = ({ onSubmit, loading, existingReview }) => {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
+  // If the user already left a review, show it pre-filled (read-only)
+  useEffect(() => {
+    if (existingReview) {
+      setRating(existingReview.rating);
+      setText(existingReview.comment_text || "");
+      setSubmitted(true);
+    }
+  }, [existingReview]);
+
+  const handleSubmit = async () => {
     if (rating === 0) {
       setError("Veuillez sélectionner une note.");
       return;
     }
     setError("");
-    onSubmit({ rating, text });
-    setSubmitted(true);
+    const ok = await onSubmit({ rating, text });
+    if (ok) setSubmitted(true);
   };
 
   if (submitted) {
@@ -217,7 +173,6 @@ const AddCommentForm = ({ onSubmit }) => {
         </span>
       </h2>
 
-      {/* Star picker */}
       <div className="flex items-center gap-2 mb-3">
         <span className="text-xs text-gray-500">Votre note :</span>
         <ReactStars
@@ -234,7 +189,6 @@ const AddCommentForm = ({ onSubmit }) => {
         />
       </div>
 
-      {/* Textarea */}
       <textarea
         value={text}
         onChange={(e) => {
@@ -243,10 +197,10 @@ const AddCommentForm = ({ onSubmit }) => {
         }}
         placeholder="Partagez votre expérience avec cette boutique… (facultatif)"
         rows={3}
+        maxLength={300}
         className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
       />
 
-      {/* Char count + error */}
       <div className="flex items-center justify-between mt-1 mb-3">
         {error ? <p className="text-xs text-red-500">{error}</p> : <span />}
         <span className="text-xs text-gray-300 ml-auto">
@@ -254,13 +208,12 @@ const AddCommentForm = ({ onSubmit }) => {
         </span>
       </div>
 
-      {/* Submit */}
       <button
         onClick={handleSubmit}
-        disabled={rating === 0}
+        disabled={rating === 0 || loading}
         className="w-full py-2 rounded-md text-sm font-medium text-white transition-colors bg-amber-600 hover:bg-amber-700 active:bg-amber-800 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
       >
-        Publier mon avis
+        {loading ? "Publication…" : "Publier mon avis"}
       </button>
     </div>
   );
@@ -269,67 +222,191 @@ const AddCommentForm = ({ onSubmit }) => {
 // ── Main component ────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
   const [page, setPage] = useState(1);
-  const [comments, setComments] = useState(FAKE_DATA.comments);
-  const [averageRating, setAverageRating] = useState(FAKE_DATA.average_rating);
-  const [totalRating, setTotalRating] = useState(FAKE_DATA.total_rating);
+  const [reviews, setReviews] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [shopStats, setShopStats] = useState({
+    average_rating: 0,
+    total_rating: 0,
+  });
+  const [existingReview, setExistingReview] = useState(null);
+  const [fetchLoading, setFetchLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [fetchError, setFetchError] = useState(null);
 
-  const totalPages = Math.ceil(comments.length / LIMIT);
-  const start = (page - 1) * LIMIT;
-  const pageComments = comments.slice(start, start + LIMIT);
+  const totalPages = Math.ceil(totalCount / LIMIT);
 
-  const handleNewComment = ({ rating, text }) => {
-    const newComment = {
-      id: Date.now(),
-      user_name: "Vous",
-      user_picture: null,
+  // ── Fetch reviews page ──────────────────────────────────────────────────────
+  const fetchReviews = useCallback(
+    async (pageNum) => {
+      setFetchLoading(true);
+      setFetchError(null);
+
+      const from = (pageNum - 1) * LIMIT;
+      const to = from + LIMIT - 1;
+
+      const { data, error, count } = await supabase
+        .from("reviews")
+        .select("*, users(full_name, avatar_url)", { count: "exact" })
+        .eq("shop_id", shopId)
+        .order("created_at", { ascending: false })
+        .range(from, to);
+
+      if (error) {
+        setFetchError("Impossible de charger les avis.");
+      } else {
+        setReviews(data || []);
+        setTotalCount(count || 0);
+      }
+      setFetchLoading(false);
+    },
+    [shopId],
+  );
+
+  // ── Fetch shop rating stats ─────────────────────────────────────────────────
+  const fetchShopStats = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("shops")
+      .select("average_rating, total_rating")
+      .eq("id", shopId)
+      .single();
+
+    if (!error && data) setShopStats(data);
+  }, [shopId]);
+
+  // ── Check if current user already reviewed this shop ───────────────────────
+  const fetchExistingReview = useCallback(async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data } = await supabase
+      .from("reviews")
+      .select("id, rating, comment_text")
+      .eq("shop_id", shopId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (data) setExistingReview(data);
+  }, [shopId]);
+
+  useEffect(() => {
+    fetchReviews(page);
+  }, [fetchReviews, page]);
+
+  useEffect(() => {
+    fetchShopStats();
+    fetchExistingReview();
+  }, [fetchShopStats, fetchExistingReview]);
+
+  // ── Submit new review ───────────────────────────────────────────────────────
+  const handleNewComment = async ({ rating, text }) => {
+    setSubmitLoading(true);
+
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+    if (authError || !user) {
+      setSubmitLoading(false);
+      return false;
+    }
+
+    const { error } = await supabase.from("reviews").insert({
+      shop_id: shopId,
+      user_id: user.id,
       rating,
-      comment_text: text,
-      created_at: new Date().toISOString(),
-    };
-    const updated = [newComment, ...comments];
-    const newAvg =
-      updated.reduce((sum, c) => sum + c.rating, 0) / updated.length;
-    setComments(updated);
-    setAverageRating(Math.round(newAvg * 10) / 10);
-    setTotalRating((t) => t + 1);
+      comment_text: text.trim() || null,
+    });
+
+    setSubmitLoading(false);
+
+    if (error) {
+      // If it's a unique violation (user already reviewed), surface it gracefully
+      console.error("Review insert error:", error);
+      return false;
+    }
+
+    // Refresh stats and first page
+    await fetchShopStats();
     setPage(1);
+    await fetchReviews(1);
+    return true;
   };
 
   return (
     <>
-      {/* Rating summary bar */}
+      {/* Rating summary + comments + form */}
       <div className="w-full sm:w-2/3 flex gap-3">
         <div className="w-1/2">
+          {/* Average rating bar */}
           <div className="w-full bg-white border rounded-md px-4 py-3 shadow-sm flex items-center gap-3 mb-3">
             <span className="text-2xl font-bold text-amber-600">
-              {Number(averageRating).toFixed(1)}
+              {Number(shopStats.average_rating).toFixed(1)}
             </span>
             <div>
               <ReactStars
                 count={5}
-                value={averageRating}
+                value={Number(shopStats.average_rating)}
                 size={20}
                 isHalf={true}
                 edit={false}
                 activeColor="#d97706"
               />
-              <p className="text-xs text-gray-400 mt-0.5">{totalRating} avis</p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                {shopStats.total_rating} avis
+              </p>
             </div>
           </div>
-          <div className="w-full space-y-3">
-            {pageComments.map((comment, index) => (
-              <CommentCard key={comment.id ?? index} comment={comment} />
-            ))}
-          </div>
+
+          {/* Review list */}
+          {fetchLoading ? (
+            <div className="space-y-3">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-white border rounded-md p-4 shadow-sm animate-pulse"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-gray-200" />
+                    <div className="space-y-1.5">
+                      <div className="h-3 w-24 bg-gray-200 rounded" />
+                      <div className="h-2.5 w-16 bg-gray-100 rounded" />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <div className="h-2.5 w-full bg-gray-100 rounded" />
+                    <div className="h-2.5 w-4/5 bg-gray-100 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : fetchError ? (
+            <div className="bg-red-50 border border-red-100 rounded-md p-4 text-sm text-red-500">
+              {fetchError}
+            </div>
+          ) : reviews.length === 0 ? (
+            <div className="bg-white border rounded-md p-6 text-center text-sm text-gray-400">
+              Aucun avis pour le moment. Soyez le premier à donner votre avis !
+            </div>
+          ) : (
+            <div className="w-full space-y-3">
+              {reviews.map((review) => (
+                <CommentCard key={review.id} comment={review} />
+              ))}
+            </div>
+          )}
         </div>
+
+        {/* Add comment form */}
         <div className="w-1/2">
-          <AddCommentForm onSubmit={handleNewComment} />
+          <AddCommentForm
+            onSubmit={handleNewComment}
+            loading={submitLoading}
+            existingReview={existingReview}
+          />
         </div>
       </div>
-
-      {/* Add comment form */}
-
-      {/* Comment list */}
 
       {/* Pagination */}
       {totalPages > 1 && (
@@ -337,8 +414,8 @@ const ShopCommentaires = ({ shopId }) => {
           <LocalPagination
             currentPage={page}
             totalPages={totalPages}
-            onPrev={() => page > 1 && setPage(page - 1)}
-            onNext={() => page < totalPages && setPage(page + 1)}
+            onPrev={() => page > 1 && setPage((p) => p - 1)}
+            onNext={() => page < totalPages && setPage((p) => p + 1)}
           />
         </div>
       )}
