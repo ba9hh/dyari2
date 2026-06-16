@@ -15,7 +15,7 @@ const NavBar = () => {
   const { t } = useTranslation();
   return (
     <>
-      <div className="relative hidden md:block bg-cover bg-[#f3f4f6]">
+      <div className="relative hidden md:block bg-cover">
         <div className="h-fit sm:h-12 flex justify-between items-center w-full sm:pl-2 px-2 sm:pr-2 sm:pb-0 py-3">
           <Link to={"/"} className="flex items-end gap-1">
             <img className="w-7" src={dyari} />

@@ -6,7 +6,7 @@ import HomeShop from "./HomeShop";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import HomePagination from "./HomePagination";
 import { fetchShops } from "@/services/shops/ShopsList";
-import CategoriesTabs from "@/components/tabs/CategoriesTabs";
+import CategoriesTabs from "./CategoriesTabs";
 import LocalisationFilter from "@/home/LocalisationFilter";
 import EmptyShopState from "@/components/EmptyShopsState";
 import NavBar from "./NavBar";
@@ -117,8 +117,8 @@ const HomeShops = () => {
   return (
     <>
       <div
-        className="sticky top-0 z-20"
-        // style={{ backgroundImage: `url(${faza})` }}
+        className="sticky top-0 z-20 bg-cover"
+        style={{ backgroundImage: `url(${faza})` }}
       >
         <NavBar />
         <CategoriesTabs
