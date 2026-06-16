@@ -131,28 +131,11 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             className="w-16 h-16 border-2 p-1 rounded-full bg-white object-cover"
             src={shop?.profile_picture}
           />
-          {/* <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center gap-0.5">
             <h1 className="text-lg">{shop?.business_name}</h1>
             <h1 className="text-sm">Specialité: {shop?.category}</h1>
             <h1 className="text-sm">Localisation: {shop?.address}</h1>
             <h1 className="text-sm">Téléphone: 27428425</h1>
-            <p className="text-sm text-gray-500 text-center mt-2 px-6 max-w-md leading-relaxed">
-              Made with love ❤️
-            </p>
-          </div> */}
-          <div className="flex flex-col items-center gap-0.5">
-            {/* Shop name — the only real title */}
-            <h2 className="text-xl font-semibold text-gray-800">
-              {shop?.business_name}
-            </h2>
-
-            {/* Subtle details — smaller, lighter */}
-            <p className="text-sm text-gray-500">{shop?.category}</p>
-            <p className="text-sm text-gray-400">{shop?.address}</p>
-            <p className="text-sm text-gray-400">+216 27 428 425</p>
-
-            {/* Bio */}
-
             <p className="text-sm text-gray-500 text-center mt-3 pt-3 border-t border-gray-100 px-6 max-w-md leading-relaxed italic">
               Made with love ❤️
             </p>
