@@ -39,7 +39,7 @@ const ShopArticles = ({ shopId }) => {
   return (
     <>
       <div className="w-full sm:w-2/3 bg-white/80 shadow-sm rounded-md border p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 sm:px-0 sm:mt-0">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-0 sm:gap-4 sm:px-0 sm:mt-0">
           {articles?.articles?.map((article, index) => (
             <div key={index} className="">
               <ShopArticle
