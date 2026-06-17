@@ -98,9 +98,9 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           <h1>({shop?.total_rating})</h1>
         </div>
         <div className="flex items-center gap-2">
-          <p className="text-sm text-gray-600 hidden sm:block">
+          {/* <p className="text-sm text-gray-600 hidden sm:block">
             (Vous ne pouvez laisser un avis que si vous avez effectué un achat.)
-          </p>
+          </p> */}
           <Button
             variant="contained"
             color="primary"
