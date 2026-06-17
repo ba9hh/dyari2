@@ -29,7 +29,7 @@ const OrderUser = ({ order, index }) => {
                   : "bg-yellow-100 text-yellow-700"
             }`}
           >
-            {order.order_state}
+            {order.order_state == "pending" ? "En attente" : order.order_state}
           </h1>
           <ChevronDown
             size={18}
