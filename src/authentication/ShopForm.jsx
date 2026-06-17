@@ -9,6 +9,9 @@ import {
   MenuItem,
   Button,
   CircularProgress,
+  FormControl,
+  InputLabel,
+  FormHelperText,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { CircleCheckBig } from "lucide-react";
@@ -115,10 +118,8 @@ const ShopForm = () => {
               control={control}
               rules={{ required: "Localisation requise" }}
               render={({ field }) => (
-                <Select
-                  {...field}
+                <FormControl
                   fullWidth
-                  displayEmpty
                   error={!!errors.location}
                   sx={{
                     "& label.Mui-focused": { color: "#d97706" },
@@ -127,15 +128,21 @@ const ShopForm = () => {
                     },
                   }}
                 >
-                  <MenuItem value="" disabled>
-                    Choisir une délégation
-                  </MenuItem>
-                  {CITIES.map((city) => (
-                    <MenuItem key={city} value={city}>
-                      {city}
+                  <InputLabel>Délégation</InputLabel>
+                  <Select {...field} label="Délégation">
+                    <MenuItem value="" disabled>
+                      Choisir une délégation
                     </MenuItem>
-                  ))}
-                </Select>
+                    {CITIES.map((city) => (
+                      <MenuItem key={city} value={city}>
+                        {city}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {errors.location && (
+                    <FormHelperText>{errors.location.message}</FormHelperText>
+                  )}
+                </FormControl>
               )}
             />
           </div>
@@ -145,10 +152,8 @@ const ShopForm = () => {
               control={control}
               rules={{ required: "Spécialité requise" }}
               render={({ field }) => (
-                <Select
-                  {...field}
+                <FormControl
                   fullWidth
-                  displayEmpty
                   error={!!errors.speciality}
                   sx={{
                     "& label.Mui-focused": { color: "#d97706" },
@@ -157,15 +162,21 @@ const ShopForm = () => {
                     },
                   }}
                 >
-                  <MenuItem value="" disabled>
-                    Choisir une spécialité
-                  </MenuItem>
-                  {SPECIALITIES.map((speciality) => (
-                    <MenuItem key={speciality} value={speciality}>
-                      {speciality}
+                  <InputLabel>Spécialité</InputLabel>
+                  <Select {...field} label="Spécialité">
+                    <MenuItem value="" disabled>
+                      Choisir une spécialité
                     </MenuItem>
-                  ))}
-                </Select>
+                    {SPECIALITIES.map((speciality) => (
+                      <MenuItem key={speciality} value={speciality}>
+                        {speciality}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {errors.speciality && (
+                    <FormHelperText>{errors.speciality.message}</FormHelperText>
+                  )}
+                </FormControl>
               )}
             />
             <Controller
