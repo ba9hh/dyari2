@@ -347,7 +347,7 @@ const ShopCommentaires = ({ shopId }) => {
             <div>
               <ReactStars
                 count={5}
-                value={Number(shopStats.average_rating)}
+                value={shopStats?.average_rating || 0}
                 size={20}
                 isHalf={true}
                 edit={false}
