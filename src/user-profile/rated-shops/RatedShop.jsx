@@ -74,7 +74,7 @@ const RatedShop = ({ shop }) => {
 
         {/* User's comment preview if any */}
         {shop.userReview?.comment_text && (
-          <p className="text-sm text-gray-400 max-w-[180px] text-right truncate mt-0.5">
+          <p className="text-sm text-gray-500 max-w-[180px] text-right truncate">
             "{shop.userReview.comment_text}"
           </p>
         )}
