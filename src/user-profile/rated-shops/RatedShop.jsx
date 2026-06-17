@@ -12,14 +12,17 @@ const RatedShop = ({ shop }) => {
 
   return (
     <div className="flex justify-between items-center border sm:p-2 p-1 rounded">
-      <div className="flex flex-1 gap-2 cursor-pointer" onClick={openShop}>
+      <div
+        className="flex flex-1 gap-2 cursor-pointer items-center"
+        onClick={openShop}
+      >
         <img
           className="w-10 h-10 rounded-full border object-cover"
           src={shop.profile_picture}
           alt="Shop Profile"
         />
         <div>
-          <h1 className="my-0">
+          <h1>
             <span className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200">
               {shop.business_name}
             </span>

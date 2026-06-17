@@ -27,7 +27,10 @@ const LikedShop = ({ shop, userId }) => {
   };
   return (
     <div className="flex justify-between items-center border sm:p-2 p-1 rounded">
-      <div className="flex flex-1 gap-2" onClick={() => openShop()}>
+      <div
+        className="flex flex-1 gap-2 items-center cursor-pointer"
+        onClick={() => openShop()}
+      >
         <img
           className="w-10 h-10 rounded-full border object-cover"
           src={shop.profile_picture}
