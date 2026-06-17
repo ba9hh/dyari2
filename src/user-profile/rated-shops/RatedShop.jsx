@@ -64,7 +64,7 @@ const RatedShop = ({ shop }) => {
               value={userRating}
               isHalf={true}
               edit={false}
-              activeColor="#FBBC04"
+              activeColor="#d97706"
             />
           </div>
         )}

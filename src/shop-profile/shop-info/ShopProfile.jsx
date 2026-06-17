@@ -54,7 +54,7 @@ const ShopProfile = ({ shopId, activeTab, handleChange }) => {
             value={shop?.average_rating || 0}
             isHalf={true}
             edit={false}
-            activeColor="#FBBC04"
+            activeColor="#d97706"
           />
           <h1>({shop?.total_rating})</h1>
         </div>
