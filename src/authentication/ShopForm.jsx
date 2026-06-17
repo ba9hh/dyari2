@@ -101,6 +101,12 @@ const ShopForm = () => {
                   fullWidth
                   error={!!errors.projectName}
                   helperText={errors.projectName?.message}
+                  sx={{
+                    "& label.Mui-focused": { color: "#d97706" },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                    },
+                  }}
                 />
               )}
             />
@@ -114,6 +120,12 @@ const ShopForm = () => {
                   fullWidth
                   displayEmpty
                   error={!!errors.location}
+                  sx={{
+                    "& label.Mui-focused": { color: "#d97706" },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                    },
+                  }}
                 >
                   <MenuItem value="" disabled>
                     Choisir une délégation
@@ -138,6 +150,12 @@ const ShopForm = () => {
                   fullWidth
                   displayEmpty
                   error={!!errors.speciality}
+                  sx={{
+                    "& label.Mui-focused": { color: "#d97706" },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                    },
+                  }}
                 >
                   <MenuItem value="" disabled>
                     Choisir une spécialité
@@ -164,6 +182,12 @@ const ShopForm = () => {
                   {...field}
                   error={!!errors.userPhoneNumber}
                   helperText={errors.userPhoneNumber?.message}
+                  sx={{
+                    "& label.Mui-focused": { color: "#d97706" },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                    },
+                  }}
                 />
               )}
             />
@@ -179,6 +203,12 @@ const ShopForm = () => {
                 multiline
                 rows={1}
                 inputProps={{ maxLength: 70 }}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
                 // helperText={`${field.value?.length || 0}/150`}
                 // FormHelperTextProps={{ sx: { textAlign: "right" } }}
               />
