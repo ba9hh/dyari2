@@ -4,14 +4,13 @@ import { supabase } from "@/supabaseClient";
 export const fetchRatedShops = async (userId) => {
   const { data, error } = await supabase
     .from("shops")
-    .select("*, ratings!inner(rating)")
-    .eq("ratings.user_id", userId);
+    .select("*, reviews!inner(rating, comment_text, created_at)")
+    .eq("reviews.user_id", userId);
 
   if (error) throw error;
 
-  // Map to attach the rating cleanly
   return data.map((shop) => ({
     ...shop,
-    userRate: shop.ratings[0]?.rating ?? null, // user's rating for this shop
+    userReview: shop.reviews[0] ?? null, // user's review for this shop
   }));
 };
