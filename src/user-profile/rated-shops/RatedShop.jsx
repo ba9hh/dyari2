@@ -39,7 +39,7 @@ const RatedShop = ({ shop }) => {
 
       <div className="flex flex-col items-end w-fit">
         {/* Global shop rating */}
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <h1 className="text-sm mr-1">Note globale : </h1>
           <h1>{Number(shop.average_rating).toFixed(1)}</h1>
           <ReactStars
@@ -51,7 +51,7 @@ const RatedShop = ({ shop }) => {
             activeColor="#FBBC04"
           />
           <h1 className="text-sm text-gray-400">({shop.total_rating})</h1>
-        </div>
+        </div> */}
 
         {/* User's own rating */}
         {userRating != null && (
@@ -71,7 +71,7 @@ const RatedShop = ({ shop }) => {
 
         {/* User's comment preview if any */}
         {shop.userReview?.comment_text && (
-          <p className="text-xs text-gray-400 max-w-[180px] text-right truncate mt-0.5">
+          <p className="text-sm text-gray-400 max-w-[180px] text-right truncate mt-0.5">
             "{shop.userReview.comment_text}"
           </p>
         )}
