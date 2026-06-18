@@ -84,7 +84,7 @@ const OrderItem = ({
                     error={!!errors.items?.[index]?.quantity}
                     helperText={errors.items?.[index]?.quantity?.message}
                     sx={{
-                      mt: 0.5,
+                      mt: 1,
                       "& input[type=number]": {
                         MozAppearance: "textfield",
                       },
