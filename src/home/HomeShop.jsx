@@ -80,7 +80,7 @@ const HomeShop = ({ shop }) => {
             </span>
           </div>
         </div>
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <h1 className="text-sm sm:text-[15px]">{shop.average_rating}</h1>
           <div className="block sm:hidden">
             <ReactStars
@@ -103,6 +103,18 @@ const HomeShop = ({ shop }) => {
             />
           </div>
           <h1 className="text-sm sm:text-[15px]">({shop.total_rating})</h1>
+        </div> */}
+        <div className="flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
+          {shop.average_rating ?? 0}
+          <ReactStars
+            count={5}
+            size={16}
+            value={shop.average_rating || 0}
+            isHalf={true}
+            edit={false}
+            activeColor="#d97706"
+          />
+          <span className="text-gray-400">({shop.total_rating})</span>
         </div>
       </div>
     </div>
