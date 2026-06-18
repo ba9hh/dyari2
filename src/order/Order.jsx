@@ -24,7 +24,7 @@ const Order = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [step, setStep] = useState(0);
 
-  const LIMIT = 8;
+  const LIMIT = 3;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

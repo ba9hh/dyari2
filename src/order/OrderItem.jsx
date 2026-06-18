@@ -9,7 +9,7 @@ const OrderItem = ({
   watchItems,
   shopData,
   selectArticle,
-  isLoading,
+  loading,
   page,
   setPage,
   totalPages,
@@ -35,7 +35,7 @@ const OrderItem = ({
       <OrderArticles
         shopData={shopData}
         selectArticle={selectArticle}
-        loading={isLoading}
+        loading={loading}
         page={page}
         setPage={setPage}
         totalPages={totalPages}
