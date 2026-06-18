@@ -104,7 +104,7 @@ const HomeShop = ({ shop }) => {
           </div>
           <h1 className="text-sm sm:text-[15px]">({shop.total_rating})</h1>
         </div> */}
-        <div className="flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
+        <div className="flex items-center gap-1 text-sm font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
           {shop.average_rating ?? 0}
           <ReactStars
             count={5}

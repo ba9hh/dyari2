@@ -33,19 +33,26 @@ const RatedShop = ({ shop }) => {
         </div>
 
         {/* Right: user rating badge */}
-        {userRating != null && (
-          <span className="flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
-            {userRating}
-            <ReactStars
-              count={5}
-              size={16}
-              value={userRating}
-              isHalf={true}
-              edit={false}
-              activeColor="#d97706"
-            />
-          </span>
-        )}
+        <div className="flex flex-col items-end gap-1">
+          {userRating != null && (
+            <span className="flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
+              {userRating}
+              <ReactStars
+                count={5}
+                size={16}
+                value={userRating}
+                isHalf={true}
+                edit={false}
+                activeColor="#d97706"
+              />
+            </span>
+          )}
+          {shop.userReview?.comment_text && (
+            <p className="text-sm text-gray-600 italic truncate text-end">
+              "{shop.userReview.comment_text}"
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Footer: speciality + comment */}
@@ -59,16 +66,6 @@ const RatedShop = ({ shop }) => {
               <span className="crimsonText text-sm">
                 {formatSpeciality(shop.speciality)}
               </span>
-            </div>
-          )}
-          {shop.userReview?.comment_text && (
-            <div className="flex flex-col gap-0.5">
-              <span className="text-xs text-gray-400 uppercase tracking-wide">
-                Votre avis
-              </span>
-              <p className="text-sm text-gray-600 italic truncate">
-                "{shop.userReview.comment_text}"
-              </p>
             </div>
           )}
         </div>
