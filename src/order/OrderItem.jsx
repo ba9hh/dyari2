@@ -43,7 +43,7 @@ const OrderItem = ({
         selectedArticleId={watchItems?.[index]?.articleId}
       />
 
-      <div className="flex gap-2 items-center w-full mt-0">
+      <div className="flex gap-2 items-center w-full border">
         <div className="w-full">
           {/* Quantity */}
           {(() => {
@@ -84,7 +84,7 @@ const OrderItem = ({
                     error={!!errors.items?.[index]?.quantity}
                     helperText={errors.items?.[index]?.quantity?.message}
                     sx={{
-                      mt: 2,
+                      mt: 1,
                       "& input[type=number]": {
                         MozAppearance: "textfield",
                       },
