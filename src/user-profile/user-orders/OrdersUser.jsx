@@ -37,7 +37,7 @@ const OrdersUser = ({ userId }) => {
   if (isError) console.error(error);
   if (isLoading) {
     return (
-      <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pb-3 pt-2">
+      <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border pb-3 pt-2">
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
@@ -48,7 +48,7 @@ const OrdersUser = ({ userId }) => {
     );
   }
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pb-2 pt-0">
+    <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border pb-2 pt-0">
       <OrdersTabs
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
