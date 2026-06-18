@@ -16,7 +16,7 @@ const RatedShops = ({ userId }) => {
   if (isLoading) return <RatedShopsSkeleton />;
 
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md py-2 sm:py-3">
+    <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border py-2 sm:py-3">
       <div className="flex flex-col px-1 sm:px-3 gap-2">
         {ratedShops?.length > 0 ? (
           ratedShops.map((shop) => (

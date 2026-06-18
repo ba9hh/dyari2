@@ -1,24 +1,42 @@
 import { CheckCircle, XCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
 import { ChevronDown } from "lucide-react";
+import { markOrderAsRead } from "@/services/orders/ordersList";
 
 const OrderShop = ({ order, index }) => {
   const [currentState, setCurrentState] = useState(order.order_state);
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isRead, setIsRead] = useState(order.is_read ?? true);
+
+  const handleToggleExpand = async () => {
+    const opening = !isExpanded;
+    setIsExpanded(opening);
+
+    // Mark as read the first time the shop opens/expands the order
+    if (opening && !isRead) {
+      try {
+        await markOrderAsRead(order.id);
+        setIsRead(true);
+      } catch (err) {
+        console.error("Failed to mark order as read:", err.message);
+      }
+    }
+  };
+
   const updateOrderState = async (newState) => {
     try {
       const { data, error } = await supabase
         .from("orders")
         .update({ order_state: newState })
-        .eq("id", order.id) // replace with your PK column
+        .eq("id", order.id)
         .select();
 
       if (error) throw error;
       toast.success(
-        `Order ${newState == "accepted" ? "accepted" : "rejected"} `,
+        `Order ${newState === "accepted" ? "accepted" : "rejected"}`,
       );
       setCurrentState(newState);
     } catch (error) {
@@ -26,33 +44,61 @@ const OrderShop = ({ order, index }) => {
       console.error("Error updating order:", error.message);
     }
   };
+
   return (
-    <div className="w-full border rounded-[4px]">
+    <div
+      className={`w-full border rounded-[4px] transition-all duration-200 ${
+        !isRead
+          ? "border-blue-400 bg-blue-50 shadow-sm"
+          : "border-gray-200 bg-white"
+      }`}
+    >
       <div
-        className="flex justify-between items-center p-2 cursor-pointer select-none hover:bg-gray-50 transition-colors duration-150"
-        onClick={() => setIsExpanded((prev) => !prev)}
+        className={`flex justify-between items-center p-2 cursor-pointer select-none transition-colors duration-150 ${
+          !isRead ? "hover:bg-blue-100" : "hover:bg-gray-50"
+        }`}
+        onClick={handleToggleExpand}
       >
-        <div>
-          <h1 className="text-sm font-medium">Commande numero : {index}</h1>
-          <h1 className="text-sm text-gray-600">
-            Order Date: {dayjs(order.order_date).format("DD/MM/YYYY HH:mm")}
-          </h1>
+        <div className="flex items-center gap-2">
+          {/* Unread dot indicator */}
+          {!isRead && (
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0" />
+          )}
+          <div>
+            <h1
+              className={`text-sm ${!isRead ? "font-bold text-gray-900" : "font-medium text-gray-700"}`}
+            >
+              Commande numero : {index}
+            </h1>
+            <h1
+              className={`text-sm ${!isRead ? "font-semibold text-gray-700" : "text-gray-500"}`}
+            >
+              Order Date: {dayjs(order.order_date).format("DD/MM/YYYY HH:mm")}
+            </h1>
+          </div>
         </div>
+
         <div className="flex items-center gap-2">
           {currentState === "pending" ? (
-            <div className="flex gap-2">
-              <h1 className="text-sm">
+            <div className="flex gap-2 items-center">
+              <h1 className="text-sm hidden sm:block">
                 (De preference d'appeler le client avant de confirmer.)
               </h1>
               <button
                 className="px-3 py-1 bg-green-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-600 transition duration-300 flex items-center gap-1"
-                onClick={() => updateOrderState("accepted")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateOrderState("accepted");
+                }}
               >
                 <CheckCircle size={18} />
               </button>
               <button
                 className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded-full shadow-md hover:bg-red-600 transition duration-300 flex items-center gap-1"
-                onClick={() => updateOrderState("rejected")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateOrderState("rejected");
+                }}
               >
                 <XCircle size={18} />
               </button>
@@ -60,7 +106,7 @@ const OrderShop = ({ order, index }) => {
           ) : (
             <h1
               className={`text-sm font-medium rounded py-1 px-3 border ${
-                currentState == "accepted"
+                currentState === "accepted"
                   ? "bg-green-100 text-green-700"
                   : "bg-red-100 text-red-700"
               }`}
@@ -76,6 +122,7 @@ const OrderShop = ({ order, index }) => {
           />
         </div>
       </div>
+
       {isExpanded && (
         <>
           <hr />

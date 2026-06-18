@@ -73,3 +73,12 @@ export const fetchUserOrders = async ({ queryKey }) => {
     totalPages: Math.ceil(count / limit),
   };
 };
+export const markOrderAsRead = async (orderId) => {
+  const { error } = await supabase
+    .from("orders")
+    .update({ is_read: true })
+    .eq("id", orderId)
+    .eq("is_read", false); // only update if not already read (avoids unnecessary writes)
+
+  if (error) throw error;
+};
