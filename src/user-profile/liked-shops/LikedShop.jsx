@@ -45,10 +45,15 @@ const LikedShop = ({ shop, userId }) => {
             alt="Shop Profile"
           />
           <div>
-            <h1 className="text-sm font-medium text-amber-600 hover:text-amber-700 underline transition-colors duration-200">
-              {shop.business_name}
+            <div className="flex gap-1">
+              <h1 className="text-sm font-medium text-amber-600 hover:text-amber-700 underline transition-colors duration-200">
+                {shop.business_name}
+              </h1>
+              <h1 className="text-sm text-gray-500">({shop.address || ""})</h1>
+            </div>
+            <h1 className="crimsonText text-sm">
+              {formatSpeciality(shop.speciality)}
             </h1>
-            <h1 className="text-xs text-gray-400">{shop.address}</h1>
           </div>
         </div>
 
@@ -79,20 +84,6 @@ const LikedShop = ({ shop, userId }) => {
           </IconButton>
         </div>
       </div>
-
-      {/* Footer: speciality */}
-      {shop.speciality?.length > 0 && (
-        <div className="px-3 py-2.5 border-t border-gray-100 bg-gray-50">
-          <div className="flex flex-col gap-0.5">
-            <span className="text-xs text-gray-400 uppercase tracking-wide">
-              Spécialité
-            </span>
-            <span className="crimsonText text-sm">
-              {formatSpeciality(shop.speciality)}
-            </span>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
