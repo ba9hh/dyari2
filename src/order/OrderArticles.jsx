@@ -83,15 +83,13 @@ const OrderArticles = ({
               ))}
             </div>
 
-            {totalPages > 1 && (
-              <div className="flex justify-center mt-2">
-                <Pagination
-                  page={page}
-                  count={totalPages}
-                  onChange={(event, value) => setPage(value)}
-                />
-              </div>
-            )}
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPrev={() => setPage((p) => Math.max(1, p - 1))}
+              onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+              isOrder
+            />
           </div>
         )}
       </div>

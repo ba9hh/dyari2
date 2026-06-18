@@ -1,7 +1,4 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export default function Pagination({
   currentPage,
@@ -10,77 +7,39 @@ export default function Pagination({
   onNext,
   isOrder = false,
 }) {
+  if (totalPages <= 1) return null;
+
   return (
-    <>
-      {totalPages > 1 && (
-        <div
-          className={`relative flex flex-col gap-2 sm:gap-0 items-center sm:flex-row ${
-            isOrder ? "sm:justify-between" : "sm:justify-center"
-          } w-full mt-0 py-2`}
-        >
-          {/* <div className="flex w-fit space-x-4">
-        <Button
-        variant="outlined"
-        startIcon={<ArrowBackIcon />}
-          onClick={onPrev}
-          disabled={currentPage === 1}
-          size="small"
-          sx={{
-            textTransform: "none",
-            }}
-            >
-            {" "}
-            Previous page
-            </Button>
-            
-            <Button
-            variant="contained"
-            // color="success"
-            endIcon={<ArrowForwardIcon />}
-            onClick={onNext}
-            disabled={currentPage === totalPages}
-            size="small"
-            sx={{
-              textTransform: "none",
-              }}
-              >
-              Next page
-              </Button>
-              </div> */}
-          <div className={`sm:absolute ${isOrder ? "right-0" : "right-8"}`}>
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center border border-gray-700 px-2 py-0.5">
-                <div className="border rounded">{currentPage}</div>
-                <span className="text-gray-500">of {totalPages}</span>
-              </div>
-              <div className="flex gap-1">
-                <button
-                  onClick={onPrev}
-                  disabled={currentPage === 1}
-                  className={`p-1 bg-gray-100 hover:bg-gray-300 border border-gray-700 transition ${
-                    currentPage === 1
-                      ? "text-gray-600 cursor-not-allowed"
-                      : "text-gray-600"
-                  }`}
-                >
-                  <ChevronLeft size={20} />
-                </button>
-                <button
-                  onClick={onNext}
-                  disabled={currentPage === totalPages}
-                  className={`p-1 bg-gray-100 hover:bg-gray-300 border border-gray-700 transition ${
-                    currentPage === totalPages
-                      ? "text-gray-600 cursor-not-allowed"
-                      : "text-gray-800"
-                  }`}
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    <div
+      className={`flex items-center gap-2 w-full mt-0 ${
+        isOrder ? "justify-end" : "justify-center"
+      }`}
+    >
+      <button
+        type="button"
+        onClick={onPrev}
+        disabled={currentPage === 1}
+        aria-label="Page précédente"
+        className="flex items-center justify-center w-8 h-8 rounded-full border border-amber-200 text-amber-700 transition hover:bg-amber-50 hover:border-amber-300 disabled:border-gray-200 disabled:text-gray-300 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+      >
+        <ChevronLeft size={18} />
+      </button>
+
+      <span className="text-xs font-medium text-gray-600 px-1 min-w-[3.5rem] text-center">
+        <span className="text-amber-700 font-semibold">{currentPage}</span>
+        {" / "}
+        {totalPages}
+      </span>
+
+      <button
+        type="button"
+        onClick={onNext}
+        disabled={currentPage === totalPages}
+        aria-label="Page suivante"
+        className="flex items-center justify-center w-8 h-8 rounded-full border border-amber-200 text-amber-700 transition hover:bg-amber-50 hover:border-amber-300 disabled:border-gray-200 disabled:text-gray-300 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+      >
+        <ChevronRight size={18} />
+      </button>
+    </div>
   );
 }
