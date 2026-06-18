@@ -11,74 +11,68 @@ const RatedShop = ({ shop }) => {
   const userRating = shop.userReview?.rating ?? null;
 
   return (
-    <div className="flex justify-between items-center border sm:p-2 p-1 rounded">
+    <div className="w-full rounded-md border border-gray-200 bg-white overflow-hidden transition-all duration-200">
+      {/* Header row */}
       <div
-        className="flex flex-1 gap-2 cursor-pointer items-center"
+        className="flex justify-between items-center px-3 py-2.5 cursor-pointer select-none hover:bg-gray-50 transition-colors duration-150"
         onClick={openShop}
       >
-        <img
-          className="w-10 h-10 rounded-full border object-cover"
-          src={shop.profile_picture}
-          alt="Shop Profile"
-        />
-        <div>
-          <h1>
-            <span className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200">
-              {shop.business_name}
-            </span>
-            {shop.address && (
-              <span className="text-gray-500 text-sm ml-1">
-                ({shop.address})
-              </span>
-            )}
-          </h1>
-          {shop.speciality?.length > 0 && (
-            <span className="crimsonText inline-block my-0">
-              {formatSpeciality(shop.speciality)}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <div className="flex flex-col items-end w-fit">
-        {/* Global shop rating */}
-        {/* <div className="flex items-center">
-          <h1 className="text-sm mr-1">Note globale : </h1>
-          <h1>{Number(shop.average_rating).toFixed(1)}</h1>
-          <ReactStars
-            count={5}
-            size={20}
-            value={shop.average_rating || 0}
-            isHalf={true}
-            edit={false}
-            activeColor="#FBBC04"
+        {/* Left: shop info */}
+        <div className="flex items-center gap-2">
+          <img
+            className="w-10 h-10 rounded-full border object-cover"
+            src={shop.profile_picture}
+            alt="Shop Profile"
           />
-          <h1 className="text-sm text-gray-400">({shop.total_rating})</h1>
-        </div> */}
+          <div>
+            <h1 className="text-sm font-medium text-amber-600 hover:text-amber-700 underline transition-colors duration-200">
+              {shop.business_name}
+            </h1>
+            <h1 className="text-xs text-gray-400">{shop.address || ""}</h1>
+          </div>
+        </div>
 
-        {/* User's own rating */}
+        {/* Right: user rating badge */}
         {userRating != null && (
-          <div className="flex items-center">
-            <h1 className="text-sm mr-1">Votre note : </h1>
-            <h1>{userRating}</h1>
+          <span className="flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
+            {userRating}
             <ReactStars
               count={5}
-              size={20}
+              size={16}
               value={userRating}
               isHalf={true}
               edit={false}
               activeColor="#d97706"
             />
-          </div>
-        )}
-
-        {/* User's comment preview if any */}
-        {shop.userReview?.comment_text && (
-          <p className="text-sm text-gray-500 max-w-[180px] text-right truncate">
-            "{shop.userReview.comment_text}"
-          </p>
+          </span>
         )}
       </div>
+
+      {/* Footer: speciality + comment */}
+      {(shop.speciality?.length > 0 || shop.userReview?.comment_text) && (
+        <div className="px-3 py-2.5 border-t border-gray-100 bg-gray-50 flex flex-col gap-1.5">
+          {shop.speciality?.length > 0 && (
+            <div className="flex flex-col gap-0.5">
+              <span className="text-xs text-gray-400 uppercase tracking-wide">
+                Spécialité
+              </span>
+              <span className="crimsonText text-sm">
+                {formatSpeciality(shop.speciality)}
+              </span>
+            </div>
+          )}
+          {shop.userReview?.comment_text && (
+            <div className="flex flex-col gap-0.5">
+              <span className="text-xs text-gray-400 uppercase tracking-wide">
+                Votre avis
+              </span>
+              <p className="text-sm text-gray-600 italic truncate">
+                "{shop.userReview.comment_text}"
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
