@@ -48,7 +48,7 @@ const OrdersShop = ({ shopId }) => {
         setSelectedFilter={setSelectedFilter}
         t={t}
       />
-      <div className="flex flex-col gap-2p-2">
+      <div className="flex flex-col gap-2 p-2">
         {ordersData?.orders?.map((order, index) => (
           <OrderShop order={order} key={index} />
         ))}
