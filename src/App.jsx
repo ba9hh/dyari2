@@ -8,7 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./AuthProvider";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import Shop from "./shop/Shop";
+import Shop from "./shopmobile/Shop";
 import Account from "./account/Account";
 import AddArticle from "./shop-profile/shop-articles/AddArticle";
 import ChangePassword from "./shop-profile/shop-settings/ChangePassword";

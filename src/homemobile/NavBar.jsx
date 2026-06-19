@@ -39,7 +39,7 @@ const NavBar = () => {
       </div>
 
       {/* Mobile — matches desktop amber/white theme */}
-      <header className="block sticky top-0 z-30 bg-gray-100 border-b border-amber-100 sm:hidden">
+      <header className="block sticky top-0 z-30 bg-white border-b border-amber-100 sm:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left: search icon as filter hint */}
           <Link
