@@ -10,6 +10,7 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
         color="primary"
         sx={{
           textTransform: "none",
+          fontSize: "0.75rem",
           color: "#d97706",
           borderColor: "#d97706",
           "&:hover": {
@@ -26,6 +27,7 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
         size="small"
         sx={{
           textTransform: "none",
+          fontSize: "0.75rem",
           backgroundColor: "#d97706",
           "&:hover": {
             backgroundColor: "#b45309",
@@ -42,6 +44,7 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
         size="small"
         sx={{
           textTransform: "none",
+          fontSize: "0.75rem",
           backgroundColor: "#d97706",
           "&:hover": {
             backgroundColor: "#b45309",

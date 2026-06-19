@@ -20,7 +20,7 @@ const LocalisationFilter = ({
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search shops"
+              placeholder="Rechercher..."
               className="outline-none placeholder:text-stone-400 text-sm w-48"
             />
           </div>

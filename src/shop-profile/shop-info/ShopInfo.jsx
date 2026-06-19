@@ -19,18 +19,27 @@ const ShopInfo = ({ shop, onEdit }) => {
             alt="Profile"
           />
         </div>
-        <div className="flex flex-col items-center">
-          <h1 className="text-xl mt-1">{shop?.business_name}</h1>
-          <p className="text-sm text-gray-700 text-center mb-1.5 pb-1.5 border-b border-gray-100 px-6 max-w-md leading-relaxed italic">
-            Bio: Made with love
-          </p>
-          <div className="flex gap-1.5">
-            <h1 className="text-sm">Specialité: {shop?.category}</h1>
-            <h1 className="text-sm">|</h1>
-            <h1 className="text-sm">Localisation: {shop?.address}</h1>
-            <h1 className="text-sm">|</h1>
-            <h1 className="text-sm">Téléphone: 27428425</h1>
-          </div>
+        <h1 className="text-lg sm:text-xl font-medium mt-1 text-gray-800">
+          {shop?.business_name}
+        </h1>
+        <p className="text-sm text-gray-500 italic text-center border-b border-gray-100 pb-2 px-6 max-w-xs">
+          Made with love
+        </p>
+        {/* Info pills — stack on mobile, row on desktop */}
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-1 text-xs sm:text-sm text-gray-600 text-center">
+          <span>
+            <span className="font-medium text-gray-700">Spécialité:</span>{" "}
+            {shop?.category}
+          </span>
+          <span className="hidden sm:inline text-gray-300">|</span>
+          <span>
+            <span className="font-medium text-gray-700">Localisation:</span>{" "}
+            {shop?.address}
+          </span>
+          <span className="hidden sm:inline text-gray-300">|</span>
+          <span>
+            <span className="font-medium text-gray-700">Tél:</span> 27428425
+          </span>
         </div>
       </div>
     </div>

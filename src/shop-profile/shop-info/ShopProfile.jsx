@@ -46,17 +46,17 @@ const ShopProfile = ({ shopId, activeTab, handleChange }) => {
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
       <div className="flex justify-between items-center">
-        <div className="flex items-center px-2">
-          <h1>{shop?.average_rating}</h1>
+        <div className="flex-shrink-0 flex items-center gap-1.5 text-sm font-semibold rounded-full py-1 px-2.5 border bg-amber-50 text-amber-600 border-amber-200">
+          <span>{shop?.average_rating}</span>
           <ReactStars
             count={5}
-            size={20}
+            size={16}
             value={shop?.average_rating || 0}
             isHalf={true}
             edit={false}
             activeColor="#d97706"
           />
-          <h1>({shop?.total_rating})</h1>
+          <span className="text-gray-400 text-xs">({shop?.total_rating})</span>
         </div>
         <ShopHeader
           handleLogout={handleLogout}
