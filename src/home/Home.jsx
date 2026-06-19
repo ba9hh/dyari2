@@ -1,4 +1,4 @@
-import HomeShops from "@/homemobile/HomeShops";
+import HomeShops from "@/home/HomeShops";
 import NavBar from "./NavBar";
 
 const Home = () => {
