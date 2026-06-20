@@ -181,7 +181,7 @@ const OrderShop = ({ order, index }) => {
                 </span>
                 {order?.user_phone_number && (
                   <span className="text-xs text-gray-500">
-                    📞 {order.user_phone_number}
+                    {order.user_phone_number}
                   </span>
                 )}
               </div>
@@ -195,8 +195,8 @@ const OrderShop = ({ order, index }) => {
                 </span>
                 <span className="text-xs text-gray-500">
                   {order?.delivery_type === "livraison"
-                    ? "🚚 Livraison"
-                    : "🏪 Sur place"}
+                    ? "Livraison"
+                    : "Sur place"}
                 </span>
               </div>
 

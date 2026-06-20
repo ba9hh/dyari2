@@ -1,6 +1,6 @@
 import Home from "./home/Home";
 import VerifyEmail from "./authentication/reset-password/verifyEmail";
-import Order from "./order/Order";
+import Order from "./ordermobile/Order";
 import AccountSettings from "./account/AccountSettings";
 import SkeletonShop from "./skeleton/home/SkeletonShop";
 import ForgetPassword from "./authentication/reset-password/ForgetPassword";

@@ -131,8 +131,8 @@ const OrderUser = ({ order, index }) => {
                 </span>
                 <span className="text-xs text-gray-500">
                   {order?.delivery_type === "livraison"
-                    ? "🚚 Livraison"
-                    : "🏪 Sur place"}
+                    ? "Livraison"
+                    : " Sur place"}
                 </span>
               </div>
 

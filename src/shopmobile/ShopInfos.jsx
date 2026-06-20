@@ -41,10 +41,18 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   }, [user, shopId]);
 
   const toggleLike = async () => {
-    if (!user) { setIsConnected(true); return; }
+    if (!user) {
+      setIsConnected(true);
+      return;
+    }
     try {
-      if (liked) { await unlikeShop(user.id, shopId); setLiked(false); }
-      else { await likeShop(user.id, shopId); setLiked(true); }
+      if (liked) {
+        await unlikeShop(user.id, shopId);
+        setLiked(false);
+      } else {
+        await likeShop(user.id, shopId);
+        setLiked(true);
+      }
     } catch (err) {
       console.error("Error toggling like:", err);
     }
@@ -117,9 +125,17 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
       </div>
 
       {/* Like button */}
-      <div className="absolute bottom-8 right-1 z-10">
-        <IconButton onClick={toggleLike} color={liked ? "error" : "default"} size="small">
-          {liked ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
+      <div className="absolute bottom-3 right-1 z-10">
+        <IconButton
+          onClick={toggleLike}
+          color={liked ? "error" : "default"}
+          size="small"
+        >
+          {liked ? (
+            <FavoriteIcon fontSize="small" />
+          ) : (
+            <FavoriteBorderIcon fontSize="small" />
+          )}
         </IconButton>
       </div>
 
@@ -130,7 +146,10 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           onChange={handleChange}
           centered
           sx={{
-            "& .MuiTabs-indicator": { backgroundColor: "#d97706", height: "3px" },
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#d97706",
+              height: "3px",
+            },
           }}
         >
           <Tab
