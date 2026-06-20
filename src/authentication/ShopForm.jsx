@@ -226,7 +226,7 @@ const ShopForm = () => {
             )}
           />
         </div>
-        <Controller
+        {/* <Controller
           name="plan"
           control={control}
           rules={{ required: "Veuillez choisir une offre" }}
@@ -277,7 +277,7 @@ const ShopForm = () => {
               )}
             </>
           )}
-        />
+        /> */}
         <div className="flex mt-4">
           <Button
             type="submit"

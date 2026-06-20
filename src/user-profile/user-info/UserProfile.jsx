@@ -15,7 +15,7 @@ const UserProfile = ({ user, handleOpen }) => {
             <EditIcon sx={{ fontSize: 18, color: "#4B5563" }} />
           </button>
           <img
-            className="w-full h-full border-2 p-1 rounded-full bg-white object-cover"
+            className="w-full h-full border-2 p-0.5 rounded-full bg-white object-cover"
             src={user ? user.avatar_url : pdp}
             alt="Profile"
           />
