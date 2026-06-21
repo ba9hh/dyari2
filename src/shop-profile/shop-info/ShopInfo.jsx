@@ -23,7 +23,7 @@ const ShopInfo = ({ shop, onEdit }) => {
           {shop?.business_name}
         </h1>
         <p className="text-sm text-gray-500 italic text-center border-b border-gray-100 pb-2 px-6 max-w-xs">
-          Made with love
+          {shop?.bio}
         </p>
         {/* Info pills — stack on mobile, row on desktop */}
         <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-1 text-xs sm:text-sm text-gray-600 text-center">
@@ -38,7 +38,8 @@ const ShopInfo = ({ shop, onEdit }) => {
           </span>
           <span className="hidden sm:inline text-gray-300">|</span>
           <span>
-            <span className="font-medium text-gray-700">Tél:</span> 27428425
+            <span className="font-medium text-gray-700">Tél:</span>{" "}
+            {shop?.phone_number}
           </span>
         </div>
       </div>
