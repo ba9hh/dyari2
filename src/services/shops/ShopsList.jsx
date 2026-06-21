@@ -1,7 +1,7 @@
 import { supabase } from "@/supabaseClient";
 
 export const fetchShops = async ({ queryKey }) => {
-  const [_key, { type, localisation, page, shopId, limit, search }] = queryKey;
+  const [_key, { type, localisation, page, limit, search, userId }] = queryKey;
 
   let query = supabase
     .from("shops")
@@ -14,15 +14,14 @@ export const fetchShops = async ({ queryKey }) => {
       `,
       { count: "exact" },
     )
+    .gt("number_of_articles", 0)
     .range((page - 1) * limit, page * limit - 1);
 
   if (type) query = query.eq("category", type);
   if (localisation && localisation !== "Toute la Tunisie") {
     query = query.eq("address", localisation);
   }
-  if (shopId) {
-    query = query.neq("id", shopId);
-  }
+  if (userId) query = query.neq("user_id", userId);
   if (search) query = query.ilike("business_name", `%${search}%`);
 
   const { data, count, error } = await query;

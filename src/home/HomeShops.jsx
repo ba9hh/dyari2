@@ -52,7 +52,7 @@ const HomeShops = () => {
         page,
         limit,
         search,
-        // shopId: user && user.role === "shop" ? user.id : null,
+        userId: user?.id,
       },
     ],
     queryFn: fetchShops,
