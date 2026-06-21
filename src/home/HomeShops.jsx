@@ -83,7 +83,7 @@ const HomeShops = () => {
           search={search}
           setSearch={handleSearchChange}
         />
-        <div className="sm:mt-6 sm:mx-2">
+        <div className="sm:mt-0 sm:mx-2">
           <ShopsHeader />
         </div>
         <ShopsHomeSkeleton />
@@ -136,7 +136,7 @@ const HomeShops = () => {
         search={search}
         setSearch={handleSearchChange}
       />
-      <div className="sm:mt-6 sm:mx-2 ">
+      <div className="sm:mt-0 sm:mx-2 ">
         <ShopsHeader />
         {data?.shops?.length > 0 ? (
           <div className="lg:grid-cols-2 md:grid-cols-2 grid grid-cols-1 sm:gap-x-6 sm:gap-y-6 ">

@@ -53,7 +53,7 @@ const LocalisationFilter = ({
           </svg>
         </div>
       </div>
-      <hr className="sm:block hidden bg-gray-300 mt-4" />
+      {/* <hr className="sm:block hidden bg-gray-300 mt-4" /> */}
 
       {/* Mobile — two controls side by side matching desktop aesthetic */}
       <div className="flex sm:hidden items-center gap-2 px-3 py-2 bg-gray-50 border-b border-gray-200">
