@@ -12,7 +12,6 @@ import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { fetchShopInfo } from "@/services/shops/ShopInformation";
 import { likeShop, unlikeShop, isShopLiked } from "@/services/shops/likedShops";
 import { useQuery } from "@tanstack/react-query";
-import { formatSpeciality } from "@/utils/formatSpeciality";
 import ReactStars from "react-rating-stars-component";
 
 const ShopInfos = ({ shopId, handleChange, activeTab }) => {

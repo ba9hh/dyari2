@@ -1,7 +1,6 @@
 import ReactStars from "react-rating-stars-component";
 import biscuit50 from "@/assets/biscuit50.jpg";
 import { useNavigate } from "react-router-dom";
-import { formatSpeciality } from "@/utils/formatSpeciality";
 const HomeShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {
@@ -70,11 +69,7 @@ const HomeShop = ({ shop }) => {
             <h1 className="truncate text-sm sm:text-[15px]">
               {shop.business_name} {shop.last_name} ({shop.address})
             </h1>
-            {/* {shop.speciality?.length > 0 && (
-              <span className="crimsonText truncate text-sm sm:text-[15px]">
-                {formatSpeciality(shop.speciality)}
-              </span>
-            )} */}
+
             <span className="crimsonText truncate text-sm sm:text-[15px]">
               Localisation: {shop.address}
             </span>

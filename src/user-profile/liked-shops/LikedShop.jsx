@@ -51,9 +51,7 @@ const LikedShop = ({ shop, userId }) => {
               </h1>
               <h1 className="text-sm text-gray-500">({shop.address || ""})</h1>
             </div>
-            <h1 className="crimsonText text-sm">
-              {formatSpeciality(shop.speciality)}
-            </h1>
+            <h1 className="crimsonText text-sm">{shop.category}</h1>
           </div>
         </div>
 

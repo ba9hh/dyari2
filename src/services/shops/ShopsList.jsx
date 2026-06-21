@@ -16,7 +16,7 @@ export const fetchShops = async ({ queryKey }) => {
     )
     .range((page - 1) * limit, page * limit - 1);
 
-  if (type) query = query.contains("speciality", [type]);
+  if (type) query = query.eq("category", type);
   if (localisation && localisation !== "Toute la Tunisie") {
     query = query.eq("address", localisation);
   }
