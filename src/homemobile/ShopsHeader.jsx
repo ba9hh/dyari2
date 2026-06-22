@@ -8,7 +8,8 @@ const ShopsHeader = () => {
       <div className="flex-grow border-t border-gray-300 mx-0 sm:mx-6"></div>
       <h1 className="text-sm sm:text-lg font-bold text-gray-600 flex items-center gap-1 text-center whitespace-nowrap">
         <span className="">
-          Bienvenue à <span className="underline text-amber-600">Dyari</span>
+          Bienvenue à <span className="underline text-amber-600">Dyari</span> :
+          Découvrir et Commander du meilleur
         </span>
         {/* <img
           src="https://flagcdn.com/tn.svg"
