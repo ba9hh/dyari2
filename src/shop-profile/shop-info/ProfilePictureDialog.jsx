@@ -7,10 +7,16 @@ import {
   Button,
   Stack,
   CircularProgress,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
 import pdp from "@/assets/pdp.png";
+
+const DEFAULT_PROFILE_PICTURE =
+  "https://obhlpgxxiotewfhcvdaw.supabase.co/storage/v1/object/public/images/1753197818753-icon-7797704_640.png";
 
 const ProfilePictureDialog = ({
   open,
@@ -23,25 +29,48 @@ const ProfilePictureDialog = ({
   shopId,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [resetToDefault, setResetToDefault] = useState(false);
+
+  const hasCustomPicture =
+    shop?.profile_picture && shop.profile_picture !== DEFAULT_PROFILE_PICTURE;
 
   const handleClose = () => {
     setOpen(false);
     if (preview) URL.revokeObjectURL(preview);
     setPreview(null);
     setFile(null);
+    setResetToDefault(false);
   };
 
   const handleFileChange = (e) => {
     const f = e.target.files[0];
     if (!f) return;
     setFile(f);
+    setResetToDefault(false);
     setPreview(URL.createObjectURL(f));
+  };
+
+  const handleDeletePicture = () => {
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(null);
+    setFile(null);
+    setResetToDefault(true);
   };
 
   const handleUpdate = async () => {
     setLoading(true);
     try {
-      if (file) {
+      if (resetToDefault) {
+        // Reset to the default profile picture
+        const { error: updateError } = await supabase
+          .from("shops")
+          .update({ profile_picture: DEFAULT_PROFILE_PICTURE })
+          .eq("id", shopId);
+        if (updateError) throw updateError;
+
+        toast.success("Profile picture reset to default!");
+        handleClose();
+      } else if (file) {
         const fileExt = file.name.split(".").pop();
         const fileName = `${Date.now()}.${fileExt}`;
 
@@ -72,21 +101,61 @@ const ProfilePictureDialog = ({
     }
   };
 
+  // Determine what image to show in the preview
+  const previewSrc = resetToDefault
+    ? pdp
+    : preview || shop?.profile_picture || pdp;
+
+  const canUpdate = file || resetToDefault;
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Mise à jour de la photo de profil</DialogTitle>
       <DialogContent dividers>
         <Stack spacing={2}>
           <div className="flex justify-center">
-            <img
-              src={preview || shop?.profile_picture || pdp}
-              alt="preview"
-              className="w-32 h-32 rounded-full object-cover"
-            />
+            <div className="relative inline-block">
+              <img
+                src={previewSrc}
+                alt="preview"
+                className="w-32 h-32 rounded-full object-cover"
+              />
+              {/* Show delete icon only if there's a custom picture or a new file selected */}
+              {(hasCustomPicture || file) && !resetToDefault && (
+                <Tooltip title="Supprimer la photo">
+                  <IconButton
+                    onClick={handleDeletePicture}
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      backgroundColor: "#ef4444",
+                      color: "#fff",
+                      "&:hover": {
+                        backgroundColor: "#dc2626",
+                      },
+                      width: 28,
+                      height: 28,
+                    }}
+                  >
+                    <DeleteOutlineIcon sx={{ fontSize: 16 }} />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </div>
           </div>
+
+          {resetToDefault && (
+            <p className="text-center text-sm text-gray-500">
+              La photo sera réinitialisée à celle par défaut.
+            </p>
+          )}
+
           <Button
             variant="outlined"
             component="label"
+            disabled={loading}
             sx={{
               px: 12,
               textTransform: "none",
@@ -119,7 +188,7 @@ const ProfilePictureDialog = ({
         <Button
           variant="contained"
           onClick={handleUpdate}
-          disabled={loading || !file}
+          disabled={loading || !canUpdate}
           sx={{
             textTransform: "none",
             backgroundColor: "#d97706",

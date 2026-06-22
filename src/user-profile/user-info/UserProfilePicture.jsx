@@ -8,10 +8,16 @@ import {
   Stack,
   CircularProgress,
   Avatar,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
 import pdp from "@/assets/pdp.png";
+
+const DEFAULT_PROFILE_PICTURE =
+  "https://lh3.googleusercontent.com/a/ACg8ocJwlW6kwM5JSEGAHRRuavB5R_DUmj32hLgiIhowWEdVAklCgg=s96-c";
 
 const UserProfilePicture = ({
   open,
@@ -24,32 +30,53 @@ const UserProfilePicture = ({
   userId,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [resetToDefault, setResetToDefault] = useState(false);
+
+  const hasCustomPicture =
+    user?.profile_picture && user.profile_picture !== DEFAULT_PROFILE_PICTURE;
+
   const handleClose = () => {
     setOpen(false);
     if (preview) URL.revokeObjectURL(preview);
     setPreview(null);
     setFile(null);
+    setResetToDefault(false);
   };
 
   const handleFileChange = (e) => {
     const f = e.target.files[0];
     if (!f) return;
-    const url = URL.createObjectURL(f);
-    setFile(f);
-    setPreview(url);
-    setFile(null);
+    setFile(f); // ✅ Fixed: removed the erroneous setFile(null) that was here
+    setResetToDefault(false);
+    setPreview(URL.createObjectURL(f));
   };
+
+  const handleDeletePicture = () => {
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(null);
+    setFile(null);
+    setResetToDefault(true);
+  };
+
   const handleUpdate = async () => {
     setLoading(true);
     try {
-      if (file) {
+      if (resetToDefault) {
+        const { error: updateError } = await supabase
+          .from("users")
+          .update({ profile_picture: DEFAULT_PROFILE_PICTURE })
+          .eq("id", userId);
+        if (updateError) throw updateError;
+
+        toast.success("Profile picture reset to default!");
+        handleClose();
+      } else if (file) {
         const fileExt = file.name.split(".").pop();
         const fileName = `${Date.now()}.${fileExt}`;
 
         const { error: uploadError } = await supabase.storage
           .from("profile-picture")
           .upload(fileName, file);
-
         if (uploadError) throw uploadError;
 
         const { data: publicUrlData } = supabase.storage
@@ -62,10 +89,11 @@ const UserProfilePicture = ({
           .from("users")
           .update({ profile_picture: uploadedImageUrl })
           .eq("id", userId);
-
         if (updateError) throw updateError;
+
+        toast.success("Profile picture updated!");
+        handleClose();
       }
-      handleClose();
     } catch (error) {
       console.error("Error updating profile picture:", error);
       toast.error("Failed to update profile picture. Please try again.");
@@ -73,28 +101,54 @@ const UserProfilePicture = ({
       setLoading(false);
     }
   };
+
+  const previewSrc = resetToDefault
+    ? pdp
+    : preview || user?.profile_picture || pdp;
+
+  const canUpdate = file || resetToDefault;
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Mise à jour de la photo de profil</DialogTitle>
       <DialogContent dividers>
         <Stack spacing={2}>
           <div className="flex justify-center">
-            {preview ? (
-              <img
-                src={preview}
-                alt="preview"
-                className="w-32 h-32 rounded-full object-cover"
-              />
-            ) : (
-              <Avatar
-                src={user ? user.profile_picture : pdp}
-                sx={{ width: 128, height: 128 }}
-              />
-            )}
+            <div className="relative inline-block">
+              <Avatar src={previewSrc} sx={{ width: 128, height: 128 }} />
+              {(hasCustomPicture || file) && !resetToDefault && (
+                <Tooltip title="Supprimer la photo">
+                  <IconButton
+                    onClick={handleDeletePicture}
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      backgroundColor: "#ef4444",
+                      color: "#fff",
+                      "&:hover": { backgroundColor: "#dc2626" },
+                      width: 28,
+                      height: 28,
+                    }}
+                  >
+                    <DeleteOutlineIcon sx={{ fontSize: 16 }} />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </div>
           </div>
+
+          {resetToDefault && (
+            <p className="text-center text-sm text-gray-500">
+              La photo sera réinitialisée à celle par défaut.
+            </p>
+          )}
+
           <Button
             variant="outlined"
             component="label"
+            disabled={loading}
             sx={{
               px: 12,
               textTransform: "none",
@@ -127,13 +181,11 @@ const UserProfilePicture = ({
         <Button
           variant="contained"
           onClick={handleUpdate}
-          disabled={loading || !file}
+          disabled={loading || !canUpdate}
           sx={{
             textTransform: "none",
             backgroundColor: "#d97706",
-            "&:hover": {
-              backgroundColor: "#b45309",
-            },
+            "&:hover": { backgroundColor: "#b45309" },
           }}
         >
           {loading ? <CircularProgress size={20} color="inherit" /> : "Update"}
