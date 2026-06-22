@@ -65,7 +65,7 @@ const ProfilePictureDialog = ({
         const { error: updateError } = await supabase
           .from("shops")
           .update({ profile_picture: DEFAULT_PROFILE_PICTURE })
-          .eq("id", shopId);
+          .eq("user_id", shopId);
         if (updateError) throw updateError;
 
         toast.success("Profile picture reset to default!");
@@ -85,10 +85,12 @@ const ProfilePictureDialog = ({
 
         const uploadedImageUrl = publicUrlData.publicUrl;
 
-        const { error: updateError } = await supabase
+        const { data, error: updateError } = await supabase
           .from("shops")
           .update({ profile_picture: uploadedImageUrl })
-          .eq("id", shopId);
+          .eq("user_id", shopId)
+          .select();
+
         if (updateError) throw updateError;
 
         toast.success("Profile picture updated!");
@@ -103,8 +105,8 @@ const ProfilePictureDialog = ({
 
   // Determine what image to show in the preview
   const previewSrc = resetToDefault
-    ? pdp
-    : preview || shop?.profile_picture || pdp;
+    ? DEFAULT_PROFILE_PICTURE
+    : preview || shop?.profile_picture || DEFAULT_PROFILE_PICTURE;
 
   const canUpdate = file || resetToDefault;
 

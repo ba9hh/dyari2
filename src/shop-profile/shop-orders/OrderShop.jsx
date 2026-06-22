@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle, PackageCheck } from "lucide-react";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { supabase } from "@/supabaseClient";
@@ -10,6 +10,9 @@ const OrderShop = ({ order, index }) => {
   const [currentState, setCurrentState] = useState(order.order_state);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isRead, setIsRead] = useState(order.is_read ?? true);
+  const [shopConfirmed, setShopConfirmed] = useState(
+    order.shop_confirmed_delivery ?? false,
+  );
 
   const handleToggleExpand = async () => {
     const opening = !isExpanded;
@@ -41,6 +44,39 @@ const OrderShop = ({ order, index }) => {
     } catch (error) {
       toast.error("Échec de la mise à jour");
       console.error("Error updating order:", error.message);
+    }
+  };
+
+  const confirmDelivery = async () => {
+    try {
+      // Mark shop as confirmed
+      const { data: updated, error: updateError } = await supabase
+        .from("orders")
+        .update({ shop_confirmed_delivery: true })
+        .eq("id", order.id)
+        .select("user_confirmed_delivery")
+        .single();
+
+      if (updateError) throw updateError;
+
+      setShopConfirmed(true);
+
+      // If user already confirmed, mark as delivered
+      if (updated.user_confirmed_delivery) {
+        const { error: stateError } = await supabase
+          .from("orders")
+          .update({ order_state: "delivered" })
+          .eq("id", order.id);
+
+        if (stateError) throw stateError;
+        setCurrentState("delivered");
+        toast.success("Commande marquée comme livrée !");
+      } else {
+        toast.success("Confirmation enregistrée. En attente du client.");
+      }
+    } catch (error) {
+      toast.error("Échec de la confirmation");
+      console.error("Error confirming delivery:", error.message);
     }
   };
 
@@ -112,15 +148,34 @@ const OrderShop = ({ order, index }) => {
                 <span className="hidden sm:inline">Rejeter</span>
               </button>
             </div>
+          ) : currentState === "accepted" ? (
+            <div className="flex items-center gap-2">
+              {!shopConfirmed ? (
+                <button
+                  className="flex items-center gap-1 px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold rounded-full shadow-sm transition duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    confirmDelivery();
+                  }}
+                >
+                  <PackageCheck size={15} />
+                  <span className="hidden sm:inline">Confirmer livraison</span>
+                </button>
+              ) : (
+                <span className="text-xs font-semibold rounded-full py-1 px-3 border bg-green-50 text-green-700 border-green-200">
+                  ✓ Votre confirmation enregistrée
+                </span>
+              )}
+            </div>
           ) : (
             <span
               className={`text-xs font-semibold rounded-full py-1 px-3 border ${
-                currentState === "accepted"
-                  ? "bg-green-50 text-green-700 border-green-200"
+                currentState === "delivered"
+                  ? "bg-blue-50 text-blue-700 border-blue-200"
                   : "bg-red-50 text-red-600 border-red-200"
               }`}
             >
-              {currentState === "accepted" ? "Acceptée" : "Rejetée"}
+              {currentState === "delivered" ? "Livrée" : "Rejetée"}
             </span>
           )}
           <ChevronDown

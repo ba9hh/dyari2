@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import pdp from "@/assets/pdp.png";
 
 const DEFAULT_PROFILE_PICTURE =
-  "https://lh3.googleusercontent.com/a/ACg8ocJwlW6kwM5JSEGAHRRuavB5R_DUmj32hLgiIhowWEdVAklCgg=s96-c";
+  "https://obhlpgxxiotewfhcvdaw.supabase.co/storage/v1/object/public/images/1753197818753-icon-7797704_640.png";
 
 const UserProfilePicture = ({
   open,
@@ -33,7 +33,7 @@ const UserProfilePicture = ({
   const [resetToDefault, setResetToDefault] = useState(false);
 
   const hasCustomPicture =
-    user?.profile_picture && user.profile_picture !== DEFAULT_PROFILE_PICTURE;
+    user?.avatar_url && user.avatar_url !== DEFAULT_PROFILE_PICTURE;
 
   const handleClose = () => {
     setOpen(false);
@@ -64,7 +64,7 @@ const UserProfilePicture = ({
       if (resetToDefault) {
         const { error: updateError } = await supabase
           .from("users")
-          .update({ profile_picture: DEFAULT_PROFILE_PICTURE })
+          .update({ avatar_url: DEFAULT_PROFILE_PICTURE })
           .eq("id", userId);
         if (updateError) throw updateError;
 
@@ -87,7 +87,7 @@ const UserProfilePicture = ({
 
         const { error: updateError } = await supabase
           .from("users")
-          .update({ profile_picture: uploadedImageUrl })
+          .update({ avatar_url: uploadedImageUrl })
           .eq("id", userId);
         if (updateError) throw updateError;
 
@@ -103,8 +103,8 @@ const UserProfilePicture = ({
   };
 
   const previewSrc = resetToDefault
-    ? pdp
-    : preview || user?.profile_picture || pdp;
+    ? DEFAULT_PROFILE_PICTURE
+    : preview || user?.avatar_url || DEFAULT_PROFILE_PICTURE;
 
   const canUpdate = file || resetToDefault;
 
