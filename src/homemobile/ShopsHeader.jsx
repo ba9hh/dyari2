@@ -10,12 +10,12 @@ const ShopsHeader = () => {
         <span className="">
           Bienvenue à <span className="underline text-amber-600">Dyari</span>
         </span>
-        <img
+        {/* <img
           src="https://flagcdn.com/tn.svg"
           width="20"
           alt="Tunisia"
           className="ml-1"
-        />
+        /> */}
       </h1>
       <span className="flex-grow border-t border-gray-300 mx-0 sm:mx-6"></span>
       <img src={dyari} className="w-5 sm:w-7 flex-shrink-0" />
