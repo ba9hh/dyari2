@@ -9,7 +9,8 @@ const ShopsHeader = () => {
       <h1 className="text-sm sm:text-lg font-bold text-gray-600 flex items-center gap-1 text-center whitespace-nowrap">
         <span className="">
           Bienvenue à <span className="underline text-amber-600">Dyari</span> :
-          Découvrir et Commander du meilleur
+          Découvrir et Commander du{" "}
+          <span className="underline text-amber-600">meilleur</span>
         </span>
         {/* <img
           src="https://flagcdn.com/tn.svg"
