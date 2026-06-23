@@ -182,7 +182,9 @@ const AddCommentForm = ({
   loading,
   existingReview,
   hasDeliveredOrder,
+  onLoginRequired,
 }) => {
+  const { user } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -198,6 +200,12 @@ const AddCommentForm = ({
   }, [existingReview]);
 
   const handleSubmit = async () => {
+    console.log("handleSubmit", user);
+    if (!user) {
+      console.log("OPEN DIALOG");
+      onLoginRequired();
+      return;
+    }
     if (rating === 0) {
       setError("Veuillez sélectionner une note.");
       return;
@@ -270,7 +278,7 @@ const AddCommentForm = ({
     );
   }
 
-  if (!hasDeliveredOrder && !existingReview) {
+  if (user && !hasDeliveredOrder && !existingReview) {
     return (
       <div className="w-full bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-3 text-center">
         <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
@@ -373,7 +381,6 @@ const AddCommentForm = ({
 
 // ── Main component ────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
-  const { user } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(false);
   const handleClose = () => {
     setIsConnected(false);
@@ -411,11 +418,6 @@ const ShopCommentaires = ({ shopId }) => {
   const totalPages = Math.ceil(totalCount / LIMIT);
 
   const handleNewComment = async ({ rating, text }) => {
-    if (!user) {
-      setIsConnected(true);
-      return false;
-    }
-
     setSubmitLoading(true);
 
     const { error } = await supabase.from("reviews").insert({
@@ -534,6 +536,7 @@ const ShopCommentaires = ({ shopId }) => {
             loading={submitLoading}
             existingReview={existingReview}
             hasDeliveredOrder={hasDeliveredOrder}
+            onLoginRequired={() => setIsConnected(true)}
           />
         </div>
       </div>
@@ -549,7 +552,7 @@ const ShopCommentaires = ({ shopId }) => {
         </div>
       )}
       <LoginRequiredDialog
-        open={isConnected}
+        open={true}
         onClose={handleClose}
         message="Vous devez être connecté pour effectuer cette action."
       />

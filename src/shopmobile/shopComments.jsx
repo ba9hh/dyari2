@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { AuthContext } from "@/AuthProvider";
+import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 
 const LIMIT = 5;
 
@@ -29,7 +31,9 @@ const fetchShopStats = async (shopId) => {
 };
 
 const fetchExistingReview = async (shopId) => {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return null;
   const { data } = await supabase
     .from("reviews")
@@ -38,6 +42,22 @@ const fetchExistingReview = async (shopId) => {
     .eq("user_id", user.id)
     .maybeSingle();
   return data || null;
+};
+
+const fetchDeliveredOrder = async (shopId) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { data } = await supabase
+    .from("orders")
+    .select("id")
+    .eq("shop_id", shopId)
+    .eq("user_id", user.id)
+    .eq("order_state", "delivered")
+    .limit(1)
+    .maybeSingle();
+  return !!data;
 };
 
 // ── Comment card ──────────────────────────────────────────────────────────────
@@ -51,12 +71,19 @@ const CommentCard = ({ comment }) => {
       : comment.comment_text;
 
   const initials = comment.users?.full_name
-    ? comment.users.full_name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    ? comment.users.full_name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
     : "?";
 
   const date = comment.created_at
     ? new Date(comment.created_at).toLocaleDateString("fr-FR", {
-        day: "numeric", month: "long", year: "numeric",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
       })
     : null;
 
@@ -72,7 +99,9 @@ const CommentCard = ({ comment }) => {
             />
           ) : (
             <div className="w-9 h-9 rounded-full bg-amber-100 border-2 border-amber-200 flex items-center justify-center flex-shrink-0">
-              <span className="text-xs font-bold text-amber-700">{initials}</span>
+              <span className="text-xs font-bold text-amber-700">
+                {initials}
+              </span>
             </div>
           )}
           <div className="min-w-0">
@@ -136,49 +165,98 @@ const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
 );
 
 // ── Add/edit comment form ──────────────────────────────────────────────────────
-const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
+const AddCommentForm = ({
+  onSubmit,
+  onUpdate,
+  loading,
+  existingReview,
+  hasDeliveredOrder,
+  user,
+  onLoginRequired,
+}) => {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState("");
+
+  // FIX: derive submitted from existingReview directly — no local state divergence
+  const submitted = !!existingReview && !editing;
 
   useEffect(() => {
     if (existingReview) {
       setRating(existingReview.rating);
       setText(existingReview.comment_text || "");
-      setSubmitted(true);
     }
   }, [existingReview]);
 
+  // FIX: consolidated validation into one function
+  const validate = () => {
+    if (rating === 0) {
+      setError("Veuillez sélectionner une note.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async () => {
-    if (rating === 0) { setError("Veuillez sélectionner une note."); return; }
+    if (!user) {
+      onLoginRequired();
+      return;
+    }
+    if (!validate()) return;
     setError("");
     const ok = editing
       ? await onUpdate({ rating, text, id: existingReview.id })
       : await onSubmit({ rating, text });
-    if (ok) { setSubmitted(true); setEditing(false); }
+    if (ok) setEditing(false);
   };
 
   const handleEdit = () => {
     setRating(existingReview.rating);
     setText(existingReview.comment_text || "");
     setEditing(true);
-    setSubmitted(false);
+  };
+
+  const handleCancel = () => {
+    setEditing(false);
+    setError("");
   };
 
   if (submitted) {
     return (
-      <div className="w-full bg-white border border-gray-200 rounded-md p-4 sm:p-6 shadow-sm flex flex-col items-center gap-2.5 text-center">
-        <div className="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center">
-          <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+      <div className="w-full bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-3 text-center">
+        <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+          <svg
+            className="w-5 h-5 text-amber-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
           </svg>
         </div>
-        <p className="text-sm font-semibold text-gray-700">Merci pour votre avis !</p>
-        <ReactStars count={5} value={existingReview?.rating ?? 0} size={18} isHalf={true} edit={false} activeColor="#d97706" />
+        <p className="text-sm font-semibold text-gray-700">
+          Merci pour votre avis !
+        </p>
+        <div className="flex justify-center">
+          <ReactStars
+            count={5}
+            value={existingReview?.rating ?? 0}
+            size={20}
+            isHalf={true}
+            edit={false}
+            activeColor="#d97706"
+          />
+        </div>
         {existingReview?.comment_text && (
-          <p className="text-xs text-gray-500 italic">"{existingReview.comment_text}"</p>
+          <p className="text-xs text-gray-500 italic">
+            "{existingReview.comment_text}"
+          </p>
         )}
         <button
           onClick={handleEdit}
@@ -190,43 +268,83 @@ const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
     );
   }
 
+  if (user && !hasDeliveredOrder && !existingReview) {
+    return (
+      <div className="w-full bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-3 text-center">
+        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+          <svg
+            className="w-5 h-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 15v2m0 0v2m0-2h2m-2 0H10m2-6a4 4 0 100-8 4 4 0 000 8z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 20a9 9 0 0118 0"
+            />
+          </svg>
+        </div>
+        <p className="text-sm font-semibold text-gray-700">
+          Avis réservé aux acheteurs
+        </p>
+        <p className="text-xs text-gray-400 leading-relaxed">
+          Seuls les clients ayant une commande livrée peuvent laisser un avis
+          sur cette boutique.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full bg-white border border-gray-200 rounded-md p-3 sm:p-4 shadow-sm">
-      <h2 className="text-sm font-semibold text-gray-700 mb-1">
+    <div className="w-full bg-white border rounded-md p-4 shadow-sm">
+      <h2 className="text-sm font-semibold text-gray-700 mb-3">
         {editing ? "Modifier votre avis" : "Laisser un avis"}
       </h2>
-      <p className="text-xs text-gray-400 mb-3">
-        Vous ne pouvez laisser un avis que si vous avez effectué un achat.
-      </p>
+
       <div className="flex items-center gap-2 mb-3">
         <span className="text-xs text-gray-500">Votre note :</span>
         <ReactStars
           key={rating}
           count={5}
           value={rating}
-          size={22}
+          size={24}
           isHalf={false}
           edit={true}
           activeColor="#d97706"
-          onChange={(val) => { setRating(val); setError(""); }}
+          onChange={(val) => {
+            setRating(val);
+            setError("");
+          }}
         />
       </div>
+
       <textarea
         value={text}
-        onChange={(e) => { setText(e.target.value); setError(""); }}
-        placeholder="Partagez votre expérience… (facultatif)"
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Partagez votre expérience avec cette boutique… (facultatif)"
         rows={3}
         maxLength={300}
-        className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-2.5 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
+        className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
       />
+
       <div className="flex items-center justify-between mt-1 mb-3">
         {error ? <p className="text-xs text-red-500">{error}</p> : <span />}
-        <span className="text-xs text-gray-300 ml-auto">{text.length} / 300</span>
+        <span className="text-xs text-gray-300 ml-auto">
+          {text.length} / 300
+        </span>
       </div>
+
       <div className="flex gap-2">
         {editing && (
           <button
-            onClick={() => { setEditing(false); setSubmitted(true); }}
+            onClick={handleCancel}
             className="w-1/3 py-2 rounded-md text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors"
           >
             Annuler
@@ -237,7 +355,11 @@ const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
           disabled={rating === 0 || loading}
           className={`py-2 rounded-md text-sm font-medium text-white transition-colors bg-amber-600 hover:bg-amber-700 active:bg-amber-800 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed ${editing ? "w-2/3" : "w-full"}`}
         >
-          {loading ? "Publication…" : editing ? "Mettre à jour" : "Publier mon avis"}
+          {loading
+            ? "Publication…"
+            : editing
+              ? "Mettre à jour"
+              : "Publier mon avis"}
         </button>
       </div>
     </div>
@@ -246,23 +368,40 @@ const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
 
 // ── Main component ─────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
+  const { user } = useContext(AuthContext);
+  const [isConnected, setIsConnected] = useState(false);
   const [page, setPage] = useState(1);
   const [submitLoading, setSubmitLoading] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data: reviewsData, isLoading: fetchLoading, error: fetchError } = useQuery({
+  const {
+    data: reviewsData,
+    isLoading: fetchLoading,
+    error: fetchError,
+  } = useQuery({
     queryKey: ["reviews", shopId, page],
     queryFn: () => fetchReviews({ shopId, page }),
+    // FIX: avoid refetch jitter on tab focus
+    staleTime: 30_000,
   });
 
   const { data: shopStats } = useQuery({
     queryKey: ["shopStats", shopId],
     queryFn: () => fetchShopStats(shopId),
+    staleTime: 30_000,
   });
 
+  // FIX: skip DB calls entirely when user is not logged in
   const { data: existingReview } = useQuery({
     queryKey: ["existingReview", shopId],
     queryFn: () => fetchExistingReview(shopId),
+    enabled: !!user,
+  });
+
+  const { data: hasDeliveredOrder = false } = useQuery({
+    queryKey: ["hasDeliveredOrder", shopId],
+    queryFn: () => fetchDeliveredOrder(shopId),
+    enabled: !!user,
   });
 
   const reviews = reviewsData?.reviews || [];
@@ -271,34 +410,54 @@ const ShopCommentaires = ({ shopId }) => {
 
   const handleNewComment = async ({ rating, text }) => {
     setSubmitLoading(true);
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) { setSubmitLoading(false); return false; }
+    // FIX: use user from AuthContext instead of re-calling getUser()
+    if (!user) {
+      setSubmitLoading(false);
+      return false;
+    }
     const { error } = await supabase.from("reviews").insert({
-      shop_id: shopId, user_id: user.id, rating, comment_text: text.trim() || null,
+      shop_id: shopId,
+      user_id: user.id,
+      rating,
+      comment_text: text.trim() || null,
     });
     setSubmitLoading(false);
-    if (error) { console.error("Review insert error:", error); return false; }
+    if (error) {
+      console.error("Review insert error:", error);
+      return false;
+    }
+    // FIX: also invalidate existingReview after a new insert
     await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
     await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
     await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
+    await queryClient.invalidateQueries({
+      queryKey: ["existingReview", shopId],
+    });
     return true;
   };
 
   const handleUpdateComment = async ({ rating, text, id }) => {
     setSubmitLoading(true);
-    const { error } = await supabase.from("reviews").update({ rating, comment_text: text.trim() || null }).eq("id", id);
+    const { error } = await supabase
+      .from("reviews")
+      .update({ rating, comment_text: text.trim() || null })
+      .eq("id", id);
     setSubmitLoading(false);
-    if (error) { console.error("Review update error:", error); return false; }
+    if (error) {
+      console.error("Review update error:", error);
+      return false;
+    }
     await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
     await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
     await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["existingReview", shopId] });
+    await queryClient.invalidateQueries({
+      queryKey: ["existingReview", shopId],
+    });
     return true;
   };
 
   return (
     <>
-      {/* Stats + form row on desktop; stacked on mobile */}
       <div className="w-full sm:w-2/3 px-3 sm:px-0 flex flex-col sm:flex-row gap-3">
         {/* Left: stats + review list */}
         <div className="w-full sm:w-1/2 flex flex-col gap-3">
@@ -317,7 +476,9 @@ const ShopCommentaires = ({ shopId }) => {
                 edit={false}
                 activeColor="#d97706"
               />
-              <p className="text-xs text-gray-400 mt-0.5">{shopStats?.total_rating} avis</p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                {shopStats?.total_rating} avis
+              </p>
             </div>
           </div>
 
@@ -325,7 +486,10 @@ const ShopCommentaires = ({ shopId }) => {
           {fetchLoading ? (
             <div className="space-y-3">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="bg-white border rounded-md p-4 shadow-sm animate-pulse">
+                <div
+                  key={i}
+                  className="bg-white border rounded-md p-4 shadow-sm animate-pulse"
+                >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-9 h-9 rounded-full bg-gray-200" />
                     <div className="space-y-1.5">
@@ -364,6 +528,9 @@ const ShopCommentaires = ({ shopId }) => {
             onUpdate={handleUpdateComment}
             loading={submitLoading}
             existingReview={existingReview}
+            hasDeliveredOrder={hasDeliveredOrder}
+            user={user}
+            onLoginRequired={() => setIsConnected(true)}
           />
         </div>
       </div>
@@ -378,6 +545,12 @@ const ShopCommentaires = ({ shopId }) => {
           />
         </div>
       )}
+
+      <LoginRequiredDialog
+        open={isConnected}
+        onClose={() => setIsConnected(false)}
+        message="Vous devez être connecté pour effectuer cette action."
+      />
     </>
   );
 };
