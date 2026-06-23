@@ -1,7 +1,9 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
+import { AuthContext } from "@/AuthProvider";
 
 const LIMIT = 5;
 
@@ -46,6 +48,24 @@ const fetchExistingReview = async (shopId) => {
     .maybeSingle();
 
   return data || null;
+};
+
+const fetchDeliveredOrder = async (shopId) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const { data } = await supabase
+    .from("orders")
+    .select("id")
+    .eq("shop_id", shopId)
+    .eq("user_id", user.id)
+    .eq("order_state", "delivered")
+    .limit(1)
+    .maybeSingle();
+
+  return !!data;
 };
 
 // ── Single comment card ───────────────────────────────────────────────────────
@@ -156,7 +176,13 @@ const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
 
 // ── Add comment form ──────────────────────────────────────────────────────────
 // ── Add comment form ──────────────────────────────────────────────────────────
-const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
+const AddCommentForm = ({
+  onSubmit,
+  onUpdate,
+  loading,
+  existingReview,
+  hasDeliveredOrder,
+}) => {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -244,13 +270,44 @@ const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
     );
   }
 
+  if (!hasDeliveredOrder && !existingReview) {
+    return (
+      <div className="w-full bg-white border rounded-md p-6 shadow-sm flex flex-col items-center gap-3 text-center">
+        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+          <svg
+            className="w-5 h-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 15v2m0 0v2m0-2h2m-2 0H10m2-6a4 4 0 100-8 4 4 0 000 8z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 20a9 9 0 0118 0"
+            />
+          </svg>
+        </div>
+        <p className="text-sm font-semibold text-gray-700">
+          Avis réservé aux acheteurs
+        </p>
+        <p className="text-xs text-gray-400 leading-relaxed">
+          Seuls les clients ayant une commande livrée peuvent laisser un avis
+          sur cette boutique.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-white border rounded-md p-4 shadow-sm">
       <h2 className="text-sm font-semibold text-gray-700 mb-3">
-        {editing ? "Modifier votre avis" : "Laisser un avis"}{" "}
-        <span className="text-sm font-normal text-gray-600">
-          (Vous ne pouvez laisser un avis que si vous avez effectué un achat.)
-        </span>
+        {editing ? "Modifier votre avis" : "Laisser un avis"}
       </h2>
 
       <div className="flex items-center gap-2 mb-3">
@@ -316,6 +373,11 @@ const AddCommentForm = ({ onSubmit, onUpdate, loading, existingReview }) => {
 
 // ── Main component ────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
+  const { user } = useContext(AuthContext);
+  const [isConnected, setIsConnected] = useState(false);
+  const handleClose = () => {
+    setIsConnected(false);
+  };
   const [page, setPage] = useState(1);
   const [submitLoading, setSubmitLoading] = useState(false);
   const queryClient = useQueryClient();
@@ -339,21 +401,22 @@ const ShopCommentaires = ({ shopId }) => {
     queryFn: () => fetchExistingReview(shopId),
   });
 
+  const { data: hasDeliveredOrder = false } = useQuery({
+    queryKey: ["hasDeliveredOrder", shopId],
+    queryFn: () => fetchDeliveredOrder(shopId),
+  });
+
   const reviews = reviewsData?.reviews || [];
   const totalCount = reviewsData?.totalCount || 0;
   const totalPages = Math.ceil(totalCount / LIMIT);
 
   const handleNewComment = async ({ rating, text }) => {
-    setSubmitLoading(true);
-
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
-    if (authError || !user) {
-      setSubmitLoading(false);
+    if (!user) {
+      setIsConnected(true);
       return false;
     }
+
+    setSubmitLoading(true);
 
     const { error } = await supabase.from("reviews").insert({
       shop_id: shopId,
@@ -470,6 +533,7 @@ const ShopCommentaires = ({ shopId }) => {
             onUpdate={handleUpdateComment}
             loading={submitLoading}
             existingReview={existingReview}
+            hasDeliveredOrder={hasDeliveredOrder}
           />
         </div>
       </div>
@@ -484,6 +548,11 @@ const ShopCommentaires = ({ shopId }) => {
           />
         </div>
       )}
+      <LoginRequiredDialog
+        open={isConnected}
+        onClose={handleClose}
+        message="Vous devez être connecté pour effectuer cette action."
+      />
     </>
   );
 };

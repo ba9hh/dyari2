@@ -128,7 +128,7 @@ const Order = () => {
 
   // Step 1 → Submit: full form validation handled by react-hook-form
   const onSubmit = async (data) => {
-    if (!user || user?.role === "shop") {
+    if (!user) {
       setIsConnected(true);
       return;
     }
