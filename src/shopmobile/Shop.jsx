@@ -20,7 +20,7 @@ const Shop = () => {
   const openOrder = () => navigate("order", { state: state });
 
   return (
-    <div className="flex flex-col min-h-screen items-center pt-14 sm:pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-3 sm:gap-y-4 w-full px-0 sm:px-4">
+    <div className="flex flex-col min-h-screen items-center pt-0 sm:pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-3 sm:gap-y-4 w-full px-0 sm:px-4">
       <ShopInfos
         shopId={state}
         handleChange={handleChange}
