@@ -6,7 +6,7 @@ async function getUserProfile(userId) {
 
   ({ data, error } = await supabase
     .from("users")
-    .select("id, role, has_selected_role")
+    .select("id, role")
     .eq("id", userId)
     .single());
 
@@ -64,7 +64,7 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://dyaritunisie.com",
+        redirectTo: "https://dyaritunisie.com/account",
       },
     });
     if (error) console.error("Google login error:", error.message);
@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://dyaritunisie.com",
+        redirectTo: "https://dyaritunisie.com/account",
       },
     });
     if (error) console.error("Google signup error:", error.message);
