@@ -6,7 +6,10 @@ export default function AuthLayout() {
     <div className="">
       <DyariLogo />
       <div className="flex justify-center items-center h-screen">
-        <img src={loginbg} className="absolute inset-0 object-cover" />
+        <img
+          src={loginbg}
+          className="absolute inset-0 object-cover w-full h-screen"
+        />
         <Outlet />
       </div>
     </div>
