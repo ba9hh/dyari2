@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/supabaseClient";
@@ -118,19 +118,19 @@ const AccountSettings = () => {
   const [deleteDialog, setDeleteDialog] = useState(false);
 
   // seed local state once profile loads
-  useState(() => {
+  useEffect(() => {
     if (!profile) return;
-    if (role === "client") {
-      setFullName(profile.full_name ?? "");
-      setClientEmail(profile.email ?? "");
-    } else {
+    if (role === "vendeur") {
       setBusinessName(profile.business_name ?? "");
       setBio(profile.bio ?? "");
       setAddress(profile.address ?? "");
       setPhoneNumber(profile.phone_number ?? "");
       setCategory(profile.category ?? "");
+    } else {
+      setFullName(profile.full_name ?? "");
+      setClientEmail(profile.email ?? "");
     }
-  });
+  }, [profile]);
 
   const showToast = (message, severity = "success") =>
     setToast({ open: true, message, severity });
