@@ -5,7 +5,7 @@ const ShopsHeader = () => {
   return (
     <div className="flex items-center mb-4 sm:mb-6 sm:mt-3 px-3 sm:px-0 mt-2">
       <img src={dyari} className="hidden sm:block w-5 sm:w-7 flex-shrink-0" />
-      <div className="flex-grow border-t border-gray-300 mx-0 sm:mx-6"></div>
+      <div className="flex-grow sm:border-t border-gray-300 mx-0 sm:mx-6"></div>
       <h1 className="text-lg sm:text-lg font-bold text-gray-600 flex items-center sm:gap-1 text-center whitespace-nowrap">
         <span className="">
           Bienvenue à <span className="underline text-amber-600">Dyari</span>
@@ -21,7 +21,7 @@ const ShopsHeader = () => {
           className="ml-1"
         /> */}
       </h1>
-      <span className="flex-grow border-t border-gray-300 mx-0 sm:mx-6"></span>
+      <span className="flex-grow sm:border-t border-gray-300 mx-0 sm:mx-6"></span>
       <img src={dyari} className="hidden sm:block w-5 sm:w-7 flex-shrink-0" />
     </div>
   );
