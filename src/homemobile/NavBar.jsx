@@ -50,9 +50,9 @@ const NavBar = () => {
           </Link>
 
           {/* Center: logo */}
-          <Link to={"/"} className="flex items-end gap-1">
+          <Link to={"/"} className="flex items-center gap-1">
             <img className="w-7" src={dyari} />
-            <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
+            <h1 className="text-2xl font-bold text-amber-800">Dyari</h1>
           </Link>
 
           {/* Right: placeholder for symmetry */}
