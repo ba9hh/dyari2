@@ -20,8 +20,10 @@ const UserProfile = ({ user, handleOpen }) => {
             alt="Profile"
           />
         </div>
-        <div className="flex flex-col items-center">
-          <h1 className="text-lg">{user ? user.full_name : ""}</h1>
+        <div className="flex flex-col items-center  mt-1">
+          <h1 className="text-lg sm:text-xl font-medium text-gray-800">
+            {user ? user.full_name : ""}
+          </h1>
           <h1 className="text-sm text-gray-400">{user ? user.email : ""}</h1>
         </div>
       </div>
