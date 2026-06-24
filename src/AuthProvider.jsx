@@ -18,7 +18,6 @@ async function getUserProfile(userId) {
   return data;
 }
 const AuthContext = React.createContext();
-const ROLE_SELECTION_ALLOWED_PATHS = ["/role-selection", "/shop-creation"];
 
 const AuthProvider = ({ children }) => {
   console.log("AuthProvider rendered");
@@ -28,16 +27,6 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const redirectIfRoleNotSelected = (profile) => {
-      if (
-        profile &&
-        !profile.has_selected_role &&
-        !ROLE_SELECTION_ALLOWED_PATHS.includes(window.location.pathname)
-      ) {
-        navigate("/role-selection");
-      }
-    };
-
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Error getting session:", error);
@@ -46,7 +35,6 @@ const AuthProvider = ({ children }) => {
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);
-        redirectIfRoleNotSelected(profile);
       }
       setSessionChecked(true);
     };
@@ -62,7 +50,6 @@ const AuthProvider = ({ children }) => {
             const profile = await getUserProfile(authUser.id);
             setUser(profile);
             setSessionChecked(true);
-            redirectIfRoleNotSelected(profile);
           })();
         } else {
           setUser(null);

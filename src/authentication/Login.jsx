@@ -26,7 +26,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate("/account");
     }
   }, [user, navigate]);
   const {
@@ -58,9 +58,7 @@ const Login = () => {
         throw error;
       }
 
-      // authData.user → authenticated user
-      //   setUser(authData.user);
-      navigate("/");
+      navigate("/account");
     } catch (err) {
       console.error("Login failed", err);
       setLoginError(err.message || "Invalid email or password.");
