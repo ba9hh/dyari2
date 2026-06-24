@@ -71,7 +71,7 @@ const ShopForm = () => {
     // 3. Update role to 'vendeur' in public.users
     const { error: roleError } = await supabase
       .from("users")
-      .update({ role: "vendeur", has_selected_role: true })
+      .update({ role: "vendeur" })
       .eq("id", user.id);
 
     if (roleError) {
@@ -80,7 +80,7 @@ const ShopForm = () => {
       setIsLoading(false);
       return;
     }
-    setUser({ ...user, role: "vendeur", has_selected_role: true });
+    setUser({ ...user, role: "vendeur" });
     // 4. Navigate to the vendor dashboard (adjust route as needed)
     navigate("/account");
   };

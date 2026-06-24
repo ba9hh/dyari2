@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Button,
-  Divider,
   CircularProgress,
   Snackbar,
   Alert,
@@ -22,7 +21,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 
-// ─── helpers ────────────────────────────────────────────────────────────────
+// ─── helpers ─────────────────────────────────────────────────────────────────
 
 const fetchProfile = async (userId, role) => {
   if (role === "vendeur") {
@@ -43,7 +42,7 @@ const fetchProfile = async (userId, role) => {
   return data;
 };
 
-// ─── section wrapper ─────────────────────────────────────────────────────────
+// ─── section wrapper ──────────────────────────────────────────────────────────
 
 const Section = ({ icon: Icon, title, children }) => (
   <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
@@ -55,7 +54,7 @@ const Section = ({ icon: Icon, title, children }) => (
   </div>
 );
 
-// ─── amber text field ────────────────────────────────────────────────────────
+// ─── amber text field ─────────────────────────────────────────────────────────
 
 const AmberField = ({ label, ...props }) => (
   <TextField
@@ -73,20 +72,20 @@ const AmberField = ({ label, ...props }) => (
   />
 );
 
-// ─── main component ──────────────────────────────────────────────────────────
+// ─── main component ───────────────────────────────────────────────────────────
 
-const AccountSettings = () => {
+const Settings = () => {
   const { user: authUser, handleLogout } = useContext(AuthContext);
-  const isOAuthUser =
-    authUser?.app_metadata?.provider === "google" ||
-    (authUser?.app_metadata?.providers ?? []).includes("google");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const role = authUser?.role ?? "client";
   const userId = authUser?.id;
+  const isOAuthUser =
+    authUser?.app_metadata?.provider === "google" ||
+    (authUser?.app_metadata?.providers ?? []).includes("google");
 
-  // fetch profile
+  // ── fetch profile
   const { data: profile, isLoading } = useQuery({
     queryKey: ["settings-profile", userId, role],
     queryFn: () => fetchProfile(userId, role),
@@ -105,9 +104,11 @@ const AccountSettings = () => {
   const [category, setCategory] = useState("");
 
   // ── password fields
-  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // ── validation errors
+  const [errors, setErrors] = useState({});
 
   // ── ui state
   const [toast, setToast] = useState({
@@ -117,23 +118,52 @@ const AccountSettings = () => {
   });
   const [deleteDialog, setDeleteDialog] = useState(false);
 
-  // seed local state once profile loads
+  // ── seed fields once profile loads
   useEffect(() => {
     if (!profile) return;
-    if (role === "vendeur") {
-      setBusinessName(profile.business_name ?? "");
-      setBio(profile.bio ?? "");
-      setAddress(profile.address ?? "");
-      setPhoneNumber(profile.phone_number ?? "");
-      setCategory(profile.category ?? "");
-    } else {
-      setFullName(profile.full_name ?? "");
-      setClientEmail(profile.email ?? "");
-    }
+    setFullName(profile.full_name ?? "");
+    setClientEmail(profile.email ?? "");
+    setBusinessName(profile.business_name ?? "");
+    setBio(profile.bio ?? "");
+    setAddress(profile.address ?? "");
+    setPhoneNumber(profile.phone_number ?? "");
+    setCategory(profile.category ?? "");
   }, [profile]);
 
   const showToast = (message, severity = "success") =>
     setToast({ open: true, message, severity });
+
+  // ── validation
+  const validateProfile = () => {
+    const newErrors = {};
+    if (role === "vendeur") {
+      if (!businessName.trim())
+        newErrors.businessName = "Nom de la boutique requis";
+      if (!category.trim()) newErrors.category = "Catégorie requise";
+      if (!address.trim()) newErrors.address = "Adresse requise";
+      if (phoneNumber && !/^[2459]\d{7}$/.test(phoneNumber))
+        newErrors.phoneNumber = "Numéro invalide (ex: 20123456)";
+    } else {
+      if (!fullName.trim()) newErrors.fullName = "Nom complet requis";
+    }
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validatePassword = () => {
+    const newErrors = {};
+    if (!newPassword) newErrors.newPassword = "Veuillez entrer un mot de passe";
+    else if (newPassword.length < 6)
+      newErrors.newPassword = "Minimum 6 caractères";
+    if (!confirmPassword)
+      newErrors.confirmPassword = "Veuillez confirmer le mot de passe";
+    else if (newPassword !== confirmPassword)
+      newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const clearError = (field) => setErrors((prev) => ({ ...prev, [field]: "" }));
 
   // ── save profile mutation
   const saveProfile = useMutation({
@@ -170,19 +200,12 @@ const AccountSettings = () => {
   // ── change password mutation
   const changePassword = useMutation({
     mutationFn: async () => {
-      if (newPassword !== confirmPassword)
-        throw new Error("Les mots de passe ne correspondent pas.");
-      if (newPassword.length < 6)
-        throw new Error(
-          "Le mot de passe doit comporter au moins 6 caractères.",
-        );
       const { error } = await supabase.auth.updateUser({
         password: newPassword,
       });
       if (error) throw error;
     },
     onSuccess: () => {
-      setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
       showToast("Mot de passe mis à jour.");
@@ -193,13 +216,10 @@ const AccountSettings = () => {
   // ── delete account mutation
   const deleteAccount = useMutation({
     mutationFn: async () => {
-      // Deleting the users row triggers the cascade to auth.users via the DB trigger
       const { error } = await supabase.from("users").delete().eq("id", userId);
       if (error) throw error;
     },
-    onSuccess: () => {
-      handleLogout();
-    },
+    onSuccess: () => handleLogout(),
     onError: (e) => showToast(e.message, "error"),
   });
 
@@ -233,22 +253,43 @@ const AccountSettings = () => {
             <AmberField
               label="Nom de la boutique"
               value={businessName}
-              onChange={(e) => setBusinessName(e.target.value)}
+              onChange={(e) => {
+                setBusinessName(e.target.value);
+                clearError("businessName");
+              }}
+              error={!!errors.businessName}
+              helperText={errors.businessName}
             />
             <AmberField
               label="Catégorie"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                clearError("category");
+              }}
+              error={!!errors.category}
+              helperText={errors.category}
             />
             <AmberField
               label="Adresse"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) => {
+                setAddress(e.target.value);
+                clearError("address");
+              }}
+              error={!!errors.address}
+              helperText={errors.address}
             />
             <AmberField
               label="Numéro de téléphone"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+                clearError("phoneNumber");
+              }}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber || "Ex: 20123456"}
+              inputProps={{ maxLength: 8 }}
             />
             <AmberField
               label="Bio"
@@ -260,7 +301,9 @@ const AccountSettings = () => {
             <div className="flex justify-end">
               <Button
                 variant="contained"
-                onClick={() => saveProfile.mutate()}
+                onClick={() => {
+                  if (validateProfile()) saveProfile.mutate();
+                }}
                 disabled={saveProfile.isPending}
                 sx={{
                   textTransform: "none",
@@ -282,7 +325,12 @@ const AccountSettings = () => {
             <AmberField
               label="Nom complet"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={(e) => {
+                setFullName(e.target.value);
+                clearError("fullName");
+              }}
+              error={!!errors.fullName}
+              helperText={errors.fullName}
             />
             <AmberField
               label="Email"
@@ -293,7 +341,9 @@ const AccountSettings = () => {
             <div className="flex justify-end">
               <Button
                 variant="contained"
-                onClick={() => saveProfile.mutate()}
+                onClick={() => {
+                  if (validateProfile()) saveProfile.mutate();
+                }}
                 disabled={saveProfile.isPending}
                 sx={{
                   textTransform: "none",
@@ -313,33 +363,43 @@ const AccountSettings = () => {
         )}
 
         {/* ── password section ── */}
-        {!isOAuthUser && (
+        {isOAuthUser ? (
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm px-5 py-4 flex items-center gap-2 text-sm text-gray-400">
+            <LockOutlinedIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+            Vous êtes connecté via Google — la gestion du mot de passe se fait
+            depuis votre compte Google.
+          </div>
+        ) : (
           <Section icon={LockOutlinedIcon} title="Changer le mot de passe">
             <AmberField
               label="Nouveau mot de passe"
               type="password"
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => {
+                setNewPassword(e.target.value);
+                clearError("newPassword");
+              }}
+              error={!!errors.newPassword}
+              helperText={errors.newPassword}
             />
             <AmberField
               label="Confirmer le mot de passe"
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              error={confirmPassword && newPassword !== confirmPassword}
-              helperText={
-                confirmPassword && newPassword !== confirmPassword
-                  ? "Les mots de passe ne correspondent pas."
-                  : ""
-              }
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                clearError("confirmPassword");
+              }}
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword}
             />
             <div className="flex justify-end">
               <Button
                 variant="contained"
-                onClick={() => changePassword.mutate()}
-                disabled={
-                  changePassword.isPending || !newPassword || !confirmPassword
-                }
+                onClick={() => {
+                  if (validatePassword()) changePassword.mutate();
+                }}
+                disabled={changePassword.isPending}
                 sx={{
                   textTransform: "none",
                   backgroundColor: "#d97706",
@@ -356,6 +416,7 @@ const AccountSettings = () => {
             </div>
           </Section>
         )}
+
         {/* ── danger zone ── */}
         <div className="bg-white rounded-xl border border-red-100 shadow-sm overflow-hidden">
           <div className="flex items-center gap-2 px-5 py-4 border-b border-red-100">
@@ -448,4 +509,4 @@ const AccountSettings = () => {
   );
 };
 
-export default AccountSettings;
+export default Settings;
