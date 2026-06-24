@@ -38,20 +38,24 @@ const DyariLogo = () => {
           )}
         </div>
       </div>
-      <header className="sm:hidden w-full block absolute top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 border-b border-stone-200/60">
-        <div className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-4 px-4 py-3 md:grid-cols-[1fr_auto_1fr]">
-          <div className="flex bg-white w-fit">
-            <img className=" h-4 w-4 text-stone-500" src={filters} />
-          </div>
-          <Link to={"/"} className="flex items-center justify-center gap-1">
-            <img className="w-7" src={dyari} />
-            <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
+      <header className="block sticky top-0 z-30 bg-white border-b border-amber-100 sm:hidden">
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Left: search icon as filter hint */}
+          <Link
+            to={user ? "/account" : "/login"}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-amber-700"
+          >
+            <PermIdentityIcon style={{ fontSize: "1.2rem" }} />
           </Link>
-          <div className="flex justify-end">
-            <Link to={"/login"} className="text-gray-600 w-fit">
-              <PermIdentityIcon style={{ fontSize: "1.6rem" }} />
-            </Link>
-          </div>
+
+          {/* Center: logo */}
+          <Link to={"/"} className="flex items-center gap-1">
+            <img className="w-7" src={dyari} />
+            <h1 className="text-2xl font-bold text-amber-800">Dyari</h1>
+          </Link>
+
+          {/* Right: placeholder for symmetry */}
+          <div className="w-9 h-9" />
         </div>
       </header>
     </>
