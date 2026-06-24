@@ -51,8 +51,8 @@ const NavBar = () => {
 
           {/* Center: logo */}
           <Link to={"/"} className="flex items-end gap-1">
-            <img className="w-6" src={dyari} />
-            <h1 className="text-xl font-medium text-amber-800">Dyari</h1>
+            <img className="w-7" src={dyari} />
+            <h1 className="text-2xl font-medium text-amber-800">Dyari</h1>
           </Link>
 
           {/* Right: placeholder for symmetry */}
