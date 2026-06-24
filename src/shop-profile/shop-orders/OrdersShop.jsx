@@ -42,7 +42,7 @@ const OrdersShop = ({ shopId }) => {
   }
 
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-md rounded-md pb-2 pt-0 sm:border">
+    <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md pb-2 pt-0 sm:border">
       <OrdersTabs
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
@@ -50,7 +50,11 @@ const OrdersShop = ({ shopId }) => {
       />
       <div className="flex flex-col gap-2 p-2">
         {ordersData?.orders?.map((order, index) => (
-          <OrderShop order={order} key={index} />
+          <OrderShop
+            order={order}
+            key={order.id}
+            index={ordersData.totalOrders - ((page - 1) * LIMIT + index)}
+          />
         ))}
       </div>
       {ordersData?.orders?.length > 0 && (

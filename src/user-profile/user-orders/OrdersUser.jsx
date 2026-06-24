@@ -56,7 +56,11 @@ const OrdersUser = ({ userId }) => {
       />
       <div className="flex flex-col gap-2 p-2">
         {ordersData?.orders?.map((order, index) => (
-          <OrderUser order={order} key={index} />
+          <OrderUser
+            order={order}
+            key={order.id}
+            index={ordersData.totalOrders - ((page - 1) * LIMIT + index)}
+          />
         ))}
       </div>
 

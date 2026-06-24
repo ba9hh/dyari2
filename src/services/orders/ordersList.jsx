@@ -34,6 +34,7 @@ export const fetchShopOrders = async ({ queryKey }) => {
   return {
     orders: data,
     totalPages: Math.ceil(count / limit),
+    totalOrders: count,
   };
 };
 
@@ -71,6 +72,7 @@ export const fetchUserOrders = async ({ queryKey }) => {
   return {
     orders: data,
     totalPages: Math.ceil(count / limit),
+    totalOrders: count,
   };
 };
 export const markOrderAsRead = async (orderId) => {
