@@ -1,310 +1,565 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
-import dyari from "@/assets/dyari.svg";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/supabaseClient";
+import { useNavigate } from "react-router-dom";
 import {
-  Typography,
-  Select,
   TextField,
-  Radio,
-  MenuItem,
   Button,
   CircularProgress,
+  Snackbar,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Select,
+  MenuItem,
   FormControl,
   InputLabel,
   FormHelperText,
 } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import { CircleCheckBig } from "lucide-react";
-import PLANS from "@/data/PLANS";
 import SPECIALITIES from "@/data/specialities";
 import CITIES from "@/data/cities";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/supabaseClient";
-const ShopForm = () => {
-  const { user, setUser } = useContext(AuthContext);
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      projectName: "",
-      location: "",
-      speciality: "",
-      plan: "starter",
-      userPhoneNumber: "",
-      bio: "",
-    },
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [submitError, setSubmitError] = useState("");
+// ─── helpers ─────────────────────────────────────────────────────────────────
+
+const fetchProfile = async (userId, role) => {
+  if (role === "vendeur") {
+    const { data, error } = await supabase
+      .from("shops")
+      .select("*")
+      .eq("user_id", userId)
+      .single();
+    if (error) throw error;
+    return data;
+  }
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", userId)
+    .single();
+  if (error) throw error;
+  return data;
+};
+
+// ─── section wrapper ──────────────────────────────────────────────────────────
+
+const Section = ({ icon: Icon, title, children }) => (
+  <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-100">
+      <Icon sx={{ fontSize: 20, color: "#d97706" }} />
+      <span className="font-semibold text-gray-800 text-sm">{title}</span>
+    </div>
+    <div className="px-5 py-5 flex flex-col gap-4">{children}</div>
+  </div>
+);
+
+// ─── amber text field ─────────────────────────────────────────────────────────
+
+const AmberField = ({ label, ...props }) => (
+  <TextField
+    label={label}
+    size="small"
+    fullWidth
+    variant="outlined"
+    sx={{
+      "& label.Mui-focused": { color: "#d97706" },
+      "& .MuiOutlinedInput-root": {
+        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+      },
+    }}
+    {...props}
+  />
+);
+
+// ─── main component ───────────────────────────────────────────────────────────
+
+const Settings = () => {
+  const { user: authUser, handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const onSubmit = async (data) => {
-    setIsLoading(true);
-    setSubmitError("");
-    console.log("Form Data:", data); // Debug log
-    if (!user) {
-      setSubmitError("Utilisateur non authentifié. Veuillez vous reconnecter.");
-      setIsLoading(false);
-      return;
-    }
+  const queryClient = useQueryClient();
 
-    // 2. Insert into public.vendeurs
-    const { error: shopError } = await supabase.from("shops").insert({
-      user_id: user.id,
-      business_name: data.projectName,
-      address: data.location,
-      category: data.speciality,
-      offer_plan: data.plan,
-      phone_number: data.userPhoneNumber,
-      bio: data.bio || null,
-    });
-    console.log("user_id:", user.id); // Debug log
-    if (shopError) {
-      console.log("shop Insert Result:", shopError); // Debug log
-      setSubmitError(shopError.message);
-      setIsLoading(false);
-      return;
-    }
+  const role = authUser?.role ?? "client";
+  const userId = authUser?.id;
+  const isOAuthUser =
+    authUser?.app_metadata?.provider === "google" ||
+    (authUser?.app_metadata?.providers ?? []).includes("google");
 
-    // 3. Update role to 'vendeur' in public.users
-    const { error: roleError } = await supabase
-      .from("users")
-      .update({ role: "vendeur" })
-      .eq("id", user.id);
+  // ── fetch profile
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ["settings-profile", userId, role],
+    queryFn: () => fetchProfile(userId, role),
+    enabled: !!userId,
+  });
 
-    if (roleError) {
-      console.log("Role Update Result:", roleError); // Debug log
-      setSubmitError(roleError.message);
-      setIsLoading(false);
-      return;
+  // ── client fields
+  const [fullName, setFullName] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+
+  // ── shop fields
+  const [businessName, setBusinessName] = useState("");
+  const [bio, setBio] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [category, setCategory] = useState("");
+
+  // ── password fields
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // ── validation errors
+  const [errors, setErrors] = useState({});
+
+  // ── ui state
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  const [deleteDialog, setDeleteDialog] = useState(false);
+
+  // ── seed fields once profile loads
+  useEffect(() => {
+    if (!profile) return;
+    setFullName(profile.full_name ?? "");
+    setClientEmail(profile.email ?? "");
+    setBusinessName(profile.business_name ?? "");
+    setBio(profile.bio ?? "");
+    setAddress(profile.address ?? "");
+    setPhoneNumber(profile.phone_number ?? "");
+    setCategory(profile.category ?? "");
+  }, [profile]);
+
+  const showToast = (message, severity = "success") =>
+    setToast({ open: true, message, severity });
+
+  // ── validation
+  const validateProfile = () => {
+    const newErrors = {};
+    if (role === "vendeur") {
+      if (!businessName.trim())
+        newErrors.businessName = "Nom de la boutique requis";
+      if (!category.trim()) newErrors.category = "Catégorie requise";
+      if (!address.trim()) newErrors.address = "Adresse requise";
+      if (phoneNumber && !/^[2459]\d{7}$/.test(phoneNumber))
+        newErrors.phoneNumber = "Numéro invalide (ex: 20123456)";
+    } else {
+      if (!fullName.trim()) newErrors.fullName = "Nom complet requis";
     }
-    setUser({ ...user, role: "vendeur" });
-    // 4. Navigate to the vendor dashboard (adjust route as needed)
-    navigate("/account");
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+    return Object.keys(newErrors).length === 0;
   };
-  return (
-    <div className="bg-white border-2 md:w-2/5 border-gray-400 rounded-md p-6 z-10">
-      <div className="flex justify-between items-center mb-4">
-        <Typography variant="h6">Remplir le formulaire:</Typography>
-        <img src={dyari} className="w-8" />
+
+  const validatePassword = () => {
+    const newErrors = {};
+    if (!newPassword) newErrors.newPassword = "Veuillez entrer un mot de passe";
+    else if (newPassword.length < 6)
+      newErrors.newPassword = "Minimum 6 caractères";
+    if (!confirmPassword)
+      newErrors.confirmPassword = "Veuillez confirmer le mot de passe";
+    else if (newPassword !== confirmPassword)
+      newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const clearError = (field) => setErrors((prev) => ({ ...prev, [field]: "" }));
+
+  // ── save profile mutation
+  const saveProfile = useMutation({
+    mutationFn: async () => {
+      if (role === "vendeur") {
+        const { error } = await supabase
+          .from("shops")
+          .update({
+            business_name: businessName,
+            bio,
+            address,
+            phone_number: phoneNumber,
+            category,
+          })
+          .eq("user_id", userId);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from("users")
+          .update({ full_name: fullName })
+          .eq("id", userId);
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["settings-profile", userId, role]);
+      queryClient.invalidateQueries(["shop", userId]);
+      queryClient.invalidateQueries(["user", userId]);
+      showToast("Modifications enregistrées.");
+    },
+    onError: (e) => showToast(e.message, "error"),
+  });
+
+  // ── change password mutation
+  const changePassword = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      setNewPassword("");
+      setConfirmPassword("");
+      showToast("Mot de passe mis à jour.");
+    },
+    onError: (e) => showToast(e.message, "error"),
+  });
+
+  // ── delete account mutation
+  const deleteAccount = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("users").delete().eq("id", userId);
+      if (error) throw error;
+    },
+    onSuccess: () => handleLogout(),
+    onError: (e) => showToast(e.message, "error"),
+  });
+
+  if (isLoading || !profile) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <CircularProgress sx={{ color: "#d97706" }} />
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-y-3">
-          <div className="flex gap-2">
-            <Controller
-              name="projectName"
-              control={control}
-              rules={{ required: "Nom de projet requis" }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Nom de projet"
-                  fullWidth
-                  error={!!errors.projectName}
-                  helperText={errors.projectName?.message}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                />
-              )}
-            />
-            <Controller
-              name="location"
-              control={control}
-              rules={{ required: "Localisation requise" }}
-              render={({ field }) => (
-                <FormControl
-                  fullWidth
-                  error={!!errors.location}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                >
-                  <InputLabel>Délégation</InputLabel>
-                  <Select {...field} label="Délégation">
-                    <MenuItem value="" disabled>
-                      Choisir une délégation
-                    </MenuItem>
-                    {CITIES.map((city) => (
-                      <MenuItem key={city} value={city}>
-                        {city}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  {errors.location && (
-                    <FormHelperText>{errors.location.message}</FormHelperText>
-                  )}
-                </FormControl>
-              )}
-            />
-          </div>
-          <div className="flex gap-2">
-            <Controller
-              name="speciality"
-              control={control}
-              rules={{ required: "Spécialité requise" }}
-              render={({ field }) => (
-                <FormControl
-                  fullWidth
-                  error={!!errors.speciality}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                >
-                  <InputLabel>Spécialité</InputLabel>
-                  <Select {...field} label="Spécialité">
-                    <MenuItem value="" disabled>
-                      Choisir une spécialité
-                    </MenuItem>
-                    {SPECIALITIES.map((speciality) => (
-                      <MenuItem key={speciality} value={speciality}>
-                        {speciality}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  {errors.speciality && (
-                    <FormHelperText>{errors.speciality.message}</FormHelperText>
-                  )}
-                </FormControl>
-              )}
-            />
-            <Controller
-              name="userPhoneNumber"
-              control={control}
-              rules={{
-                required: "Téléphone requis",
-                pattern: { value: /^[2459]\d{7}$/, message: "Numéro invalide" },
-              }}
-              render={({ field }) => (
-                <TextField
-                  fullWidth
-                  label="Votre numéro de téléphone"
-                  {...field}
-                  error={!!errors.userPhoneNumber}
-                  helperText={errors.userPhoneNumber?.message}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                />
-              )}
-            />
-          </div>
-          <Controller
-            name="bio"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Bio (optionnel)"
-                fullWidth
-                multiline
-                rows={1}
-                inputProps={{ maxLength: 70 }}
-                sx={{
-                  "& label.Mui-focused": { color: "#d97706" },
-                  "& .MuiOutlinedInput-root": {
-                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                  },
-                }}
-                // helperText={`${field.value?.length || 0}/150`}
-                // FormHelperTextProps={{ sx: { textAlign: "right" } }}
-              />
-            )}
-          />
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 pb-16">
+      {/* top bar */}
+      <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
+        <div className="max-w-2xl mx-auto flex items-center gap-3 px-4 py-3">
+          <button
+            onClick={() => navigate(-1)}
+            className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <ArrowBackIcon sx={{ fontSize: 20, color: "#374151" }} />
+          </button>
+          <span className="font-semibold text-gray-800">Paramètres</span>
         </div>
-        {/* <Controller
-          name="plan"
-          control={control}
-          rules={{ required: "Veuillez choisir une offre" }}
-          render={({ field }) => (
-            <>
-              <div className="flex gap-3 mt-6">
-                {PLANS.map((plan) => (
-                  <div
-                    key={plan.id}
-                    className="w-1/3 flex flex-col border cursor-pointer"
-                    onClick={() => field.onChange(plan.id)}
-                  >
-                    <h1 className="bg-amber-600 text-white text-center">
-                      {plan.label}
-                    </h1>
-                    <h1 className="text-center text-sm mt-2">{plan.price}</h1>
-                    <hr className="mt-1" />
-                    {plan.features.map((feature) => (
-                      <div
-                        key={feature}
-                        className="flex items-center gap-1 mt-1 px-1"
-                      >
-                        <CircleCheckBig className="w-4 text-green-500 shrink-0" />
-                        <h1 className="text-sm truncate">{feature}</h1>
-                      </div>
-                    ))}
-                    <hr className="mt-1" />
-                    <div className="flex justify-center">
-                      <Radio
-                        sx={{
-                          color: "#d97706",
-                          "&.Mui-checked": { color: "#d97706" },
-                          "& .MuiSvgIcon-root": { fontSize: 16 },
-                        }}
-                        checked={field.value === plan.id}
-                        onChange={() => field.onChange(plan.id)}
-                        value={plan.id}
-                        inputProps={{ "aria-label": plan.label }}
-                      />
-                    </div>
-                  </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 pt-6 flex flex-col gap-5">
+        {/* ── profile section ── */}
+        {role === "vendeur" ? (
+          <Section icon={StoreOutlinedIcon} title="Informations de la boutique">
+            <AmberField
+              label="Nom de la boutique"
+              value={businessName}
+              onChange={(e) => {
+                setBusinessName(e.target.value);
+                clearError("businessName");
+              }}
+              error={!!errors.businessName}
+              helperText={errors.businessName}
+            />
+            <FormControl
+              fullWidth
+              size="small"
+              error={!!errors.category}
+              sx={{
+                "& label.Mui-focused": { color: "#d97706" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                },
+              }}
+            >
+              <InputLabel>Spécialité</InputLabel>
+              <Select
+                value={category}
+                label="Spécialité"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  clearError("category");
+                }}
+              >
+                <MenuItem value="" disabled>
+                  Choisir une spécialité
+                </MenuItem>
+                {SPECIALITIES.map((s) => (
+                  <MenuItem key={s} value={s}>
+                    {s}
+                  </MenuItem>
                 ))}
-              </div>
-              {errors.plan && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.plan.message}
-                </p>
+              </Select>
+              {errors.category && (
+                <FormHelperText>{errors.category}</FormHelperText>
               )}
-            </>
-          )}
-        /> */}
-        <div className="flex mt-4">
+            </FormControl>
+            <FormControl
+              fullWidth
+              size="small"
+              error={!!errors.address}
+              sx={{
+                "& label.Mui-focused": { color: "#d97706" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                },
+              }}
+            >
+              <InputLabel>Délégation</InputLabel>
+              <Select
+                value={address}
+                label="Délégation"
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  clearError("address");
+                }}
+              >
+                <MenuItem value="" disabled>
+                  Choisir une délégation
+                </MenuItem>
+                {CITIES.map((c) => (
+                  <MenuItem key={c} value={c}>
+                    {c}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.address && (
+                <FormHelperText>{errors.address}</FormHelperText>
+              )}
+            </FormControl>
+            <AmberField
+              label="Numéro de téléphone"
+              value={phoneNumber}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+                clearError("phoneNumber");
+              }}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber || "Ex: 20123456"}
+              inputProps={{ maxLength: 8 }}
+            />
+            <AmberField
+              label="Bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              multiline
+              rows={3}
+            />
+            <div className="flex justify-end">
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (validateProfile()) saveProfile.mutate();
+                }}
+                disabled={saveProfile.isPending}
+                sx={{
+                  textTransform: "none",
+                  backgroundColor: "#d97706",
+                  "&:hover": { backgroundColor: "#b45309" },
+                  minWidth: 140,
+                }}
+              >
+                {saveProfile.isPending ? (
+                  <CircularProgress size={18} sx={{ color: "white" }} />
+                ) : (
+                  "Enregistrer"
+                )}
+              </Button>
+            </div>
+          </Section>
+        ) : (
+          <Section icon={PersonOutlineIcon} title="Informations personnelles">
+            <AmberField
+              label="Nom complet"
+              value={fullName}
+              onChange={(e) => {
+                setFullName(e.target.value);
+                clearError("fullName");
+              }}
+              error={!!errors.fullName}
+              helperText={errors.fullName}
+            />
+            <AmberField
+              label="Email"
+              value={clientEmail}
+              disabled
+              helperText="L'email ne peut pas être modifié ici."
+            />
+            <div className="flex justify-end">
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (validateProfile()) saveProfile.mutate();
+                }}
+                disabled={saveProfile.isPending}
+                sx={{
+                  textTransform: "none",
+                  backgroundColor: "#d97706",
+                  "&:hover": { backgroundColor: "#b45309" },
+                  minWidth: 140,
+                }}
+              >
+                {saveProfile.isPending ? (
+                  <CircularProgress size={18} sx={{ color: "white" }} />
+                ) : (
+                  "Enregistrer"
+                )}
+              </Button>
+            </div>
+          </Section>
+        )}
+
+        {/* ── password section ── */}
+        {isOAuthUser ? (
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm px-5 py-4 flex items-center gap-2 text-sm text-gray-400">
+            <LockOutlinedIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+            Vous êtes connecté via Google — la gestion du mot de passe se fait
+            depuis votre compte Google.
+          </div>
+        ) : (
+          <Section icon={LockOutlinedIcon} title="Changer le mot de passe">
+            <AmberField
+              label="Nouveau mot de passe"
+              type="password"
+              value={newPassword}
+              onChange={(e) => {
+                setNewPassword(e.target.value);
+                clearError("newPassword");
+              }}
+              error={!!errors.newPassword}
+              helperText={errors.newPassword}
+            />
+            <AmberField
+              label="Confirmer le mot de passe"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                clearError("confirmPassword");
+              }}
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword}
+            />
+            <div className="flex justify-end">
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (validatePassword()) changePassword.mutate();
+                }}
+                disabled={changePassword.isPending}
+                sx={{
+                  textTransform: "none",
+                  backgroundColor: "#d97706",
+                  "&:hover": { backgroundColor: "#b45309" },
+                  minWidth: 140,
+                }}
+              >
+                {changePassword.isPending ? (
+                  <CircularProgress size={18} sx={{ color: "white" }} />
+                ) : (
+                  "Mettre à jour"
+                )}
+              </Button>
+            </div>
+          </Section>
+        )}
+
+        {/* ── danger zone ── */}
+        <div className="bg-white rounded-xl border border-red-100 shadow-sm overflow-hidden">
+          <div className="flex items-center gap-2 px-5 py-4 border-b border-red-100">
+            <DeleteOutlineIcon sx={{ fontSize: 20, color: "#ef4444" }} />
+            <span className="font-semibold text-red-600 text-sm">
+              Zone de danger
+            </span>
+          </div>
+          <div className="px-5 py-5">
+            <p className="text-sm text-gray-500 mb-4">
+              La suppression de votre compte est définitive. Toutes vos données
+              seront effacées et cette action ne peut pas être annulée.
+            </p>
+            <Button
+              variant="outlined"
+              startIcon={<DeleteOutlineIcon />}
+              onClick={() => setDeleteDialog(true)}
+              sx={{
+                textTransform: "none",
+                color: "#ef4444",
+                borderColor: "#ef4444",
+                "&:hover": {
+                  borderColor: "#dc2626",
+                  backgroundColor: "rgba(239,68,68,0.04)",
+                },
+              }}
+            >
+              Supprimer mon compte
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── delete confirm dialog ── */}
+      <Dialog
+        open={deleteDialog}
+        onClose={() => setDeleteDialog(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle sx={{ fontWeight: 600 }}>
+          Supprimer le compte ?
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Cette action est irréversible. Toutes vos données seront supprimées
+            définitivement.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ pb: 2, px: 3 }}>
           <Button
-            type="submit"
-            variant="outlined"
-            fullWidth
-            disabled={isLoading}
-            startIcon={
-              isLoading ? (
-                <CircularProgress size={16} sx={{ color: "#d97706" }} />
-              ) : null
-            }
+            onClick={() => setDeleteDialog(false)}
+            sx={{ textTransform: "none", color: "text.secondary" }}
+          >
+            Annuler
+          </Button>
+          <Button
+            onClick={() => {
+              setDeleteDialog(false);
+              deleteAccount.mutate();
+            }}
+            variant="contained"
             sx={{
               textTransform: "none",
-              color: "#d97706",
-              borderColor: "#d97706",
-              "&:hover": {
-                borderColor: "#b45309",
-                backgroundColor: "rgba(217, 119, 6, 0.04)",
-              },
+              backgroundColor: "#ef4444",
+              "&:hover": { backgroundColor: "#dc2626" },
             }}
           >
-            {isLoading ? "Envoi en cours..." : "Continuer"}
+            Supprimer
           </Button>
-        </div>
-      </form>
+        </DialogActions>
+      </Dialog>
+
+      {/* ── toast ── */}
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={3500}
+        onClose={() => setToast((t) => ({ ...t, open: false }))}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setToast((t) => ({ ...t, open: false }))}
+          severity={toast.severity}
+          sx={{ width: "100%" }}
+        >
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
 
-export default ShopForm;
+export default Settings;

@@ -14,7 +14,14 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
 } from "@mui/material";
+import SPECIALITIES from "@/data/specialities";
+import CITIES from "@/data/cities";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -260,26 +267,72 @@ const Settings = () => {
               error={!!errors.businessName}
               helperText={errors.businessName}
             />
-            <AmberField
-              label="Catégorie"
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                clearError("category");
-              }}
+            <FormControl
+              fullWidth
+              size="small"
               error={!!errors.category}
-              helperText={errors.category}
-            />
-            <AmberField
-              label="Adresse"
-              value={address}
-              onChange={(e) => {
-                setAddress(e.target.value);
-                clearError("address");
+              sx={{
+                "& label.Mui-focused": { color: "#d97706" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                },
               }}
+            >
+              <InputLabel>Spécialité</InputLabel>
+              <Select
+                value={category}
+                label="Spécialité"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  clearError("category");
+                }}
+              >
+                <MenuItem value="" disabled>
+                  Choisir une spécialité
+                </MenuItem>
+                {SPECIALITIES.map((s) => (
+                  <MenuItem key={s} value={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.category && (
+                <FormHelperText>{errors.category}</FormHelperText>
+              )}
+            </FormControl>
+            <FormControl
+              fullWidth
+              size="small"
               error={!!errors.address}
-              helperText={errors.address}
-            />
+              sx={{
+                "& label.Mui-focused": { color: "#d97706" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                },
+              }}
+            >
+              <InputLabel>Délégation</InputLabel>
+              <Select
+                value={address}
+                label="Délégation"
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  clearError("address");
+                }}
+              >
+                <MenuItem value="" disabled>
+                  Choisir une délégation
+                </MenuItem>
+                {CITIES.map((c) => (
+                  <MenuItem key={c} value={c}>
+                    {c}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.address && (
+                <FormHelperText>{errors.address}</FormHelperText>
+              )}
+            </FormControl>
             <AmberField
               label="Numéro de téléphone"
               value={phoneNumber}
