@@ -103,23 +103,27 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
                       size: "small",
                       error: !!errors.date,
                       helperText: errors.date?.message,
+                      color: "warning",
                       sx: {
                         "& .MuiOutlinedInput-root": {
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#d97706 !important",
+                          "& fieldset": {
+                            borderColor: "#d97706",
                           },
-                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#d97706 !important",
+                          "&:hover fieldset": {
+                            borderColor: "#d97706",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#d97706",
+                            borderWidth: "2px",
                           },
                         },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#d97706 !important",
+                        "& .MuiInputLabel-root.Mui-focused": {
+                          color: "#d97706",
                         },
-                        "& label.Mui-focused": { color: "#d97706" },
-                        "& .MuiIconButton-root": { color: "#d97706" },
-                        "& input::selection": {
-                          backgroundColor: "#d97706",
-                          color: "#fff",
+
+                        "&.Mui-focused": {
+                          outline: "none",
+                          boxShadow: "none",
                         },
                       },
                     },
