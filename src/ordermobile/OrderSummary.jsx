@@ -106,15 +106,16 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
                       sx: {
                         "& .MuiOutlinedInput-root": {
                           "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#d97706",
+                            borderColor: "#d97706 !important",
                           },
                           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#d97706",
+                            borderColor: "#d97706 !important",
                           },
                         },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#d97706 !important",
+                        },
                         "& label.Mui-focused": { color: "#d97706" },
-                        // override the calendar icon button focus ring
-                        "& .MuiIconButton-root:focus": { outline: "none" },
                         "& .MuiIconButton-root": { color: "#d97706" },
                       },
                     },
