@@ -38,6 +38,13 @@ const DyariLogo = () => {
       </div>
       <header className="block sticky top-0 z-30 bg-white border-b border-gray-100 sm:hidden">
         <div className="flex items-center justify-between px-4 py-3">
+          {/* Right: placeholder for symmetry */}
+          <div className="w-9 h-9" />
+          {/* Center: logo */}
+          <Link to={"/"} className="flex items-center gap-1">
+            <img className="w-7" src={dyari} />
+            <h1 className="text-2xl font-bold text-amber-800">Dyari</h1>
+          </Link>
           {/* Left: search icon as filter hint */}
           <Link
             to={user ? "/account" : "/login"}
@@ -45,15 +52,6 @@ const DyariLogo = () => {
           >
             <PermIdentityIcon style={{ fontSize: "1.2rem" }} />
           </Link>
-
-          {/* Center: logo */}
-          <Link to={"/"} className="flex items-center gap-1">
-            <img className="w-7" src={dyari} />
-            <h1 className="text-2xl font-bold text-amber-800">Dyari</h1>
-          </Link>
-
-          {/* Right: placeholder for symmetry */}
-          <div className="w-9 h-9" />
         </div>
       </header>
     </>
