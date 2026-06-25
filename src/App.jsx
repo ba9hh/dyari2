@@ -9,15 +9,13 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./AuthProvider";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import Shop from "./shopmobile/Shop";
+import Shop from "./shop/Shop";
 import Account from "./account/Account";
 import AddArticle from "./shop-profile/shop-articles/AddArticle";
-import ChangePassword from "./shop-profile/shop-settings/ChangePassword";
 import UpdateArticle from "./shop-profile/shop-articles/UpdateArticle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ArticlesShop from "./shop-profile/shop-articles/ArticlesShop";
-import DyariDelivery from "./dyari-delivery/DyariDelivery";
 import { Outlet } from "react-router-dom";
 import DyariLogo from "./components/DyariLogo";
 import Login from "./authentication/Login";
@@ -53,10 +51,6 @@ function App() {
             <Route path="/shop/order" element={<Order />} />
             <Route path="/account" element={<Account />} />
             <Route path="/account/settings" element={<AccountSettings />} />
-            <Route
-              path="/account/settings/change-password"
-              element={<ChangePassword />}
-            />
             <Route path="/account/add-article" element={<AddArticle />} />
             <Route
               path="/account/update-article/:articleId"
@@ -65,7 +59,6 @@ function App() {
             <Route path="/ratingtest" element={<VerifyEmail />} />
             <Route path="/skeleton" element={<SkeletonShopInfo />} />
             {/* <Route path="/forget-password" element={<ForgetPassword />} /> */}
-            <Route path="/dyari-delivery" element={<DyariDelivery />} />
           </Route>
         </Routes>
       </SkeletonTheme>
