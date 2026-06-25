@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import OrderShop from "./OrderShop";
-import { useTranslation } from "react-i18next";
 import OrdersTabs from "@/components/tabs/OrdersTabs";
 import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
 import Pagination from "@/components/Pagination";
@@ -11,7 +10,6 @@ const OrdersShop = ({ shopId }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const { t } = useTranslation();
   const LIMIT = 5;
 
   const {
@@ -37,7 +35,6 @@ const OrdersShop = ({ shopId }) => {
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
-          t={t}
         />
         <OrdersSkeleton />
       </div>
@@ -51,7 +48,6 @@ const OrdersShop = ({ shopId }) => {
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
-          t={t}
         />
         <div className="flex flex-col gap-2 p-2 sm:p-4">
           {ordersData?.orders?.map((order, index) => (

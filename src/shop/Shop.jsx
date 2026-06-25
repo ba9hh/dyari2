@@ -7,37 +7,30 @@ import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ShopCommentaires from "./shopComments";
+
 const Shop = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
   const [activeTab, setActiveTab] = useState("articles");
   const [isConnected, setIsConnected] = useState(false);
-
   const navigate = useNavigate();
-  const handleClose = () => {
-    setIsConnected(false);
-  };
-  const handleChange = (event, newValue) => {
-    if (newValue === "contact") {
-      setActiveTab("contact");
-    } else {
-      setActiveTab(newValue);
-    }
-  };
-  const openOrder = () => {
-    navigate("order", { state: state });
-  };
+
+  const handleClose = () => setIsConnected(false);
+  const handleChange = (event, newValue) => setActiveTab(newValue);
+  const openOrder = () => navigate("order", { state: state });
+
   return (
-    <div className="flex flex-col min-h-screen items-center pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-4 w-full">
+    <div className="flex flex-col min-h-screen items-center pt-0 sm:pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-3 sm:gap-y-4 w-full px-0 sm:px-4">
       <ShopInfos
         shopId={state}
         handleChange={handleChange}
         activeTab={activeTab}
       />
-      <div className="relative w-full sm:w-2/3">
+
+      {/* Order button */}
+      <div className="relative w-full sm:w-2/3 px-3 sm:px-0">
         <Button
           variant="outlined"
-          color="primary"
           fullWidth
           sx={{
             textTransform: "none",
@@ -48,13 +41,15 @@ const Shop = () => {
               backgroundColor: "rgba(217, 119, 6, 0.04)",
             },
           }}
-          onClick={() => openOrder()}
+          onClick={openOrder}
         >
           Passer votre commande
         </Button>
       </div>
+
       {activeTab === "articles" && <ShopArticles shopId={state} />}
       {activeTab === "contact" && <ShopCommentaires shopId={state} />}
+
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}

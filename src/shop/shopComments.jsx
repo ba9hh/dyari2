@@ -1,24 +1,21 @@
-import { useState, useCallback, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { AuthContext } from "@/AuthProvider";
+import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 
 const LIMIT = 5;
 
-// ── Fetch functions ───────────────────────────────────────────────────────────
 const fetchReviews = async ({ shopId, page }) => {
   const from = (page - 1) * LIMIT;
   const to = from + LIMIT - 1;
-
   const { data, error, count } = await supabase
     .from("reviews")
     .select("*, users(full_name, avatar_url)", { count: "exact" })
     .eq("shop_id", shopId)
     .order("created_at", { ascending: false })
     .range(from, to);
-
   if (error) throw new Error("Impossible de charger les avis.");
   return { reviews: data || [], totalCount: count || 0 };
 };
@@ -29,7 +26,6 @@ const fetchShopStats = async (shopId) => {
     .select("average_rating, total_rating")
     .eq("id", shopId)
     .single();
-
   if (error) throw error;
   return data;
 };
@@ -39,14 +35,12 @@ const fetchExistingReview = async (shopId) => {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return null;
-
   const { data } = await supabase
     .from("reviews")
     .select("id, rating, comment_text")
     .eq("shop_id", shopId)
     .eq("user_id", user.id)
     .maybeSingle();
-
   return data || null;
 };
 
@@ -55,7 +49,6 @@ const fetchDeliveredOrder = async (shopId) => {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return false;
-
   const { data } = await supabase
     .from("orders")
     .select("id")
@@ -64,11 +57,10 @@ const fetchDeliveredOrder = async (shopId) => {
     .eq("order_state", "delivered")
     .limit(1)
     .maybeSingle();
-
   return !!data;
 };
 
-// ── Single comment card ───────────────────────────────────────────────────────
+// ── Comment card ──────────────────────────────────────────────────────────────
 const CommentCard = ({ comment }) => {
   const [expanded, setExpanded] = useState(false);
   const MAX_CHARS = 160;
@@ -96,36 +88,35 @@ const CommentCard = ({ comment }) => {
     : null;
 
   return (
-    <div className="bg-white border rounded-md p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
+    <div className="bg-white border border-gray-200 rounded-md p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex items-center gap-2.5 min-w-0">
           {comment.users?.avatar_url ? (
             <img
               src={comment.users.avatar_url}
               alt={comment.users.full_name}
-              className="w-10 h-10 rounded-full object-cover border-2 border-amber-100 flex-shrink-0"
+              className="w-9 h-9 rounded-full object-cover border-2 border-amber-100 flex-shrink-0"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-amber-100 border-2 border-amber-200 flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 rounded-full bg-amber-100 border-2 border-amber-200 flex items-center justify-center flex-shrink-0">
               <span className="text-xs font-bold text-amber-700">
                 {initials}
               </span>
             </div>
           )}
-          <div>
-            <p className="text-sm font-semibold text-gray-800 leading-tight">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-gray-800 truncate leading-tight">
               {comment.users?.full_name || "Utilisateur"}
             </p>
             {date && <p className="text-xs text-gray-400 mt-0.5">{date}</p>}
           </div>
         </div>
-
         {comment.rating != null && (
-          <div className="flex-shrink-0 mt-0.5">
+          <div className="flex-shrink-0">
             <ReactStars
               count={5}
               value={comment.rating ?? 0}
-              size={16}
+              size={14}
               isHalf={true}
               edit={false}
               activeColor="#d97706"
@@ -133,9 +124,8 @@ const CommentCard = ({ comment }) => {
           </div>
         )}
       </div>
-
       {comment.comment_text && (
-        <div className="mt-3">
+        <div className="mt-2.5">
           <p className="text-sm text-gray-600 leading-relaxed">{displayText}</p>
           {isLong && (
             <button
@@ -151,85 +141,85 @@ const CommentCard = ({ comment }) => {
   );
 };
 
-// ── Pagination ────────────────────────────────────────────────────────────────
+// ── Pagination ─────────────────────────────────────────────────────────────────
 const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
-  <div className="flex items-center justify-center gap-4 py-3 px-4">
+  <div className="flex items-center justify-center gap-3 py-3 px-4">
     <button
       onClick={onPrev}
       disabled={currentPage <= 1}
-      className="text-sm px-3 py-1 rounded border border-amber-300 text-amber-700 hover:bg-amber-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+      className="text-xs sm:text-sm px-3 py-1 rounded border border-amber-300 text-amber-700 hover:bg-amber-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
     >
       ← Précédent
     </button>
-    <span className="text-sm text-gray-500">
-      Page {currentPage} / {totalPages}
+    <span className="text-xs sm:text-sm text-gray-500">
+      {currentPage} / {totalPages}
     </span>
     <button
       onClick={onNext}
       disabled={currentPage >= totalPages}
-      className="text-sm px-3 py-1 rounded border border-amber-300 text-amber-700 hover:bg-amber-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+      className="text-xs sm:text-sm px-3 py-1 rounded border border-amber-300 text-amber-700 hover:bg-amber-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
     >
       Suivant →
     </button>
   </div>
 );
 
-// ── Add comment form ──────────────────────────────────────────────────────────
-// ── Add comment form ──────────────────────────────────────────────────────────
+// ── Add/edit comment form ──────────────────────────────────────────────────────
 const AddCommentForm = ({
   onSubmit,
   onUpdate,
   loading,
   existingReview,
   hasDeliveredOrder,
+  user,
   onLoginRequired,
 }) => {
-  const { user } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState("");
+
+  // FIX: derive submitted from existingReview directly — no local state divergence
+  const submitted = !!existingReview && !editing;
 
   useEffect(() => {
     if (existingReview) {
       setRating(existingReview.rating);
       setText(existingReview.comment_text || "");
-      setSubmitted(true);
     }
   }, [existingReview]);
 
+  // FIX: consolidated validation into one function
+  const validate = () => {
+    if (rating === 0) {
+      setError("Veuillez sélectionner une note.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async () => {
-    console.log("handleSubmit", user);
     if (!user) {
-      console.log("OPEN DIALOG");
       onLoginRequired();
       return;
     }
-    if (rating === 0) {
-      setError("Veuillez sélectionner une note.");
-      return;
-    }
+    if (!validate()) return;
     setError("");
     const ok = editing
       ? await onUpdate({ rating, text, id: existingReview.id })
       : await onSubmit({ rating, text });
-    if (ok) {
-      setSubmitted(true);
-      setEditing(false);
-    }
+    if (ok) setEditing(false);
   };
 
   const handleEdit = () => {
     setRating(existingReview.rating);
     setText(existingReview.comment_text || "");
     setEditing(true);
-    setSubmitted(false);
   };
 
   const handleCancel = () => {
     setEditing(false);
-    setSubmitted(true);
+    setError("");
   };
 
   if (submitted) {
@@ -321,7 +311,7 @@ const AddCommentForm = ({
       <div className="flex items-center gap-2 mb-3">
         <span className="text-xs text-gray-500">Votre note :</span>
         <ReactStars
-          key={rating} // force remount when editing resets value
+          key={rating}
           count={5}
           value={rating}
           size={24}
@@ -337,10 +327,7 @@ const AddCommentForm = ({
 
       <textarea
         value={text}
-        onChange={(e) => {
-          setText(e.target.value);
-          setError("");
-        }}
+        onChange={(e) => setText(e.target.value)}
         placeholder="Partagez votre expérience avec cette boutique… (facultatif)"
         rows={3}
         maxLength={300}
@@ -379,12 +366,10 @@ const AddCommentForm = ({
   );
 };
 
-// ── Main component ────────────────────────────────────────────────────────────
+// ── Main component ─────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
+  const { user } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(false);
-  const handleClose = () => {
-    setIsConnected(false);
-  };
   const [page, setPage] = useState(1);
   const [submitLoading, setSubmitLoading] = useState(false);
   const queryClient = useQueryClient();
@@ -396,21 +381,27 @@ const ShopCommentaires = ({ shopId }) => {
   } = useQuery({
     queryKey: ["reviews", shopId, page],
     queryFn: () => fetchReviews({ shopId, page }),
+    // FIX: avoid refetch jitter on tab focus
+    staleTime: 30_000,
   });
 
   const { data: shopStats } = useQuery({
     queryKey: ["shopStats", shopId],
     queryFn: () => fetchShopStats(shopId),
+    staleTime: 30_000,
   });
 
+  // FIX: skip DB calls entirely when user is not logged in
   const { data: existingReview } = useQuery({
     queryKey: ["existingReview", shopId],
     queryFn: () => fetchExistingReview(shopId),
+    enabled: !!user,
   });
 
   const { data: hasDeliveredOrder = false } = useQuery({
     queryKey: ["hasDeliveredOrder", shopId],
     queryFn: () => fetchDeliveredOrder(shopId),
+    enabled: !!user,
   });
 
   const reviews = reviewsData?.reviews || [];
@@ -419,59 +410,59 @@ const ShopCommentaires = ({ shopId }) => {
 
   const handleNewComment = async ({ rating, text }) => {
     setSubmitLoading(true);
-
+    // FIX: use user from AuthContext instead of re-calling getUser()
+    if (!user) {
+      setSubmitLoading(false);
+      return false;
+    }
     const { error } = await supabase.from("reviews").insert({
       shop_id: shopId,
       user_id: user.id,
       rating,
       comment_text: text.trim() || null,
     });
-
     setSubmitLoading(false);
     if (error) {
       console.error("Review insert error:", error);
       return false;
     }
-
-    // Invalidate all related queries to trigger a fresh fetch
-    await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["shop", shopId] }); // refreshes ShopInfos too
-
-    return true;
-  };
-  const handleUpdateComment = async ({ rating, text, id }) => {
-    setSubmitLoading(true);
-
-    const { error } = await supabase
-      .from("reviews")
-      .update({
-        rating,
-        comment_text: text.trim() || null,
-      })
-      .eq("id", id);
-
-    setSubmitLoading(false);
-    if (error) {
-      console.error("Review update error:", error);
-      return false;
-    }
-
+    // FIX: also invalidate existingReview after a new insert
     await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
     await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
     await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
     await queryClient.invalidateQueries({
       queryKey: ["existingReview", shopId],
     });
+    return true;
+  };
 
+  const handleUpdateComment = async ({ rating, text, id }) => {
+    setSubmitLoading(true);
+    const { error } = await supabase
+      .from("reviews")
+      .update({ rating, comment_text: text.trim() || null })
+      .eq("id", id);
+    setSubmitLoading(false);
+    if (error) {
+      console.error("Review update error:", error);
+      return false;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
+    await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
+    await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
+    await queryClient.invalidateQueries({
+      queryKey: ["existingReview", shopId],
+    });
     return true;
   };
 
   return (
     <>
-      <div className="w-full sm:w-2/3 flex gap-3">
-        <div className="w-1/2">
-          <div className="w-full bg-white border rounded-md px-4 py-3 shadow-sm flex items-center gap-3 mb-3">
+      <div className="w-full sm:w-2/3 px-3 sm:px-0 flex flex-col sm:flex-row gap-3">
+        {/* Left: stats + review list */}
+        <div className="w-full sm:w-1/2 flex flex-col gap-3">
+          {/* Rating summary */}
+          <div className="w-full bg-white border border-gray-200 rounded-md px-4 py-3 shadow-sm flex items-center gap-3">
             <span className="text-2xl font-bold text-amber-600">
               {Number(shopStats?.average_rating || 0).toFixed(1)}
             </span>
@@ -480,7 +471,7 @@ const ShopCommentaires = ({ shopId }) => {
                 key={shopStats?.average_rating}
                 count={5}
                 value={Number(shopStats?.average_rating) || 0}
-                size={20}
+                size={18}
                 isHalf={true}
                 edit={false}
                 activeColor="#d97706"
@@ -491,6 +482,7 @@ const ShopCommentaires = ({ shopId }) => {
             </div>
           </div>
 
+          {/* Review list */}
           {fetchLoading ? (
             <div className="space-y-3">
               {[...Array(3)].map((_, i) => (
@@ -499,7 +491,7 @@ const ShopCommentaires = ({ shopId }) => {
                   className="bg-white border rounded-md p-4 shadow-sm animate-pulse"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-gray-200" />
+                    <div className="w-9 h-9 rounded-full bg-gray-200" />
                     <div className="space-y-1.5">
                       <div className="h-3 w-24 bg-gray-200 rounded" />
                       <div className="h-2.5 w-16 bg-gray-100 rounded" />
@@ -518,10 +510,10 @@ const ShopCommentaires = ({ shopId }) => {
             </div>
           ) : reviews.length === 0 ? (
             <div className="bg-white border rounded-md p-6 text-center text-sm text-gray-400">
-              Aucun avis pour le moment. Soyez le premier à donner votre avis !
+              Aucun avis pour le moment. Soyez le premier !
             </div>
           ) : (
-            <div className="w-full space-y-3">
+            <div className="space-y-3">
               {reviews.map((review) => (
                 <CommentCard key={review.id} comment={review} />
               ))}
@@ -529,20 +521,22 @@ const ShopCommentaires = ({ shopId }) => {
           )}
         </div>
 
-        <div className="w-1/2">
+        {/* Right: form */}
+        <div className="w-full sm:w-1/2">
           <AddCommentForm
             onSubmit={handleNewComment}
             onUpdate={handleUpdateComment}
             loading={submitLoading}
             existingReview={existingReview}
             hasDeliveredOrder={hasDeliveredOrder}
+            user={user}
             onLoginRequired={() => setIsConnected(true)}
           />
         </div>
       </div>
 
       {totalPages > 1 && (
-        <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
+        <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border border-gray-200 mx-3 sm:mx-0">
           <LocalPagination
             currentPage={page}
             totalPages={totalPages}
@@ -551,9 +545,10 @@ const ShopCommentaires = ({ shopId }) => {
           />
         </div>
       )}
+
       <LoginRequiredDialog
-        open={true}
-        onClose={handleClose}
+        open={isConnected}
+        onClose={() => setIsConnected(false)}
         message="Vous devez être connecté pour effectuer cette action."
       />
     </>

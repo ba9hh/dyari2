@@ -12,7 +12,6 @@ const OrdersUser = ({ userId }) => {
   const [totalPages, setTotalPages] = useState(1);
   const LIMIT = 5;
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const { t } = useTranslation();
 
   const {
     data: ordersData,
@@ -37,7 +36,6 @@ const OrdersUser = ({ userId }) => {
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
-          t={t}
         />
         <OrdersSkeleton />
       </div>
@@ -51,7 +49,6 @@ const OrdersUser = ({ userId }) => {
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
-          t={t}
         />
         <div className="flex flex-col gap-2 p-2 sm:p-4">
           {ordersData?.orders?.map((order, index) => (

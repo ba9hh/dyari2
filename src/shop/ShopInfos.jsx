@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import SkeletonShopInfo from "@/skeleton/shop/SkeletonShopInfo";
-import { Link, useNavigate } from "react-router-dom";
-import RatingTest from "@/components/RatingTest";
+import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -19,19 +18,14 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   const { user } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(false);
   const navigate = useNavigate();
-  const handleClose = () => {
-    setIsConnected(false);
-  };
-  const {
-    data: shop,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["shop", shopId], // unique query key
+
+  const handleClose = () => setIsConnected(false);
+
+  const { data: shop, isLoading } = useQuery({
+    queryKey: ["shop", shopId],
     queryFn: () => fetchShopInfo(shopId),
   });
-  console.log(shopId);
-  console.log(shop);
+
   useEffect(() => {
     const checkLiked = async () => {
       if (user) {
@@ -45,6 +39,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
     };
     checkLiked();
   }, [user, shopId]);
+
   const toggleLike = async () => {
     if (!user) {
       setIsConnected(true);
@@ -62,115 +57,101 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
       console.error("Error toggling like:", err);
     }
   };
-  const openOrder = () => {
-    navigate("order", { state: shopId });
-  };
+
+  const openOrder = () => navigate("order", { state: shopId });
+
   if (isLoading) return <SkeletonShopInfo />;
+
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
-      <div className="flex justify-between items-center border-b p-2">
-        {/* <div className="">
-          <RatingTest shopId={shopId} />
-        </div> */}
-        <div className="flex-shrink-0 flex items-center gap-1 text-sm font-semibold rounded-full py-1 px-2.5 border bg-amber-50 text-amber-600 border-amber-200">
-          <h1>{shop?.average_rating}</h1>
-          <div className="block sm:hidden">
-            <ReactStars
-              count={5}
-              size={18}
-              value={shop?.average_rating || 0}
-              isHalf={true}
-              edit={false}
-              activeColor="#d97706"
-            />
-          </div>
-          <div className="hidden sm:block">
-            <ReactStars
-              count={5}
-              size={20}
-              value={shop?.average_rating || 0}
-              isHalf={true}
-              edit={false}
-              activeColor="#d97706"
-            />
-          </div>
-          <h1>({shop?.total_rating})</h1>
+    <div className="relative w-full sm:w-2/3 bg-white shadow-sm sm:rounded-md border border-gray-200">
+      {/* Top bar: rating + review button */}
+      <div className="flex justify-between items-center border-b border-gray-200 px-3 py-2">
+        <div className="flex-shrink-0 flex items-center gap-1.5 text-sm font-semibold rounded-full py-1 px-2.5 border bg-amber-50 text-amber-600 border-amber-200">
+          <span>{shop?.average_rating}</span>
+          <ReactStars
+            count={5}
+            size={16}
+            value={shop?.average_rating || 0}
+            isHalf={true}
+            edit={false}
+            activeColor="#d97706"
+          />
+          <span className="text-gray-400 text-xs">({shop?.total_rating})</span>
         </div>
-        <div className="flex items-center gap-2">
-          {/* <p className="text-sm text-gray-600 hidden sm:block">
-            (Vous ne pouvez laisser un avis que si vous avez effectué un achat.)
-          </p> */}
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            sx={{
-              textTransform: "none",
-              backgroundColor: "#d97706",
-              "&:hover": {
-                backgroundColor: "#b45309",
-              },
-            }}
-            onClick={() => openOrder()}
-          >
-            Laisser un avis
-          </Button>
-        </div>
-        {/* <button
-          className="text-sm text-white bg-amber-600 font-semibold px-3 py-1"
-          onClick={() => openOrder()}
+        <Button
+          variant="contained"
+          size="small"
+          sx={{
+            textTransform: "none",
+            fontSize: "0.75rem",
+            backgroundColor: "#d97706",
+            "&:hover": { backgroundColor: "#b45309" },
+          }}
+          onClick={openOrder}
         >
-          Passer votre commande
-        </button> */}
+          Laisser un avis
+        </Button>
       </div>
 
-      <div className="flex justify-center my-4">
-        <div className="flex flex-col items-center gap-0">
-          <img
-            className="w-16 h-16 border-2 p-1 rounded-full bg-white object-cover"
-            src={shop?.profile_picture}
-          />
-          <div className="flex flex-col items-center">
-            <h1 className="text-xl mt-1">{shop?.business_name}</h1>
-            <p className="text-sm text-gray-700 text-center mb-1.5 pb-1.5 border-b border-gray-100 px-6 max-w-md leading-relaxed italic">
-              Bio: Made with love
-            </p>
-            <div className="flex gap-1.5">
-              <h1 className="text-sm">Specialité: {shop?.category}</h1>
-              <h1 className="text-sm">|</h1>
-              <h1 className="text-sm">Localisation: {shop?.address}</h1>
-              <h1 className="text-sm">|</h1>
-              <h1 className="text-sm">Téléphone: 27428425</h1>
-            </div>
-          </div>
+      {/* Profile section */}
+      <div className="flex flex-col items-center py-4 px-4 gap-1">
+        <img
+          className="w-16 h-16 border-2 p-0.5 rounded-full bg-white object-cover"
+          src={shop?.profile_picture}
+          alt={shop?.business_name}
+        />
+        <h1 className="text-lg sm:text-xl font-medium mt-1 text-gray-800">
+          {shop?.business_name}
+        </h1>
+        <p className="text-sm text-gray-500 italic text-center border-b border-gray-100 pb-2 px-6 max-w-xs">
+          {shop?.bio}
+        </p>
+        {/* Info pills — stack on mobile, row on desktop */}
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-1 text-xs sm:text-sm text-gray-600 text-center">
+          <span>
+            <span className="font-medium text-gray-700">Spécialité:</span>{" "}
+            {shop?.category}
+          </span>
+          <span className="hidden sm:inline text-gray-300">|</span>
+          <span>
+            <span className="font-medium text-gray-700">Localisation:</span>{" "}
+            {shop?.address}
+          </span>
+          <span className="hidden sm:inline text-gray-300">|</span>
+          <span>
+            <span className="font-medium text-gray-700">Tél:</span>{" "}
+            {shop?.phone_number}
+          </span>
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 z-10">
-        <IconButton onClick={toggleLike} color={liked ? "error" : "default"}>
-          {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+
+      {/* Like button */}
+      <div className="absolute bottom-3 right-1 z-10">
+        <IconButton
+          onClick={toggleLike}
+          color={liked ? "error" : "default"}
+          size="small"
+        >
+          {liked ? (
+            <FavoriteIcon fontSize="small" />
+          ) : (
+            <FavoriteBorderIcon fontSize="small" />
+          )}
         </IconButton>
       </div>
+
+      {/* Tabs */}
       <Box sx={{ borderTop: 1, borderColor: "divider", width: "100%" }}>
         <Tabs
           value={activeTab}
           onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="standard"
+          centered
           sx={{
-            mb: 0,
-            px: 2,
             "& .MuiTabs-indicator": {
               backgroundColor: "#d97706",
-              height: "4px",
+              height: "3px",
             },
           }}
-          TabIndicatorProps={{
-            style: {
-              height: "4px",
-            },
-          }}
-          centered
         >
           <Tab
             label="Articles"
@@ -178,10 +159,9 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             sx={{
               textTransform: "none",
               fontWeight: "bold",
+              fontSize: { xs: "0.8rem", sm: "0.875rem" },
               color: "text.secondary",
-              "&.Mui-selected": {
-                color: "#d97706",
-              },
+              "&.Mui-selected": { color: "#d97706" },
             }}
           />
           <Tab
@@ -190,14 +170,14 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             sx={{
               textTransform: "none",
               fontWeight: "bold",
+              fontSize: { xs: "0.8rem", sm: "0.875rem" },
               color: "text.secondary",
-              "&.Mui-selected": {
-                color: "#d97706",
-              },
+              "&.Mui-selected": { color: "#d97706" },
             }}
           />
         </Tabs>
       </Box>
+
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}

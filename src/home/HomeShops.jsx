@@ -2,17 +2,16 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import ShopsHomeSkeleton from "@/skeleton/home/ShopsHomeSkeleton";
-import HomeShop from "@/homemobile/HomeShop";
+import HomeShop from "@/home/HomeShop";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import HomePagination from "./HomePagination";
 import { fetchShops } from "@/services/shops/ShopsList";
-import CategoriesTabs from "@/homemobile/CategoriesTabs";
-import LocalisationFilter from "@/homemobile/LocalisationFilter";
+import CategoriesTabs from "@/home/CategoriesTabs";
+import LocalisationFilter from "@/home/LocalisationFilter";
 import EmptyShopState from "@/components/EmptyShopsState";
-import NavBar from "@/homemobile/NavBar";
+import NavBar from "@/home/NavBar";
 import faza from "@/assets/faza2.jpg";
-import dyari from "@/assets/dyari.svg";
-import ShopsHeader from "@/homemobile/ShopsHeader";
+import ShopsHeader from "@/home/ShopsHeader";
 import loginbg from "@/assets/loginbg.jpg";
 
 const HomeShops = () => {

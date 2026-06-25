@@ -1,6 +1,6 @@
 import { Tabs, Tab, Box } from "@mui/material";
 
-export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
+export default function OrdersTabs({ selectedFilter, setSelectedFilter }) {
   const handleChange = (event, newValue) => {
     setSelectedFilter(newValue);
   };
@@ -22,7 +22,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
         }}
       >
         <Tab
-          label={t("order.allOrders")}
+          label="tous les commandes"
           value="all"
           sx={{
             textTransform: "none",
@@ -33,7 +33,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
           }}
         />
         <Tab
-          label={t("order.pendingOrders")}
+          label="Commandes en attente"
           value="pending"
           sx={{
             textTransform: "none",
@@ -44,7 +44,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter, t }) {
           }}
         />
         <Tab
-          label="Accepted Orders"
+          label="Commandes accepté"
           value="accepted"
           sx={{
             textTransform: "none",

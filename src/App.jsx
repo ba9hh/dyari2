@@ -1,9 +1,10 @@
 import Home from "./home/Home";
 import VerifyEmail from "./authentication/reset-password/verifyEmail";
-import Order from "./ordermobile/Order";
+import Order from "./order/Order";
 import AccountSettings from "./account/AccountSettings";
 import SkeletonShop from "./skeleton/home/SkeletonShop";
-import ForgetPassword from "./authentication/reset-password/ForgetPassword";
+import ForgetPassword from "./authentication/ForgetPassword";
+import ResetPassword from "./authentication/ResetPassword";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./AuthProvider";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -21,7 +22,6 @@ import { Outlet } from "react-router-dom";
 import DyariLogo from "./components/DyariLogo";
 import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
-import RoleSelection from "./authentication/RoleSelection";
 import ShopForm from "./authentication/ShopForm";
 import AuthLayout from "./components/AuthLayout";
 import SkeletonShopInfo from "./skeleton/shop/SkeletonShopInfo";
@@ -43,8 +43,9 @@ function App() {
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/role-selection" element={<RoleSelection />} />
             <Route path="/shop-creation" element={<ShopForm />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Route>
           <Route element={<StandardLayout />}>
             <Route path="/articles" element={<ArticlesShop />} />
@@ -63,7 +64,7 @@ function App() {
             />
             <Route path="/ratingtest" element={<VerifyEmail />} />
             <Route path="/skeleton" element={<SkeletonShopInfo />} />
-            <Route path="/forget-password" element={<ForgetPassword />} />
+            {/* <Route path="/forget-password" element={<ForgetPassword />} /> */}
             <Route path="/dyari-delivery" element={<DyariDelivery />} />
           </Route>
         </Routes>

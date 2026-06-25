@@ -1,5 +1,3 @@
-import React from "react";
-import loginbg from "@/assets/loginbg.jpg";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import { useForm, Controller } from "react-hook-form";

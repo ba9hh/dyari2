@@ -1,21 +1,19 @@
 import React from "react";
-import { Typography, Breadcrumbs, Link } from "@mui/material";
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 
 const OrderBreadCrumbs = () => {
   return (
-    <div className="sm:hidden py-2">
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href="/">
-          Home
+    <div className="py-2 mb-1">
+      <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "0.75rem" }}>
+        <Link underline="hover" color="inherit" href="/" sx={{ fontSize: "0.75rem" }}>
+          Accueil
         </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/material-ui/getting-started/installation/"
-        >
-          Shop
+        <Link underline="hover" color="inherit" href="#" onClick={(e) => { e.preventDefault(); window.history.back(); }} sx={{ fontSize: "0.75rem" }}>
+          Boutique
         </Link>
-        <Typography sx={{ color: "text.primary" }}>Commande</Typography>
+        <Typography sx={{ color: "text.primary", fontSize: "0.75rem" }}>
+          Commande
+        </Typography>
       </Breadcrumbs>
     </div>
   );

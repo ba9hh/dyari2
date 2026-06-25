@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import dyari from "@/assets/dyari.svg";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import filters from "@/assets/filters.svg";
 import { AuthContext } from "@/AuthProvider";
 import { useContext } from "react";
 const DyariLogo = () => {
@@ -36,7 +35,7 @@ const DyariLogo = () => {
           )}
         </div>
       </div>
-      <header className="block sticky top-0 z-30 bg-white border-b border-gray-100 sm:hidden">
+      <header className="block sticky top-0 z-30 bg-white border-b border-gray-200 sm:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Right: placeholder for symmetry */}
           <div className="w-9 h-9" />

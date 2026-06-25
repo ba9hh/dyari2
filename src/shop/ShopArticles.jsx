@@ -5,51 +5,41 @@ import ArticleShopDialog from "@/components/dialog/ArticleShopDialog";
 import Pagination from "@/components/Pagination";
 import { fetchShopArticles } from "@/services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
+
 const ShopArticles = ({ shopId }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedArticle, setSelectedArticle] = useState(null);
   const LIMIT = 8;
-  const {
-    data: articles,
-    isLoading,
-    isError,
-  } = useQuery({
+
+  const { data: articles, isLoading } = useQuery({
     queryKey: ["shopArticles", { shopId, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
     keepPreviousData: true,
   });
-  useEffect(() => {
-    if (articles?.totalPages) {
-      setTotalPages(articles.totalPages);
-    }
-  }, [articles]);
-  const handleOpenDialog = (articleId) => {
-    setSelectedArticle(articleId);
-    setOpen(true);
-  };
 
-  // Close dialog and reset selection
-  const handleCloseDialog = () => {
-    setOpen(false);
-    setSelectedArticle(null);
-  };
+  useEffect(() => {
+    if (articles?.totalPages) setTotalPages(articles.totalPages);
+  }, [articles]);
+
+  const handleOpenDialog = (article) => { setSelectedArticle(article); setOpen(true); };
+  const handleCloseDialog = () => { setOpen(false); setSelectedArticle(null); };
+
   if (isLoading) return <SkeletonArticlesShop />;
+
   return (
     <>
-      <div className="w-full sm:w-2/3 bg-white/80 shadow-sm rounded-md border p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-0 sm:gap-4 sm:px-0 sm:mt-0">
+      <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
           {articles?.articles?.map((article, index) => (
-            <div key={index} className="">
-              <ShopArticle
-                article={article}
-                onClick={() => handleOpenDialog(article)}
-              />
-            </div>
+            <ShopArticle
+              key={index}
+              article={article}
+              onClick={() => handleOpenDialog(article)}
+            />
           ))}
         </div>
-
         {selectedArticle && (
           <ArticleShopDialog
             article={selectedArticle}
@@ -58,7 +48,7 @@ const ShopArticles = ({ shopId }) => {
           />
         )}
       </div>
-      <div className="w-full sm:w-2/3 bg-white sm:shadow-sm rounded-md">
+      <div className="w-full sm:w-2/3 bg-white sm:shadow-sm sm:rounded-md">
         <Pagination
           currentPage={page}
           totalPages={totalPages}

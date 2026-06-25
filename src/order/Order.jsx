@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, MobileStepper } from "@mui/material";
 import { AuthContext } from "@/AuthProvider";
 import { toast } from "react-toastify";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
@@ -11,10 +11,9 @@ import { useLocation } from "react-router-dom";
 import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
 import { createOrder } from "@/services/orders/createOrder";
-import { Typography, MobileStepper, Breadcrumbs, Link } from "@mui/material";
 import dyari from "@/assets/dyari.svg";
-
 import OrderBreadCrumbs from "./OrderBreadCrumbs";
+
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -23,8 +22,8 @@ const Order = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [step, setStep] = useState(0);
-
   const LIMIT = 3;
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -56,14 +55,9 @@ const Order = () => {
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: "items" });
-
   const watchItems = watch("items");
 
-  const {
-    data: shopData,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: shopData, isLoading } = useQuery({
     queryKey: ["shopArticles", { shopId: state, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
     enabled: !!state,
@@ -71,14 +65,10 @@ const Order = () => {
   });
 
   useEffect(() => {
-    if (shopData?.totalPages) {
-      setTotalPages(shopData.totalPages);
-    }
+    if (shopData?.totalPages) setTotalPages(shopData.totalPages);
   }, [shopData]);
 
-  const handleClose = () => {
-    setIsConnected(false);
-  };
+  const handleClose = () => setIsConnected(false);
 
   const selectArticle = (
     image,
@@ -97,26 +87,19 @@ const Order = () => {
     setValue(`items.${index}.maxQuantity`, maxQuantity);
   };
 
-  // Step 0 → Step 1: validate items before advancing
   const handleNext = async () => {
-    // Re-run RHF validation (min/max rules) so inline errors show too
     const quantityFields = watchItems.map(
       (_, index) => `items.${index}.quantity`,
     );
     const isValid = await trigger(quantityFields);
-
     const allValid = watchItems.every((item) => {
       if (!item.articleId || !item.quantity || item.quantity <= 0) return false;
-
       const min = item.minQuantity ?? 1;
       const max = item.maxQuantity;
-
       if (item.quantity < min) return false;
       if (max != null && item.quantity > max) return false;
-
       return true;
     });
-
     if (!isValid || !allValid) {
       toast.error(
         "Veuillez sélectionner un article et une quantité valide pour chaque ligne.",
@@ -126,18 +109,15 @@ const Order = () => {
     setStep(1);
   };
 
-  // Step 1 → Submit: full form validation handled by react-hook-form
   const onSubmit = async (data) => {
-    if (!user) {
+    if (!user || user?.role === "shop") {
       setIsConnected(true);
       return;
     }
-
     if (!data.date) {
       toast.error("Veuillez sélectionner une date.");
       return;
     }
-
     setLoading(true);
     try {
       await createOrder({
@@ -158,19 +138,31 @@ const Order = () => {
       setLoading(false);
     }
   };
+
+  const total = watchItems.reduce(
+    (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
+    0,
+  );
+
   return (
-    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 pt-16 pb-8 sm:px-0">
+    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 sm:pt-16 pb-8">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:p-6 sm:rounded-lg sm:border sm:border:0 sm:shadow-md"
+        className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:px-6 sm:py-6 sm:my-4 sm:rounded-lg sm:border sm:shadow-md"
       >
         <OrderBreadCrumbs />
-        <div className="flex justify-between items-center mb-4">
-          <Typography variant="h6">Procédez à votre commande</Typography>
-          <img src={dyari} className="w-7" />
+
+        {/* Header */}
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+            Procédez à votre commande
+          </h2>
+          <img src={dyari} className="w-6 sm:w-7" />
         </div>
-        <hr className="mb-2" />
-        {step == 0 && (
+        <hr className="mb-3" />
+
+        {/* Step 0: articles */}
+        {step === 0 && (
           <div>
             {fields.map((field, index) => (
               <OrderItem
@@ -193,6 +185,7 @@ const Order = () => {
             <Button
               variant="outlined"
               fullWidth
+              size="small"
               onClick={() =>
                 append({
                   articleId: "",
@@ -204,7 +197,7 @@ const Order = () => {
               }
               sx={{
                 mt: 1,
-                mb: 1,
+                mb: 2,
                 textTransform: "none",
                 color: "#d97706",
                 borderColor: "#d97706",
@@ -214,19 +207,23 @@ const Order = () => {
                 },
               }}
             >
-              Ajouter un autre article
+              + Ajouter un autre article
             </Button>
-            <Typography variant="body1" sx={{ width: "100%" }}>
-              Total:{" "}
-              {watchItems.reduce(
-                (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
-                0,
-              )}{" "}
-              dt
-            </Typography>
+
+            {/* Running total */}
+            {total > 0 && (
+              <div className="flex justify-between items-center bg-amber-50 border border-amber-200 rounded px-3 py-2 mb-3">
+                <span className="text-sm text-gray-600">Total estimé</span>
+                <span className="text-sm font-bold text-amber-700">
+                  {total} dt
+                </span>
+              </div>
+            )}
           </div>
         )}
-        {step == 1 && (
+
+        {/* Step 1: summary */}
+        {step === 1 && (
           <OrderSummary
             control={control}
             errors={errors}
@@ -234,48 +231,46 @@ const Order = () => {
             today={today}
           />
         )}
-        <div className="flex justify-center mb-1">
+
+        {/* Stepper dots */}
+        <div className="flex justify-center my-2">
           <MobileStepper
             variant="dots"
             steps={2}
             position="static"
             activeStep={step}
             sx={{
-              "& .MuiMobileStepper-dot": {
-                backgroundColor: "#e5e7eb",
-              },
-              "& .MuiMobileStepper-dotActive": {
-                backgroundColor: "#d97706",
-              },
+              background: "transparent",
+              "& .MuiMobileStepper-dot": { backgroundColor: "#e5e7eb" },
+              "& .MuiMobileStepper-dotActive": { backgroundColor: "#d97706" },
             }}
           />
         </div>
-        {step == 0 && (
+
+        {/* Action buttons */}
+        {step === 0 && (
           <Button
             type="button"
             variant="contained"
             disabled={loading}
-            color="primary"
             fullWidth
             sx={{
               textTransform: "none",
               backgroundColor: "#d97706",
-              "&:hover": {
-                backgroundColor: "#b45309",
-              },
+              "&:hover": { backgroundColor: "#b45309" },
             }}
             onClick={handleNext}
           >
-            {loading ? <CircularProgress size={24} /> : "Suivant"}
+            Suivant →
           </Button>
         )}
-        {step == 1 && (
-          <div className="flex flex-col gap-2">
+
+        {step === 1 && (
+          <div className="flex flex-col gap-2 mt-2">
             <Button
               type="submit"
               variant="contained"
               disabled={loading}
-              color="primary"
               fullWidth
               sx={{
                 textTransform: "none",
@@ -284,12 +279,11 @@ const Order = () => {
               }}
             >
               {loading ? (
-                <CircularProgress size={24} color="inherit" />
+                <CircularProgress size={22} color="inherit" />
               ) : (
                 "Passer la commande"
               )}
             </Button>
-
             <Button
               type="button"
               variant="outlined"
@@ -306,7 +300,7 @@ const Order = () => {
                 },
               }}
             >
-              Retour
+              ← Retour
             </Button>
           </div>
         )}
