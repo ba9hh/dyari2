@@ -25,7 +25,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { supabase } from "@/supabaseClient";
 import { useForm, Controller } from "react-hook-form";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
 
 const LoginRequiredDialog = ({
   open,
@@ -33,8 +33,20 @@ const LoginRequiredDialog = ({
   message = "You must be logged in to perform this action.",
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
-  const { handleGoogleLogin, loginWithGoogle } = useContext(AuthContext);
+  const { handleGoogleLogin, loginWithGoogle: defaultLoginWithGoogle } =
+    useContext(AuthContext);
+
+  const loginWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}${location.pathname}${location.search}`,
+      },
+    });
+    if (error) console.error("Google login error:", error.message);
+  };
   const theme = useTheme();
   const {
     control,
