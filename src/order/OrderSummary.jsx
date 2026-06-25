@@ -63,14 +63,20 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
                   value={field.value}
                   onChange={(newValue) => field.onChange(newValue)}
                   minDate={today}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth
-                      error={!!errors.date}
-                      helperText={errors.date?.message}
-                    />
-                  )}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      error: !!errors.date,
+                      helperText: errors.date?.message,
+                      sx: {
+                        "& .MuiOutlinedInput-root": {
+                          "&:hover fieldset": { borderColor: "#d97706" },
+                          "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                        },
+                        "& label.Mui-focused": { color: "#d97706" },
+                      },
+                    },
+                  }}
                 />
               )}
             />

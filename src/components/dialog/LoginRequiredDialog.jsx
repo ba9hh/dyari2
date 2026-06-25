@@ -65,9 +65,7 @@ const LoginRequiredDialog = ({
         throw error;
       }
 
-      // authData.user → authenticated user
-      //   setUser(authData.user);
-      // navigate("/");
+      onClose();
     } catch (err) {
       console.error("Login failed", err);
       setLoginError(err.message || "Invalid email or password.");
@@ -138,113 +136,115 @@ const LoginRequiredDialog = ({
         <Divider sx={{ my: 2 }} />
 
         <Stack spacing={2}>
-          <div className="flex flex-col gap-y-3">
-            <Controller
-              name="email"
-              control={control}
-              rules={{
-                required: "Adresse e-mail requise",
-                pattern: {
-                  value: /^\S+@\S+\.\S+$/,
-                  message: "Adresse e-mail invalide",
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type="email"
-                  label="Adresse e-mail"
-                  fullWidth
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                  onChange={handleFieldChange(field.onChange)}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              rules={{ required: "Mot de passe requis" }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type={showPassword ? "text" : "password"}
-                  label="Mot de passe"
-                  fullWidth
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  onChange={handleFieldChange(field.onChange)}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword((prev) => !prev)}
-                          edge="end"
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
-          </div>
-          <div className="flex flex-col gap-y-2 mb-6 pt-1">
-            <MuiLink
-              component={RouterLink}
-              to="/forget-password"
-              textAlign="right"
-              sx={{ color: "black", fontSize: "12px" }}
-              underline="none"
-            >
-              Mot de passe oublié ?
-            </MuiLink>
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={{
-                textTransform: "none",
-                backgroundColor: "#d97706",
-                "&:hover": {
-                  backgroundColor: "#b45309",
-                },
-              }}
-              disabled={isLoading || Boolean(loginError)}
-            >
-              {isLoading ? "Connexion..." : "Se connecter"}
-            </Button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-y-3">
+              <Controller
+                name="email"
+                control={control}
+                rules={{
+                  required: "Adresse e-mail requise",
+                  pattern: {
+                    value: /^\S+@\S+\.\S+$/,
+                    message: "Adresse e-mail invalide",
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="email"
+                    label="Adresse e-mail"
+                    fullWidth
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    onChange={handleFieldChange(field.onChange)}
+                    sx={{
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
+                  />
+                )}
+              />
+              <Controller
+                name="password"
+                control={control}
+                rules={{ required: "Mot de passe requis" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type={showPassword ? "text" : "password"}
+                    label="Mot de passe"
+                    fullWidth
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                    onChange={handleFieldChange(field.onChange)}
+                    sx={{
+                      "& label.Mui-focused": { color: "#d97706" },
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                      },
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            edge="end"
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-y-2 mb-6 pt-1">
+              <MuiLink
+                component={RouterLink}
+                to="/forget-password"
+                textAlign="right"
+                sx={{ color: "black", fontSize: "12px" }}
+                underline="none"
+              >
+                Mot de passe oublié ?
+              </MuiLink>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{
+                  textTransform: "none",
+                  backgroundColor: "#d97706",
+                  "&:hover": {
+                    backgroundColor: "#b45309",
+                  },
+                }}
+                disabled={isLoading || Boolean(loginError)}
+              >
+                {isLoading ? "Connexion..." : "Se connecter"}
+              </Button>
 
-            <Button
-              variant="outlined"
-              fullWidth
-              onClick={() => navigate("/signup")}
-              sx={{
-                textTransform: "none",
-                color: "#d97706",
-                borderColor: "#d97706",
-                "&:hover": {
-                  borderColor: "#b45309",
-                  backgroundColor: "rgba(217, 119, 6, 0.04)",
-                },
-              }}
-            >
-              Créer un nouveau compte
-            </Button>
-          </div>
+              <Button
+                variant="outlined"
+                fullWidth
+                onClick={() => navigate("/signup")}
+                sx={{
+                  textTransform: "none",
+                  color: "#d97706",
+                  borderColor: "#d97706",
+                  "&:hover": {
+                    borderColor: "#b45309",
+                    backgroundColor: "rgba(217, 119, 6, 0.04)",
+                  },
+                }}
+              >
+                Créer un nouveau compte
+              </Button>
+            </div>
+          </form>
           <div className="flex items-center mb-6">
             <div className="flex-grow border-t border-gray-300"></div>
             <h1 className=" text-gray-600 mx-4">Ou se connecter avec</h1>
