@@ -16,18 +16,18 @@ const RatedShops = ({ userId }) => {
   if (isLoading) return <RatedShopsSkeleton />;
 
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border py-2 sm:py-3">
-      <div className="flex flex-col px-1 sm:px-3 gap-2">
+    <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
+      <div className="flex flex-col gap-2">
         {ratedShops?.length > 0 ? (
           ratedShops.map((shop) => (
             <RatedShop key={shop.id} shop={shop} userId={userId} />
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-10 text-gray-500">
-            <h2 className="text-2xl font-semibold mb-2">
+          <div className="flex flex-col items-center justify-center py-10 px-4 text-gray-500">
+            <h2 className="text-lg font-semibold mb-1 text-gray-700">
               Aucun avis laissé pour le moment
             </h2>
-            <p className="text-center max-w-lg">
+            <p className="text-sm text-center max-w-lg text-gray-400">
               Vous n'avez encore évalué aucune boutique. Une fois que vous aurez
               laissé un avis, il apparaîtra ici.
             </p>

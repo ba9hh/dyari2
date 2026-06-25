@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import OrderShop from "./OrderShop";
 import { useTranslation } from "react-i18next";
-import thinking from "@/assets/thinking.png";
 import OrdersTabs from "@/components/tabs/OrdersTabs";
 import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
 import Pagination from "@/components/Pagination";
 import { fetchShopOrders } from "@/services/orders/ordersList";
 import { useQuery } from "@tanstack/react-query";
+
 const OrdersShop = ({ shopId }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState("all");
   const { t } = useTranslation();
   const LIMIT = 5;
+
   const {
     data: ordersData,
     isLoading,
@@ -23,14 +24,16 @@ const OrdersShop = ({ shopId }) => {
     keepPreviousData: true,
     enabled: !!shopId,
   });
+
   useEffect(() => {
     if (ordersData?.totalPages) {
       setTotalPages(ordersData.totalPages);
     }
   }, [ordersData]);
+
   if (isLoading) {
     return (
-      <div className="w-2/3 bg-white shadow-md rounded-md pb-3 pt-2">
+      <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 pb-3 pt-0">
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
@@ -42,54 +45,61 @@ const OrdersShop = ({ shopId }) => {
   }
 
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md pb-2 pt-0 sm:border">
-      <OrdersTabs
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-        t={t}
-      />
-      <div className="flex flex-col gap-2 p-2">
-        {ordersData?.orders?.map((order, index) => (
-          <OrderShop
-            order={order}
-            key={order.id}
-            index={ordersData.totalOrders - ((page - 1) * LIMIT + index)}
-          />
-        ))}
-      </div>
-      {ordersData?.orders?.length > 0 && (
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-          onPrev={() => page > 1 && setPage(page - 1)}
-          onNext={() => page < totalPages && setPage(page + 1)}
+    <>
+      {/* Orders list */}
+      <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 pb-2 pt-0">
+        <OrdersTabs
+          selectedFilter={selectedFilter}
+          setSelectedFilter={setSelectedFilter}
+          t={t}
         />
-      )}
-      {ordersData?.orders?.length == 0 && selectedFilter == "all" && (
-        <div className="flex flex-col items-center justify-center py-10 text-gray-500">
-          {/* <img src={thinking} className="h-16 w-16 mb-4" /> */}
-          <h2 className="text-2xl font-semibold mb-2">
-            Aucune commande pour le moment
-          </h2>
-          <p className="text-center max-w-md">
-            Vous n’avez aucune commande pour le moment. Dès que des clients
-            passeront des commandes, elles apparaîtront ici pour que vous
-            puissiez les gérer.
-          </p>
+        <div className="flex flex-col gap-2 p-2 sm:p-4">
+          {ordersData?.orders?.map((order, index) => (
+            <OrderShop
+              order={order}
+              key={order.id}
+              index={ordersData.totalOrders - ((page - 1) * LIMIT + index)}
+            />
+          ))}
+        </div>
+
+        {ordersData?.orders?.length === 0 && selectedFilter === "all" && (
+          <div className="flex flex-col items-center justify-center py-10 px-4 text-gray-500">
+            <h2 className="text-lg font-semibold mb-1 text-gray-700">
+              Aucune commande pour le moment
+            </h2>
+            <p className="text-sm text-center max-w-md text-gray-400">
+              Vous n'avez aucune commande pour le moment. Dès que des clients
+              passeront des commandes, elles apparaîtront ici pour que vous
+              puissiez les gérer.
+            </p>
+          </div>
+        )}
+
+        {ordersData?.orders?.length === 0 && selectedFilter !== "all" && (
+          <div className="flex flex-col items-center justify-center py-10 px-4 text-gray-500">
+            <h2 className="text-lg font-semibold mb-1 text-gray-700">
+              Aucune commande « {selectedFilter} »
+            </h2>
+            <p className="text-sm text-center max-w-sm text-gray-400">
+              Vous n'avez aucune commande avec ce statut pour le moment.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Pagination */}
+      {ordersData?.orders?.length > 0 && (
+        <div className="w-full sm:w-2/3 bg-white sm:shadow-sm sm:rounded-md">
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPrev={() => page > 1 && setPage(page - 1)}
+            onNext={() => page < totalPages && setPage(page + 1)}
+          />
         </div>
       )}
-      {ordersData?.orders?.length == 0 && selectedFilter !== "all" && (
-        <div className="flex flex-col items-center justify-center py-20 text-gray-500 border border-dashed border-gray-300 rounded-xl mt-3">
-          {/* <img src={thinking} className="h-16 w-16 mb-4" /> */}
-          <h2 className="text-2xl font-semibold mb-2">
-            No {selectedFilter} Orders
-          </h2>
-          <p className="text-center max-w-sm">
-            Looks like you dont’t have any {selectedFilter} orders.
-          </p>
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

@@ -9,11 +9,13 @@ import ArticlesSkeleton from "@/skeleton/shop-profile/ArticlesSkeleton";
 import { fetchShopArticles } from "@/services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/supabaseClient";
+
 const ArticlesShop = ({ shopId }) => {
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const LIMIT = 8;
+
   const {
     data: articles,
     isLoading,
@@ -23,11 +25,13 @@ const ArticlesShop = ({ shopId }) => {
     queryFn: fetchShopArticles,
     keepPreviousData: true,
   });
+
   useEffect(() => {
     if (articles?.totalPages) {
       setTotalPages(articles.totalPages);
     }
   }, [articles]);
+
   const handleDeleteArticle = async (id) => {
     const { error } = await supabase.from("articles").delete().eq("id", id);
     if (error) {
@@ -37,20 +41,19 @@ const ArticlesShop = ({ shopId }) => {
       toast.success("Article deleted successfully");
     }
   };
-  if (isLoading) {
-    return <ArticlesSkeleton />;
-  }
+
+  if (isLoading) return <ArticlesSkeleton />;
   if (isError) return <div>Error loading articles</div>;
+
   return (
-    <div className="w-full sm:w-2/3 flex flex-col gap-4 bg-white sm:bg-transparent rounded-md sm:border-0 sm:border-t-0">
-      <div className="w-full">
+    <>
+      {/* Add article button */}
+      <div className="w-full sm:w-2/3 px-3 sm:px-0">
         <Button
           fullWidth
           component={Link}
           to="add-article"
           variant="outlined"
-          color="primary"
-          // size="small"
           sx={{
             textTransform: "none",
             color: "#d97706",
@@ -64,31 +67,39 @@ const ArticlesShop = ({ shopId }) => {
           Ajouter un article
         </Button>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 sm:gap-4 sm:bg-white shadow-sm rounded-md border p-4">
-        {articles?.articles?.map((article, index) => (
-          <div key={index} className="">
+
+      {/* Articles grid */}
+      <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
+          {articles?.articles?.map((article, index) => (
             <ArticleShop
+              key={index}
               article={article}
               onClick={() => setSelectedArticleId(article)}
               onDelete={() => handleDeleteArticle(article.id)}
             />
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {selectedArticleId && (
+          <ArticleShopDialog
+            article={selectedArticleId}
+            open={true}
+            onClose={() => setSelectedArticleId(null)}
+          />
+        )}
       </div>
-      {selectedArticleId && (
-        <ArticleShopDialog
-          article={selectedArticleId}
-          open={true}
-          onClose={() => setSelectedArticleId(null)}
+
+      {/* Pagination */}
+      <div className="w-full sm:w-2/3 bg-white sm:shadow-sm sm:rounded-md">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPrev={() => page > 1 && setPage(page - 1)}
+          onNext={() => page < totalPages && setPage(page + 1)}
         />
-      )}
-      <Pagination
-        currentPage={page}
-        totalPages={page}
-        onPrev={() => page > 1 && setPage(page - 1)}
-        onNext={() => page < totalPages && setPage(page + 1)}
-      />
-    </div>
+      </div>
+    </>
   );
 };
 

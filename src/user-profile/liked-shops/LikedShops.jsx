@@ -1,8 +1,8 @@
 import LikedShop from "./LikedShop";
-import thinking from "@/assets/thinking.png";
 import LikedShopsSkeleton from "@/skeleton/user-profile/LikedShopsSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import { getLikedShops } from "@/services/shops/likedShops";
+
 const LikedShops = ({ userId }) => {
   const {
     data: likedShops,
@@ -12,28 +12,24 @@ const LikedShops = ({ userId }) => {
     queryKey: ["likedShops", userId],
     queryFn: () => getLikedShops(userId),
   });
-  if (isLoading) {
-    return <LikedShopsSkeleton />;
-  }
+
+  if (isLoading) return <LikedShopsSkeleton />;
+
   return (
-    <div className="w-full sm:w-2/3 bg-white shadow-sm rounded-md border py-2 sm:py-3">
-      <div className="flex flex-col px-1 sm:px-3 gap-2">
+    <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
+      <div className="flex flex-col gap-2">
         {likedShops?.length > 0 ? (
           likedShops.map((likedShop, index) => (
-            <div key={index}>
-              <LikedShop shop={likedShop} userId={userId} />
-            </div>
+            <LikedShop key={index} shop={likedShop} userId={userId} />
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-10 text-gray-500">
-            {/* <img src={thinking} className="h-16 w-16 mb-4" /> */}
-            <h2 className="text-2xl font-semibold mb-2">
+          <div className="flex flex-col items-center justify-center py-10 px-4 text-gray-500">
+            <h2 className="text-lg font-semibold mb-1 text-gray-700">
               Aucun magasin favori pour le moment
             </h2>
-            <p className="text-center max-w-lg">
-              Vous n’avez actuellement aucun magasin favori. Une fois que vous
-              ajouterez un magasin à vos favoris, il apparaîtra ici afin que
-              vous puissiez le gérer.
+            <p className="text-sm text-center max-w-lg text-gray-400">
+              Vous n'avez actuellement aucun magasin favori. Une fois que vous
+              ajouterez un magasin à vos favoris, il apparaîtra ici.
             </p>
           </div>
         )}
