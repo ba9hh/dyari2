@@ -117,6 +117,10 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
                         },
                         "& label.Mui-focused": { color: "#d97706" },
                         "& .MuiIconButton-root": { color: "#d97706" },
+                        "& input::selection": {
+                          backgroundColor: "#d97706",
+                          color: "#fff",
+                        },
                       },
                     },
                   }}
