@@ -35,13 +35,18 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
       <div className="bg-amber-50 border border-amber-200 rounded-md px-3 py-2 mb-4">
         {watchItems.map((item, i) =>
           item.articleId ? (
-            <div key={i} className="flex justify-between text-xs text-gray-700 py-0.5">
-              <span className="truncate mr-2">Article {i + 1} × {item.quantity || 0} {item.type}</span>
+            <div
+              key={i}
+              className="flex justify-between text-xs text-gray-700 py-0.5"
+            >
+              <span className="truncate mr-2">
+                Article {i + 1} × {item.quantity || 0} {item.type}
+              </span>
               <span className="font-medium flex-shrink-0 text-amber-700">
                 {(item.price || 0) * (item.quantity || 0)} dt
               </span>
             </div>
-          ) : null
+          ) : null,
         )}
         <div className="border-t border-amber-200 mt-1.5 pt-1.5 flex justify-between text-sm font-semibold text-amber-800">
           <span>Total</span>
@@ -99,10 +104,11 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
                       error: !!errors.date,
                       helperText: errors.date?.message,
                       sx: {
-                        "& label.Mui-focused": { color: "#d97706" },
                         "& .MuiOutlinedInput-root": {
+                          "&:hover fieldset": { borderColor: "#d97706" },
                           "&.Mui-focused fieldset": { borderColor: "#d97706" },
                         },
+                        "& label.Mui-focused": { color: "#d97706" },
                       },
                     },
                   }}
@@ -115,7 +121,11 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
 
       {/* Delivery type */}
       <div className="mt-4">
-        <FormControl component="fieldset" error={!!errors.deliveryType} fullWidth>
+        <FormControl
+          component="fieldset"
+          error={!!errors.deliveryType}
+          fullWidth
+        >
           <FormLabel
             component="legend"
             sx={{
