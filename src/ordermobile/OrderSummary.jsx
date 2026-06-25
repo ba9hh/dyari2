@@ -105,10 +105,17 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
                       helperText: errors.date?.message,
                       sx: {
                         "& .MuiOutlinedInput-root": {
-                          "&:hover fieldset": { borderColor: "#d97706" },
-                          "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#d97706",
+                          },
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#d97706",
+                          },
                         },
                         "& label.Mui-focused": { color: "#d97706" },
+                        // override the calendar icon button focus ring
+                        "& .MuiIconButton-root:focus": { outline: "none" },
+                        "& .MuiIconButton-root": { color: "#d97706" },
                       },
                     },
                   }}
