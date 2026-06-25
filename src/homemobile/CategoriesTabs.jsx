@@ -35,7 +35,7 @@ const CategoriesTabs = ({
       </div>
 
       {/* Mobile — pill row matching desktop rounded-full style */}
-      <div className="flex sm:hidden items-center gap-x-2 overflow-x-auto scrollbar-hide px-4 py-2 bg-white border-b border-amber-100">
+      <div className="flex sm:hidden items-center gap-x-2 overflow-x-auto scrollbar-hide px-4 py-2 bg-white border-b border-gray-100">
         {categories.map((category) => (
           <button
             key={category.link}

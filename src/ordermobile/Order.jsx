@@ -27,10 +27,28 @@ const Order = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const { control, handleSubmit, watch, setValue, reset, trigger, formState: { errors } } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    trigger,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       userPhoneNumber: "",
-      items: [{ articleId: "", type: "", quantity: null, price: 0, image: "", minQuantity: null, maxQuantity: null }],
+      items: [
+        {
+          articleId: "",
+          type: "",
+          quantity: null,
+          price: 0,
+          image: "",
+          minQuantity: null,
+          maxQuantity: null,
+        },
+      ],
       date: null,
       deliveryType: "sur_place",
     },
@@ -52,7 +70,15 @@ const Order = () => {
 
   const handleClose = () => setIsConnected(false);
 
-  const selectArticle = (image, type, price, articleId, index, minQuantity, maxQuantity) => {
+  const selectArticle = (
+    image,
+    type,
+    price,
+    articleId,
+    index,
+    minQuantity,
+    maxQuantity,
+  ) => {
     setValue(`items.${index}.image`, image);
     setValue(`items.${index}.type`, type);
     setValue(`items.${index}.price`, price);
@@ -62,7 +88,9 @@ const Order = () => {
   };
 
   const handleNext = async () => {
-    const quantityFields = watchItems.map((_, index) => `items.${index}.quantity`);
+    const quantityFields = watchItems.map(
+      (_, index) => `items.${index}.quantity`,
+    );
     const isValid = await trigger(quantityFields);
     const allValid = watchItems.every((item) => {
       if (!item.articleId || !item.quantity || item.quantity <= 0) return false;
@@ -73,15 +101,23 @@ const Order = () => {
       return true;
     });
     if (!isValid || !allValid) {
-      toast.error("Veuillez sélectionner un article et une quantité valide pour chaque ligne.");
+      toast.error(
+        "Veuillez sélectionner un article et une quantité valide pour chaque ligne.",
+      );
       return;
     }
     setStep(1);
   };
 
   const onSubmit = async (data) => {
-    if (!user || user?.role === "shop") { setIsConnected(true); return; }
-    if (!data.date) { toast.error("Veuillez sélectionner une date."); return; }
+    if (!user || user?.role === "shop") {
+      setIsConnected(true);
+      return;
+    }
+    if (!data.date) {
+      toast.error("Veuillez sélectionner une date.");
+      return;
+    }
     setLoading(true);
     try {
       await createOrder({
@@ -103,10 +139,13 @@ const Order = () => {
     }
   };
 
-  const total = watchItems.reduce((sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0), 0);
+  const total = watchItems.reduce(
+    (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
+    0,
+  );
 
   return (
-    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 pt-14 sm:pt-16 pb-8">
+    <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 sm:pt-16 pb-8">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:px-6 sm:py-6 sm:my-4 sm:rounded-lg sm:border sm:shadow-md"
@@ -148,7 +187,13 @@ const Order = () => {
               fullWidth
               size="small"
               onClick={() =>
-                append({ articleId: "", type: "", price: 0, image: "", quantity: null })
+                append({
+                  articleId: "",
+                  type: "",
+                  price: 0,
+                  image: "",
+                  quantity: null,
+                })
               }
               sx={{
                 mt: 1,
@@ -169,7 +214,9 @@ const Order = () => {
             {total > 0 && (
               <div className="flex justify-between items-center bg-amber-50 border border-amber-200 rounded px-3 py-2 mb-3">
                 <span className="text-sm text-gray-600">Total estimé</span>
-                <span className="text-sm font-bold text-amber-700">{total} dt</span>
+                <span className="text-sm font-bold text-amber-700">
+                  {total} dt
+                </span>
               </div>
             )}
           </div>
@@ -231,7 +278,11 @@ const Order = () => {
                 "&:hover": { backgroundColor: "#b45309" },
               }}
             >
-              {loading ? <CircularProgress size={22} color="inherit" /> : "Passer la commande"}
+              {loading ? (
+                <CircularProgress size={22} color="inherit" />
+              ) : (
+                "Passer la commande"
+              )}
             </Button>
             <Button
               type="button"

@@ -39,7 +39,7 @@ const NavBar = () => {
       </div>
 
       {/* Mobile — matches desktop amber/white theme */}
-      <header className="block sticky top-0 z-30 bg-white border-b border-amber-100 sm:hidden">
+      <header className="block sticky top-0 z-30 bg-white border-b border-gray-100 sm:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Right: placeholder for symmetry */}
           <div className="w-9 h-9" />
