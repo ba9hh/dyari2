@@ -20,7 +20,8 @@ const OrderItem = ({
   const articleType = watchItems?.[index]?.type;
   const minQty = Number(watchItems?.[index]?.minQuantity);
   const maxQty = Number(watchItems?.[index]?.maxQuantity);
-  const subtotal = (watchItems[index].price || 0) * (watchItems[index].quantity || 0);
+  const subtotal =
+    (watchItems?.[index]?.price || 0) * (watchItems?.[index]?.quantity || 0);
 
   return (
     <div className="mb-3 bg-gray-50/60 rounded-md border border-gray-200 p-3 sm:p-4">
@@ -70,6 +71,8 @@ const OrderItem = ({
               message: `Quantité maximale : ${maxQty}`,
             },
           }),
+          validate: () =>
+            !!watchItems[index]?.articleId || "Sélectionnez d'abord un article",
         }}
         render={({ field }) => (
           <TextField
@@ -88,8 +91,14 @@ const OrderItem = ({
             sx={{
               mt: 1,
               "& input[type=number]": { MozAppearance: "textfield" },
-              "& input[type=number]::-webkit-outer-spin-button": { WebkitAppearance: "none", margin: 0 },
-              "& input[type=number]::-webkit-inner-spin-button": { WebkitAppearance: "none", margin: 0 },
+              "& input[type=number]::-webkit-outer-spin-button": {
+                WebkitAppearance: "none",
+                margin: 0,
+              },
+              "& input[type=number]::-webkit-inner-spin-button": {
+                WebkitAppearance: "none",
+                margin: 0,
+              },
               "& label.Mui-focused": { color: "#d97706" },
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": { borderColor: "#d97706" },
@@ -102,7 +111,9 @@ const OrderItem = ({
       {subtotal > 0 && (
         <div className="mt-2 text-right">
           <span className="text-xs text-gray-500">Sous-total: </span>
-          <span className="text-sm font-semibold text-amber-700">{subtotal} dt</span>
+          <span className="text-sm font-semibold text-amber-700">
+            {subtotal} dt
+          </span>
         </div>
       )}
     </div>

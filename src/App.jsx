@@ -1,8 +1,6 @@
 import Home from "./home/Home";
-import VerifyEmail from "./authentication/reset-password/verifyEmail";
 import Order from "./order/Order";
 import AccountSettings from "./account/AccountSettings";
-import SkeletonShop from "./skeleton/home/SkeletonShop";
 import ForgetPassword from "./authentication/ForgetPassword";
 import ResetPassword from "./authentication/ResetPassword";
 import { Routes, Route } from "react-router-dom";
@@ -56,7 +54,6 @@ function App() {
               path="/account/update-article/:articleId"
               element={<UpdateArticle />}
             />
-            <Route path="/ratingtest" element={<VerifyEmail />} />
             <Route path="/skeleton" element={<SkeletonShopInfo />} />
             {/* <Route path="/forget-password" element={<ForgetPassword />} /> */}
           </Route>

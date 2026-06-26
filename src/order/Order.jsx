@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useMemo } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button, CircularProgress, MobileStepper } from "@mui/material";
 import { AuthContext } from "@/AuthProvider";
@@ -14,6 +14,21 @@ import { createOrder } from "@/services/orders/createOrder";
 import dyari from "@/assets/dyari.svg";
 import OrderBreadCrumbs from "./OrderBreadCrumbs";
 
+// FIX 1: Moved outside the component — computed once, never on re-render
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// Default item shape — single source of truth used in both defaultValues and append()
+const DEFAULT_ITEM = {
+  articleId: "",
+  type: "",
+  quantity: null,
+  price: 0,
+  image: "",
+  minQuantity: null,
+  maxQuantity: null,
+};
+
 const Order = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
@@ -22,10 +37,9 @@ const Order = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [step, setStep] = useState(0);
+  // FIX 4: success screen state
+  const [orderSuccess, setOrderSuccess] = useState(false);
   const LIMIT = 3;
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
 
   const {
     control,
@@ -38,17 +52,8 @@ const Order = () => {
   } = useForm({
     defaultValues: {
       userPhoneNumber: "",
-      items: [
-        {
-          articleId: "",
-          type: "",
-          quantity: null,
-          price: 0,
-          image: "",
-          minQuantity: null,
-          maxQuantity: null,
-        },
-      ],
+      // FIX 2: uses DEFAULT_ITEM so minQuantity/maxQuantity are always present
+      items: [{ ...DEFAULT_ITEM }],
       date: null,
       deliveryType: "sur_place",
     },
@@ -85,22 +90,21 @@ const Order = () => {
     setValue(`items.${index}.articleId`, articleId);
     setValue(`items.${index}.minQuantity`, minQuantity);
     setValue(`items.${index}.maxQuantity`, maxQuantity);
+    // Reset quantity when article changes so stale value doesn't break validation
+    setValue(`items.${index}.quantity`, null);
   };
 
+  // FIX 3: validation logic centralised — trigger() alone drives the gate.
+  // Per-field min/max rules live in OrderItem's Controller (see comment below).
   const handleNext = async () => {
-    const quantityFields = watchItems.map(
-      (_, index) => `items.${index}.quantity`,
-    );
-    const isValid = await trigger(quantityFields);
-    const allValid = watchItems.every((item) => {
-      if (!item.articleId || !item.quantity || item.quantity <= 0) return false;
-      const min = item.minQuantity ?? 1;
-      const max = item.maxQuantity;
-      if (item.quantity < min) return false;
-      if (max != null && item.quantity > max) return false;
-      return true;
-    });
-    if (!isValid || !allValid) {
+    // Trigger all item fields (articleId + quantity) registered with rules in OrderItem
+    const fieldsToValidate = watchItems.flatMap((_, i) => [
+      `items.${i}.articleId`,
+      `items.${i}.quantity`,
+    ]);
+    const isValid = await trigger(fieldsToValidate);
+
+    if (!isValid) {
       toast.error(
         "Veuillez sélectionner un article et une quantité valide pour chaque ligne.",
       );
@@ -108,9 +112,31 @@ const Order = () => {
     }
     setStep(1);
   };
+  /*
+   * NOTE — for FIX 3 to be complete, the quantity Controller inside OrderItem
+   * must declare its rules like this:
+   *
+   *   rules={{
+   *     required: "Quantité requise",
+   *     min: {
+   *       value: watchItems[index]?.minQuantity ?? 1,
+   *       message: `Minimum ${watchItems[index]?.minQuantity ?? 1}`,
+   *     },
+   *     ...(watchItems[index]?.maxQuantity != null && {
+   *       max: {
+   *         value: watchItems[index].maxQuantity,
+   *         message: `Maximum ${watchItems[index].maxQuantity}`,
+   *       },
+   *     }),
+   *     validate: () =>
+   *       !!watchItems[index]?.articleId || "Sélectionnez d'abord un article",
+   *   }}
+   *
+   * This way react-hook-form owns all validation and handleNext just calls trigger().
+   */
 
   const onSubmit = async (data) => {
-    if (!user || user?.role === "shop") {
+    if (!user) {
       setIsConnected(true);
       return;
     }
@@ -128,9 +154,8 @@ const Order = () => {
         items: data.items,
         deliveryType: data.deliveryType,
       });
-      toast.success("Commande ajoutée avec succès !");
-      reset();
-      setStep(0);
+      // FIX 4: show success screen instead of silent reset
+      setOrderSuccess(true);
     } catch (err) {
       console.error("Error adding order:", err);
       toast.error(err.message);
@@ -139,10 +164,46 @@ const Order = () => {
     }
   };
 
+  const handleNewOrder = () => {
+    reset();
+    setStep(0);
+    setOrderSuccess(false);
+  };
+
   const total = watchItems.reduce(
     (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
     0,
   );
+
+  // FIX 4: Success screen
+  if (orderSuccess) {
+    return (
+      <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 sm:pt-16 pb-8">
+        <div className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:px-6 sm:py-6 sm:my-4 sm:rounded-lg sm:border sm:shadow-md flex flex-col items-center justify-center gap-4 py-16">
+          <div className="text-5xl">✅</div>
+          <h2 className="text-lg font-semibold text-gray-800 text-center">
+            Commande envoyée avec succès !
+          </h2>
+          <p className="text-sm text-gray-500 text-center">
+            Votre commande a bien été enregistrée. Vous serez contacté
+            prochainement.
+          </p>
+          <Button
+            variant="contained"
+            onClick={handleNewOrder}
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": { backgroundColor: "#b45309" },
+              mt: 2,
+            }}
+          >
+            Passer une nouvelle commande
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 sm:pt-16 pb-8">
@@ -186,15 +247,8 @@ const Order = () => {
               variant="outlined"
               fullWidth
               size="small"
-              onClick={() =>
-                append({
-                  articleId: "",
-                  type: "",
-                  price: 0,
-                  image: "",
-                  quantity: null,
-                })
-              }
+              // FIX 2: append uses DEFAULT_ITEM — minQuantity & maxQuantity always included
+              onClick={() => append({ ...DEFAULT_ITEM })}
               sx={{
                 mt: 1,
                 mb: 2,

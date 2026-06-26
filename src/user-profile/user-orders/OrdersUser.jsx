@@ -1,7 +1,6 @@
 import OrderUser from "./OrderUser";
 import { useState, useEffect } from "react";
 import OrdersTabs from "@/components/tabs/OrdersTabs";
-import { useTranslation } from "react-i18next";
 import Pagination from "@/components/Pagination";
 import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
 import { fetchUserOrders } from "@/services/orders/ordersList";
