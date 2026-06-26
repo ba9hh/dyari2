@@ -2,7 +2,6 @@ import { useContext } from "react";
 import dyari from "@/assets/dyari.svg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "@/AuthProvider";
-import { useTranslation } from "react-i18next";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 const NavBar = () => {
