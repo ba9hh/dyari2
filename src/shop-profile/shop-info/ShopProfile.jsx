@@ -3,7 +3,7 @@ import { AuthContext } from "@/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { fetchShopInformation } from "@/services/shops/ShopInformation";
 import SkeletonShopInfo from "@/skeleton/shop/SkeletonShopInfo";
-import ShopTabs from "@/components/tabs/ShopTabs";
+import ShopTabs from "./ShopTabs";
 import ShopHeader from "./ShopHeader";
 import ShopInfo from "./ShopInfo";
 import ProfilePictureDialog from "./ProfilePictureDialog";
