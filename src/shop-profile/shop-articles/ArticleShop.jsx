@@ -60,20 +60,6 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
             {article.article_title}
           </p>
         </div>
-        {/* <div className="flex gap-1 absolute top-1 left-2">
-          <button
-            onClick={handleDeleteClick}
-            className=" p-1 bg-red-500 text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-600 hover:scale-110"
-          >
-            <Trash2 size={14} />
-          </button>
-          <Link
-            to={`update-article/${article.id}`}
-            className=" p-1 bg-green-500 text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-green-600 hover:scale-110"
-          >
-            <Pencil size={14} />
-          </Link>
-        </div> */}
         <div className="flex gap-1.5 absolute top-9 left-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
           <button
             onClick={handleDeleteClick}
