@@ -332,11 +332,7 @@ const AddArticle = () => {
             )}
           />
 
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            sx={{ mt: { xs: 2, sm: 3 } }}
-          >
+          <div className="flex flex-col sm:flex-row gap-1">
             <Button
               type="button"
               variant="outlined"
@@ -369,7 +365,7 @@ const AddArticle = () => {
             >
               {loading ? <CircularProgress size={24} /> : "Enregistrer"}
             </Button>
-          </Stack>
+          </div>
         </form>
       </div>
     </div>
