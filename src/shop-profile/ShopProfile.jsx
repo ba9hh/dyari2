@@ -4,6 +4,7 @@ import ArticlesShop from "./shop-articles/ArticlesShop";
 import OrdersShop from "./shop-orders/OrdersShop";
 import Button from "@mui/material/Button";
 import { supabase } from "@/supabaseClient";
+import ShopCommentaires from "./shopComments";
 const ShopProfile = ({ userId }) => {
   const [activeTab, setActiveTab] = useState("articles");
   const handleChange = (event, newValue) => {
@@ -35,7 +36,7 @@ const ShopProfile = ({ userId }) => {
       />
       {activeTab === "articles" && <ArticlesShop shopId={shopId} />}
       {activeTab === "orders" && <OrdersShop shopId={shopId} />}
-      {activeTab === "reviews" && <OrdersShop shopId={shopId} />}
+      {activeTab === "reviews" && <ShopCommentaires shopId={shopId} />}
     </div>
   );
 };
