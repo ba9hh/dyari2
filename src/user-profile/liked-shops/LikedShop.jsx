@@ -56,7 +56,7 @@ const LikedShop = ({ shop, userId }) => {
 
         {/* Right: rating badge + like button */}
         <div className="flex items-center gap-1">
-          {/* <span className="flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
+          <span className="hidden sm:flex items-center gap-1 text-xs font-semibold rounded-full py-1 px-3 border bg-amber-50 text-amber-600 border-amber-200">
             {shop.average_rating ?? 0}
             <ReactStars
               count={5}
@@ -67,7 +67,7 @@ const LikedShop = ({ shop, userId }) => {
               activeColor="#d97706"
             />
             <span className="text-gray-400">({shop.total_rating})</span>
-          </span> */}
+          </span>
           <IconButton
             onClick={toggleLike}
             color={liked ? "error" : "default"}

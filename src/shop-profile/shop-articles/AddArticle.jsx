@@ -138,14 +138,16 @@ const AddArticle = () => {
   // }
   return (
     <div className="flex justify-center sm:items-center w-full sm:min-h-screen bg-white sm:bg-[#f5f5f5] sm:pt-16 sm:pb-8">
-      <div className="bg-white px-6 sm:px-10 py-6 rounded-md shadow-md">
+      <div className="bg-white px-3 sm:px-10 sm:py-6 sm:rounded-md sm:shadow-md">
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
           <div className="flex justify-between items-center mb-4">
-            <Typography variant="h6">Ajouter un nouvel article</Typography>
-            <img src={dyari} className="w-7" />
+            <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+              Ajouter un nouvel article
+            </h2>
+            <img src={dyari} className="w-6 sm:w-7" />
           </div>
           <hr className="mb-6" />
           <Controller

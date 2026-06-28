@@ -211,7 +211,7 @@ const Order = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:px-6 sm:py-6 sm:my-4 sm:rounded-lg sm:border sm:shadow-md"
       >
-        <OrderBreadCrumbs />
+        {/* <OrderBreadCrumbs /> */}
 
         {/* Header */}
         <div className="flex justify-between items-center mb-3">
