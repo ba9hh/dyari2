@@ -144,9 +144,10 @@ const AddArticle = () => {
           style={{ maxWidth: 500, margin: "auto" }}
         >
           <div className="flex justify-between items-center sm:mt-0 my-3 sm:mb-4">
-            <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+            {/* <h2 className="text-base sm:text-lg font-semibold text-gray-800">
               Ajouter un nouvel article
-            </h2>
+            </h2> */}
+            <Typography variant="h6">Ajouter un nouvel article</Typography>
             <img src={dyari} className="w-6 sm:w-7" />
           </div>
           <hr className="mb-6" />
