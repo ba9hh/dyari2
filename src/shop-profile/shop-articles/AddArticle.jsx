@@ -269,70 +269,68 @@ const AddArticle = () => {
               />
             )}
           />
-          <div className="flex flex-col sm:flex-col gap-1.5 sm:gap-2">
-            <Controller
-              name="minQuantity"
-              control={control}
-              rules={{
-                required: "La quantité minimale est requise",
-                min: {
-                  value: 0.01,
-                  message: "La quantité doit être supérieure à 0",
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  label="Quantité minimale de vente"
-                  type="number"
-                  fullWidth
-                  margin="normal"
-                  inputProps={{ min: 0.01, step: 0.01 }}
-                  error={!!errors.minQuantity}
-                  helperText={errors.minQuantity?.message}
-                  {...field}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                />
-              )}
-            />
+          <Controller
+            name="minQuantity"
+            control={control}
+            rules={{
+              required: "La quantité minimale est requise",
+              min: {
+                value: 0.01,
+                message: "La quantité doit être supérieure à 0",
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                label="Quantité minimale de vente"
+                type="number"
+                fullWidth
+                margin="normal"
+                inputProps={{ min: 0.01, step: 0.01 }}
+                error={!!errors.minQuantity}
+                helperText={errors.minQuantity?.message}
+                {...field}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
+              />
+            )}
+          />
 
-            <Controller
-              name="maxQuantity"
-              control={control}
-              rules={{
-                required: "La quantité maximale est requise",
-                min: {
-                  value: 0.01,
-                  message: "La quantité doit être supérieure à 0",
-                },
-                validate: (value) =>
-                  Number(value) >= Number(getValues("minQuantity")) ||
-                  "Doit être ≥ à la quantité minimale",
-              }}
-              render={({ field }) => (
-                <TextField
-                  label="Quantité maximale de vente"
-                  type="number"
-                  fullWidth
-                  margin="normal"
-                  inputProps={{ min: 0.01, step: 0.01 }}
-                  error={!!errors.maxQuantity}
-                  helperText={errors.maxQuantity?.message}
-                  {...field}
-                  sx={{
-                    "& label.Mui-focused": { color: "#d97706" },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#d97706" },
-                    },
-                  }}
-                />
-              )}
-            />
-          </div>
+          <Controller
+            name="maxQuantity"
+            control={control}
+            rules={{
+              required: "La quantité maximale est requise",
+              min: {
+                value: 0.01,
+                message: "La quantité doit être supérieure à 0",
+              },
+              validate: (value) =>
+                Number(value) >= Number(getValues("minQuantity")) ||
+                "Doit être ≥ à la quantité minimale",
+            }}
+            render={({ field }) => (
+              <TextField
+                label="Quantité maximale de vente"
+                type="number"
+                fullWidth
+                margin="normal"
+                inputProps={{ min: 0.01, step: 0.01 }}
+                error={!!errors.maxQuantity}
+                helperText={errors.maxQuantity?.message}
+                {...field}
+                sx={{
+                  "& label.Mui-focused": { color: "#d97706" },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+                  },
+                }}
+              />
+            )}
+          />
 
           <Stack
             direction={{ xs: "column", sm: "row" }}
