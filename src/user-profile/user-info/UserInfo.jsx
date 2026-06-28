@@ -56,6 +56,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
             value="orders"
             sx={{
               textTransform: "none",
+              fontSize: { xs: "0.8rem", sm: "0.875rem" },
               fontWeight: "bold",
               color: "text.secondary",
               "&.Mui-selected": {
@@ -68,6 +69,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
             value="likedShops"
             sx={{
               textTransform: "none",
+              fontSize: { xs: "0.8rem", sm: "0.875rem" },
               fontWeight: "bold",
               color: "text.secondary",
               "&.Mui-selected": {
@@ -80,6 +82,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
             value="ratedShops"
             sx={{
               textTransform: "none",
+              fontSize: { xs: "0.8rem", sm: "0.875rem" },
               fontWeight: "bold",
               color: "text.secondary",
               "&.Mui-selected": {
