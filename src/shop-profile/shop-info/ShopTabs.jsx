@@ -51,6 +51,19 @@ const ShopTabs = ({ activeTab, handleChange }) => {
             },
           }}
         />
+        <Tab
+          label="Avis"
+          value="reviews"
+          sx={{
+            textTransform: "none",
+            fontSize: { xs: "0.8rem", sm: "0.875rem" },
+            fontWeight: "bold",
+            color: "text.secondary",
+            "&.Mui-selected": {
+              color: "#d97706",
+            },
+          }}
+        />
         {/* <Tab
           label="Contact"
           value="contact"
