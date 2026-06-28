@@ -143,7 +143,7 @@ const AddArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center sm:mt-0 my-3 sm:mb-4">
             <h2 className="text-base sm:text-lg font-semibold text-gray-800">
               Ajouter un nouvel article
             </h2>
