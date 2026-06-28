@@ -214,7 +214,7 @@ const Order = () => {
         {/* <OrderBreadCrumbs /> */}
 
         {/* Header */}
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between items-center mb-3 mt-3 sm:mt-0">
           <h2 className="text-base sm:text-lg font-semibold text-gray-800">
             Procédez à votre commande
           </h2>

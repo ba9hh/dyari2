@@ -269,7 +269,7 @@ const AddArticle = () => {
               />
             )}
           />
-          <div className="flex flex-col sm:flex-col gap-2">
+          <div className="flex flex-col sm:flex-col gap-1.5 sm:gap-2">
             <Controller
               name="minQuantity"
               control={control}
@@ -337,7 +337,7 @@ const AddArticle = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
-            sx={{ mt: 3 }}
+            sx={{ mt: { xs: 2, sm: 3 } }}
           >
             <Button
               type="button"
