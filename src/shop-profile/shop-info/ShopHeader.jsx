@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
   return (
-    <div className="flex sm:justify-between gap-2">
+    <div className="flex justify-between sm:justify-normal gap-2">
       <Button
         onClick={handleBecomeClient}
         variant="outlined"
