@@ -83,7 +83,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           size="small"
           sx={{
             textTransform: "none",
-            fontSize: "0.75rem",
+            // fontSize: "0.75rem",
             backgroundColor: "#d97706",
             "&:hover": { backgroundColor: "#b45309" },
           }}
