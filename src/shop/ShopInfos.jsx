@@ -63,7 +63,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   if (isLoading) return <SkeletonShopInfo />;
 
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-sm sm:rounded-md border border-gray-200">
+    <div className="relative w-full sm:w-2/3 bg-white shadow-sm sm:rounded-md border border-gray-200 border-t-0 sm:border-t">
       {/* Top bar: rating + review button */}
       <div className="flex justify-between items-center border-b border-gray-200 px-3 py-2">
         <div className="flex-shrink-0 flex items-center gap-1.5 text-sm font-semibold rounded-full py-1 px-2.5 border bg-amber-50 text-amber-600 border-amber-200">
