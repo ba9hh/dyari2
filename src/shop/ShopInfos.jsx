@@ -77,7 +77,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
         </div>
         <Button
           variant="contained"
-          size="small"
+          // size="small"
           sx={{
             textTransform: "none",
             // fontSize: "0.75rem",
@@ -97,7 +97,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           src={shop?.profile_picture}
           alt={shop?.business_name}
         />
-        <h1 className="text-xl sm:text-xl font-medium mt-1 text-gray-800">
+        <h1 className="text-lg sm:text-xl font-medium mt-1 text-gray-800">
           {shop?.business_name}
         </h1>
         <p className="text-sm sm:text-sm text-gray-500 italic text-center border-b border-gray-100 pb-2 px-6 max-w-xs">
