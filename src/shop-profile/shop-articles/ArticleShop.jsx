@@ -60,7 +60,7 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
             {article.article_title}
           </p>
         </div>
-        <div className="w-full flex gap-1.5 justify-between absolute top-9 left-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
+        <div className="flex gap-1.5 absolute top-9 left-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
           <button
             onClick={handleDeleteClick}
             aria-label="Delete article"

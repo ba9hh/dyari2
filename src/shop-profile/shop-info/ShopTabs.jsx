@@ -20,8 +20,8 @@ const ShopTabs = ({ activeTab, handleChange }) => {
           value="articles"
           sx={{
             textTransform: "none",
-            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             fontWeight: "bold",
+            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             color: "text.secondary",
             "&.Mui-selected": {
               color: "#d97706",
@@ -33,8 +33,8 @@ const ShopTabs = ({ activeTab, handleChange }) => {
           value="orders"
           sx={{
             textTransform: "none",
-            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             fontWeight: "bold",
+            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             color: "text.secondary",
             "&.Mui-selected": {
               color: "#d97706",
@@ -46,8 +46,8 @@ const ShopTabs = ({ activeTab, handleChange }) => {
           value="reviews"
           sx={{
             textTransform: "none",
-            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             fontWeight: "bold",
+            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             color: "text.secondary",
             "&.Mui-selected": {
               color: "#d97706",
