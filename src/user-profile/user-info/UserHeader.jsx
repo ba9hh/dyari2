@@ -50,55 +50,108 @@ const UserHeader = ({ userId }) => {
     }
   };
   return (
-    <div className="flex gap-2 justify-end items-center p-2">
-      <Button
-        onClick={handleBecomeVendeur}
-        variant="outlined"
-        color="primary"
-        sx={{
-          textTransform: "none",
-          color: "#d97706",
-          borderColor: "#d97706",
-          "&:hover": {
-            borderColor: "#b45309",
-            backgroundColor: "rgba(217, 119, 6, 0.04)",
-          },
-        }}
-      >
-        Devenir vendeur
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        sx={{
-          textTransform: "none",
-          backgroundColor: "#d97706",
-          "&:hover": {
-            backgroundColor: "#b45309",
-          },
-        }}
-        component={Link}
-        to="settings"
-      >
-        Settings
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        sx={{
-          textTransform: "none",
-          backgroundColor: "#d97706",
-          "&:hover": {
-            backgroundColor: "#b45309",
-          },
-        }}
-        onClick={handleLogout}
-      >
-        Logout
-      </Button>
-    </div>
+    <>
+      <div className="hidden sm:flex gap-2 justify-end items-center p-2">
+        <Button
+          onClick={handleBecomeVendeur}
+          variant="outlined"
+          color="primary"
+          sx={{
+            textTransform: "none",
+            color: "#d97706",
+            borderColor: "#d97706",
+            "&:hover": {
+              borderColor: "#b45309",
+              backgroundColor: "rgba(217, 119, 6, 0.04)",
+            },
+          }}
+        >
+          Devenir vendeur
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
+          component={Link}
+          to="settings"
+        >
+          Settings
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </div>
+      <div className="flex sm:hidden gap-2 justify-between items-center p-2">
+        <Button
+          onClick={handleBecomeVendeur}
+          variant="outlined"
+          color="primary"
+          sx={{
+            textTransform: "none",
+            color: "#d97706",
+            borderColor: "#d97706",
+            "&:hover": {
+              borderColor: "#b45309",
+              backgroundColor: "rgba(217, 119, 6, 0.04)",
+            },
+          }}
+        >
+          Devenir vendeur
+        </Button>
+        <div className="flex gap-2 items-center">
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": {
+                backgroundColor: "#b45309",
+              },
+            }}
+            component={Link}
+            to="settings"
+          >
+            Settings
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d97706",
+              "&:hover": {
+                backgroundColor: "#b45309",
+              },
+            }}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </div>
+      </div>
+    </>
   );
 };
 
