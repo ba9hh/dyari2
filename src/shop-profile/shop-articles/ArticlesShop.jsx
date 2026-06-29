@@ -81,7 +81,7 @@ const ArticlesShop = ({ shopId }) => {
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
           {articles?.articles?.map((article, index) => (
             <ArticleShop
-              key={index}
+              key={article.id}
               article={article}
               onClick={() => setSelectedArticleId(article)}
               onDelete={() => handleDeleteArticle(article.id)}
