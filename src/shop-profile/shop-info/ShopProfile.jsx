@@ -45,7 +45,7 @@ const ShopProfile = ({ shopId, activeTab, handleChange }) => {
   };
   return (
     <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border border-t-0 sm:border-t">
-      <div className="flex sm:justify-between items-center px-3 py-2">
+      <div className="w-full flex justify-normal sm:justify-between items-center px-3 py-2">
         <div className="flex-shrink-0 hidden sm:flex items-center gap-1.5 text-sm font-semibold rounded-full py-1 px-2.5 border bg-amber-50 text-amber-600 border-amber-200">
           <span>{shop?.average_rating}</span>
           <ReactStars
