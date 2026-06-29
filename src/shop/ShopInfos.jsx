@@ -77,7 +77,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
         </div>
         <Button
           variant="contained"
-          // size="small"
+          size="small"
           sx={{
             textTransform: "none",
             // fontSize: "0.75rem",
