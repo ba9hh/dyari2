@@ -44,7 +44,7 @@ const OrdersShop = ({ shopId }) => {
   return (
     <>
       {/* Orders list */}
-      <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 pb-2 pt-0">
+      <div className="w-full sm:w-2/3 bg-white/80 sm:shadow-sm sm:rounded-md border border-gray-200 pb-2 pt-0">
         <OrdersTabs
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
