@@ -7,9 +7,7 @@ const ShopTabs = ({ activeTab, handleChange }) => {
       <Tabs
         value={activeTab}
         onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        variant="standard"
+        centered
         sx={{
           mb: 0,
           px: 2,
@@ -18,12 +16,6 @@ const ShopTabs = ({ activeTab, handleChange }) => {
             height: "3px",
           },
         }}
-        TabIndicatorProps={{
-          style: {
-            height: "3px",
-          },
-        }}
-        centered
       >
         <Tab
           label="Articles"
