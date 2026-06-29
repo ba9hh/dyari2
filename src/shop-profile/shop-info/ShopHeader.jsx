@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex sm:justify-between gap-2">
       <Button
         onClick={handleBecomeClient}
         variant="outlined"
@@ -22,40 +22,42 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
       >
         Devenir client
       </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        sx={{
-          textTransform: "none",
-          // fontSize: { xs: "0.75rem" },
-          // fontSize: "0.75rem",
-          backgroundColor: "#d97706",
-          "&:hover": {
-            backgroundColor: "#b45309",
-          },
-        }}
-        component={Link}
-        to="settings"
-      >
-        Settings
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        sx={{
-          textTransform: "none",
-          // fontSize: "0.75rem",
-          backgroundColor: "#d97706",
-          "&:hover": {
-            backgroundColor: "#b45309",
-          },
-        }}
-        onClick={handleLogout}
-      >
-        Logout
-      </Button>
+      <div className="flex gap-2">
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          sx={{
+            textTransform: "none",
+            // fontSize: { xs: "0.75rem" },
+            // fontSize: "0.75rem",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
+          component={Link}
+          to="settings"
+        >
+          Settings
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          sx={{
+            textTransform: "none",
+            // fontSize: "0.75rem",
+            backgroundColor: "#d97706",
+            "&:hover": {
+              backgroundColor: "#b45309",
+            },
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

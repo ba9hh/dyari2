@@ -14,7 +14,7 @@ const ArticleShopDialog = ({ article, open, onClose }) => {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        {article.article_title} ({article.article_price}dt par{" "}
+        {article.article_title} ({article.article_price}dt /{" "}
         {article.article_type})
         <IconButton
           aria-label="close"
