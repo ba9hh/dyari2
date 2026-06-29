@@ -25,7 +25,7 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
 
   if (isLoading) return <UserInfoSkeleton />;
   return (
-    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border">
+    <div className="relative w-full sm:w-2/3 bg-white shadow-sm rounded-md border border-t-0 sm:border-t">
       <UserHeader userId={userId} />
       <hr />
       <UserProfile user={user} handleOpen={handleOpen} />
