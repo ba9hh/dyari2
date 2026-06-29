@@ -37,9 +37,17 @@ const ArticlesShop = ({ shopId }) => {
     if (error) {
       console.error(error);
       toast.error("Error deleting article");
-    } else {
-      toast.success("Article deleted successfully");
+      return;
     }
+
+    const { error: rpcError } = await supabase.rpc("decrement_articles_count", {
+      shop_id: shopId,
+    });
+    if (rpcError) {
+      console.error(rpcError);
+    }
+
+    toast.success("Article deleted successfully");
   };
 
   if (isLoading) return <ArticlesSkeleton />;

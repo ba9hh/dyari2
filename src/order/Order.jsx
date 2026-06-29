@@ -209,10 +209,8 @@ const Order = () => {
     <div className="flex justify-center w-full min-h-screen bg-white sm:bg-gray-100/50 sm:pt-16 pb-8">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:px-6 sm:py-6 sm:my-4 sm:rounded-lg sm:border sm:shadow-md"
+        className="w-full h-fit sm:max-w-[600px] bg-white px-3 sm:px-6 sm:py-6 sm:my-4 sm:rounded-lg border border-t-0 sm:border-t sm:shadow-md"
       >
-        {/* <OrderBreadCrumbs /> */}
-
         {/* Header */}
         <div className="flex justify-between items-center mb-3 mt-3 sm:mt-0">
           <h2 className="text-base sm:text-lg font-semibold text-gray-800">

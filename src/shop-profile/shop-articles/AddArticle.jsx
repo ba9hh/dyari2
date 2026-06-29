@@ -40,26 +40,31 @@ const AddArticle = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const uploadImage = async (file) => {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const { error: storageError } = await supabase.storage
+      .from("articles")
+      .upload(fileName, file);
+
+    if (storageError) throw storageError;
+
+    const { data: publicUrlData } = supabase.storage
+      .from("articles")
+      .getPublicUrl(fileName);
+
+    return publicUrlData.publicUrl;
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
     let uploadedImageUrl = "";
 
     try {
       if (file) {
-        const fileExt = file.name.split(".").pop();
-        const fileName = `${Date.now()}.${fileExt}`;
-        const { error: storageError } = await supabase.storage
-          .from("articles")
-          .upload(fileName, file);
-
-        if (storageError) throw storageError;
-
-        const { data: publicUrlData } = supabase.storage
-          .from("articles")
-          .getPublicUrl(fileName);
-
-        uploadedImageUrl = publicUrlData.publicUrl;
+        uploadedImageUrl = await uploadImage(file);
       }
+
       const { data: shop, error: shopError } = await supabase
         .from("shops")
         .select("id")
@@ -67,6 +72,7 @@ const AddArticle = () => {
         .single();
 
       if (shopError) throw shopError;
+
       const { error: insertError } = await supabase.from("articles").insert([
         {
           shop_id: shop?.id,
@@ -79,6 +85,12 @@ const AddArticle = () => {
         },
       ]);
       if (insertError) throw insertError;
+
+      const { error: rpcError } = await supabase.rpc(
+        "increment_articles_count",
+        { shop_id: shop.id },
+      );
+      if (rpcError) throw rpcError;
 
       toast.success("Article added successfully!");
       navigate("/account");
@@ -95,23 +107,20 @@ const AddArticle = () => {
 
     try {
       if (file) {
-        const fileExt = file.name.split(".").pop();
-        const fileName = `${Date.now()}.${fileExt}`;
-        const { error: storageError } = await supabase.storage
-          .from("articles")
-          .upload(fileName, file);
-
-        if (storageError) throw storageError;
-
-        const { data: publicUrlData } = supabase.storage
-          .from("articles")
-          .getPublicUrl(fileName);
-
-        uploadedImageUrl = publicUrlData.publicUrl;
+        uploadedImageUrl = await uploadImage(file);
       }
+
+      const { data: shop, error: shopError } = await supabase
+        .from("shops")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (shopError) throw shopError;
+
       const { error: insertError } = await supabase.from("articles").insert([
         {
-          shop_id: user?.id,
+          shop_id: shop?.id,
           article_title: data.title,
           article_type: data.type,
           article_price: data.price,
@@ -121,6 +130,13 @@ const AddArticle = () => {
         },
       ]);
       if (insertError) throw insertError;
+
+      const { error: rpcError } = await supabase.rpc(
+        "increment_articles_count",
+        { shop_id: shop.id },
+      );
+      if (rpcError) throw rpcError;
+
       toast.success("Article added successfully!");
       reset();
       setImagePreview(null);
