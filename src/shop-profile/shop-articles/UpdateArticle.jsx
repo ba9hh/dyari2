@@ -143,9 +143,9 @@ const UpdateArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
         >
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center sm:mt-0 my-3 sm:mb-4">
             <Typography variant="h6">Mettre à jour l’article</Typography>
-            <img src={dyari} className="w-7" />
+            <img src={dyari} className="w-6 sm:w-7" />
           </div>
           <hr className="mb-6" />
           <Controller
