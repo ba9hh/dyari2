@@ -41,12 +41,12 @@ const UserInfo = ({ userId, activeTab, handleChange }) => {
             px: 2,
             "& .MuiTabs-indicator": {
               backgroundColor: "#d97706",
-              height: "4px",
+              height: "3px",
             },
           }}
           TabIndicatorProps={{
             style: {
-              height: "4px",
+              height: "3px",
             },
           }}
           centered
