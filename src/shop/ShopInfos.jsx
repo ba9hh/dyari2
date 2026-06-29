@@ -104,7 +104,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
           {shop?.bio}
         </p>
         {/* Info pills — stack on mobile, row on desktop */}
-        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-1 text-xs sm:text-sm text-gray-600 text-center">
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-1 text-sm sm:text-sm text-gray-600 text-center">
           <span>
             <span className="font-medium text-gray-700">Spécialité:</span>{" "}
             {shop?.category}

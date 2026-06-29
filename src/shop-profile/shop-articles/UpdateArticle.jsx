@@ -138,7 +138,7 @@ const UpdateArticle = () => {
 
   return (
     <div className="flex justify-center sm:items-center w-full sm:min-h-screen bg-white sm:bg-[#f5f5f5] sm:pt-16 sm:pb-8">
-      <div className="bg-white px-6 sm:px-10 py-6 rounded-md shadow-md">
+      <div className="bg-white px-3 sm:px-10 sm:py-6 sm:rounded-md sm:shadow-md pb-3 border-b sm:border-b-0">
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ maxWidth: 500, margin: "auto" }}
