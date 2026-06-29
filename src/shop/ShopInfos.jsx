@@ -17,7 +17,6 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
   const [liked, setLiked] = useState(false);
   const { user } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(false);
-  const navigate = useNavigate();
 
   const handleClose = () => setIsConnected(false);
 
@@ -58,8 +57,6 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
     }
   };
 
-  const openOrder = () => navigate("order", { state: shopId });
-
   if (isLoading) return <SkeletonShopInfo />;
 
   return (
@@ -87,7 +84,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
             backgroundColor: "#d97706",
             "&:hover": { backgroundColor: "#b45309" },
           }}
-          onClick={openOrder}
+          onClick={(e) => handleChange(e, "contact")}
         >
           Laisser un avis
         </Button>
