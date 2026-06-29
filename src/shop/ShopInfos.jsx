@@ -100,7 +100,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
         <h1 className="text-xl sm:text-xl font-medium mt-1 text-gray-800">
           {shop?.business_name}
         </h1>
-        <p className="text-base sm:text-sm text-gray-500 italic text-center border-b border-gray-100 pb-2 px-6 max-w-xs">
+        <p className="text-sm sm:text-sm text-gray-500 italic text-center border-b border-gray-100 pb-2 px-6 max-w-xs">
           {shop?.bio}
         </p>
         {/* Info pills — stack on mobile, row on desktop */}
