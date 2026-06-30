@@ -92,11 +92,11 @@ const AddArticle = () => {
       );
       if (rpcError) throw rpcError;
 
-      toast.success("Article added successfully!");
+      toast.success("Article ajouté avec succès !");
       navigate("/account");
     } catch (error) {
       console.error("Error adding article:", error.message);
-      toast.error("Failed to add article. Please try again.");
+      toast.error("Échec de l'ajout. Veuillez réessayer.");
     }
     setLoading(false);
   };
@@ -137,12 +137,12 @@ const AddArticle = () => {
       );
       if (rpcError) throw rpcError;
 
-      toast.success("Article added successfully!");
+      toast.success("Article ajouté avec succès !");
       reset();
       setImagePreview(null);
     } catch (error) {
       console.error("Error adding article:", error.message);
-      toast.error("Failed to add article. Please try again.");
+      toast.error("Échec de l'ajout. Veuillez réessayer.");
     }
     setLoading(false);
   };
@@ -170,7 +170,7 @@ const AddArticle = () => {
           <Controller
             name="image"
             control={control}
-            rules={{ required: "Image is required" }}
+            rules={{ required: "Image requise" }}
             render={({ field }) => (
               <div style={{ marginBottom: 8 }}>
                 <Button
@@ -217,7 +217,7 @@ const AddArticle = () => {
           <Controller
             name="title"
             control={control}
-            rules={{ required: "Title is required" }}
+            rules={{ required: "Titre requis" }}
             render={({ field }) => (
               <TextField
                 label="Nom de l'article"
@@ -263,8 +263,8 @@ const AddArticle = () => {
             name="price"
             control={control}
             rules={{
-              required: "Price is required",
-              min: { value: 0.01, message: "Price must be greater than 0" },
+              required: "Prix requis",
+              min: { value: 0.01, message: "Le prix doit être supérieur à 0" },
             }}
             render={({ field }) => (
               <TextField
@@ -361,7 +361,7 @@ const AddArticle = () => {
               {loading ? (
                 <CircularProgress size={24} />
               ) : (
-                "Enregistrer & Ajouter Un Autre"
+                "Enregistrer et ajouter un autre"
               )}
             </Button>
             <Button

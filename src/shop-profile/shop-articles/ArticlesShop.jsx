@@ -36,7 +36,7 @@ const ArticlesShop = ({ shopId }) => {
     const { error } = await supabase.from("articles").delete().eq("id", id);
     if (error) {
       console.error(error);
-      toast.error("Error deleting article");
+      toast.error("Erreur lors de la suppression");
       return;
     }
 
@@ -47,11 +47,11 @@ const ArticlesShop = ({ shopId }) => {
       console.error(rpcError);
     }
 
-    toast.success("Article deleted successfully");
+    toast.success("Article supprimé avec succès");
   };
 
   if (isLoading) return <ArticlesSkeleton />;
-  if (isError) return <div>Error loading articles</div>;
+  if (isError) return <div>Erreur de chargement des articles</div>;
 
   return (
     <>

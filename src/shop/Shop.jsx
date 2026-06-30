@@ -53,7 +53,7 @@ const Shop = () => {
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}
-        message="You must be logged in to see the shop additional information"
+        message="Connectez-vous pour voir les informations supplémentaires"
       />
     </div>
   );

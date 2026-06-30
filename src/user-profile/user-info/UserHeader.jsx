@@ -15,7 +15,7 @@ const UserHeader = ({ userId }) => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["user", userId], // unique query key
+    queryKey: ["user", userId],
     queryFn: () => fetchUserInformation(userId),
   });
 
@@ -33,7 +33,6 @@ const UserHeader = ({ userId }) => {
   };
 
   const handleBecomeVendeur = async () => {
-    // check if vendeur already exists
     const { data, error } = await supabase
       .from("shops")
       .select("*")
@@ -42,10 +41,8 @@ const UserHeader = ({ userId }) => {
     console.log(data);
 
     if (data) {
-      // already has shop → just change role
       await updateRole("vendeur");
     } else {
-      // no shop → go create one
       navigate("/shop-creation");
     }
   };
@@ -82,7 +79,7 @@ const UserHeader = ({ userId }) => {
           component={Link}
           to="settings"
         >
-          Settings
+          Paramètres
         </Button>
         <Button
           variant="contained"
@@ -97,7 +94,7 @@ const UserHeader = ({ userId }) => {
           }}
           onClick={handleLogout}
         >
-          Logout
+          Déconnexion
         </Button>
       </div>
       <div className="flex sm:hidden gap-2 justify-between items-center p-2">
@@ -132,7 +129,7 @@ const UserHeader = ({ userId }) => {
             component={Link}
             to="settings"
           >
-            Settings
+            Paramètres
           </Button>
           <Button
             variant="contained"
@@ -147,7 +144,7 @@ const UserHeader = ({ userId }) => {
             }}
             onClick={handleLogout}
           >
-            Logout
+            Déconnexion
           </Button>
         </div>
       </div>

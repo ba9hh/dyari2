@@ -47,7 +47,7 @@ const ArticleShopDialog = ({ article, open, onClose }) => {
           color="inherit"
           sx={{ textTransform: "none" }}
         >
-          Close
+          Fermer
         </Button>
       </DialogActions>
     </Dialog>

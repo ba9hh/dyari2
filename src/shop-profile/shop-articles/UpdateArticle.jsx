@@ -52,7 +52,7 @@ const UpdateArticle = () => {
 
       if (error) {
         console.error(error);
-        toast.error("Failed to load article.");
+        toast.error("Échec du chargement de l'article.");
         navigate("/account");
         return;
       }
@@ -93,7 +93,7 @@ const UpdateArticle = () => {
 
       if (storageError) {
         console.error("Error uploading image:", storageError);
-        toast.error("Image upload failed.");
+        toast.error("Échec de l'upload de l'image.");
         setLoading(false);
         return;
       }
@@ -127,9 +127,9 @@ const UpdateArticle = () => {
 
     if (updateError) {
       console.error("Error updating article:", updateError);
-      toast.error("Failed to update article.");
+      toast.error("Échec de la mise à jour de l'article.");
     } else {
-      toast.success("Article updated successfully!");
+      toast.success("Article mis à jour avec succès !");
       navigate("/account");
     }
 

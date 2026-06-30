@@ -20,7 +20,7 @@ const DyariLogo = () => {
                 className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 hidden sm:block"
                 to={"/account"}
               >
-                account
+                compte
               </Link>
             </div>
           ) : (

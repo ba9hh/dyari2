@@ -39,7 +39,7 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
           component={Link}
           to="settings"
         >
-          Settings
+          Paramètres
         </Button>
         <Button
           variant="contained"
@@ -55,7 +55,7 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
           }}
           onClick={handleLogout}
         >
-          Logout
+          Déconnexion
         </Button>
       </div>
     </div>

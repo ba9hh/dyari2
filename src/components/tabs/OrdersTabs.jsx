@@ -22,7 +22,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter }) {
         }}
       >
         <Tab
-          label="tous les commandes"
+          label="Toutes les commandes"
           value="all"
           sx={{
             textTransform: "none",
@@ -44,7 +44,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter }) {
           }}
         />
         <Tab
-          label="Commandes accepté"
+          label="Commandes acceptées"
           value="accepted"
           sx={{
             textTransform: "none",
@@ -55,7 +55,7 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter }) {
           }}
         />
         <Tab
-          label="Cancelled Orders"
+          label="Commandes annulées"
           value="rejected"
           sx={{
             textTransform: "none",

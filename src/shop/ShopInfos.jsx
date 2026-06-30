@@ -178,7 +178,7 @@ const ShopInfos = ({ shopId, handleChange, activeTab }) => {
       <LoginRequiredDialog
         open={isConnected}
         onClose={handleClose}
-        message="You must be logged in as a user to like a shop"
+        message="Connectez-vous pour aimer une boutique"
       />
     </div>
   );

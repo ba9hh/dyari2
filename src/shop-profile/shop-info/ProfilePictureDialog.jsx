@@ -68,7 +68,7 @@ const ProfilePictureDialog = ({
           .eq("user_id", shopId);
         if (updateError) throw updateError;
 
-        toast.success("Profile picture reset to default!");
+        toast.success("Photo réinitialisée !");
         handleClose();
       } else if (file) {
         const fileExt = file.name.split(".").pop();
@@ -93,11 +93,11 @@ const ProfilePictureDialog = ({
 
         if (updateError) throw updateError;
 
-        toast.success("Profile picture updated!");
+        toast.success("Photo mise à jour !");
         handleClose();
       }
     } catch (err) {
-      toast.error("Failed to update profile picture. Please try again.");
+      toast.error("Échec de la mise à jour de la photo.");
     } finally {
       setLoading(false);
     }
@@ -185,7 +185,7 @@ const ProfilePictureDialog = ({
           sx={{ textTransform: "none" }}
           color="inherit"
         >
-          Cancel
+          Annuler
         </Button>
         <Button
           variant="contained"
@@ -199,7 +199,11 @@ const ProfilePictureDialog = ({
             },
           }}
         >
-          {loading ? <CircularProgress size={20} color="inherit" /> : "Update"}
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Mettre à jour"
+          )}
         </Button>
       </DialogActions>
     </Dialog>

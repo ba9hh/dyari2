@@ -8,7 +8,6 @@ import HomePagination from "./HomePagination";
 import { fetchShops } from "@/services/shops/ShopsList";
 import CategoriesTabs from "@/home/CategoriesTabs";
 import LocalisationFilter from "@/home/LocalisationFilter";
-import EmptyShopState from "@/components/EmptyShopsState";
 import NavBar from "@/home/NavBar";
 import faza from "@/assets/faza2.jpg";
 import ShopsHeader from "@/home/ShopsHeader";
@@ -103,13 +102,13 @@ const HomeShops = () => {
         </div>
         <div className="flex flex-col items-center justify-center py-32">
           <p className="text-red-500 text-lg font-semibold">
-            Oops! Something went wrong while loading shops.
+            Oups ! Une erreur est survenue lors du chargement.
           </p>
           <button
             onClick={() => window.location.reload()}
             className="mt-4 border border-blue-500 text-blue-500 px-4 py-2 rounded hover:bg-blue-100"
           >
-            Retry
+            Réessayer
           </button>
         </div>
       </>
@@ -144,7 +143,15 @@ const HomeShops = () => {
             ))}
           </div>
         ) : (
-          <EmptyShopState />
+          <div className="flex flex-col items-center justify-center py-10 text-gray-500 border border-dashed border-gray-300 rounded-xl mt-3 mx-2">
+            <h2 className="text-2xl font-semibold mb-1 text-gray-700">
+              Aucune vente disponible
+            </h2>
+            <p className="text-center max-w-lg text-gray-400">
+              Il n'y a pas encore de boutiques avec ces caracteristiques.
+              Explorez d'autres boutiques !
+            </p>
+          </div>
         )}
       </div>
       <div className="mt-6">

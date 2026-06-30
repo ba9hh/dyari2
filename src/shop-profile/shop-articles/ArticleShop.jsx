@@ -79,9 +79,9 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
         </div>
       </div>
       <Dialog open={openDialog} onClose={handleCancel}>
-        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogTitle>Confirmer la suppression</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete this article?
+          Êtes-vous sûr de vouloir supprimer cet article ?
         </DialogContent>
         <DialogActions>
           <Button
@@ -89,7 +89,7 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
             color="inherit"
             sx={{ textTransform: "none" }}
           >
-            Cancel
+            Annuler
           </Button>
           <Button
             onClick={handleConfirmDelete}
@@ -97,7 +97,7 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
             variant="contained"
             sx={{ textTransform: "none" }}
           >
-            Delete
+            Supprimer
           </Button>
         </DialogActions>
       </Dialog>
@@ -114,7 +114,7 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
           variant="filled"
           sx={{ width: "100%" }}
         >
-          Article deleted successfully
+          Article supprimé avec succès
         </Alert>
       </Snackbar>
     </>
