@@ -20,11 +20,20 @@ const HomeShop = ({ shop }) => {
         </div>
 
         {/* Shared grid for mobile & desktop */}
-        <div className="grid grid-cols-3 gap-0 sm:gap-3 sm:px-3 sm:py-3 sm:bg-gray-100/50">
+        <div className="hidden sm:grid grid-cols-3 gap-0 sm:gap-3 sm:px-3 sm:py-3 sm:bg-gray-100/50">
           {shop.articles?.slice(0, 3).map((article, index) => (
             <img
               key={index}
               className="w-full aspect-square object-cover sm:rounded-md sm:hover:scale-105 sm:transition-transform sm:duration-300"
+              src={article?.article_image ?? biscuit50}
+            />
+          ))}
+        </div>
+        <div className="flex sm:hidden gap-0 overflow-x-auto scrollbar-hide">
+          {shop.articles?.slice(0, 3).map((article, index) => (
+            <img
+              key={index}
+              className="flex-shrink-0 w-2/5 aspect-square object-cover"
               src={article?.article_image ?? biscuit50}
             />
           ))}
