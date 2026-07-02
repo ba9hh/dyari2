@@ -4,6 +4,15 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter }) {
   const handleChange = (event, newValue) => {
     setSelectedFilter(newValue);
   };
+
+  const tabSx = {
+    textTransform: "none",
+    color: "text.secondary",
+    "&.Mui-selected": {
+      color: "#d97706",
+    },
+  };
+
   return (
     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
       <Tabs
@@ -21,50 +30,11 @@ export default function OrdersTabs({ selectedFilter, setSelectedFilter }) {
           },
         }}
       >
-        <Tab
-          label="Toutes les commandes"
-          value="all"
-          sx={{
-            textTransform: "none",
-            color: "text.secondary",
-            "&.Mui-selected": {
-              color: "#d97706",
-            },
-          }}
-        />
-        <Tab
-          label="Commandes en attente"
-          value="pending"
-          sx={{
-            textTransform: "none",
-            color: "text.secondary",
-            "&.Mui-selected": {
-              color: "#d97706",
-            },
-          }}
-        />
-        <Tab
-          label="Commandes acceptées"
-          value="accepted"
-          sx={{
-            textTransform: "none",
-            color: "text.secondary",
-            "&.Mui-selected": {
-              color: "#d97706",
-            },
-          }}
-        />
-        <Tab
-          label="Commandes annulées"
-          value="rejected"
-          sx={{
-            textTransform: "none",
-            color: "text.secondary",
-            "&.Mui-selected": {
-              color: "#d97706",
-            },
-          }}
-        />
+        <Tab label="Toutes les commandes" value="all" sx={tabSx} />
+        <Tab label="Commandes en attente" value="pending" sx={tabSx} />
+        <Tab label="Commandes acceptées" value="accepted" sx={tabSx} />
+        <Tab label="Commandes livrées" value="delivered" sx={tabSx} />
+        <Tab label="Commandes annulées" value="rejected" sx={tabSx} />
       </Tabs>
     </Box>
   );

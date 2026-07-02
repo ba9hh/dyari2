@@ -1,12 +1,12 @@
 import { supabase } from "@/supabaseClient";
 
 export const fetchShopOrders = async ({ queryKey }) => {
-  const [_key, { shopId, page, limit }] = queryKey;
+  const [_key, { shopId, page, limit, filter }] = queryKey;
 
   const start = (page - 1) * limit;
   const end = page * limit - 1;
 
-  const { data, count, error } = await supabase
+  let query = supabase
     .from("orders")
     .select(
       `
@@ -25,7 +25,13 @@ export const fetchShopOrders = async ({ queryKey }) => {
       `,
       { count: "exact" }, // count total rows
     )
-    .eq("shop_id", shopId)
+    .eq("shop_id", shopId);
+
+  if (filter && filter !== "all") {
+    query = query.eq("order_state", filter);
+  }
+
+  const { data, count, error } = await query
     .order("order_date", { ascending: false }) // optional sorting
     .range(start, end);
 
@@ -39,12 +45,12 @@ export const fetchShopOrders = async ({ queryKey }) => {
 };
 
 export const fetchUserOrders = async ({ queryKey }) => {
-  const [_key, { userId, page, limit }] = queryKey;
+  const [_key, { userId, page, limit, filter }] = queryKey;
 
   const start = (page - 1) * limit;
   const end = page * limit - 1;
 
-  const { data, count, error } = await supabase
+  let query = supabase
     .from("orders")
     .select(
       `
@@ -63,7 +69,13 @@ export const fetchUserOrders = async ({ queryKey }) => {
       `,
       { count: "exact" }, // <-- get total count
     )
-    .eq("user_id", userId)
+    .eq("user_id", userId);
+
+  if (filter && filter !== "all") {
+    query = query.eq("order_state", filter);
+  }
+
+  const { data, count, error } = await query
     .order("order_date", { ascending: false }) // optional
     .range(start, end);
 
@@ -75,6 +87,7 @@ export const fetchUserOrders = async ({ queryKey }) => {
     totalOrders: count,
   };
 };
+
 export const markOrderAsRead = async (orderId) => {
   const { error } = await supabase
     .from("orders")

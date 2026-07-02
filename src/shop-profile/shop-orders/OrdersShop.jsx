@@ -12,12 +12,20 @@ const OrdersShop = ({ shopId }) => {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const LIMIT = 5;
 
+  const handleFilterChange = (newFilter) => {
+    setSelectedFilter(newFilter);
+    setPage(1); // reset pagination whenever the filter changes
+  };
+
   const {
     data: ordersData,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["orders", { shopId, page, limit: LIMIT }],
+    queryKey: [
+      "orders",
+      { shopId, page, limit: LIMIT, filter: selectedFilter },
+    ],
     queryFn: fetchShopOrders,
     keepPreviousData: true,
     enabled: !!shopId,
@@ -34,7 +42,7 @@ const OrdersShop = ({ shopId }) => {
       <div className="w-full sm:w-2/3 bg-white/80 sm:shadow-sm sm:rounded-md border border-gray-200 pb-3 pt-0">
         <OrdersTabs
           selectedFilter={selectedFilter}
-          setSelectedFilter={setSelectedFilter}
+          setSelectedFilter={handleFilterChange}
         />
         <OrdersSkeleton />
       </div>
@@ -47,7 +55,7 @@ const OrdersShop = ({ shopId }) => {
       <div className="w-full sm:w-2/3 bg-white/80 sm:shadow-sm sm:rounded-md border border-gray-200 pb-2 pt-0">
         <OrdersTabs
           selectedFilter={selectedFilter}
-          setSelectedFilter={setSelectedFilter}
+          setSelectedFilter={handleFilterChange}
         />
         <div className="flex flex-col gap-2 p-2 sm:p-4">
           {ordersData?.orders?.map((order, index) => (
