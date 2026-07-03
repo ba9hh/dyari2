@@ -59,10 +59,17 @@ const UpdateArticle = () => {
         navigate("/compte");
         return;
       }
-      // if (article.shop_id !== user.id) {
-      //   navigate("/");
-      //   return;
-      // }
+      const { data: shop, error: shopError } = await supabase
+        .from("shops")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (shopError || !shop || article.shop_id !== shop.id) {
+        toast.error("Vous n'êtes pas autorisé à modifier cet article.");
+        navigate("/");
+        return;
+      }
 
       reset({
         title: article.article_title,
