@@ -60,7 +60,7 @@ const Signup = () => {
         // After email confirmation, Supabase will redirect to this URL.
         // Make sure this URL is whitelisted in your Supabase project's
         // Auth → URL Configuration → Redirect URLs.
-        emailRedirectTo: `${window.location.origin}/account`,
+        emailRedirectTo: `${window.location.origin}/compte`,
       },
     });
 
@@ -253,7 +253,7 @@ const Signup = () => {
                     backgroundColor: "rgba(217, 119, 6, 0.04)",
                   },
                 }}
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/connexion")}
               >
                 j'ai déjà un compte
               </Button>

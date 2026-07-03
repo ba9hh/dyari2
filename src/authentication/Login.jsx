@@ -24,7 +24,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/account");
+      navigate("/compte");
     }
   }, [user, navigate]);
   const {
@@ -56,7 +56,7 @@ const Login = () => {
         throw error;
       }
 
-      navigate("/account");
+      navigate("/compte");
     } catch (err) {
       console.error("Login failed", err);
       setLoginError(err.message || "Invalid email or password.");
@@ -147,7 +147,7 @@ const Login = () => {
         <div className="flex flex-col gap-y-2 mb-6 pt-1">
           <MuiLink
             component={RouterLink}
-            to="/forget-password"
+            to="/mot-de-passe-oublie"
             textAlign="right"
             sx={{ color: "black", fontSize: "12px" }}
             underline="none"
@@ -173,7 +173,7 @@ const Login = () => {
           <Button
             variant="outlined"
             fullWidth
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/inscription")}
             sx={{
               textTransform: "none",
               color: "#d97706",

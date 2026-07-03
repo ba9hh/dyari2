@@ -216,7 +216,7 @@ const LoginRequiredDialog = ({
             <div className="flex flex-col gap-y-2 mb-6 pt-1">
               <MuiLink
                 component={RouterLink}
-                to="/forget-password"
+                to="/mot-de-passe-oublie"
                 textAlign="right"
                 sx={{ color: "black", fontSize: "12px" }}
                 underline="none"
@@ -242,7 +242,7 @@ const LoginRequiredDialog = ({
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/inscription")}
                 sx={{
                   textTransform: "none",
                   color: "#d97706",

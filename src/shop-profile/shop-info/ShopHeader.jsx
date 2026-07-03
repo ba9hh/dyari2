@@ -37,7 +37,7 @@ const ShopHeader = ({ handleLogout, handleBecomeClient }) => {
             },
           }}
           component={Link}
-          to="settings"
+          to="parametres"
         >
           Paramètres
         </Button>

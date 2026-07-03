@@ -31,7 +31,7 @@ const ForgetPassword = () => {
     const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
       // After the user clicks the link, Supabase redirects here.
       // Make sure this URL is whitelisted in Supabase → Auth → URL Configuration → Redirect URLs.
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: `${window.location.origin}/reinitialiser-mot-de-passe`,
     });
 
     setIsLoading(false);
@@ -74,7 +74,7 @@ const ForgetPassword = () => {
             <Button
               variant="outlined"
               fullWidth
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/connexion")}
               sx={{
                 textTransform: "none",
                 color: "#d97706",
@@ -145,7 +145,7 @@ const ForgetPassword = () => {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/connexion")}
                 sx={{
                   textTransform: "none",
                   color: "#d97706",

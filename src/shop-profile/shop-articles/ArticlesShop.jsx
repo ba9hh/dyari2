@@ -60,7 +60,7 @@ const ArticlesShop = ({ shopId }) => {
         <Button
           fullWidth
           component={Link}
-          to="add-article"
+          to="ajouter-article"
           variant="outlined"
           sx={{
             textTransform: "none",

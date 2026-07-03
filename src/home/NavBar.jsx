@@ -19,14 +19,14 @@ const NavBar = () => {
             {user ? (
               <Link
                 className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 hidden sm:block"
-                to={"/account"}
+                to={"/compte"}
               >
                 Compte
               </Link>
             ) : (
               <Link
                 className="px-2 pb-1 rounded-lg border-2 text-amber-700 border-amber-500 shadow-none hidden sm:block"
-                to={"/login"}
+                to={"/connexion"}
               >
                 se connecter
               </Link>
@@ -47,7 +47,7 @@ const NavBar = () => {
           </Link>
           {/* Left: search icon as filter hint */}
           <Link
-            to={user ? "/account" : "/login"}
+            to={user ? "/compte" : "/connexion"}
             className="w-9 h-9 flex items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-amber-700"
           >
             <PermIdentityIcon style={{ fontSize: "1.2rem" }} />

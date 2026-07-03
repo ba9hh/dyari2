@@ -64,7 +64,7 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://dyaritunisie.com/account",
+        redirectTo: "https://dyaritunisie.com/compte",
       },
     });
     if (error) console.error("Google login error:", error.message);
@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://dyaritunisie.com/account",
+        redirectTo: "https://dyaritunisie.com/compte",
       },
     });
     if (error) console.error("Google signup error:", error.message);

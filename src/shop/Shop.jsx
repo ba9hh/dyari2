@@ -18,7 +18,7 @@ const Shop = () => {
 
   const handleClose = () => setIsConnected(false);
   const handleChange = (event, newValue) => setActiveTab(newValue);
-  const openOrder = () => navigate("order", { state: shopId });
+  const openOrder = () => navigate(`/boutique/${shopSlug}/commande`);
 
   return (
     <div className="flex flex-col min-h-screen items-center pt-0 sm:pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-3 sm:gap-y-4 w-full px-0 sm:px-4">

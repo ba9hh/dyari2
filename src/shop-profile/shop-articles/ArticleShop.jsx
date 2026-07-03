@@ -69,7 +69,7 @@ const ArticleShop = ({ article, onClick, onDelete }) => {
             <Trash2 size={14} />
           </button>
           <Link
-            to={`update-article/${article.id}`}
+            to={`modifier-article/${article.id}`}
             onClick={(e) => e.stopPropagation()}
             aria-label="Edit article"
             className="p-1.5 sm:p-1 bg-green-500 text-white rounded-full shadow-lg transition-all duration-200 hover:bg-green-600 active:scale-95 hover:scale-110 touch-manipulation"

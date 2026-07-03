@@ -54,7 +54,7 @@ const ResetPassword = () => {
 
     setSuccess(true);
     // Redirect to account after a short delay
-    setTimeout(() => navigate("/account"), 2500);
+    setTimeout(() => navigate("/compte"), 2500);
   };
 
   return (

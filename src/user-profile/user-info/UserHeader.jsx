@@ -43,7 +43,7 @@ const UserHeader = ({ userId }) => {
     if (data) {
       await updateRole("vendeur");
     } else {
-      navigate("/shop-creation");
+      navigate("/creation-boutique");
     }
   };
   return (
@@ -77,7 +77,7 @@ const UserHeader = ({ userId }) => {
             },
           }}
           component={Link}
-          to="settings"
+          to="parametres"
         >
           Paramètres
         </Button>
@@ -127,7 +127,7 @@ const UserHeader = ({ userId }) => {
               },
             }}
             component={Link}
-            to="settings"
+            to="parametres"
           >
             Paramètres
           </Button>

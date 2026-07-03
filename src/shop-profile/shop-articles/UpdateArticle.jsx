@@ -53,7 +53,7 @@ const UpdateArticle = () => {
       if (error) {
         console.error(error);
         toast.error("Échec du chargement de l'article.");
-        navigate("/account");
+        navigate("/compte");
         return;
       }
       // if (article.shop_id !== user.id) {
@@ -130,14 +130,14 @@ const UpdateArticle = () => {
       toast.error("Échec de la mise à jour de l'article.");
     } else {
       toast.success("Article mis à jour avec succès !");
-      navigate("/account");
+      navigate("/compte");
     }
 
     setLoading(false);
   };
 
   return (
-    <div className="flex justify-center sm:items-center w-full sm:min-h-screen bg-white sm:bg-[#f5f5f5] sm:pt-16 sm:pb-8">
+    <div className="flex justify-center sm:items-center w-full sm:min-h-screen bg-white sm:bg-gray-100/50 sm:pt-16 sm:pb-8">
       <div className="bg-white px-3 sm:px-10 sm:py-6 sm:rounded-md sm:shadow-md pb-3 border-b sm:border-b-0">
         <form
           onSubmit={handleSubmit(onSubmit)}

@@ -37,25 +37,28 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route element={<AuthLayout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/shop-creation" element={<ShopForm />} />
-            <Route path="/forget-password" element={<ForgetPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/connexion" element={<Login />} />
+            <Route path="/inscription" element={<Signup />} />
+            <Route path="/creation-boutique" element={<ShopForm />} />
+            <Route path="/mot-de-passe-oublie" element={<ForgetPassword />} />
+            <Route
+              path="/reinitialiser-mot-de-passe"
+              element={<ResetPassword />}
+            />
           </Route>
           <Route element={<StandardLayout />}>
             <Route path="/articles" element={<ArticlesShop />} />
-            <Route path="/shop/:shopSlug" element={<Shop />} />
-            <Route path="/shop/order" element={<Order />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/account/settings" element={<AccountSettings />} />
-            <Route path="/account/add-article" element={<AddArticle />} />
+            <Route path="/boutique/:shopSlug" element={<Shop />} />
+            <Route path="/boutique/:shopSlug/commande" element={<Order />} />
+            <Route path="/compte" element={<Account />} />
+            <Route path="/compte/parametres" element={<AccountSettings />} />
+            <Route path="/compte/ajouter-article" element={<AddArticle />} />
             <Route
-              path="/account/update-article/:articleId"
+              path="/compte/modifier-article/:articleId"
               element={<UpdateArticle />}
             />
             <Route path="/skeleton" element={<SkeletonShopInfo />} />
-            {/* <Route path="/forget-password" element={<ForgetPassword />} /> */}
+            {/* <Route path="/mot-de-passe-oublie" element={<ForgetPassword />} /> */}
           </Route>
         </Routes>
       </SkeletonTheme>

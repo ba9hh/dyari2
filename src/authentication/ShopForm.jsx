@@ -82,7 +82,7 @@ const ShopForm = () => {
     }
     setUser({ ...user, role: "vendeur" });
     // 4. Navigate to the vendor dashboard (adjust route as needed)
-    navigate("/account");
+    navigate("/compte");
   };
   return (
     <div className="bg-white border-2 md:w-2/5 border-gray-400 rounded-md p-6 z-10">

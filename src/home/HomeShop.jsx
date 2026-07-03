@@ -6,7 +6,7 @@ import { buildShopSlug } from "@/utils/shopSlug";
 const HomeShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {
-    navigate(`/shop/${buildShopSlug(shop)}`);
+    navigate(`/boutique/${buildShopSlug(shop)}`);
   };
 
   return (
