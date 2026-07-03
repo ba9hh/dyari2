@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState, useMemo } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button, CircularProgress, MobileStepper } from "@mui/material";
 import { AuthContext } from "@/AuthProvider";
@@ -7,12 +7,12 @@ import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchShopArticles } from "@/services/articles/articlesList";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { extractShopId } from "@/utils/shopSlug";
 import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
 import { createOrder } from "@/services/orders/createOrder";
 import dyari from "@/assets/dyari.svg";
-import OrderBreadCrumbs from "./OrderBreadCrumbs";
 
 // FIX 1: Moved outside the component — computed once, never on re-render
 const today = new Date();
@@ -31,7 +31,8 @@ const DEFAULT_ITEM = {
 
 const Order = () => {
   const { user } = useContext(AuthContext);
-  const { state } = useLocation();
+  const { shopSlug } = useParams();
+  const shopId = extractShopId(shopSlug);
   const [isConnected, setIsConnected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -63,9 +64,9 @@ const Order = () => {
   const watchItems = watch("items");
 
   const { data: shopData, isLoading } = useQuery({
-    queryKey: ["shopArticles", { shopId: state, page, limit: LIMIT }],
+    queryKey: ["shopArticles", { shopId: shopId, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
-    enabled: !!state,
+    enabled: !!shopId,
     keepPreviousData: true,
   });
 
@@ -147,7 +148,7 @@ const Order = () => {
     setLoading(true);
     try {
       await createOrder({
-        shopId: state,
+        shopId: shopId,
         userId: user.id,
         phoneNumber: data.userPhoneNumber,
         neededDate: data.date,
