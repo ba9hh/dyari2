@@ -4,7 +4,6 @@ import { useState, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import ShopCommentaires from "./shopComments";
 import { useParams, useNavigate } from "react-router-dom";
 import { extractShopId } from "@/utils/shopSlug";
