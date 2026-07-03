@@ -13,7 +13,7 @@ import OrderItem from "./OrderItem";
 import OrderSummary from "./OrderSummary";
 import { createOrder } from "@/services/orders/createOrder";
 import dyari from "@/assets/dyari.svg";
-
+import Typography from "@mui/material/Typography";
 // FIX 1: Moved outside the component — computed once, never on re-render
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -111,6 +111,10 @@ const Order = () => {
       );
       return;
     }
+    if (!user) {
+      setIsConnected(true);
+      return;
+    }
     setStep(1);
   };
   /*
@@ -137,10 +141,6 @@ const Order = () => {
    */
 
   const onSubmit = async (data) => {
-    if (!user) {
-      setIsConnected(true);
-      return;
-    }
     if (!data.date) {
       toast.error("Veuillez sélectionner une date.");
       return;
@@ -214,9 +214,10 @@ const Order = () => {
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-3 mt-3 sm:mt-0">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+          {/* <h2 className="text-base sm:text-lg font-semibold text-gray-800">
             Procédez à votre commande
-          </h2>
+          </h2> */}
+          <Typography variant="h6">Ajouter un nouvel article</Typography>
           <img src={dyari} className="w-6 sm:w-7" />
         </div>
         <hr className="mb-3" />
