@@ -78,16 +78,28 @@ const ArticlesShop = ({ shopId }) => {
 
       {/* Articles grid */}
       <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
-          {articles?.articles?.map((article, index) => (
-            <ArticleShop
-              key={article.id}
-              article={article}
-              onClick={() => setSelectedArticleId(article)}
-              onDelete={() => handleDeleteArticle(article.id)}
-            />
-          ))}
-        </div>
+        {articles?.articles?.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
+            {articles?.articles?.map((article, index) => (
+              <ArticleShop
+                key={article.id}
+                article={article}
+                onClick={() => setSelectedArticleId(article)}
+                onDelete={() => handleDeleteArticle(article.id)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-10 px-4 text-gray-500">
+            <h2 className="text-lg font-semibold mb-1 text-gray-700">
+              Aucun article pour le moment
+            </h2>
+            <p className="text-sm text-center max-w-md text-gray-400">
+              Vous n'avez encore ajouté aucun article. Ajoutez votre premier
+              article pour qu'il apparaisse ici et soit visible par vos clients.
+            </p>
+          </div>
+        )}
 
         {selectedArticleId && (
           <ArticleShopDialog
