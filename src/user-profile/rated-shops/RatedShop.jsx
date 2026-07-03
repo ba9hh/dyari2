@@ -1,10 +1,11 @@
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
+import { buildShopSlug } from "@/utils/shopSlug";
 
 const RatedShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {
-    navigate("/shop", { state: shop?.id });
+    navigate(`/boutique/${buildShopSlug(shop)}`);
   };
 
   const userRating = shop.userReview?.rating ?? null;

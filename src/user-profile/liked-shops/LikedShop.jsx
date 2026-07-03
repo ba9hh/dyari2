@@ -5,6 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { likeShop, unlikeShop } from "@/services/shops/likedShops";
 import { useNavigate } from "react-router-dom";
+import { buildShopSlug } from "@/utils/shopSlug";
 
 const LikedShop = ({ shop, userId }) => {
   const [liked, setLiked] = useState(true);
@@ -26,7 +27,7 @@ const LikedShop = ({ shop, userId }) => {
   };
 
   const openShop = () => {
-    navigate("/shop", { state: shop?.id });
+    navigate(`/boutique/${buildShopSlug(shop)}`);
   };
 
   return (

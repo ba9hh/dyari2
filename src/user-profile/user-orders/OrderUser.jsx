@@ -5,6 +5,7 @@ import { ChevronDown, Eye, EyeOff, PackageCheck } from "lucide-react";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { buildShopSlug } from "@/utils/shopSlug";
 
 const OrderUser = ({ order, index }) => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const OrderUser = ({ order, index }) => {
     }
   };
   const openShop = () => {
-    navigate("/shop", { state: order?.shop_id });
+    navigate(`/boutique/${buildShopSlug(order?.shop)}`);
   };
   return (
     <div className="w-full rounded-md border border-gray-200 bg-white transition-all duration-200">
