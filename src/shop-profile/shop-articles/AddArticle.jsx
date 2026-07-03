@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
   TextField,
@@ -39,7 +39,11 @@ const AddArticle = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  useEffect(() => {
+    if (!user || user.role !== "vendeur") {
+      navigate("/");
+    }
+  }, [user, navigate]);
   const uploadImage = async (file) => {
     const fileExt = file.name.split(".").pop();
     const fileName = `${Date.now()}.${fileExt}`;
@@ -252,6 +256,9 @@ const AddArticle = () => {
               >
                 <InputLabel>Unité de vente</InputLabel>
                 <Select label="Unité de vente" {...field}>
+                  <MenuItem value="" disabled>
+                    Unité de vente
+                  </MenuItem>
                   <MenuItem value="kg">Par kg</MenuItem>
                   <MenuItem value="piece">Par piece</MenuItem>
                 </Select>

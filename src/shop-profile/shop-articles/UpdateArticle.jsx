@@ -23,7 +23,7 @@ const UpdateArticle = () => {
     control,
     reset,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       title: "",
@@ -42,7 +42,10 @@ const UpdateArticle = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || user.role !== "vendeur") {
+      navigate("/");
+      return null;
+    }
     const fetchArticle = async () => {
       const { data: article, error } = await supabase
         .from("articles")
@@ -74,11 +77,6 @@ const UpdateArticle = () => {
 
     fetchArticle();
   }, [articleId, reset, user, navigate]);
-
-  if (!user || user.role !== "vendeur") {
-    navigate("/");
-    return null;
-  }
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -196,11 +194,14 @@ const UpdateArticle = () => {
           <Controller
             name="title"
             control={control}
+            rules={{ required: "Titre requis" }}
             render={({ field }) => (
               <TextField
                 label="Nom de l'article"
                 fullWidth
                 margin="normal"
+                error={!!errors.title}
+                helperText={errors.title?.message}
                 {...field}
                 sx={{
                   "& label.Mui-focused": { color: "#d97706" },
@@ -215,10 +216,12 @@ const UpdateArticle = () => {
           <Controller
             name="type"
             control={control}
+            rules={{ required: "Unité de vente requise" }}
             render={({ field }) => (
               <FormControl
                 fullWidth
                 margin="normal"
+                error={!!errors.type}
                 sx={{
                   "& label.Mui-focused": { color: "#d97706" },
                   "& .MuiOutlinedInput-root": {
@@ -238,13 +241,19 @@ const UpdateArticle = () => {
           <Controller
             name="price"
             control={control}
+            rules={{
+              required: "Prix requis",
+              min: { value: 0.01, message: "Le prix doit être supérieur à 0" },
+            }}
             render={({ field }) => (
               <TextField
                 label="Prix de l'article"
                 type="number"
                 fullWidth
                 margin="normal"
-                inputProps={{ min: 0, step: 0.01 }}
+                inputProps={{ min: 0.01, step: 0.01 }}
+                error={!!errors.price}
+                helperText={errors.price?.message}
                 {...field}
                 sx={{
                   "& label.Mui-focused": { color: "#d97706" },
@@ -325,7 +334,7 @@ const UpdateArticle = () => {
               type="submit"
               variant="contained"
               color="primary"
-              disabled={loading}
+              disabled={!isValid || loading}
               fullWidth
               sx={{
                 textTransform: "none",
