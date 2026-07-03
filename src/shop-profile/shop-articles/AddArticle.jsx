@@ -27,7 +27,7 @@ const AddArticle = () => {
   } = useForm({
     defaultValues: {
       title: "",
-      type: "kg",
+      type: "",
       price: "",
       minQuantity: "",
       maxQuantity: "",
