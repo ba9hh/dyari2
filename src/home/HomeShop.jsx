@@ -1,11 +1,12 @@
 import ReactStars from "react-rating-stars-component";
 import biscuit50 from "@/assets/biscuit50.jpg";
 import { useNavigate } from "react-router-dom";
+import { buildShopSlug } from "@/utils/shopSlug";
 
 const HomeShop = ({ shop }) => {
   const navigate = useNavigate();
   const openShop = () => {
-    navigate("/shop", { state: shop?.id });
+    navigate(`/shop/${buildShopSlug(shop)}`);
   };
 
   return (

@@ -1,28 +1,30 @@
 import ShopInfos from "./ShopInfos";
 import ShopArticles from "./ShopArticles";
-import { useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/AuthProvider";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ShopCommentaires from "./shopComments";
+import { useParams, useNavigate } from "react-router-dom";
+import { extractShopId } from "@/utils/shopSlug";
 
 const Shop = () => {
   const { user } = useContext(AuthContext);
-  const { state } = useLocation();
+  const { shopSlug } = useParams();
+  const shopId = extractShopId(shopSlug);
   const [activeTab, setActiveTab] = useState("articles");
   const [isConnected, setIsConnected] = useState(false);
   const navigate = useNavigate();
 
   const handleClose = () => setIsConnected(false);
   const handleChange = (event, newValue) => setActiveTab(newValue);
-  const openOrder = () => navigate("order", { state: state });
+  const openOrder = () => navigate("order", { state: shopId });
 
   return (
     <div className="flex flex-col min-h-screen items-center pt-0 sm:pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-3 sm:gap-y-4 w-full px-0 sm:px-4">
       <ShopInfos
-        shopId={state}
+        shopId={shopId}
         handleChange={handleChange}
         activeTab={activeTab}
       />
@@ -47,8 +49,8 @@ const Shop = () => {
         </Button>
       </div>
 
-      {activeTab === "articles" && <ShopArticles shopId={state} />}
-      {activeTab === "contact" && <ShopCommentaires shopId={state} />}
+      {activeTab === "articles" && <ShopArticles shopId={shopId} />}
+      {activeTab === "contact" && <ShopCommentaires shopId={shopId} />}
 
       <LoginRequiredDialog
         open={isConnected}

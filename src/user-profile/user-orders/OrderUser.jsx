@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { ChevronDown, Eye, EyeOff, PackageCheck } from "lucide-react";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const OrderUser = ({ order, index }) => {
+  const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
   const [userConfirmed, setUserConfirmed] = useState(
     order.user_confirmed_delivery ?? false,
@@ -44,7 +46,9 @@ const OrderUser = ({ order, index }) => {
       console.error("Error confirming delivery:", error.message);
     }
   };
-
+  const openShop = () => {
+    navigate("/shop", { state: order?.shop_id });
+  };
   return (
     <div className="w-full rounded-md border border-gray-200 bg-white transition-all duration-200">
       {/* Header row */}
@@ -174,12 +178,12 @@ const OrderUser = ({ order, index }) => {
                   Vendeur
                 </span>
                 {order?.shops ? (
-                  <Link
+                  <div
                     className="text-sm font-medium text-amber-600 hover:text-amber-700 underline transition-colors duration-200"
-                    to={`/insideshop/${order.shop_id}`}
+                    onClick={openShop}
                   >
                     {order.shops?.business_name}
-                  </Link>
+                  </div>
                 ) : (
                   <span className="text-sm text-gray-400 italic">
                     Boutique supprimée

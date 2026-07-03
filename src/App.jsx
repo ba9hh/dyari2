@@ -45,7 +45,7 @@ function App() {
           </Route>
           <Route element={<StandardLayout />}>
             <Route path="/articles" element={<ArticlesShop />} />
-            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/:shopSlug" element={<Shop />} />
             <Route path="/shop/order" element={<Order />} />
             <Route path="/account" element={<Account />} />
             <Route path="/account/settings" element={<AccountSettings />} />
