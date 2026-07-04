@@ -217,7 +217,12 @@ const Order = () => {
           {/* <h2 className="text-base sm:text-lg font-semibold text-gray-800">
             Procédez à votre commande
           </h2> */}
-          <Typography variant="h6">Procédez à votre commande</Typography>
+          <Typography
+            variant="h6"
+            sx={{ fontSize: { xs: "0.9rem", sm: "1.1rem", md: "1.25rem" } }}
+          >
+            Procédez à votre commande
+          </Typography>
           <img src={dyari} className="w-6 sm:w-7" />
         </div>
         <hr className="mb-3" />
