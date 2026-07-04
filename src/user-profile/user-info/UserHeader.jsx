@@ -38,7 +38,6 @@ const UserHeader = ({ userId }) => {
       .select("*")
       .eq("user_id", user.id)
       .single();
-    console.log(data);
 
     if (data) {
       await updateRole("vendeur");

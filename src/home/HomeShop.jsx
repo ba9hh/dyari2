@@ -57,7 +57,7 @@ const HomeShop = ({ shop }) => {
           />
           <div className="min-w-0">
             <h1 className="truncate text-sm font-medium text-gray-800">
-              {shop.business_name} {shop.last_name}
+              {shop.business_name}
             </h1>
             <span className="truncate text-xs text-gray-500 block">
               {shop.address}

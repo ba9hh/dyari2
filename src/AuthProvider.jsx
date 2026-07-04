@@ -20,7 +20,6 @@ async function getUserProfile(userId) {
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-  console.log("AuthProvider rendered");
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState("");
   const [sessionChecked, setSessionChecked] = useState(false);

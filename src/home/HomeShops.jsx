@@ -15,7 +15,6 @@ import loginbg from "@/assets/loginbg.jpg";
 
 const HomeShops = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [localisation, setLocalisation] = useState("Toute la Tunisie");

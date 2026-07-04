@@ -43,7 +43,6 @@ const ShopForm = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     setSubmitError("");
-    console.log("Form Data:", data); // Debug log
     if (!user) {
       setSubmitError("Utilisateur non authentifié. Veuillez vous reconnecter.");
       setIsLoading(false);
@@ -62,7 +61,6 @@ const ShopForm = () => {
     });
 
     if (shopError) {
-      console.log("shop Insert Result:", shopError); // Debug log
       setSubmitError(shopError.message);
       setIsLoading(false);
       return;
@@ -75,7 +73,6 @@ const ShopForm = () => {
       .eq("id", user.id);
 
     if (roleError) {
-      console.log("Role Update Result:", roleError); // Debug log
       setSubmitError(roleError.message);
       setIsLoading(false);
       return;
