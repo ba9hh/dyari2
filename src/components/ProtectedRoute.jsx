@@ -8,7 +8,11 @@ export default function ProtectedRoute({ children, requireRole }) {
 
   // Auth state hasn't finished loading yet — don't redirect prematurely
   if (!sessionChecked) {
-    return <UserInfoSkeleton />;
+    return (
+      <div className="flex flex-col min-h-screen items-center sm:pt-16 pb-8 bg-white sm:bg-gray-100/50 gap-y-4">
+        <UserInfoSkeleton />
+      </div>
+    );
   }
 
   // Not logged in — send to login, remembering where they wanted to go
