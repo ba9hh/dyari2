@@ -194,7 +194,7 @@ const ShopCommentaires = ({ shopId }) => {
 
   return (
     <>
-      <div className="w-full sm:w-2/3 px-3 sm:px-0 flex flex-col sm:flex-row gap-3">
+      <div className="w-full px-3 sm:px-0 flex flex-col sm:flex-row gap-3">
         {/* Left: stats + review list */}
         <div className="w-full sm:w-1/2 flex flex-col gap-3">
           {/* Rating summary */}
