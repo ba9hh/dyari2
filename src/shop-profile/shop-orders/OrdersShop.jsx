@@ -4,7 +4,7 @@ import OrdersTabs from "@/components/tabs/OrdersTabs";
 import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
 import Pagination from "@/components/Pagination";
 import { fetchShopOrders } from "@/services/orders/ordersList";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 const OrdersShop = ({ shopId }) => {
   const [page, setPage] = useState(1);
@@ -27,7 +27,7 @@ const OrdersShop = ({ shopId }) => {
       { shopId, page, limit: LIMIT, filter: selectedFilter },
     ],
     queryFn: fetchShopOrders,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     enabled: !!shopId,
   });
 

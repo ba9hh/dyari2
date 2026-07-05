@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchShopArticles } from "@/services/articles/articlesList";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { extractShopId } from "@/utils/shopSlug";
 import OrderItem from "./OrderItem";
@@ -67,7 +67,7 @@ const Order = () => {
     queryKey: ["shopArticles", { shopId: shopId, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
     enabled: !!shopId,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {

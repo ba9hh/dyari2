@@ -7,7 +7,7 @@ import Pagination from "@/components/Pagination";
 import Button from "@mui/material/Button";
 import ArticlesSkeleton from "@/skeleton/shop-profile/ArticlesSkeleton";
 import { fetchShopArticles } from "@/services/articles/articlesList";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { supabase } from "@/supabaseClient";
 
 const ArticlesShop = ({ shopId }) => {
@@ -23,7 +23,7 @@ const ArticlesShop = ({ shopId }) => {
   } = useQuery({
     queryKey: ["shopArticles", { shopId, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {

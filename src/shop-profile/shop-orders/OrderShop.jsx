@@ -194,9 +194,9 @@ const OrderShop = ({ order, index }) => {
 
           {/* Product grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3">
-            {order?.order_items?.map((item, idx) => (
+            {order?.order_items?.map((item) => (
               <div
-                key={idx}
+                key={item.id}
                 className="rounded-md border border-gray-100 overflow-hidden bg-gray-50"
               >
                 <div className="relative group">

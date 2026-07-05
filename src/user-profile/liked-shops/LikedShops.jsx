@@ -19,8 +19,8 @@ const LikedShops = ({ userId }) => {
     <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
       <div className="flex flex-col gap-2">
         {likedShops?.length > 0 ? (
-          likedShops.map((likedShop, index) => (
-            <LikedShop key={index} shop={likedShop} userId={userId} />
+          likedShops.map((likedShop) => (
+            <LikedShop key={likedShop.id} shop={likedShop} userId={userId} />
           ))
         ) : (
           <div className="flex flex-col items-center justify-center py-10 px-4 text-gray-500">

@@ -22,11 +22,11 @@ const OrderArticles = ({
         <>
           {/* Unified grid — 2 cols mobile, 3 cols desktop */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {shopData?.map((item, idx) => {
+            {shopData?.map((item) => {
               const isSelected = selectedArticleId === item.id;
               return (
                 <div
-                  key={idx}
+                  key={item.id}
                   onClick={() =>
                     selectArticle(
                       item.article_image,

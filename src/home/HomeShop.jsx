@@ -22,29 +22,29 @@ const HomeShop = ({ shop }) => {
 
         {/* Shared grid for mobile & desktop */}
         <div className="hidden sm:grid grid-cols-3 gap-0 sm:gap-3 sm:px-3 sm:py-3 sm:bg-gray-100/50">
-          {shop.articles?.slice(0, 3).map((article, index) => (
+          {shop.articles?.slice(0, 3).map((article) => (
             <img
-              key={index}
+              key={article.id}
               className="w-full aspect-square object-cover sm:rounded-md sm:hover:scale-105 sm:transition-transform sm:duration-300"
               src={article?.article_image ?? biscuit50}
             />
           ))}
         </div>
         <div className="flex sm:hidden gap-0 overflow-x-auto scrollbar-hide">
-          {shop.articles?.slice(0, 3).map((article, index) => (
+          {shop.articles?.slice(0, 3).map((article) => (
             <img
-              key={index}
+              key={article.id}
               className="flex-shrink-0 w-2/5 aspect-square object-cover"
               src={article?.article_image ?? biscuit50}
             />
           ))}
         </div>
 
-        {shop.numberOfArticles > 3 && (
+        {/* {shop.numberOfArticles > 3 && (
           <div className="absolute right-0 bottom-0 bg-gray-100 text-gray-500 font-bold text-sm p-2 rounded-ss-md border-2">
             {`+${shop.numberOfArticles - 3}`}
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Info row */}

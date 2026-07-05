@@ -4,7 +4,7 @@ import OrdersTabs from "@/components/tabs/OrdersTabs";
 import Pagination from "@/components/Pagination";
 import OrdersSkeleton from "@/skeleton/user-profile/OrdersSkeleton";
 import { fetchUserOrders } from "@/services/orders/ordersList";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 const OrdersUser = ({ userId }) => {
   const [page, setPage] = useState(1);
@@ -27,7 +27,7 @@ const OrdersUser = ({ userId }) => {
       { userId, page, limit: LIMIT, filter: selectedFilter },
     ],
     queryFn: fetchUserOrders,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     enabled: !!userId,
   });
 

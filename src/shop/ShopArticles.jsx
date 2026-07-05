@@ -4,7 +4,7 @@ import SkeletonArticlesShop from "@/skeleton/shop/SkeletonArticlesShop";
 import ArticleShopDialog from "@/components/dialog/ArticleShopDialog";
 import Pagination from "@/components/Pagination";
 import { fetchShopArticles } from "@/services/articles/articlesList";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 const ShopArticles = ({ shopId }) => {
   const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ const ShopArticles = ({ shopId }) => {
   const { data: articles, isLoading } = useQuery({
     queryKey: ["shopArticles", { shopId, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
@@ -32,9 +32,9 @@ const ShopArticles = ({ shopId }) => {
     <>
       <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
-          {articles?.articles?.map((article, index) => (
+          {articles?.articles?.map((article) => (
             <ShopArticle
-              key={index}
+              key={article.id}
               article={article}
               onClick={() => handleOpenDialog(article)}
             />

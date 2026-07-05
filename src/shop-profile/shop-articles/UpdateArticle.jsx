@@ -25,6 +25,7 @@ const UpdateArticle = () => {
     getValues,
     formState: { errors, isValid },
   } = useForm({
+    mode: "onChange",
     defaultValues: {
       title: "",
       type: "kg",

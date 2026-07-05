@@ -47,7 +47,6 @@ function App() {
             />
           </Route>
           <Route element={<StandardLayout />}>
-            <Route path="/articles" element={<ArticlesShop />} />
             <Route path="/boutique/:shopSlug" element={<Shop />} />
             <Route path="/boutique/:shopSlug/commande" element={<Order />} />
             <Route path="/compte" element={<Account />} />

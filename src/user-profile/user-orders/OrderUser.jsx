@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
 import { ChevronDown, Eye, EyeOff, PackageCheck } from "lucide-react";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
@@ -48,7 +47,7 @@ const OrderUser = ({ order, index }) => {
     }
   };
   const openShop = () => {
-    navigate(`/boutique/${buildShopSlug(order?.shop)}`);
+    navigate(`/boutique/${buildShopSlug(order?.shops)}`);
   };
   return (
     <div className="w-full rounded-md border border-gray-200 bg-white transition-all duration-200">
@@ -141,9 +140,9 @@ const OrderUser = ({ order, index }) => {
 
           {/* Product grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3">
-            {order?.order_items.map((item, idx) => (
+            {order?.order_items.map((item) => (
               <div
-                key={idx}
+                key={item.id}
                 className="rounded-md border border-gray-100 overflow-hidden bg-gray-50"
               >
                 <div className="relative group">

@@ -223,58 +223,6 @@ const ShopForm = () => {
             )}
           />
         </div>
-        {/* <Controller
-          name="plan"
-          control={control}
-          rules={{ required: "Veuillez choisir une offre" }}
-          render={({ field }) => (
-            <>
-              <div className="flex gap-3 mt-6">
-                {PLANS.map((plan) => (
-                  <div
-                    key={plan.id}
-                    className="w-1/3 flex flex-col border cursor-pointer"
-                    onClick={() => field.onChange(plan.id)}
-                  >
-                    <h1 className="bg-amber-600 text-white text-center">
-                      {plan.label}
-                    </h1>
-                    <h1 className="text-center text-sm mt-2">{plan.price}</h1>
-                    <hr className="mt-1" />
-                    {plan.features.map((feature) => (
-                      <div
-                        key={feature}
-                        className="flex items-center gap-1 mt-1 px-1"
-                      >
-                        <CircleCheckBig className="w-4 text-green-500 shrink-0" />
-                        <h1 className="text-sm truncate">{feature}</h1>
-                      </div>
-                    ))}
-                    <hr className="mt-1" />
-                    <div className="flex justify-center">
-                      <Radio
-                        sx={{
-                          color: "#d97706",
-                          "&.Mui-checked": { color: "#d97706" },
-                          "& .MuiSvgIcon-root": { fontSize: 16 },
-                        }}
-                        checked={field.value === plan.id}
-                        onChange={() => field.onChange(plan.id)}
-                        value={plan.id}
-                        inputProps={{ "aria-label": plan.label }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {errors.plan && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.plan.message}
-                </p>
-              )}
-            </>
-          )}
-        /> */}
         <div className="flex mt-4">
           <Button
             type="submit"

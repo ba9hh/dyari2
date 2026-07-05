@@ -64,6 +64,7 @@ export const fetchUserOrders = async ({ queryKey }) => {
         )
       ),
       shops (
+        id,
         business_name
       )
       `,
