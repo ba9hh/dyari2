@@ -13,7 +13,6 @@ import AddArticle from "./shop-profile/shop-articles/AddArticle";
 import UpdateArticle from "./shop-profile/shop-articles/UpdateArticle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ArticlesShop from "./shop-profile/shop-articles/ArticlesShop";
 import { Outlet } from "react-router-dom";
 import DyariLogo from "./components/DyariLogo";
 import Login from "./authentication/Login";
