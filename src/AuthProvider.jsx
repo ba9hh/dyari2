@@ -30,7 +30,6 @@ const AuthProvider = ({ children }) => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Error getting session:", error);
       const authUser = data?.session?.user;
-
       if (authUser) {
         const profile = await getUserProfile(authUser.id);
         setUser(profile);

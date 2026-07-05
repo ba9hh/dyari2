@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
 import { ChevronDown, Eye, EyeOff, PackageCheck } from "lucide-react";
 import { supabase } from "@/supabaseClient";

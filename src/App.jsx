@@ -21,6 +21,8 @@ import Signup from "./authentication/Signup";
 import ShopForm from "./authentication/ShopForm";
 import AuthLayout from "./components/AuthLayout";
 import SkeletonShopInfo from "./skeleton/shop/SkeletonShopInfo";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function StandardLayout() {
   return (
     <>
@@ -49,12 +51,37 @@ function App() {
           <Route element={<StandardLayout />}>
             <Route path="/boutique/:shopSlug" element={<Shop />} />
             <Route path="/boutique/:shopSlug/commande" element={<Order />} />
-            <Route path="/compte" element={<Account />} />
-            <Route path="/compte/parametres" element={<AccountSettings />} />
-            <Route path="/compte/ajouter-article" element={<AddArticle />} />
+            <Route
+              path="/compte"
+              element={
+                <ProtectedRoute>
+                  <Account />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/compte/parametres"
+              element={
+                <ProtectedRoute>
+                  <AccountSettings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/compte/ajouter-article"
+              element={
+                <ProtectedRoute requireRole="vendor">
+                  <AddArticle />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/compte/modifier-article/:articleId"
-              element={<UpdateArticle />}
+              element={
+                <ProtectedRoute requireRole="vendor">
+                  <UpdateArticle />
+                </ProtectedRoute>
+              }
             />
             <Route path="/skeleton" element={<SkeletonShopInfo />} />
             {/* <Route path="/mot-de-passe-oublie" element={<ForgetPassword />} /> */}
