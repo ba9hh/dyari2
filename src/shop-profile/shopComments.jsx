@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AuthContext } from "@/AuthProvider";
-import LoginRequiredDialog from "@/components/dialog/LoginRequiredDialog";
 
 const LIMIT = 5;
 
@@ -28,36 +26,6 @@ const fetchShopStats = async (shopId) => {
     .single();
   if (error) throw error;
   return data;
-};
-
-const fetchExistingReview = async (shopId) => {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return null;
-  const { data } = await supabase
-    .from("reviews")
-    .select("id, rating, comment_text")
-    .eq("shop_id", shopId)
-    .eq("user_id", user.id)
-    .maybeSingle();
-  return data || null;
-};
-
-const fetchDeliveredOrder = async (shopId) => {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return false;
-  const { data } = await supabase
-    .from("orders")
-    .select("id")
-    .eq("shop_id", shopId)
-    .eq("user_id", user.id)
-    .eq("order_state", "delivered")
-    .limit(1)
-    .maybeSingle();
-  return !!data;
 };
 
 // ── Comment card ──────────────────────────────────────────────────────────────
@@ -166,8 +134,6 @@ const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
 
 // ── Main component ─────────────────────────────────────────────────────────────
 const ShopCommentaires = ({ shopId }) => {
-  const { user } = useContext(AuthContext);
-  const [isConnected, setIsConnected] = useState(false);
   const [page, setPage] = useState(1);
   const queryClient = useQueryClient();
 
@@ -194,9 +160,9 @@ const ShopCommentaires = ({ shopId }) => {
 
   return (
     <>
-      <div className="w-full px-3 sm:px-0 flex flex-col sm:flex-row gap-3">
+      <div className="w-full sm:w-2/3 px-3 sm:px-0 flex flex-col sm:flex-row gap-3">
         {/* Left: stats + review list */}
-        <div className="w-full sm:w-1/2 flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-3">
           {/* Rating summary */}
           <div className="w-full bg-white border border-gray-200 rounded-md px-4 py-3 shadow-sm flex items-center gap-3">
             <span className="text-2xl font-bold text-amber-600">
@@ -268,12 +234,6 @@ const ShopCommentaires = ({ shopId }) => {
           />
         </div>
       )}
-
-      <LoginRequiredDialog
-        open={isConnected}
-        onClose={() => setIsConnected(false)}
-        message="Vous devez être connecté pour effectuer cette action."
-      />
     </>
   );
 };
