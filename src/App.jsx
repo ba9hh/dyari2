@@ -69,7 +69,7 @@ function App() {
             <Route
               path="/compte/ajouter-article"
               element={
-                <ProtectedRoute requireRole="vendor">
+                <ProtectedRoute requireRole="vendeur">
                   <AddArticle />
                 </ProtectedRoute>
               }
@@ -77,7 +77,7 @@ function App() {
             <Route
               path="/compte/modifier-article/:articleId"
               element={
-                <ProtectedRoute requireRole="vendor">
+                <ProtectedRoute requireRole="vendeur">
                   <UpdateArticle />
                 </ProtectedRoute>
               }

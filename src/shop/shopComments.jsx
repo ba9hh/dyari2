@@ -95,7 +95,7 @@ const CommentCard = ({ comment }) => {
             <img
               src={comment.users.avatar_url}
               alt={comment.users.full_name}
-              className="w-9 h-9 rounded-full object-cover border-2 border-amber-100 flex-shrink-0"
+              className="w-9 h-9 rounded-full object-cover border-2 border-gray-200 flex-shrink-0"
             />
           ) : (
             <div className="w-9 h-9 rounded-full bg-amber-100 border-2 border-amber-200 flex items-center justify-center flex-shrink-0">
@@ -331,7 +331,7 @@ const AddCommentForm = ({
         placeholder="Partagez votre expérience avec cette boutique… (facultatif)"
         rows={3}
         maxLength={300}
-        className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
+        className="w-full text-sm text-gray-700 border border-gray-200 rounded-md p-3 resize-none focus:outline-none focus:ring-1 focus:ring-amber-300 focus:border-amber-400 placeholder-gray-300 transition"
       />
 
       <div className="flex items-center justify-between mt-1 mb-3">

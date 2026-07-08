@@ -114,7 +114,7 @@ const HomeShops = () => {
     );
   return (
     <>
-      <div
+      {/* <div
         className="sticky top-0 z-20 bg-center bg-cover"
         style={{ backgroundImage: `url(${faza})` }}
       >
@@ -126,6 +126,25 @@ const HomeShops = () => {
           setNavbarElement={setNavbarElement}
           setLocalisation={setLocalisation}
         />
+      </div> */}
+      <div className="sticky top-0 z-20">
+        {/* Image layer — fades out by the bottom of the tabs bar */}
+        <div
+          className="absolute top-0 left-0 right-0 h-4/5 bg-center bg-cover pointer-events-none"
+          style={{ backgroundImage: `url(${faza})` }}
+        />
+
+        {/* Foreground content sits above the image layer */}
+        <div className="relative z-10">
+          <NavBar />
+          <CategoriesTabs
+            type={type}
+            navbarElement={navbarElement}
+            setType={setType}
+            setNavbarElement={setNavbarElement}
+            setLocalisation={setLocalisation}
+          />
+        </div>
       </div>
       <LocalisationFilter
         localisation={localisation}

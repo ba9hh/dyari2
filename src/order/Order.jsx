@@ -219,7 +219,7 @@ const Order = () => {
           </h2> */}
           <Typography
             variant="h6"
-            sx={{ fontSize: { xs: "0.9rem", sm: "1.1rem", md: "1.25rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", sm: "1.1rem", md: "1.25rem" } }}
           >
             Procédez à votre commande
           </Typography>
