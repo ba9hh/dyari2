@@ -130,7 +130,7 @@ const HomeShops = () => {
       <div className="sticky top-0 z-20">
         {/* Image layer — fades out by the bottom of the tabs bar */}
         <div
-          className="absolute top-0 left-0 right-0 h-4/5 bg-center bg-cover pointer-events-none"
+          className="absolute top-0 left-0 right-0 h-4/5 bg-[center_40%] bg-cover pointer-events-none"
           style={{ backgroundImage: `url(${faza})` }}
         />
 
