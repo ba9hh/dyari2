@@ -164,11 +164,13 @@ const LocalPagination = ({ currentPage, totalPages, onPrev, onNext }) => (
   </div>
 );
 
-// ── Add/edit comment form ──────────────────────────────────────────────────────
+// ── Add/edit/delete comment form ────────────────────────────────────────────────
 const AddCommentForm = ({
   onSubmit,
   onUpdate,
+  onDelete,
   loading,
+  deleteLoading,
   existingReview,
   hasDeliveredOrder,
   user,
@@ -177,6 +179,7 @@ const AddCommentForm = ({
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [editing, setEditing] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [error, setError] = useState("");
 
   // FIX: derive submitted from existingReview directly — no local state divergence
@@ -187,6 +190,11 @@ const AddCommentForm = ({
       setRating(existingReview.rating);
       setText(existingReview.comment_text || "");
     }
+  }, [existingReview]);
+
+  // Reset the delete confirmation if the review disappears (e.g. after deletion)
+  useEffect(() => {
+    if (!existingReview) setConfirmingDelete(false);
   }, [existingReview]);
 
   // FIX: consolidated validation into one function
@@ -215,11 +223,30 @@ const AddCommentForm = ({
     setRating(existingReview.rating);
     setText(existingReview.comment_text || "");
     setEditing(true);
+    setConfirmingDelete(false);
   };
 
   const handleCancel = () => {
     setEditing(false);
     setError("");
+  };
+
+  const handleDeleteClick = () => {
+    if (!user) {
+      onLoginRequired();
+      return;
+    }
+    setConfirmingDelete(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    const ok = await onDelete(existingReview.id);
+    if (ok) {
+      setConfirmingDelete(false);
+      setEditing(false);
+      setRating(0);
+      setText("");
+    }
   };
 
   if (submitted) {
@@ -258,12 +285,45 @@ const AddCommentForm = ({
             "{existingReview.comment_text}"
           </p>
         )}
-        <button
-          onClick={handleEdit}
-          className="mt-1 text-xs font-medium text-amber-600 border border-amber-300 rounded px-3 py-1 hover:bg-amber-50 transition-colors"
-        >
-          Modifier mon avis
-        </button>
+
+        {confirmingDelete ? (
+          <div className="w-full flex flex-col items-center gap-2 mt-1 pt-3 border-t border-gray-100">
+            <p className="text-xs text-gray-600">
+              Supprimer définitivement votre avis ?
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setConfirmingDelete(false)}
+                disabled={deleteLoading}
+                className="text-xs font-medium text-gray-600 border border-gray-200 rounded px-3 py-1 hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                disabled={deleteLoading}
+                className="text-xs font-medium text-white bg-red-600 hover:bg-red-700 active:bg-red-800 rounded px-3 py-1 transition-colors disabled:opacity-50"
+              >
+                {deleteLoading ? "Suppression…" : "Confirmer la suppression"}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-2 mt-1">
+            <button
+              onClick={handleEdit}
+              className="text-xs font-medium text-amber-600 border border-amber-300 rounded px-3 py-1 hover:bg-amber-50 transition-colors"
+            >
+              Modifier mon avis
+            </button>
+            <button
+              onClick={handleDeleteClick}
+              className="text-xs font-medium text-red-600 border border-red-200 rounded px-3 py-1 hover:bg-red-50 transition-colors"
+            >
+              Supprimer
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -372,6 +432,7 @@ const ShopCommentaires = ({ shopId }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [page, setPage] = useState(1);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const queryClient = useQueryClient();
 
   const {
@@ -408,6 +469,15 @@ const ShopCommentaires = ({ shopId }) => {
   const totalCount = reviewsData?.totalCount || 0;
   const totalPages = Math.ceil(totalCount / LIMIT);
 
+  const invalidateAll = async () => {
+    await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
+    await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
+    await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
+    await queryClient.invalidateQueries({
+      queryKey: ["existingReview", shopId],
+    });
+  };
+
   const handleNewComment = async ({ rating, text }) => {
     setSubmitLoading(true);
     // FIX: use user from AuthContext instead of re-calling getUser()
@@ -426,13 +496,7 @@ const ShopCommentaires = ({ shopId }) => {
       console.error("Review insert error:", error);
       return false;
     }
-    // FIX: also invalidate existingReview after a new insert
-    await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
-    await queryClient.invalidateQueries({
-      queryKey: ["existingReview", shopId],
-    });
+    await invalidateAll();
     return true;
   };
 
@@ -447,12 +511,32 @@ const ShopCommentaires = ({ shopId }) => {
       console.error("Review update error:", error);
       return false;
     }
-    await queryClient.invalidateQueries({ queryKey: ["reviews", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["shopStats", shopId] });
-    await queryClient.invalidateQueries({ queryKey: ["shop", shopId] });
-    await queryClient.invalidateQueries({
-      queryKey: ["existingReview", shopId],
-    });
+    await invalidateAll();
+    return true;
+  };
+
+  const handleDeleteComment = async (id) => {
+    if (!user) {
+      setIsConnected(true);
+      return false;
+    }
+    setDeleteLoading(true);
+    // FIX: scope the delete to the current user too — belt and suspenders
+    // alongside the RLS policy, and lets us detect a 0-row delete as a failure.
+    const { error, count } = await supabase
+      .from("reviews")
+      .delete({ count: "exact" })
+      .eq("id", id)
+      .eq("user_id", user.id);
+    setDeleteLoading(false);
+    if (error || !count) {
+      console.error("Review delete error:", error);
+      return false;
+    }
+    // Reset back to page 1 in case deleting the last review on the current
+    // page would otherwise leave the user staring at an empty page.
+    setPage(1);
+    await invalidateAll();
     return true;
   };
 
@@ -526,7 +610,9 @@ const ShopCommentaires = ({ shopId }) => {
           <AddCommentForm
             onSubmit={handleNewComment}
             onUpdate={handleUpdateComment}
+            onDelete={handleDeleteComment}
             loading={submitLoading}
+            deleteLoading={deleteLoading}
             existingReview={existingReview}
             hasDeliveredOrder={hasDeliveredOrder}
             user={user}
