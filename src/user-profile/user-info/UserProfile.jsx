@@ -1,8 +1,8 @@
-import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import pdp from "@/assets/pdp.png";
 
 const UserProfile = ({ user, handleOpen }) => {
+  const DEFAULT_PROFILE_PICTURE =
+    "https://obhlpgxxiotewfhcvdaw.supabase.co/storage/v1/object/public/images/1753197818753-icon-7797704_640.png";
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center gap-1 my-4">
@@ -16,7 +16,7 @@ const UserProfile = ({ user, handleOpen }) => {
           </button>
           <img
             className="w-full h-full border-2 p-0.5 rounded-full bg-white object-cover"
-            src={user ? user.avatar_url : pdp}
+            src={user ? user.avatar_url : DEFAULT_PROFILE_PICTURE}
             alt="Profile"
           />
         </div>

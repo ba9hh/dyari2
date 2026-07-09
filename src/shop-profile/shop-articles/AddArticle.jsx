@@ -145,6 +145,7 @@ const AddArticle = () => {
       toast.success("Article ajouté avec succès !");
       reset();
       setImagePreview(null);
+      setFile(null);
     } catch (error) {
       console.error("Error adding article:", error.message);
       toast.error("Échec de l'ajout. Veuillez réessayer.");

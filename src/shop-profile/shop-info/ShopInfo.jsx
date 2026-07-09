@@ -1,7 +1,8 @@
 import EditIcon from "@mui/icons-material/Edit";
-import pdp from "@/assets/pdp.png";
 
 const ShopInfo = ({ shop, onEdit }) => {
+  const DEFAULT_PROFILE_PICTURE =
+    "https://obhlpgxxiotewfhcvdaw.supabase.co/storage/v1/object/public/images/1753197818753-icon-7797704_640.png";
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center gap-1 mb-4 mt-4">
@@ -15,7 +16,7 @@ const ShopInfo = ({ shop, onEdit }) => {
           </button>
           <img
             className="w-full h-full border-2 p-0.5 rounded-full bg-white object-cover"
-            src={shop?.profile_picture || pdp}
+            src={shop?.profile_picture || DEFAULT_PROFILE_PICTURE}
             alt="Profile"
           />
         </div>

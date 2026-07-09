@@ -1,7 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import pdp from "@/assets/pdp.png";
+import { useState } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import UserProfilePicture from "./UserProfilePicture";
 import { fetchUserInformation } from "@/services/users/UserInformation";
 import { useQuery } from "@tanstack/react-query";

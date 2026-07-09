@@ -1,4 +1,4 @@
 const specialities = [
-    "salés", "sucrés", "gateaux", "biscuits"
+    "salés", "sucrés", "gateaux", "biscuit"
 ]
 export default specialities;

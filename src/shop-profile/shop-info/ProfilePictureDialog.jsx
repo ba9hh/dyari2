@@ -13,10 +13,6 @@ import {
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { supabase } from "@/supabaseClient";
 import { toast } from "react-toastify";
-import pdp from "@/assets/pdp.png";
-
-const DEFAULT_PROFILE_PICTURE =
-  "https://obhlpgxxiotewfhcvdaw.supabase.co/storage/v1/object/public/images/1753197818753-icon-7797704_640.png";
 
 const ProfilePictureDialog = ({
   open,
@@ -30,6 +26,8 @@ const ProfilePictureDialog = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [resetToDefault, setResetToDefault] = useState(false);
+  const DEFAULT_PROFILE_PICTURE =
+    "https://obhlpgxxiotewfhcvdaw.supabase.co/storage/v1/object/public/images/1753197818753-icon-7797704_640.png";
 
   const hasCustomPicture =
     shop?.profile_picture && shop.profile_picture !== DEFAULT_PROFILE_PICTURE;

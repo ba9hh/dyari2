@@ -9,14 +9,13 @@ import ShopInfo from "./ShopInfo";
 import ProfilePictureDialog from "./ProfilePictureDialog";
 import ReactStars from "react-rating-stars-component";
 import { supabase } from "@/supabaseClient";
-import { useNavigate } from "react-router-dom";
+
 const ShopProfile = ({ shopId, activeTab, handleChange }) => {
   const { user } = useContext(AuthContext);
   const { handleLogout } = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const {
     data: shop,
     error,
