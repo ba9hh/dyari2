@@ -3,7 +3,7 @@ import { AuthContext } from "@/AuthProvider";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import ShopsHomeSkeleton from "@/skeleton/home/ShopsHomeSkeleton";
 import HomeShop from "@/home/HomeShop";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import HomePagination from "./HomePagination";
 import { fetchShops } from "@/services/shops/ShopsList";
 import CategoriesTabs from "@/home/CategoriesTabs";
@@ -11,7 +11,7 @@ import LocalisationFilter from "@/home/LocalisationFilter";
 import NavBar from "@/home/NavBar";
 import faza from "@/assets/faza2.jpg";
 import ShopsHeader from "@/home/ShopsHeader";
-import loginbg from "@/assets/loginbg.jpg";
+import Pagination from "@/components/Pagination";
 
 const HomeShops = () => {
   const { user } = useContext(AuthContext);
@@ -22,7 +22,6 @@ const HomeShops = () => {
   const [type, setType] = useState("");
   const limit = 10;
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const [navbarElement, setNavbarElement] = useState(type || "");
 
   const handleSearchChange = (value) => {
@@ -173,7 +172,7 @@ const HomeShops = () => {
         )}
       </div>
       <div className="mt-6">
-        <HomePagination
+        <Pagination
           currentPage={page}
           totalPages={totalPages}
           onPrev={() => page > 1 && setPage(page - 1)}
