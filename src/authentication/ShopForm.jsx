@@ -270,7 +270,10 @@ const ShopForm = () => {
           />
         </div>
         <div className="flex flex-col mt-4">
-          <Typography variant="caption" sx={{ color: "text.secondary", mb: 1 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: "text.secondary", mb: { xs: 2, sm: 1 } }}
+          >
             Vous pourrez modifier toutes ces informations à tout moment depuis
             les paramètres de votre compte.
           </Typography>
