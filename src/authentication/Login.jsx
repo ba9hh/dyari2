@@ -72,7 +72,7 @@ const Login = () => {
       >
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h6">Se connecter à Dyari</Typography>
-          <img src={dyari} className="w-8" />
+          <img src={dyari} className="sm:w-8 w-7" />
         </div>
         {loginError && (
           <Typography color="error" textAlign="center">

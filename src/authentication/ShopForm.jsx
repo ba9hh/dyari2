@@ -14,8 +14,6 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import { CircleCheckBig } from "lucide-react";
-import PLANS from "@/data/PLANS";
 import SPECIALITIES from "@/data/specialities";
 import CITIES from "@/data/cities";
 import { useNavigate } from "react-router-dom";
@@ -82,14 +80,14 @@ const ShopForm = () => {
     navigate("/compte");
   };
   return (
-    <div className="bg-white border-2 md:w-2/5 border-gray-400 rounded-md p-6 z-10">
+    <div className="bg-white border-2 w-full sm:w-2/5 border-gray-400 rounded-md p-6 z-10">
       <div className="flex justify-between items-center mb-4">
         <Typography variant="h6">Remplir le formulaire:</Typography>
-        <img src={dyari} className="w-8" />
+        <img src={dyari} className="sm:w-8 w-7" />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-y-3">
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Controller
               name="projectName"
               control={control}
@@ -143,7 +141,7 @@ const ShopForm = () => {
               )}
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Controller
               name="speciality"
               control={control}

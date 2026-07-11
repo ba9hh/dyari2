@@ -84,7 +84,7 @@ const Signup = () => {
       >
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h6">S'inscrire à Dyari</Typography>
-          <img src={dyari} className="w-8" />
+          <img src={dyari} className="sm:w-8 w-7" />
         </div>
         {/* Error message */}
         {loginError && (

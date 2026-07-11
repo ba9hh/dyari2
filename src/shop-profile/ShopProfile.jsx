@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import ShopInfo from "./shop-info/ShopProfile";
 import ArticlesShop from "./shop-articles/ArticlesShop";
 import OrdersShop from "./shop-orders/OrdersShop";
-import Button from "@mui/material/Button";
 import { supabase } from "@/supabaseClient";
 import ShopCommentaires from "./shopComments";
 const ShopProfile = ({ userId }) => {

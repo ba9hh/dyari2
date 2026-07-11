@@ -3,7 +3,7 @@ import loginbg from "@/assets/loginbg.jpg";
 import DyariLogo from "./DyariLogo";
 export default function AuthLayout() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen">
       <DyariLogo />
       <img
         src={loginbg}
