@@ -14,6 +14,8 @@ import OrderSummary from "./OrderSummary";
 import { createOrder } from "@/services/orders/createOrder";
 import dyari from "@/assets/dyari.svg";
 import Typography from "@mui/material/Typography";
+import { fetchShopInfo } from "@/services/shops/ShopInformation";
+
 // FIX 1: Moved outside the component — computed once, never on re-render
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -62,7 +64,10 @@ const Order = () => {
 
   const { fields, append, remove } = useFieldArray({ control, name: "items" });
   const watchItems = watch("items");
-
+  const { data: shop } = useQuery({
+    queryKey: ["shop", shopId],
+    queryFn: () => fetchShopInfo(shopId),
+  });
   const { data: shopData, isLoading } = useQuery({
     queryKey: ["shopArticles", { shopId: shopId, page, limit: LIMIT }],
     queryFn: fetchShopArticles,
