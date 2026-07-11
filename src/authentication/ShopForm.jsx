@@ -80,7 +80,7 @@ const ShopForm = () => {
     navigate("/compte");
   };
   return (
-    <div className="bg-white border-2 w-full sm:w-2/5 border-gray-400 rounded-md p-6 z-10">
+    <div className="bg-white border-2 w-96 sm:w-2/5 border-gray-400 rounded-md p-6 z-10">
       <div className="flex justify-between items-center mb-4">
         <Typography variant="h6">Remplir le formulaire:</Typography>
         <img src={dyari} className="sm:w-8 w-7" />
