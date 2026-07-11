@@ -19,6 +19,8 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import SPECIALITIES from "@/data/specialities";
 import CITIES from "@/data/cities";
@@ -27,6 +29,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 
@@ -109,6 +112,7 @@ const Settings = () => {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [category, setCategory] = useState("");
+  const [canDeliver, setCanDeliver] = useState(false);
 
   // ── password fields
   const [newPassword, setNewPassword] = useState("");
@@ -135,6 +139,7 @@ const Settings = () => {
     setAddress(profile.address ?? "");
     setPhoneNumber(profile.phone_number ?? "");
     setCategory(profile.category ?? "");
+    setCanDeliver(profile.can_deliver ?? false);
   }, [profile]);
 
   const showToast = (message, severity = "success") =>
@@ -184,6 +189,7 @@ const Settings = () => {
             address,
             phone_number: phoneNumber,
             category,
+            can_deliver: canDeliver,
           })
           .eq("user_id", userId);
         if (error) throw error;
@@ -351,6 +357,29 @@ const Settings = () => {
               multiline
               rows={3}
             />
+            <div className="flex items-center justify-between border border-gray-200 rounded-lg px-3 py-2.5">
+              <div className="flex items-center gap-2">
+                <LocalShippingOutlinedIcon
+                  sx={{ fontSize: 20, color: "#9ca3af" }}
+                />
+                <div>
+                  <p className="text-sm font-medium text-gray-800">Livraison</p>
+                  <p className="text-xs text-gray-400">
+                    Proposez-vous la livraison des commandes ?
+                  </p>
+                </div>
+              </div>
+              <Switch
+                checked={canDeliver}
+                onChange={(e) => setCanDeliver(e.target.checked)}
+                sx={{
+                  "& .MuiSwitch-switchBase.Mui-checked": { color: "#d97706" },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "#d97706",
+                  },
+                }}
+              />
+            </div>
             <div className="flex justify-end">
               <Button
                 variant="contained"
