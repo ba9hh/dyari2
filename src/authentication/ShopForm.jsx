@@ -12,6 +12,9 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import SPECIALITIES from "@/data/specialities";
@@ -33,6 +36,7 @@ const ShopForm = () => {
       plan: "starter",
       userPhoneNumber: "",
       bio: "",
+      canDeliver: "no",
     },
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +60,7 @@ const ShopForm = () => {
       offer_plan: data.plan,
       phone_number: data.userPhoneNumber,
       bio: data.bio || null,
+      can_deliver: data.canDeliver === "yes",
     });
 
     if (shopError) {
@@ -218,6 +223,49 @@ const ShopForm = () => {
                 // helperText={`${field.value?.length || 0}/150`}
                 // FormHelperTextProps={{ sx: { textAlign: "right" } }}
               />
+            )}
+          />
+          <Controller
+            name="canDeliver"
+            control={control}
+            render={({ field }) => (
+              <FormControl>
+                <FormLabel
+                  sx={{
+                    fontSize: "0.85rem",
+                    color: "#d97706",
+                    "&.Mui-focused": { color: "#d97706" },
+                  }}
+                >
+                  Pouvez-vous livrer les commandes ?
+                </FormLabel>
+                <RadioGroup {...field} row>
+                  <FormControlLabel
+                    value="yes"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#d97706",
+                          "&.Mui-checked": { color: "#d97706" },
+                        }}
+                      />
+                    }
+                    label="Oui"
+                  />
+                  <FormControlLabel
+                    value="no"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#d97706",
+                          "&.Mui-checked": { color: "#d97706" },
+                        }}
+                      />
+                    }
+                    label="Non"
+                  />
+                </RadioGroup>
+              </FormControl>
             )}
           />
         </div>

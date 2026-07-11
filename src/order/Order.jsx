@@ -288,6 +288,8 @@ const Order = () => {
             errors={errors}
             watchItems={watchItems}
             today={today}
+            canDeliver={shop?.can_deliver ?? false}
+            setValue={setValue}
           />
         )}
 

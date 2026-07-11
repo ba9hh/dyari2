@@ -11,13 +11,26 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useEffect } from "react";
 
-const OrderSummary = ({ control, errors, watchItems, today }) => {
+const OrderSummary = ({
+  control,
+  errors,
+  watchItems,
+  today,
+  canDeliver,
+  setValue,
+}) => {
   const deliveryType = useWatch({
     control,
     name: "deliveryType",
     defaultValue: "sur_place",
   });
+  useEffect(() => {
+    if (!canDeliver && deliveryType === "livraison") {
+      setValue("deliveryType", "sur_place");
+    }
+  }, [canDeliver, deliveryType, setValue]);
 
   const total = watchItems.reduce(
     (sum, itm) => sum + (itm.price || 0) * (itm.quantity || 0),
@@ -157,36 +170,43 @@ const OrderSummary = ({ control, errors, watchItems, today }) => {
             control={control}
             defaultValue="sur_place"
             rules={{ required: "Veuillez choisir une option" }}
-            render={({ field }) => (
-              <RadioGroup {...field} row>
-                <FormControlLabel
-                  value="sur_place"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "#d97706",
-                        "&.Mui-checked": { color: "#d97706" },
-                        "& .MuiSvgIcon-root": { fontSize: 18 },
-                      }}
-                    />
-                  }
-                  label={<span className="text-sm">Sur place</span>}
-                />
-                <FormControlLabel
-                  value="livraison"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "#d97706",
-                        "&.Mui-checked": { color: "#d97706" },
-                        "& .MuiSvgIcon-root": { fontSize: 18 },
-                      }}
-                    />
-                  }
-                  label={<span className="text-sm">Livraison</span>}
-                />
-              </RadioGroup>
-            )}
+            render={({ field }) =>
+              canDeliver ? (
+                <RadioGroup {...field} row>
+                  <FormControlLabel
+                    value="sur_place"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#d97706",
+                          "&.Mui-checked": { color: "#d97706" },
+                          "& .MuiSvgIcon-root": { fontSize: 18 },
+                        }}
+                      />
+                    }
+                    label={<span className="text-sm">Sur place</span>}
+                  />
+                  <FormControlLabel
+                    value="livraison"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#d97706",
+                          "&.Mui-checked": { color: "#d97706" },
+                          "& .MuiSvgIcon-root": { fontSize: 18 },
+                        }}
+                      />
+                    }
+                    label={<span className="text-sm">Livraison</span>}
+                  />
+                </RadioGroup>
+              ) : (
+                <Typography variant="body2" className="text-gray-600 mt-1">
+                  Retrait sur place uniquement (ce commerce ne propose pas la
+                  livraison)
+                </Typography>
+              )
+            }
           />
           {errors.deliveryType && (
             <Typography variant="caption" color="error">
