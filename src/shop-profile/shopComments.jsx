@@ -212,7 +212,7 @@ const ShopCommentaires = ({ shopId }) => {
             </div>
           ) : reviews.length === 0 ? (
             <div className="bg-white border rounded-md p-6 text-center text-sm text-gray-400">
-              Aucun avis pour le moment. Soyez le premier !
+              Aucun avis pour le moment.
             </div>
           ) : (
             <div className="space-y-3">

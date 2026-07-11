@@ -241,18 +241,6 @@ const ShopForm = () => {
                 </FormLabel>
                 <RadioGroup {...field} row>
                   <FormControlLabel
-                    value="yes"
-                    control={
-                      <Radio
-                        sx={{
-                          color: "#d97706",
-                          "&.Mui-checked": { color: "#d97706" },
-                        }}
-                      />
-                    }
-                    label="Oui"
-                  />
-                  <FormControlLabel
                     value="no"
                     control={
                       <Radio
@@ -263,6 +251,18 @@ const ShopForm = () => {
                       />
                     }
                     label="Non"
+                  />
+                  <FormControlLabel
+                    value="yes"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#d97706",
+                          "&.Mui-checked": { color: "#d97706" },
+                        }}
+                      />
+                    }
+                    label="Oui"
                   />
                 </RadioGroup>
               </FormControl>
