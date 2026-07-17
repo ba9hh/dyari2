@@ -7,7 +7,11 @@ import Pagination from "@/components/Pagination";
 import Button from "@mui/material/Button";
 import ArticlesSkeleton from "@/skeleton/shop-profile/ArticlesSkeleton";
 import { fetchShopArticles } from "@/services/articles/articlesList";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
 import { supabase } from "@/supabaseClient";
 
 const ArticlesShop = ({ shopId }) => {
@@ -15,6 +19,7 @@ const ArticlesShop = ({ shopId }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const LIMIT = 8;
+  const queryClient = useQueryClient();
 
   const {
     data: articles,
@@ -27,9 +32,7 @@ const ArticlesShop = ({ shopId }) => {
   });
 
   useEffect(() => {
-    if (articles?.totalPages) {
-      setTotalPages(articles.totalPages);
-    }
+    if (articles?.totalPages) setTotalPages(articles.totalPages);
   }, [articles]);
 
   const handleDeleteArticle = async (id) => {
@@ -39,15 +42,34 @@ const ArticlesShop = ({ shopId }) => {
       toast.error("Erreur lors de la suppression");
       return;
     }
-
     const { error: rpcError } = await supabase.rpc("decrement_articles_count", {
       shop_id: shopId,
     });
-    if (rpcError) {
-      console.error(rpcError);
+    if (rpcError) console.error(rpcError);
+    toast.success("Article supprimé avec succès");
+    queryClient.invalidateQueries({ queryKey: ["shopArticles"] });
+  };
+
+  const handleTogglePin = async (article) => {
+    const nextPinned = !article.is_pinned;
+    const { error } = await supabase
+      .from("articles")
+      .update({ is_pinned: nextPinned })
+      .eq("id", article.id);
+
+    if (error) {
+      if (error.message?.includes("PIN_LIMIT_REACHED")) {
+        toast.error("Vous ne pouvez épingler que 3 articles maximum");
+      } else {
+        console.error(error);
+        toast.error("Erreur lors de la mise à jour");
+      }
+      return;
     }
 
-    toast.success("Article supprimé avec succès");
+    toast.success(nextPinned ? "Article épinglé" : "Article désépinglé");
+    queryClient.invalidateQueries({ queryKey: ["shopArticles"] });
+    queryClient.invalidateQueries({ queryKey: ["shops"] }); // keep home in sync
   };
 
   if (isLoading) return <ArticlesSkeleton />;
@@ -55,7 +77,6 @@ const ArticlesShop = ({ shopId }) => {
 
   return (
     <>
-      {/* Add article button */}
       <div className="w-full sm:w-2/3 px-3 sm:px-0">
         <Button
           fullWidth
@@ -76,16 +97,16 @@ const ArticlesShop = ({ shopId }) => {
         </Button>
       </div>
 
-      {/* Articles grid */}
       <div className="w-full sm:w-2/3 bg-white/80 shadow-sm sm:rounded-md border border-gray-200 p-2 sm:p-4">
         {articles?.articles?.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
-            {articles?.articles?.map((article, index) => (
+            {articles?.articles?.map((article) => (
               <ArticleShop
                 key={article.id}
                 article={article}
                 onClick={() => setSelectedArticleId(article)}
                 onDelete={() => handleDeleteArticle(article.id)}
+                onTogglePin={() => handleTogglePin(article)}
               />
             ))}
           </div>
@@ -110,7 +131,6 @@ const ArticlesShop = ({ shopId }) => {
         )}
       </div>
 
-      {/* Pagination */}
       <div className="w-full sm:w-2/3 bg-white sm:shadow-sm sm:rounded-md">
         <Pagination
           currentPage={page}

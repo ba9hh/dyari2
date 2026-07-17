@@ -8,8 +8,11 @@ export const fetchShopArticles = async ({ queryKey }) => {
 
   const { data, count, error } = await supabase
     .from("articles")
-    .select("*", { count: "exact" }) // count total rows
+    .select("*", { count: "exact" })
     .eq("shop_id", shopId)
+    .order("is_pinned", { ascending: false })
+    .order("pinned_at", { ascending: true, nullsFirst: false })
+    .order("created_at", { ascending: false })
     .range(start, end);
 
   if (error) throw error;
